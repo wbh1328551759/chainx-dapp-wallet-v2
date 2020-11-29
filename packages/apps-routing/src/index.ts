@@ -27,8 +27,10 @@ import sudo from './sudo';
 import techcomm from './techcomm';
 import transfer from './transfer';
 import treasury from './treasury';
+import trade from './trade';
+import allAccounts from './allAccounts';
 
-export default function create (t: TFunction): Routes {
+export default function create(t: TFunction): Routes {
   return [
     accounts(t),
     addresses(t),
@@ -52,6 +54,8 @@ export default function create (t: TFunction): Routes {
     signing(t),
     sudo(t),
     js(t),
-    settings(t)
+    settings(t),
+    trade(t),
+    allAccounts(t)
   ];
 }

@@ -4,7 +4,8 @@ import Wrapper from './Wrapper';
 import Buy from './Buy';
 import Sell from './Sell';
 import ReactTooltip from 'react-tooltip';
-import { useAccountAssets, useAccounts } from '@polkadot/react-hooks';
+import { useAccounts } from '@polkadot/react-hooks';
+import { useAccountAssets } from '@polkadot/react-hooks-chainx';
 
 export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
   const { allAccounts } = useAccounts();

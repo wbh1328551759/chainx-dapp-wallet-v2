@@ -3,8 +3,8 @@
 
 import { useState, useEffect } from 'react';
 import { Nomination, UserNominations, Dividended, UserInterest } from './types';
-import useApi from './useApi';
-import useIsMountedRef from './useIsMountedRef';
+import { useApi } from '@polkadot/react-hooks//useApi';
+import { useIsMountedRef } from '@polkadot/react-hooks/useIsMountedRef';
 
 
 export async function getNominationAndDividedExternal(account, api) {

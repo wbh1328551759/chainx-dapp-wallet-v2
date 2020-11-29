@@ -5,7 +5,7 @@ import AssetView from '../components/AssetView';
 import { AssetLine, DetailWrapper } from '../components/common';
 import { PrimaryButton, DefaultButton } from '@chainx/ui';
 import Transfer from '../../../modals/XBTCTransfer';
-import { useAccounts, useApi, useToggle } from '@polkadot/react-hooks-chainx';
+import { useAccounts, useApi, useToggle } from '@polkadot/react-hooks';
 import { AssetsInfo } from "@polkadot/react-hooks-chainx/types";
 import Deposite from '../../../modals/deposite';
 import Withdraw from '../../../modals/withdraw';
@@ -18,8 +18,7 @@ export default function (): React.ReactElement {
   const { api } = useApi();
   const { t } = useTranslation();
   const { allAccounts } = useAccounts();
-  const currentAccount = allAccounts[0]
-  //useContext(AccountContext);
+  const currentAccount = useContext(AccountContext);
 
 
   const [isTransferOpen, toggleTransfer] = useToggle();

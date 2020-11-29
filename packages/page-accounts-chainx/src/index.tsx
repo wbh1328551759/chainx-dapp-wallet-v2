@@ -5,7 +5,7 @@ import { AppProps as Props } from '@polkadot/react-components/types';
 
 import React, { useRef } from 'react';
 import { Route, Switch } from 'react-router';
-import { useIpfs } from '@polkadot/react-hooks-chainx';
+import { useIpfs } from '@polkadot/react-hooks';
 import { Tabs } from '@polkadot/react-components';
 import { useTranslation } from './translate';
 import useCounter from './useCounter';

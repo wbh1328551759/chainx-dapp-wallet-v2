@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import useApi from './useApi';
+import { useApi } from '@polkadot/react-hooks/useApi';
 
 export default function useAccountAssets(section: string, method: string, params?: any) {
   const [state, setState] = useState<string>('');

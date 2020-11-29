@@ -3,7 +3,7 @@ import React from 'react';
 import TableHead from './Head';
 import Content from './Content';
 import Empty from '../../components/Empty';
-import useOrders from '@polkadot/react-hooks/useOrders';
+import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { useTranslation } from '../../translate';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {

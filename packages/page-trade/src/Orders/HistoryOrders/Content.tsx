@@ -11,7 +11,7 @@ import {
 } from '../UserOrders/Wrapper';
 import moment from 'moment';
 import { HeadCell, StatCell } from '../Wrapper';
-import useOrders from '@polkadot/react-hooks/useOrders';
+import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { useTranslation } from '../../translate';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {

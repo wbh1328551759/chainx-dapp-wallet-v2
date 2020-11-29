@@ -13,7 +13,7 @@ import {
 } from './Wrapper';
 import cancelIcon from '../svg/cancel.svg';
 import cancelDisabledIcon from '../svg/cancel-disabled.svg';
-import useOrders from '@polkadot/react-hooks/useOrders';
+import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { TxButton } from '@polkadot/react-components';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {

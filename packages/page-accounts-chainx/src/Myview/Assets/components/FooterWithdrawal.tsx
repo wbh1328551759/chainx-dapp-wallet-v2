@@ -1,7 +1,8 @@
 
 import { Button, InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import React, { useContext, useState } from 'react';
-import { useAccountAssets, useAccounts, useToggle } from '@polkadot/react-hooks-chainx';
+import { useAccounts, useToggle } from '@polkadot/react-hooks';
+import { useAccountAssets } from '@polkadot/react-hooks-chainx';
 import { useTranslation } from '@polkadot/app-accounts/translate';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';

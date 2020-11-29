@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react";
 import { AssetsList, AssetsInfo } from "./types";
-import useApi from "./useApi";
-import useIsMountedRef from './useIsMountedRef';
+import { useApi } from "@polkadot/react-hooks/useApi";
+import { useIsMountedRef } from '@polkadot/react-hooks/useIsMountedRef';
 
 export default function useAccountAssets(accounts: string[]) {
   const mountedRef = useIsMountedRef();

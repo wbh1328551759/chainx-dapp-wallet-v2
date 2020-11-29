@@ -3,7 +3,9 @@
 
 import { AppProps as Props } from '@polkadot/react-components/types';
 import React, { useEffect, useRef, useState, useContext } from 'react';
-import { Tabs, AccountSelect } from '@polkadot/react-components';
+import { Tabs } from '@polkadot/react-components';
+import AccountSelect from '@polkadot/react-components-chainx/AccountSelect';
+
 import { Route, Switch } from 'react-router';
 import Wrapper from './Wrapper';
 import Trade from './Module';
