@@ -6,12 +6,11 @@ import { KeyringAddress } from '@polkadot/ui-keyring/types';
 import { Table, Button, Spinner } from '@polkadot/react-components';
 import { useApi, useToggle, useAccounts, useCall } from '@polkadot/react-hooks';
 import { useNomination } from '@polkadot/react-hooks-chainx';
-import { AccountContext } from '@polkadot/react-components/AccountProvider';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import Nomination from './Nomination';
 import { ValidatorInfo } from '../types';
 import { useTranslation } from '../translate';
 import { isJSON } from '../util'
-import Tuple from '@polkadot/react-params/Param/Tuple';
 
 interface Props {
   account: KeyringAddress;
@@ -25,13 +24,6 @@ const Wrapper = styled.div`
   height:100px;
 `;
 
-const fieldSorter = (fields: any[]) => (a: any, b: any) => fields.map((o) => {
-  let dir = 1;
-
-  if (o[0] === '-') { dir = -1; o = o.substring(1); }
-
-  return a[o] > b[o] ? dir : a[o] < b[o] ? -(dir) : 0;
-}).reduce((p, n) => p || n, 0);
 
 let validatorNames: string[] = [];
 
@@ -66,20 +58,13 @@ function OverView({ className = '' }: Props): React.ReactElement<Props> | null {
   const [validatorList, setValidatorList] = useState<ValidatorInfo[]>([]);
   const { allDividended } = useNomination(allAccounts);
   const [isRegisterOpen, toggleRegister] = useToggle();
-  const [, forceUpdate] = useReducer(x => x + 1, 0);;
-
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   async function getValidator() {
     setLoading(true);
     const validators = await api.rpc.xstaking.getValidators();
-    let validatorInfoList: ValidatorInfo[] = [];
-    validators.forEach((item: any) => {
-      const cur = item as ValidatorInfo;
-      validatorInfoList.push(cur);
-    });
-
+    let validatorInfoList: ValidatorInfo[] = JSON.parse(validators);
     validatorInfoList = getSortList(validatorInfoList);
-
     setValidatorList(validatorInfoList);
     setLoading(false);
   }
@@ -138,7 +123,7 @@ function OverView({ className = '' }: Props): React.ReactElement<Props> | null {
                         userInfo={allDividended}
                         validatorInfo={validator}
                         onStatusChange={(status) => {
-                          //forceUpdate()
+                          forceUpdate()
                         }}
                       />
                     ))) : null

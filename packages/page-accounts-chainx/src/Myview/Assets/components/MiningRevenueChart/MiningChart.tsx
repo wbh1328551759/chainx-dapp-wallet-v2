@@ -136,7 +136,7 @@ export default function (): React.ReactElement {
     {
       color: 'blue',
       type: 'TR',
-      data: '11.7%'
+      data: '21.3%'
     },
     {
       color: 'grey',

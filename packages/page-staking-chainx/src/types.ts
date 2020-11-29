@@ -9,7 +9,7 @@ export interface ValidatorInfo {
   account: string,
   registeredAt: string,
   isChilled: boolean,
-  totalNomination: number,
+  totalNomination: string,
   lastTotalVoteWeight: string,
   lastTotalVoteWeightUpdate: string,
   isValidating: boolean,
