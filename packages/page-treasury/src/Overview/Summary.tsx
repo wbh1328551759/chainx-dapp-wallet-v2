@@ -15,7 +15,6 @@ import { useTranslation } from '../translate';
 
 const TREASURY_ACCOUNT = '5S7WgdAXVK7mh8REvXfk9LdHs3Xqu9B2E9zzY8e4LE8Gg2ZX';
 
-
 interface Props {
   approvalCount?: number;
   proposalCount?: number;

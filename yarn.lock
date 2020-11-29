@@ -2453,6 +2453,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@polkadot/app-staking-chainx@workspace:packages/page-staking-chainx":
+  version: 0.0.0-use.local
+  resolution: "@polkadot/app-staking-chainx@workspace:packages/page-staking-chainx"
+  dependencies:
+    "@babel/runtime": ^7.12.1
+    "@polkadot/react-components": 0.68.2-19
+    "@polkadot/react-components-chainx": 0.68.2-19
+    "@polkadot/react-query": 0.68.2-19
+  languageName: unknown
+  linkType: soft
+
 "@polkadot/app-staking@workspace:packages/page-staking":
   version: 0.0.0-use.local
   resolution: "@polkadot/app-staking@workspace:packages/page-staking"
@@ -2803,7 +2814,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@polkadot/react-components-chainx@^0.68.2-19, @polkadot/react-components-chainx@workspace:packages/react-components-chainx":
+"@polkadot/react-components-chainx@0.68.2-19, @polkadot/react-components-chainx@^0.68.2-19, @polkadot/react-components-chainx@workspace:packages/react-components-chainx":
   version: 0.0.0-use.local
   resolution: "@polkadot/react-components-chainx@workspace:packages/react-components-chainx"
   dependencies:

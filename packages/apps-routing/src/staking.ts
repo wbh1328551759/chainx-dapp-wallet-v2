@@ -4,14 +4,13 @@
 import type { TFunction } from 'i18next';
 import type { Route } from './types';
 
-import Component from '@polkadot/app-staking';
+import Component from '@polkadot/app-staking-chainx';
 
-export default function create (t: TFunction): Route {
+export default function create(t: TFunction): Route {
   return {
     Component,
     display: {
       needsApi: [
-        ['tx.staking.bond']
       ]
     },
     group: 'network',
