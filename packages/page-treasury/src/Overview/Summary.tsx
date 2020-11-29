@@ -13,7 +13,8 @@ import { formatNumber, stringToU8a } from '@polkadot/util';
 
 import { useTranslation } from '../translate';
 
-const TREASURY_ACCOUNT = stringToU8a('modlpy/trsry'.padEnd(32, '\0'));
+const TREASURY_ACCOUNT = '5S7WgdAXVK7mh8REvXfk9LdHs3Xqu9B2E9zzY8e4LE8Gg2ZX';
+
 
 interface Props {
   approvalCount?: number;
@@ -22,7 +23,7 @@ interface Props {
 
 const PM_DIV = new BN(1000000);
 
-function Summary ({ approvalCount, proposalCount }: Props): React.ReactElement<Props> {
+function Summary({ approvalCount, proposalCount }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const bestNumber = useCall<Balance>(api.derive.chain.bestNumber);
