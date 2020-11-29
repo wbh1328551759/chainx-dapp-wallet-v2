@@ -7,6 +7,7 @@ import { useIsMountedRef } from '@polkadot/react-hooks/useIsMountedRef';
 export default function useAccountAssets(accounts: string[]) {
   const mountedRef = useIsMountedRef();
   console.log('use account init ')
+  console.log(JSON.stringify(accounts))
   const [state, setState] = useState<AssetsList>({
     allAssets: [],
     isFinished: false

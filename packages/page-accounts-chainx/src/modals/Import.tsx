@@ -21,7 +21,7 @@ const blakejs = require('blakejs');
 interface Props extends ModalProps {
   className?: string;
   onClose: () => void;
-  onStatusChange: (status: ActionStatus) => void;
+  onStatusChange?: (status: ActionStatus) => void;
 }
 
 interface PassState {
@@ -172,7 +172,9 @@ function Import({ className = '', onClose, onStatusChange }: Props): React.React
         }
 
         setIsBusy(false);
-        onStatusChange(status as ActionStatus);
+        if (onStatusChange) {
+          onStatusChange(status as ActionStatus);
+        }
 
         if (status.status !== 'error') {
           onClose();

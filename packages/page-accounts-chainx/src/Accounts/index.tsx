@@ -17,8 +17,12 @@ import {
   useIpfs,
   useLoadingDelay,
   useToggle,
-  useAccountAssets
+
 } from '@polkadot/react-hooks';
+
+import { useAccountAssets } from '@polkadot/react-hooks-chainx';
+
+
 import { FormatBalance } from '@polkadot/react-query';
 import { Button, Input, Table, Tabs } from '@polkadot/react-components';
 import { BN_ZERO } from '@polkadot/util';
