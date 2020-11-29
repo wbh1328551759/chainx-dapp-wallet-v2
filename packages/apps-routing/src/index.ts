@@ -40,6 +40,7 @@ export default function create(t: TFunction): Routes {
     addAccount(t),
     restore(t),
     addresses(t),
+    allAccounts(t),
     claims(t),
     poll(t),
     transfer(t),
@@ -62,8 +63,9 @@ export default function create(t: TFunction): Routes {
     signing(t),
     sudo(t),
     js(t),
-    settings(t),
     trade(t),
-    allAccounts(t)
+    settings(t),
+
+
   ];
 }
