@@ -1,0 +1,19 @@
+{
+  "name": "@polkadot/app-staking-chainx",
+  "private": true,
+  "version": "0.68.2-19",
+  "description": "A basic staking app",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "maintainers": [
+    "Jaco Greeff <jacogr@gmail.com>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@babel/runtime": "^7.12.1",
+    "@polkadot/react-components": "0.68.2-19",
+    "@polkadot/react-components-chainx": "0.68.2-19",
+    "@polkadot/react-query": "0.68.2-19"
+  }
+}

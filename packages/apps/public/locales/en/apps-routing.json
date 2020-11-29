@@ -1,6 +1,7 @@
 {
   "nav.accounts": "Accounts",
   "nav.addresses": "Address book",
+  "nav.allAccounts": "All accounts",
   "nav.calendar": "Event calendar",
   "nav.claims": "Claim Tokens",
   "nav.contracts": "Contracts",
@@ -20,6 +21,7 @@
   "nav.storage": "Chain state",
   "nav.sudo": "Sudo",
   "nav.tech-comm": "Tech. comm.",
+  "nav.trade": "DEX",
   "nav.transfer": "Transfer",
   "nav.treasury": "Treasury"
 }

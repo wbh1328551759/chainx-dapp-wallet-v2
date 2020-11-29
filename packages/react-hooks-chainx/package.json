@@ -20,8 +20,8 @@
   "homepage": "https://github.com/polkadot-js/apps/tree/master/packages/react-hooks#readme",
   "dependencies": {
     "@babel/runtime": "^7.12.5",
-    "memoizee": "^0.4.14",
-    "@polkadot/react-hooks": "0.68.2-19"
+    "@polkadot/react-hooks": "0.68.2-19",
+    "memoizee": "^0.4.14"
   },
   "devDependencies": {
     "@types/memoizee": "^0.4.5"

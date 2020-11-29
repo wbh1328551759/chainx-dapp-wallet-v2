@@ -2383,6 +2383,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@polkadot/app-mining@workspace:packages/page-mining":
+  version: 0.0.0-use.local
+  resolution: "@polkadot/app-mining@workspace:packages/page-mining"
+  dependencies:
+    "@babel/runtime": ^7.12.1
+    "@polkadot/apps-config": 0.68.2-19
+    "@polkadot/react-components": 0.68.2-19
+    "@polkadot/react-query": 0.68.2-19
+    query-string: ^6.13.6
+  languageName: unknown
+  linkType: soft
+
 "@polkadot/app-parachains@workspace:packages/page-parachains":
   version: 0.0.0-use.local
   resolution: "@polkadot/app-parachains@workspace:packages/page-parachains"
@@ -2503,7 +2515,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@polkadot/apps-config@^0.68.2-19, @polkadot/apps-config@workspace:packages/apps-config":
+"@polkadot/app-trust@workspace:packages/page-trust":
+  version: 0.0.0-use.local
+  resolution: "@polkadot/app-trust@workspace:packages/page-trust"
+  dependencies:
+    "@babel/runtime": ^7.12.1
+    "@polkadot/apps-config": 0.68.2-19
+    "@polkadot/react-components": 0.68.2-19
+    "@polkadot/react-query": 0.68.2-19
+    query-string: ^6.13.6
+  languageName: unknown
+  linkType: soft
+
+"@polkadot/apps-config@0.68.2-19, @polkadot/apps-config@^0.68.2-19, @polkadot/apps-config@workspace:packages/apps-config":
   version: 0.0.0-use.local
   resolution: "@polkadot/apps-config@workspace:packages/apps-config"
   dependencies:
@@ -2795,7 +2819,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@polkadot/react-components@^0.68.2-19, @polkadot/react-components@workspace:packages/react-components":
+"@polkadot/react-components@0.68.2-19, @polkadot/react-components@^0.68.2-19, @polkadot/react-components@workspace:packages/react-components":
   version: 0.0.0-use.local
   resolution: "@polkadot/react-components@workspace:packages/react-components"
   dependencies:
@@ -2843,12 +2867,13 @@ __metadata:
   resolution: "@polkadot/react-hooks-chainx@workspace:packages/react-hooks-chainx"
   dependencies:
     "@babel/runtime": ^7.12.5
+    "@polkadot/react-hooks": 0.68.2-19
     "@types/memoizee": ^0.4.5
     memoizee: ^0.4.14
   languageName: unknown
   linkType: soft
 
-"@polkadot/react-hooks@^0.68.2-19, @polkadot/react-hooks@workspace:packages/react-hooks":
+"@polkadot/react-hooks@0.68.2-19, @polkadot/react-hooks@^0.68.2-19, @polkadot/react-hooks@workspace:packages/react-hooks":
   version: 0.0.0-use.local
   resolution: "@polkadot/react-hooks@workspace:packages/react-hooks"
   dependencies:
@@ -2914,7 +2939,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/react-query@^0.68.2-19, @polkadot/react-query@workspace:packages/react-query":
+"@polkadot/react-query@0.68.2-19, @polkadot/react-query@^0.68.2-19, @polkadot/react-query@workspace:packages/react-query":
   version: 0.0.0-use.local
   resolution: "@polkadot/react-query@workspace:packages/react-query"
   dependencies:

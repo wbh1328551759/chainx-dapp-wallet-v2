@@ -29,10 +29,18 @@ import transfer from './transfer';
 import treasury from './treasury';
 import trade from './trade';
 import allAccounts from './allAccounts';
+import mining from './mining';
+import addAccount from '@polkadot/apps-routing/addAccount';
+import restore from '@polkadot/apps-routing/restore';
+import trust from './trust';
 
 export default function create(t: TFunction): Routes {
   return [
     accounts(t),
+    trust(t),
+    addAccount(t),
+    mining(t),
+    restore(t),
     addresses(t),
     explorer(t),
     claims(t),
