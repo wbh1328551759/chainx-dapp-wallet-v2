@@ -10,7 +10,7 @@ interface Props extends RouteProps {
   missingApis?: (string | string[])[];
 }
 
-function NotFound ({ basePath, missingApis = [] }: Props): React.ReactElement {
+function NotFound({ basePath, missingApis = [] }: Props): React.ReactElement {
   console.log(`Redirecting from route "${basePath}" to "explorer", missing the following APIs: ${JSON.stringify(missingApis)}`);
 
   return (

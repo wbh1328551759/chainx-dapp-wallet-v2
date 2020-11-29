@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ThemeProps } from '../types';
+import { ThemeProps } from '../types';
 
 import { createGlobalStyle } from 'styled-components';
 
@@ -20,14 +20,14 @@ const BRIGHTNESS = 128 + 32;
 const FACTORS = [0.2126, 0.7152, 0.0722];
 const PARTS = [0, 2, 4];
 
-const defaultHighlight = '#f19135'; // '#f19135'; // #999
+const defaultHighlight = '#3f3f3f'; // '#f19135'; // #999
 
-function getHighlight (uiHighlight: string | undefined): string {
+function getHighlight({ uiHighlight }: Props): string {
   return (uiHighlight || defaultHighlight);
 }
 
-function getContrast (uiHighlight: string | undefined): string {
-  const hc = getHighlight(uiHighlight).replace('#', '').toLowerCase();
+function getContrast(props: Props): string {
+  const hc = getHighlight(props).replace('#', '').toLowerCase();
   const brightness = PARTS.reduce((b, p, index) => b + (parseInt(hc.substr(p, 2), 16) * FACTORS[index]), 0);
 
   return brightness > BRIGHTNESS
@@ -35,36 +35,36 @@ function getContrast (uiHighlight: string | undefined): string {
     : 'rgba(255, 253, 251, 0.875)';
 }
 
-export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Props & ThemeProps) => `
+export default createGlobalStyle<Props & ThemeProps>`
   .highlight--all {
-    background: ${getHighlight(uiHighlight)} !important;
-    border-color: ${getHighlight(uiHighlight)} !important;
-    color: ${getHighlight(uiHighlight)} !important;
+    background: ${getHighlight} !important;
+    border-color: ${getHighlight} !important;
+    color: ${getHighlight} !important;
   }
 
   .highlight--before:before {
-    background: ${getHighlight(uiHighlight)} !important;
+    background: ${getHighlight} !important;
   }
 
   .highlight--before-border:before {
-    border-color: ${getHighlight(uiHighlight)} !important;
+    border-color: ${getHighlight} !important;
   }
 
   .highlight--bg {
-    background: ${getHighlight(uiHighlight)} !important;
+    background: ${getHighlight} !important;
   }
 
   .highlight--bg-contrast {
-    background: ${getContrast(uiHighlight)};
+    background: ${getContrast};
   }
 
   .highlight--bg-faint,
   .highlight--bg-light {
-    background: ${theme.bgTable};
+    background: ${({ theme }) => theme.bgTable};
     position: relative;
 
     &:before {
-      background: ${getHighlight(uiHighlight)};
+      background: ${getHighlight};
       bottom: 0;
       content: ' ';
       left: 0;
@@ -84,74 +84,74 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
   }
 
   .highlight--border {
-    border-color: ${getHighlight(uiHighlight)} !important;
+    border-color: #e1b15b !important;
   }
 
   .highlight--color {
-    color: ${getHighlight(uiHighlight)} !important;
+    color: ${getHighlight} !important;
   }
 
   .highlight--color-contrast {
-    color: ${getContrast(uiHighlight)};
+    color: ${getContrast};
   }
 
   .highlight--fill {
-    fill: ${getHighlight(uiHighlight)} !important;
+    fill: ${getHighlight} !important;
   }
 
   .highlight--gradient {
-    background: ${`linear-gradient(90deg, ${uiHighlight || defaultHighlight}, transparent)`};
+    background: ${({ uiHighlight }: Props) => `linear-gradient(90deg, ${uiHighlight || defaultHighlight}, transparent)`};
   }
 
   .highlight--hover-bg:hover {
-    background: ${getHighlight(uiHighlight)} !important;
+    background: ${getHighlight} !important;
   }
 
   .highlight--hover-color:hover {
-    color: ${getHighlight(uiHighlight)} !important;
+    color: ${getHighlight} !important;
   }
 
   .highlight--icon {
     .ui--Icon {
-      color: ${getHighlight(uiHighlight)} !important;
+      color: ${getHighlight} !important;
     }
   }
 
   .highlight--shadow {
-    box-shadow: 0 0 1px ${getHighlight(uiHighlight)} !important;
+    box-shadow: 0 0 1px ${getHighlight} !important;
   }
 
   .highlight--stroke {
-    stroke: ${getHighlight(uiHighlight)} !important;
+    stroke: ${getHighlight} !important;
   }
 
   .ui--Button {
     &:not(.isDisabled):not(.isIcon):not(.isBasic),
     &.withoutLink:not(.isDisabled) {
       .ui--Icon {
-        background: ${getHighlight(uiHighlight)};
-        color: ${getContrast(uiHighlight)};
+        background: #f0ca62;
+        color: ${getContrast};
       }
     }
 
     &.isBasic:not(.isDisabled):not(.isIcon):not(.isSelected) {
       &:not(.isReadOnly) {
-        box-shadow: 0 0 1px ${getHighlight(uiHighlight)};
+        box-shadow: 0 0 1px #e1b15b;
       }
 
       .ui--Icon {
-        color: ${getHighlight(uiHighlight)};
+        color: #e1b15b;
       }
     }
 
     &.isSelected {
-      box-shadow: 0 0 1px ${getHighlight(uiHighlight)};
+      box-shadow: 0 0 1px #e1b15b;
     }
 
     &:hover:not(.isDisabled):not(.isReadOnly),
     &.isSelected {
-      background: ${getHighlight(uiHighlight)};
-      color: ${getContrast(uiHighlight)};
+      background: #e1b15b;
+      color: ${getContrast};
       text-shadow: none;
 
       &:not(.isIcon),
@@ -168,13 +168,13 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
     &.withoutLink:not(.isDisabled) {
       &:hover {
         .ui--Icon {
-          color: ${getContrast(uiHighlight)};
+          color: ${getContrast};
         }
       }
 
       .ui--Icon {
         background: transparent;
-        color: ${getHighlight(uiHighlight)};
+        color: ${getHighlight};
       }
     }
   }
@@ -183,29 +183,29 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
   .theme--light {
     .ui--Tabs {
       .ui--Tab.tabLinkActive {
-        border-bottom-color: ${getHighlight(uiHighlight)};
+        border-bottom-color: #87dbbc;
       }
     }
 
     .ui.primary.button,
     .ui.buttons .primary.button {
-      background: ${getHighlight(uiHighlight)};
+      background: ${getHighlight};
 
       &.active,
       &:active,
       &:focus,
       &:hover {
-        background-color: ${getHighlight(uiHighlight)};
+        background-color: ${getHighlight};
       }
     }
 
     .ui--Toggle.isChecked {
       &:not(.isRadio) {
         .ui--Toggle-Slider {
-          background-color: ${getHighlight(uiHighlight)} !important;
+          background-color: ${getHighlight} !important;
 
           &:before {
-            border-color: ${getHighlight(uiHighlight)} !important;
+            border-color: ${getHighlight} !important;
           }
         }
       }
@@ -213,9 +213,9 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
   }
 
   #root {
-    background: ${theme.bgPage};
-    color: ${theme.color};
-    font: ${theme.fontSans};
+    background: ${({ theme }) => theme.bgPage};
+    color: ${({ theme }) => theme.color};
+    font-family: sans-serif;
     height: 100%;
   }
 
@@ -224,7 +224,7 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
   }
 
   article {
-    background: ${theme.bgTable};
+    background: ${({ theme }) => theme.bgTable};
     border: 1px solid #f2f2f2;
     border-radius: 0.25rem;
     box-sizing: border-box;
@@ -300,7 +300,6 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
   body {
     height: 100%;
     margin: 0;
-    font: ${theme.fontSans};
   }
 
   br {
@@ -331,14 +330,12 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
   }
 
   h1, h2, h3, h4, h5 {
-    color: ${theme.colorSummary};
-    font: ${theme.fontSans};
-    font-weight: ${theme.fontWeightLight};
-    margin-bottom: 0.25rem;
+    color: ${({ theme }) => theme.colorSummary};
+    font-family: sans-serif;
+    font-weight: 100;
   }
 
   h1 {
-    font-size: 1.75rem;
     text-transform: lowercase;
 
     em {
@@ -347,8 +344,18 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
     }
   }
 
-  h2 {
-    font-size: 1.71428571rem;
+  h1, h2, h3, h4, h5 {
+    margin-bottom: 0.25rem;
+  }
+  
+  h6, p {
+    margin: 0;
+  }
+  
+  ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   header {
@@ -366,11 +373,11 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
 
   label {
     box-sizing: border-box;
-    color: ${theme.colorLabel};
+    color: ${({ theme }) => theme.colorLabel};
     display: block;
-    font: ${theme.fontSans};
+    font-family: sans-serif;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 100;
   }
 
   main {
@@ -380,10 +387,10 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
   }
 
   /* Add our overrides */
-  ${cssSemantic(theme)}
+  ${cssSemantic}
   ${cssTheme}
   ${cssForm}
   ${cssMedia}
   ${cssRx}
-  ${cssComponents(theme)}
-`);
+  ${cssComponents}
+`;
