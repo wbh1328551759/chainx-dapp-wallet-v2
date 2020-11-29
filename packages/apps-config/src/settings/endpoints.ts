@@ -19,7 +19,7 @@ interface EnvWindow {
 //   text: The text to display on the dropdown
 //   value: The actual hosted secure websocket endpoint
 
-function createOwn (t: TFunction): LinkOption[] {
+function createOwn(t: TFunction): LinkOption[] {
   try {
     const storedItems = localStorage.getItem(CUSTOM_ENDPOINT_KEY);
 
@@ -40,262 +40,46 @@ function createOwn (t: TFunction): LinkOption[] {
   return [];
 }
 
-function createDev (t: TFunction): LinkOption[] {
+function createDev(t: TFunction): LinkOption[] {
   return [
     {
       dnslink: 'local',
       info: 'local',
       text: t('rpc.local', 'Local Node', { ns: 'apps-config' }),
-      textBy: '127.0.0.1:9944',
-      value: 'ws://127.0.0.1:9944'
+      textBy: '127.0.0.1:8087',
+      value: 'ws://127.0.0.1:8087'
     }
   ];
 }
 
-function createLiveNetworks (t: TFunction): LinkOption[] {
-  return [
-    // fixed, polkadot
-    {
-      dnslink: 'polkadot',
-      info: 'polkadot',
-      text: t('rpc.polkadot.parity', 'Polkadot', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Parity' } }),
-      value: 'wss://rpc.polkadot.io'
-    },
-    {
-      info: 'polkadot',
-      text: t('rpc.polkadot.w3f', 'Polkadot', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Web3 Foundation' } }),
-      value: 'wss://cc1-1.polkadot.network'
-    },
-    {
-      info: 'polkadot',
-      text: t('rpc.polkadot.onfinality', 'Polkadot', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'OnFinality' } }),
-      value: 'wss://polkadot.api.onfinality.io/public-ws'
-    },
-    {
-      dnslink: 'kusama',
-      info: 'kusama',
-      text: t('rpc.kusama.parity', 'Kusama', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Parity' } }),
-      value: 'wss://kusama-rpc.polkadot.io'
-    },
-    {
-      info: 'kusama',
-      text: t('rpc.kusama.w3f', 'Kusama', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Web3 Foundation' } }),
-      value: 'wss://cc3-5.kusama.network'
-    },
-    {
-      info: 'kusama',
-      text: t('rpc.kusama.onfinality', 'Kusama', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'OnFinality' } }),
-      value: 'wss://kusama.api.onfinality.io/public-ws'
-    },
-    {
-      info: 'kusama',
-      isDisabled: true,
-      text: t('rpc.kusama.ava', 'Kusama', { ns: 'apps-config' }),
-      textBy: t('rpc.ava.summary', 'user-run public nodes; see https://status.cloud.ava.do/', { ns: 'apps-config' }),
-      value: 'wss://kusama.polkadot.cloud.ava.do'
-    },
-    // alphabetical based on chain name
-    {
-      dnslink: 'centrifuge',
-      info: 'centrifuge',
-      text: t('rpc.centrifuge', 'Centrifuge', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Centrifuge' } }),
-      value: 'wss://fullnode.centrifuge.io'
-    },
-    {
-      info: 'crab',
-      text: t('rpc.crab', 'Darwinia Crab', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Darwinia Network' } }),
-      value: 'wss://crab.darwinia.network'
-    },
-    {
-      info: 'darwinia',
-      text: t('rpc.darwinia', 'Darwinia', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Darwinia Network' } }),
-      value: 'wss://cc1.darwinia.network'
-    },
-    {
-      info: 'dock-mainnet',
-      text: t('rpc.dock-mainnet', 'Dock Mainnet', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Dock Association' } }),
-      value: 'wss://mainnet-node.dock.io'
-    },
-    {
-      dnslink: 'edgeware',
-      info: 'edgeware',
-      text: t('rpc.edgeware', 'Edgeware', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Commonwealth Labs' } }),
-      value: 'wss://mainnet1.edgewa.re'
-    },
-    {
-      info: 'equilibrium',
-      text: t('rpc.equilibrium', 'Equilibrium Mainnet', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Equilibrium' } }),
-      value: 'wss://tge.equilibrium.io:9944'
-    },
-    {
-      info: 'hanonycash',
-      text: t('rpc.hanonycash', 'hanonycash', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'hanonycash' } }),
-      value: 'wss://rpc.hanonycash.com'
-    },
-    {
-      dnslink: 'kulupu',
-      info: 'kulupu',
-      text: t('rpc.kulupu', 'Kulupu', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Kulupu' } }),
-      value: 'wss://rpc.kulupu.corepaper.org/ws'
-    },
-    {
-      info: 'nodle',
-      text: t('rpc.nodle-main', 'Nodle Main', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Nodle' } }),
-      value: 'wss://main1.nodleprotocol.io'
-    },
-    {
-      info: 'plasm',
-      text: t('rpc.plasm', 'Plasm', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Stake Technologies' } }),
-      value: 'wss://rpc.plasmnet.io/'
-    },
-    {
-      info: 'stafi',
-      text: t('rpc.stafi', 'Stafi', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Stafi Foundation' } }),
-      value: 'wss://mainnet-rpc.stafi.io'
-    },
-    {
-      info: 'subsocial',
-      text: t('rpc.subsocial', 'Subsocial', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'DappForce' } }),
-      value: 'wss://rpc.subsocial.network'
-    }
-  ];
-}
-
-function createTestNetworks (t: TFunction): LinkOption[] {
+function createLiveNetworks(t: TFunction): LinkOption[] {
   return [
     // polkadot test relays
     {
-      info: 'centrifuge',
-      text: t('rpc.amber', 'Amber', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Centrifuge' } }),
-      value: 'wss://fullnode.amber.centrifuge.io'
-    },
-    {
-      info: 'nodle',
-      text: t('rpc.nodle-arcadia', 'Arcadia', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Nodle' } }),
-      value: 'wss://arcadia1.nodleprotocol.io'
-    },
-    {
-      info: 'edgeware',
-      text: t('rpc.beresheet', 'Beresheet', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Commonwealth Labs' } }),
-      value: 'wss://beresheet1.edgewa.re'
-    },
-    {
-      info: 'bifrost',
-      text: t('rpc.bifrost', 'Bifrost Asgard', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Bifrost' } }),
-      value: 'wss://testnet.liebi.com'
-    },
-    {
-      info: 'canvas',
-      text: t('rpc.canvas', 'Canvas', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Parity' } }),
-      value: 'wss://canvas-rpc.parity.io'
-    },
-    {
-      info: 'crust',
-      text: t('rpc.crust.network', 'Crust Maxwell CC2', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Crust Network' } }),
-      value: 'wss://api.crust.network/'
-    },
-    {
-      info: 'datahighway',
-      isDisabled: true,
-      text: t('rpc.datahighway.harbour', 'Harbour', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'MXC' } }),
-      value: 'wss://testnet-harbour.datahighway.com'
-    },
-    {
-      info: 'dock-testnet',
-      text: t('rpc.dock-testnet', 'Dock Testnet', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Dock Association' } }),
-      value: 'wss://danforth-1.dock.io'
-    },
-    {
-      info: 'dusty',
-      text: t('rpc.dusty', 'Dusty', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Stake Technologies' } }),
-      value: 'wss://rpc.dusty.plasmnet.io/'
-    },
-    {
-      info: 'equilibrium',
-      text: t('rpc.equilibriumtestnet', 'Equilibrium Testnet', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Equilibrium' } }),
-      value: 'wss://api.mvp.testnet.equilibrium.io'
-    },
-    {
-      info: 'substrate',
-      text: t('rpc.flamingfir', 'Flaming Fir', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Parity' } }),
-      value: 'wss://substrate-rpc.parity.io'
-    },
-    {
-      info: 'acala',
-      text: t('rpc.mandala', 'Mandala', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Acala' } }),
-      value: 'wss://node-6714447553211260928.rz.onfinality.io/ws'
-    },
-    {
-      info: 'kilt',
-      text: t('rpc.kilt', 'Mashnet', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'KILT Protocol' } }),
-      value: 'wss://full-nodes.kilt.io:9944/'
-    },
-    {
-      info: 'moonbaseAlpha',
-      text: t('rpc.moonbeam', 'Moonbase Alpha', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Moonbeam Network' } }),
-      value: 'wss://wss.testnet.moonbeam.network'
-    },
-    {
-      info: 'phala',
-      text: t('rpc.phala', 'Phala PoC-2', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Phala Network' } }),
-      value: 'wss://poc2.phala.network/ws'
-    },
-    {
-      info: 'laminar',
-      text: t('rpc.turbulence', 'Turbulence', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Laminar' } }),
-      value: 'wss://testnet-node-1.laminar-chain.laminar.one/ws'
-    },
-    {
-      info: 'sora-substrate',
-      text: t('rpc.sora-substrate', 'SORA-Substrate', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Soramitsu' } }),
-      value: 'wss://ws.parachain-node-1.s1.dev.soraneo.soramitsu.co.jp'
-    },
-    {
-      dnslink: 'westend',
-      info: 'westend',
-      text: t('rpc.westend', 'Westend', { ns: 'apps-config' }),
-      textBy: t('rpc.hosted.by', 'hosted by {{host}}', { ns: 'apps-config', replace: { host: 'Parity' } }),
-      value: 'wss://westend-rpc.polkadot.io'
+      dnslink: 'ChainX',
+      info: 'ChainX',
+      text: 'ChainX Main Network',
+      textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
+      value: 'wss://mainnet.chainx.org/ws'
     }
   ];
 }
 
-function createCustom (t: TFunction): LinkOption[] {
+function createTestNetworks(t: TFunction): LinkOption[] {
+  return [
+    // polkadot test relays
+    {
+      dnslink: 'ChainX',
+      info: 'ChainX',
+      text: 'ChainX Test Network',
+      textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
+      value: 'wss://testnet-2.chainx.org/ws'
+    }
+  ];
+}
+
+
+function createCustom(t: TFunction): LinkOption[] {
   const WS_URL = (
     (typeof process !== 'undefined' ? process.env?.WS_URL : undefined) ||
     (typeof window !== 'undefined' ? (window as EnvWindow).process_env?.WS_URL : undefined)
@@ -319,7 +103,7 @@ function createCustom (t: TFunction): LinkOption[] {
     : [];
 }
 
-export function createWsEndpoints (t: TFunction): LinkOption[] {
+export function createWsEndpoints(t: TFunction): LinkOption[] {
   return [
     ...createCustom(t),
     {
