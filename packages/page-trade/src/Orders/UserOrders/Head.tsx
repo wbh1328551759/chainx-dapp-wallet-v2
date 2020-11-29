@@ -1,0 +1,36 @@
+
+import React from 'react';
+import { Table, TableHead, TableRow } from '@chainx/ui';
+import { HeadCell } from '../Wrapper';
+import { useTranslation } from '../../translate';
+
+export default function (): React.ReactElement {
+  const { t } = useTranslation();
+
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <HeadCell style={{ width: '12%' }}>{t('Date')}</HeadCell>
+          <HeadCell style={{ width: '5%' }}>{t('Number')}</HeadCell>
+          <HeadCell style={{ width: '8%' }}>{t('Pair')}</HeadCell>
+          <HeadCell style={{ width: '11%' }}>
+            {t('Order Price')}
+          </HeadCell>
+          <HeadCell style={{ width: '13%' }}>
+            {t('Order Amount')}
+          </HeadCell>
+          <HeadCell style={{ width: '16%' }}>
+            {t('Freeze Amount')}
+          </HeadCell>
+          <HeadCell style={{ width: '16%' }}>
+            {t('Filled / Percentage %')}
+          </HeadCell>
+          <HeadCell style={{ textAlign: 'right' }}>
+            {t('Operation')}
+          </HeadCell>
+        </TableRow>
+      </TableHead>
+    </Table>
+  );
+}

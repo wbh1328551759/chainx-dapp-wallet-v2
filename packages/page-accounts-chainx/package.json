@@ -1,0 +1,24 @@
+{
+  "name": "@polkadot/app-accounts-chainx",
+  "private": true,
+  "version": "",
+  "main": "index.js",
+  "repository": "https://github.com/polkadot-js/apps.git",
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "maintainers": [
+    "Jaco Greeff <jacogr@gmail.com>"
+  ],
+  "contributors": [],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@babel/runtime": "^7.12.1",
+    "@polkadot/react-components-chainx": "^0.68.2-19",
+    "@polkadot/vanitygen": "^0.22.1",
+    "detect-browser": "^5.2.0",
+    "file-saver": "^2.0.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.1.0",
+    "testcontainers": "^4.4.0"
+  }
+}
