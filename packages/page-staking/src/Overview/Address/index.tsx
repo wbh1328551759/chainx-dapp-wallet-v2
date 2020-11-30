@@ -7,14 +7,17 @@ import type { Balance, EraIndex, SlashingSpans, ValidatorPrefs } from '@polkadot
 import type { ValidatorInfo } from '../../types';
 
 import BN from 'bn.js';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { ApiPromise } from '@polkadot/api';
-import { AddressSmall, Icon, LinkExternal } from '@polkadot/react-components';
+import { AddressSmall, Icon, LinkExternal, Badge, Button } from '@polkadot/react-components';
 import { checkVisibility } from '@polkadot/react-components/util';
-import { useApi, useCall } from '@polkadot/react-hooks';
+import { useApi, useCall, useToggle } from '@polkadot/react-hooks';
 import { FormatBalance } from '@polkadot/react-query';
+import { useTranslation } from '../../translate';
 
 import Favorite from './Favorite';
+import Voter from '../../models/vote'
+import PopMenu from '../../models'
 import NominatedBy from './NominatedBy';
 import Status from './Status';
 import StakeOther from './StakeOther';
@@ -45,35 +48,12 @@ interface StakingState {
   stakeOwn?: BN;
 }
 
-function expandInfo ({ exposure, validatorPrefs }: ValidatorInfo): StakingState {
-  let nominators: [string, Balance][] = [];
-  let stakeTotal: BN | undefined;
-  let stakeOther: BN | undefined;
-  let stakeOwn: BN | undefined;
-
-  if (exposure) {
-    nominators = exposure.others.map(({ value, who }): [string, Balance] => [who.toString(), value.unwrap()]);
-    stakeTotal = exposure.total.unwrap();
-    stakeOwn = exposure.own.unwrap();
-    stakeOther = stakeTotal.sub(stakeOwn);
-  }
-
-  const commission = (validatorPrefs as ValidatorPrefs)?.commission?.unwrap();
-
-  return {
-    commission: commission?.toHuman(),
-    nominators,
-    stakeOther,
-    stakeOwn,
-    stakeTotal
-  };
-}
 
 const transformSlashes = {
   transform: (opt: Option<SlashingSpans>) => opt.unwrapOr(null)
 };
 
-function useAddressCalls (api: ApiPromise, address: string, isMain?: boolean) {
+function useAddressCalls(api: ApiPromise, address: string, isMain?: boolean) {
   const params = useMemo(() => [address], [address]);
   const accountInfo = useCall<DeriveAccountInfo>(api.derive.accounts.info, params);
   const slashingSpans = useCall<SlashingSpans | null>(!isMain && api.query.staking.slashingSpans, params, transformSlashes);
@@ -81,14 +61,12 @@ function useAddressCalls (api: ApiPromise, address: string, isMain?: boolean) {
   return { accountInfo, slashingSpans };
 }
 
-function Address ({ address, className = '', filterName, hasQueries, isElected, isFavorite, isMain, lastBlock, nominatedBy, onlineCount, onlineMessage, points, toggleFavorite, validatorInfo, withIdentity }: Props): React.ReactElement<Props> | null {
+function Address({ address, className = '', filterName, hasQueries, isElected, isFavorite, isMain, lastBlock, nominatedBy, onlineCount, onlineMessage, points, toggleFavorite, validatorInfo, withIdentity }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
-  const { accountInfo, slashingSpans } = useAddressCalls(api, address, isMain);
+  const { accountInfo } = useAddressCalls(api, address, isMain);
+  const [isToggleVote, toggleVote] = useToggle();
+  const { t } = useTranslation();
 
-  const { commission, nominators, stakeOther, stakeOwn } = useMemo(
-    () => validatorInfo ? expandInfo(validatorInfo) : { nominators: [] },
-    [validatorInfo]
-  );
 
   const isVisible = useMemo(
     () => accountInfo ? checkVisibility(api, address, accountInfo, filterName, withIdentity) : true,
@@ -114,67 +92,101 @@ function Address ({ address, className = '', filterName, hasQueries, isElected, 
           isFavorite={isFavorite}
           toggleFavorite={toggleFavorite}
         />
-        <Status
+        {/* <Status
           isElected={isElected}
           isMain={isMain}
           nominators={nominatedBy || nominators}
           onlineCount={onlineCount}
           onlineMessage={onlineMessage}
-        />
+        /> */}
       </td>
       <td className='address'>
         <AddressSmall value={address} />
       </td>
-      {isMain
-        ? (
-          <StakeOther
-            nominators={nominators}
-            stakeOther={stakeOther}
-          />
-        )
-        : (
-          <NominatedBy
-            nominators={nominatedBy}
-            slashingSpans={slashingSpans}
-          />
-        )
-      }
+
+      <td className='highlight--color'>
+
+        {
+          JSON.stringify(validatorInfo?.isValidating) === 'true' ? (<span>
+            <Badge
+              color='green'
+              icon='chevron-right'
+            />
+            {t<string>('Validator')}
+          </span>) :
+            (JSON.stringify(validatorInfo?.isChilled) === 'true' ? (<span>
+              <Badge
+                color='red'
+                icon='chevron-right'
+              />
+              {t<string>('Drop Out')}
+            </span>) : (<span>
+              <Badge
+                color='blue'
+                icon='chevron-right'
+              />
+              {t<string>('Candidate')}
+            </span>))
+        }
+      </td>
+
       {isMain && (
-        <td className='number media--1100'>
-          {stakeOwn?.gtn(0) && (
-            <FormatBalance value={stakeOwn} />
+        <td className='number '>
+          { (
+            <FormatBalance value={validatorInfo?.totalNomination} />
           )}
         </td>
       )}
-      <td className='number'>
-        {commission}
-      </td>
+
+      {isMain && (
+        <td className='number'>
+          { (
+            <FormatBalance value={validatorInfo?.selfBonded} />
+          )}
+        </td>
+      )}
+
+      {isMain && (
+        <td className='number'>
+          { (
+            <FormatBalance value={validatorInfo?.rewardPotBalance} />
+          )}
+        </td>
+      )}
+
+
       {isMain && (
         <>
-          <td className='number'>
+          {/* <td className='number'>
             {points}
-          </td>
+          </td> */}
           <td className='number'>
             {lastBlock}
+
           </td>
+
         </>
       )}
       <td>
-        {hasQueries && (
-          <Icon
-            className='highlight--color'
-            icon='chart-line'
-            onClick={_onQueryStats}
+        {isToggleVote && (
+          <Voter
+            onClose={toggleVote}
+            validatorId={validatorInfo?.account + ''}
+            onSuccess={() => { }}
           />
         )}
+        <div>
+          <Icon
+            color='orange'
+            icon='check'
+            onClick={toggleVote}
+          />
+        </div>
+
       </td>
-      <td className='links media--1200'>
-        <LinkExternal
-          data={address}
-          isLogo
-          type={isMain ? 'validator' : 'intention'}
-        />
-      </td>
+      <PopMenu validatorInfo={validatorInfo} />
+
+
     </tr>
   );
 }

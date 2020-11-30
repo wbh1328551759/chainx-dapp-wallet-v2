@@ -7,6 +7,7 @@ import type { Network } from './types';
 import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { ChainImg } from '@polkadot/react-components';
+import Logo from '@polkadot/apps/Menu/logo-chainx.svg';
 
 import Url from './Url';
 
@@ -17,7 +18,7 @@ interface Props {
   value: Network;
 }
 
-function NetworkDisplay ({ apiUrl, className = '', setApiUrl, value: { icon, isChild, name, providers } }: Props): React.ReactElement<Props> {
+function NetworkDisplay({ apiUrl, className = '', setApiUrl, value: { icon, isChild, name, providers } }: Props): React.ReactElement<Props> {
   const isSelected = useMemo(
     () => providers.some(({ url }) => url === apiUrl),
     [apiUrl, providers]
@@ -36,7 +37,7 @@ function NetworkDisplay ({ apiUrl, className = '', setApiUrl, value: { icon, isC
       >
         <ChainImg
           className='endpointIcon'
-          logo={icon === 'local' ? 'empty' : icon}
+          logo={Logo}
         />
         <div className='endpointValue'>{name}</div>
       </div>

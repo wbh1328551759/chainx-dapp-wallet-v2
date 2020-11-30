@@ -16,16 +16,37 @@ import { isJSON } from './utils'
 
 import basicMd from './md/basic.md';
 import Overview from './Overview';
-
+import UserNomination from './userNominatoin'
 import Query from './Query';
 import Summary from './Overview/Summary';
 
 import { STORE_FAVS_BASE } from './constants';
 import { useTranslation } from './translate';
-import useSortedTargets from './useSortedTargets';
 
 const HIDDEN_ACC = ['actions', 'payout'];
 
+
+function getSortList(validatorInfoList: ValidatorInfo[]) {
+
+  let validating = validatorInfoList.filter(item => JSON.stringify(item.isValidating) === 'true')
+  validating = validating.sort((a, b) => {
+    return Number(BigInt(b.totalNomination) - BigInt(a.totalNomination))
+
+  })
+  let candidate = validatorInfoList.filter(item => JSON.stringify(item.isValidating) === 'false' && JSON.stringify(item.isChilled) === 'false')
+  candidate = candidate.sort((a, b) => {
+    return Number(BigInt(b.totalNomination) - BigInt(a.totalNomination))
+  })
+  let chill = validatorInfoList.filter(item => JSON.stringify(item.isValidating) === 'false' && JSON.stringify(item.isChilled) === 'true')
+  chill = chill.sort((a, b) => {
+    return Number(BigInt(b.totalNomination) - BigInt(a.totalNomination))
+  })
+  const sortList = []
+  sortList.push(...validating)
+  sortList.push(...candidate)
+  sortList.push(...chill)
+  return sortList;
+}
 
 function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
@@ -33,9 +54,12 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
   const { hasAccounts, allAccounts } = useAccounts();
   const { pathname } = useLocation();
   const [favorites, toggleFavorite] = useFavorites(STORE_FAVS_BASE);
-  const targets = useSortedTargets(favorites);
+
   const validators = useCall<string>(api.rpc.xstaking.getValidators);
   let validatorInfoList: ValidatorInfo[] = JSON.parse(isJSON(validators) ? validators : '[]');
+  validatorInfoList = getSortList(validatorInfoList)
+
+  const targets = validatorInfoList;
 
   const stakingOverview = {
     validators: validatorInfoList.map(item => item.account),
@@ -54,6 +78,10 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
       hasParams: true,
       name: 'query',
       text: t<string>('Validator stats')
+    },
+    {
+      name: 'nomination',
+      text: t<string>('My Staking')
     }
   ], []);
 
@@ -78,6 +106,12 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
         stakingOverview={stakingOverview}
       />
       <Switch>
+        <Route path={`${basePath}/nomination`}>
+          <UserNomination
+            basePath={basePath}
+            onStatusChange={() => { }}
+          />
+        </Route>
         <Route path={[`${basePath}/query/:value`, `${basePath}/query`]}>
           <Query />
         </Route>
@@ -95,6 +129,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
     </main>
   );
 }
+
 
 export default React.memo(styled(StakingApp)(({ theme }: ThemeProps) => `
   .staking--hidden {

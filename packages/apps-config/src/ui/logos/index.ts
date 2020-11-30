@@ -43,6 +43,7 @@ import nodeRobonomics from './nodes/robonomics.svg';
 import nodeStafi from './nodes/stafi.png';
 import nodeSubsocial from './nodes/subsocial.svg';
 import nodeSubstrate from './nodes/substrate-hexagon.svg';
+import nodeChainX from './nodes/chainx.svg';
 
 // extensions
 // alphabetical
@@ -109,6 +110,7 @@ export const nodeLogos: Record<string, unknown> = [
   ['SORA-Substrate Node', nodeSora],
   ['Stafi Node', nodeStafi],
   ['Stafi', nodeStafi],
+  ['ChainX', nodeChainX],
   ['subsocial-node', nodeSubsocial],
   ['substrate-node', nodeSubstrate],
   ['Equilibrium Node', nodeEquilibrium],
@@ -124,6 +126,7 @@ export const nodeLogos: Record<string, unknown> = [
 // https://github.com/polkadot-js/common/blob/master/packages/networks/src/index.ts)
 export const namedLogos: Record<string, unknown> = {
   acala: nodeAcala,
+  chainx: nodeChainX,
   alexander: nodePolkadot,
   bifrost: nodeBifrost,
   canvas: nodeCanvas,
