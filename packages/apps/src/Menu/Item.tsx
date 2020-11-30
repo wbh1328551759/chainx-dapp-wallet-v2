@@ -31,7 +31,7 @@ function Item({ className = '', isToplevel, isBrowser = false, route: { Modal, h
         rel='noopener noreferrer'
         target={href ? '_blank' : undefined}
       >
-        {isBrowser ? <ChainImg src={Logo} /> : ''}
+        {isBrowser ? <ChainImg logo={Logo} /> : ''}
 
         {icon ? <Icon icon={icon} /> : ''}
         {text}
