@@ -44,20 +44,6 @@ function Ledgend({ className }: Props): React.ReactElement<Props> {
         />
         {t('Nominating')}
       </span>
-      {/* <span>
-        <Badge
-          color='red'
-          icon='balance-scale-right'
-        />
-        {t('Oversubscribed')}
-      </span>
-      <span>
-        <Badge
-          color='red'
-          icon='skull-crossbones'
-        />
-        {t('Slashed')}
-      </span> */}
     </div>
   );
 }
