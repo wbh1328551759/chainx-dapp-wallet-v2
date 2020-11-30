@@ -102,7 +102,7 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
   const [withIdentity, setWithIdentity] = useState(false);
 
   // we have a very large list, so we use a loading delay
-  const isLoading = useLoadingDelay();
+  const isLoading = useLoadingDelay(3000);
 
   const { elected, validators, waiting } = useMemo(
     () => stakingOverview ? getFiltered(stakingOverview, favorites, next) : {},

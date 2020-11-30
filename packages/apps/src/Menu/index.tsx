@@ -137,6 +137,7 @@ function Menu({ className = '' }: Props): React.ReactElement<Props> {
   return (
     <div className={`${className}${isLoading ? ' isLoading' : ''} highlight--bg`}>
       <div className='menuSection'>
+        <Icon src={Logo}></Icon>
 
         <ChainInfo />
         {activeRoute && (

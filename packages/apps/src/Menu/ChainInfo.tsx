@@ -16,7 +16,7 @@ interface Props {
   className?: string;
 }
 
-function ChainInfo ({ className }: Props): React.ReactElement<Props> {
+function ChainInfo({ className }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const runtimeVersion = useCall<RuntimeVersion>(api.rpc.state.subscribeRuntimeVersion);
@@ -30,7 +30,7 @@ function ChainInfo ({ className }: Props): React.ReactElement<Props> {
         className={`apps--SideBar-logo-inner${canToggle ? ' isClickable' : ''} highlight--color-contrast`}
         onClick={toggleEndpoints}
       >
-        <ChainImg src={Logo} />
+        <ChainImg logo={Logo} />
         <div className='info media--1000'>
           <Chain className='chain' />
           {runtimeVersion && (

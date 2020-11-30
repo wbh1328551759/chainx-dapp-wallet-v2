@@ -18,7 +18,7 @@ interface Props {
 
 const DUMMY_COUNTER = () => 0;
 
-function Item ({ className = '', isToplevel, isBrowser = false, route: { Modal, href, icon, name, text, useCounter = DUMMY_COUNTER } }: Props): React.ReactElement<Props> {
+function Item({ className = '', isToplevel, isBrowser = false, route: { Modal, href, icon, name, text, useCounter = DUMMY_COUNTER } }: Props): React.ReactElement<Props> {
   const [isModalVisible, toggleModal] = useToggle();
   const count = useCounter();
 
@@ -31,9 +31,9 @@ function Item ({ className = '', isToplevel, isBrowser = false, route: { Modal, 
         rel='noopener noreferrer'
         target={href ? '_blank' : undefined}
       >
-        {isBrowser ? <ChainImg src={Logo}/> : ''}
+        {isBrowser ? <ChainImg src={Logo} /> : ''}
 
-        {icon ? <Icon icon={icon}/> : ''}
+        {icon ? <Icon icon={icon} /> : ''}
         {text}
         {!!count && (
           <Badge
@@ -43,7 +43,7 @@ function Item ({ className = '', isToplevel, isBrowser = false, route: { Modal, 
         )}
       </a>
       {Modal && isModalVisible && (
-        <Modal onClose={toggleModal}/>
+        <Modal onClose={toggleModal} />
       )}
     </li>
   );

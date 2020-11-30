@@ -12,11 +12,11 @@ interface Props {
   onClick?: () => any;
 }
 
-function sanitize (value?: string): string {
+function sanitize(value?: string): string {
   return value?.toLowerCase().replace('-', ' ') || '';
 }
 
-function ChainImg ({ className = '', logo, onClick }: Props): React.ReactElement<Props> {
+function ChainImg({ className = '', logo, onClick }: Props): React.ReactElement<Props> {
   const { systemChain, systemName } = useApi();
   const [isEmpty, img] = useMemo((): [boolean, string] => {
     const found: unknown = namedLogos[logo || ''] || chainLogos[sanitize(systemChain)] || nodeLogos[sanitize(systemName)];
@@ -29,7 +29,7 @@ function ChainImg ({ className = '', logo, onClick }: Props): React.ReactElement
       alt='chain logo'
       className={`${className}${isEmpty ? ' highlight--bg' : ''}`}
       onClick={onClick}
-      src={img}
+      src={logo}
     />
   );
 }
