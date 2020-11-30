@@ -27,6 +27,28 @@ import useSortedTargets from './useSortedTargets';
 const HIDDEN_ACC = ['actions', 'payout'];
 
 
+function getSortList(validatorInfoList: ValidatorInfo[]) {
+
+  let validating = validatorInfoList.filter(item => JSON.stringify(item.isValidating) === 'true')
+  validating = validating.sort((a, b) => {
+    return Number(BigInt(b.totalNomination) - BigInt(a.totalNomination))
+
+  })
+  let candidate = validatorInfoList.filter(item => JSON.stringify(item.isValidating) === 'false' && JSON.stringify(item.isChilled) === 'false')
+  candidate = candidate.sort((a, b) => {
+    return Number(BigInt(b.totalNomination) - BigInt(a.totalNomination))
+  })
+  let chill = validatorInfoList.filter(item => JSON.stringify(item.isValidating) === 'false' && JSON.stringify(item.isChilled) === 'true')
+  chill = chill.sort((a, b) => {
+    return Number(BigInt(b.totalNomination) - BigInt(a.totalNomination))
+  })
+  const sortList = []
+  sortList.push(...validating)
+  sortList.push(...candidate)
+  sortList.push(...chill)
+  return sortList;
+}
+
 function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
@@ -36,6 +58,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
 
   const validators = useCall<string>(api.rpc.xstaking.getValidators);
   let validatorInfoList: ValidatorInfo[] = JSON.parse(isJSON(validators) ? validators : '[]');
+  validatorInfoList = getSortList(validatorInfoList)
 
   const targets = validatorInfoList;
 

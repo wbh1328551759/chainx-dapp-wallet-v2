@@ -13,6 +13,7 @@ import { AddressSmall, Icon, LinkExternal } from '@polkadot/react-components';
 import { checkVisibility } from '@polkadot/react-components/util';
 import { useApi, useCall } from '@polkadot/react-hooks';
 import { FormatBalance } from '@polkadot/react-query';
+import { useTranslation } from '../../translate';
 
 import Favorite from './Favorite';
 import NominatedBy from './NominatedBy';
@@ -61,6 +62,7 @@ function useAddressCalls(api: ApiPromise, address: string, isMain?: boolean) {
 function Address({ address, className = '', filterName, hasQueries, isElected, isFavorite, isMain, lastBlock, nominatedBy, onlineCount, onlineMessage, points, toggleFavorite, validatorInfo, withIdentity }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const { accountInfo } = useAddressCalls(api, address, isMain);
+  const { t } = useTranslation();
 
 
   const isVisible = useMemo(
@@ -97,6 +99,14 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
       </td>
       <td className='address'>
         <AddressSmall value={address} />
+      </td>
+
+      <td className='highlight--color'>
+        {
+          JSON.stringify(validatorInfo?.isValidating) === 'true' ? t<string>('Validator') :
+            (JSON.stringify(validatorInfo?.isChilled) === 'true' ? t<string>('Drop Out') : t<string>('Candidate'))
+        }
+
       </td>
 
       {isMain && (
