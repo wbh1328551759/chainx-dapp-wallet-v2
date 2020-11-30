@@ -29,11 +29,11 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
   const [amountErrMsg, setAmountErrMsg] = useState('')
   useEffect(() => {
     if(Number(amount) <= 0){
-      setAmountErrMsg('请输入有效数量')
+      setAmountErrMsg(t('Please enter a valid quantity'))
     }else{
       setAmountErrMsg('')
     }
-
+  console.log('propSenderId:'+JSON.stringify(propSenderId))
   }, [amount])
 
   return (

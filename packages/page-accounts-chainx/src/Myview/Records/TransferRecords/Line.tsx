@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import Hash from './Hash';
 import Address from './Address';
 import Detail from '../components/Detail';
@@ -8,17 +8,18 @@ import { toPrecision } from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 import moment from 'moment';
 import { useTranslation } from '@polkadot/react-components/translate';
 import useOutsideClick from '@polkadot/app-accounts-chainx/Myview/useOutsideClick';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 export default function ({ transfer }: any) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-
-
+  const { currentAccount } = useContext(AccountContext);
   const wrapper = useRef(null);
 
   useOutsideClick(wrapper, () => {
     setOpen(false);
   });
+
   return (
     <div className='line'
       onClick={() => setOpen(!open)}
@@ -29,7 +30,7 @@ export default function ({ transfer }: any) {
       </header>
       <main>
         <span>{toPrecision(transfer.data[2], 8)}</span>
-        <span>{transfer.data[0] === transfer.data[1] ? t('In') : t('Out')}</span>
+        <span>{transfer.data[1] === currentAccount? t('In') : t('Out')}</span>
       </main>
       {open ? (
         <Detail>

@@ -3,9 +3,10 @@ import Card from './CardWrapper';
 import Logo from './Logo';
 import styled from 'styled-components';
 import { useTranslation } from '@polkadot/app-accounts/translate';
-import { useApi } from '@polkadot/react-hooks';
+import {useApi, useCall} from '@polkadot/react-hooks';
 import FooterWithdrawal from '@polkadot/app-accounts-chainx/Myview/Assets/components/FooterWithdrawal';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import accounts from '@polkadot/apps-routing/accounts';
 
 const Hr = styled.hr`
   margin: 0;
@@ -38,25 +39,39 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
   const { api } = useApi();
   const [interests, setInterests] = useState<number>(0);
   const { currentAccount } = useContext(AccountContext);
+  const x = useCall<string>(api.rpc.xminingasset.getMinerLedgerByAccount, ['5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB'])
+  const aaa = useCall<string>(api.rpc.xminingasset.getDividendByAccount, ['5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB'])
+
+  useEffect(() => {
+   console.log('x:'+JSON.stringify(x))
+   console.log(JSON.stringify(x))
+   console.log(x)
+    console.log('aaa:'+JSON.stringify(aaa))
+    console.log(JSON.stringify(aaa))
+    console.log(aaa)
+ })
 
   useEffect((): void => {
     async function getDividend(account: string) {
-      const dividendRes = await api.rpc.xminingasset.getDividendByAccount(account);
+      const dividendRes = await api.rpc.xminingasset.getDividendByAccount('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
       let currentDividend: any = '0';
-      const userDividend = JSON.parse(dividendRes);
 
+      const userDividend = JSON.parse(dividendRes);
       Object.keys(userDividend).forEach((key: string) => {
         currentDividend = userDividend[key];
       });
-      setInterests(Number(currentDividend) / Math.pow(10, 8));
+      // setInterests(Number(currentDividend) / Math.pow(10, 8));
+      setInterests(dividendRes[1])
     }
 
-    getDividend(currentAccount);
-  }, [currentAccount]);
+    getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
+  }, [currentAccount,interests]);
 
   return (
     <Card>
       <header>
+        {/*{interests}*/}
+        {interests?.own}
         <p>{t('Cross-chain assets')}</p>
         <hr />
       </header>
@@ -74,7 +89,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
           <span>  {interests ? interests : 0} PCX</span>
         </div>
         <div>
-          <FooterWithdrawal />
+          <FooterWithdrawal interests={interests}/>
         </div>
       </Footer>
     </Card>

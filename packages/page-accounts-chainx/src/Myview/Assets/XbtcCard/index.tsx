@@ -19,8 +19,6 @@ export default function (): React.ReactElement {
   const { t } = useTranslation();
   const { allAccounts } = useAccounts();
   const currentAccount = useContext(AccountContext);
-
-
   const [isTransferOpen, toggleTransfer] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
   const [isWithdraw, toggleWithdraw] = useToggle();
@@ -28,7 +26,7 @@ export default function (): React.ReactElement {
 
 
   useEffect((): void => {
-    async function getAssets(account) {
+    async function getAssets(account: string): Promise<any> {
       const res = await api.rpc.xassets.getAssetsByAccount(account);
       let current: AssetsInfo = {
         Locked: "0",
@@ -71,21 +69,21 @@ export default function (): React.ReactElement {
       setCurrentAccountInfo(current)
 
     }
-    getAssets(currentAccount)
+    getAssets(currentAccount.currentAccount)
   }, [currentAccount])
 
   const buttonGroup = (
     <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
       {isDepositeOpen && (
         <Deposite
-          address={currentAccount}
+          address={currentAccount.currentAccount}
           onClose={toggleDeposite}
         />
       )
       }
       {isWithdraw && (
         <Withdraw
-          account={currentAccount}
+          account={currentAccount.currentAccount}
           btc={currentAccountInfo?.Usable}
           onClose={toggleWithdraw}
         />
@@ -95,7 +93,7 @@ export default function (): React.ReactElement {
         <Transfer
           key='modal-transfer'
           onClose={toggleTransfer}
-          senderId={currentAccount}
+          senderId={currentAccount.currentAccount}
         />
       )}
 

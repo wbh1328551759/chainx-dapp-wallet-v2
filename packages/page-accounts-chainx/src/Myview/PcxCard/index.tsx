@@ -95,11 +95,11 @@ export default function (props): React.ReactElement {
               />
               <AssetView
                 key={Math.random()}
-                title={t('frozen trade')}
+                title={t('frozen voting')}
                 value={new BN(pcxFree.feeFrozen)}
               />
               {/* <AssetView
-                title="投票冻结"
+                title="交易冻结"
                 value="8.00000000"
                 precision={precisionData.precision}
               />

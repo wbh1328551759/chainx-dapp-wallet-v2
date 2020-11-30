@@ -152,7 +152,7 @@ export default function (): React.ReactElement {
     '#F7931B'
   ];
 
-  const power = [{ power: 57.6 }, { power: 7.0 }, { power: 15.4 }, { power: 20 }];
+  const power = [{ power: 57.6 }, { power: 20.0 }, { power: 21.3 }, { power: 1.1 }];
 
   useEffect(() => {
     if (power) {

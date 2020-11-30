@@ -6,9 +6,13 @@ import { useAccountAssets } from '@polkadot/react-hooks-chainx';
 import { useTranslation } from '@polkadot/app-accounts/translate';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import LabelHelp from '@polkadot/react-components/LabelHelp';
 
+interface FooterProps{
+  interests: number
+}
 
-export default function (): React.ReactElement {
+export default function ({interests}: FooterProps): React.ReactElement<FooterProps> {
   const { t } = useTranslation();
   const options: KeyringSectionOption[] = [];
   const [isWithDrawButton, toggleWithDrawButton] = useToggle();
@@ -51,9 +55,12 @@ export default function (): React.ReactElement {
                   defaultValue={currentAccount}
                   help={t<string>('Select the account you wish to submit the tip from.')}
                   label={t('Select the account for withdrawal')}
-                  onChange={setAccount}
+                  // onChange={setAccount}
                   labelExtra={
-                    <span>  {t('avaliable interest')} : {Number(allAssets.find((item) => item.account === currentAccount)?.XbtcInterests) / Math.pow(10, 8)} </span>
+                    <span>
+                      {'全部利息'}： {0.001023}<LabelHelp help={'111111'} />
+                      {t('avaliable interest')} : {interests? interests : 0 / Math.pow(10, 8)}
+                    </span>
                   }
                   type='account'
                   withLabel

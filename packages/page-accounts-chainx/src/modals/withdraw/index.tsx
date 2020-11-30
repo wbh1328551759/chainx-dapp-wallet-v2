@@ -45,7 +45,7 @@ function Withdraw({ account, btc, onClose }: Props): React.ReactElement<Props> {
       setAddressErrMsg('')
       setDisabled(false)
     }
-
+console.log('btc:'+JSON.stringify(btc))
   }, [withdrawAddress]);
 
   return (
