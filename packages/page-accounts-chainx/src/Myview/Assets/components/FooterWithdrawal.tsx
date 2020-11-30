@@ -1,25 +1,26 @@
-
-import { Button, InputAddress, Modal, TxButton } from '@polkadot/react-components';
-import React, { useContext, useState } from 'react';
-import { useAccounts, useToggle } from '@polkadot/react-hooks';
-import { useAccountAssets } from '@polkadot/react-hooks-chainx';
-import { useTranslation } from '@polkadot/app-accounts/translate';
-import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import {Button, InputAddress, Modal, TxButton} from '@polkadot/react-components';
+import React, {useContext, useState} from 'react';
+import {useAccounts, useToggle} from '@polkadot/react-hooks';
+import {useAccountAssets} from '@polkadot/react-hooks-chainx';
+import {useTranslation} from '@polkadot/app-accounts/translate';
+import {KeyringSectionOption} from '@polkadot/ui-keyring/options/types';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import LabelHelp from '@polkadot/react-components/LabelHelp';
+import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 
-interface FooterProps{
-  interests: number
+interface FooterProps {
+  allInterests: number | undefined,
+  usableInterests: number | undefined
 }
 
-export default function ({interests}: FooterProps): React.ReactElement<FooterProps> {
-  const { t } = useTranslation();
+export default function ({allInterests, usableInterests}: FooterProps): React.ReactElement<FooterProps> {
+  const {t} = useTranslation();
   const options: KeyringSectionOption[] = [];
   const [isWithDrawButton, toggleWithDrawButton] = useToggle();
-  const { allAccounts } = useAccounts();
-  const { allAssets } = useAccountAssets(allAccounts);
+  const {allAccounts} = useAccounts();
+  const {allAssets} = useAccountAssets(allAccounts);
   const canwithDrawAccounts: string[] = [];
-  const { currentAccount } = useContext(AccountContext);
+  const {currentAccount} = useContext(AccountContext);
   const [accountId, setAccount] = useState<string | null | undefined>();
 
   allAssets.map((item) => {
@@ -42,7 +43,7 @@ export default function ({interests}: FooterProps): React.ReactElement<FooterPro
       <Button
         icon='plus'
         label={t<string>('Withdraw interest')}
-        onClick={toggleWithDrawButton} />
+        onClick={toggleWithDrawButton}/>
       {isWithDrawButton && (
         <Modal
           header={t('Withdrawal application of interest')}
@@ -58,8 +59,9 @@ export default function ({interests}: FooterProps): React.ReactElement<FooterPro
                   // onChange={setAccount}
                   labelExtra={
                     <span>
-                      {'全部利息'}： {0.001023}<LabelHelp help={'111111'} />
-                      {t('avaliable interest')} : {interests? interests : 0 / Math.pow(10, 8)}
+                      {t('total interests')}： {allInterests ? allInterests : toPrecision(0, 8)}
+                      {/*<LabelHelp help={'111111'}/>*/}
+                      {t('avaliable interest')} : {usableInterests ? usableInterests : 0 / Math.pow(10, 8)}
                     </span>
                   }
                   type='account'

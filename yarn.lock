@@ -1480,16 +1480,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chainx-v2/api@npm:^0.0.45":
-  version: 0.0.45
-  resolution: "@chainx-v2/api@npm:0.0.45"
+"@chainx-v2/api@npm:^0.0.49":
+  version: 0.0.49
+  resolution: "@chainx-v2/api@npm:0.0.49"
   dependencies:
     "@babel/runtime": ^7.11.2
     "@chainx-v2/account": 0.0.39
     bn.js: ^5.1.3
     eventemitter3: ^4.0.7
     rxjs: ^6.6.3
-  checksum: 8e6e380bd3d47609361adc32becf0a27a8a4f62a7bb2b7e6e198e7ac0b18549eb796d4926ba89830fe0be8a4b0685921b8e2befdb1590db60a8362dd613c1526
+  checksum: 9dad324bcd877014dc51658522b608e8dfeddbad4096cc37ac362b13280d123b8be748c653db83084e9b01c826d80a778a37b1f58b4be3d69f9486713ae53fb5
   languageName: node
   linkType: hard
 
