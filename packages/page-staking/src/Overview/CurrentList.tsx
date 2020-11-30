@@ -121,8 +121,7 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
     [t('own stake')],
     [t('pots balances')],
     [t('last #')],
-    [],
-    [undefined, 'media--1200']
+    [undefined, undefined, 3]
   ]);
 
   const _renderRows = useCallback(

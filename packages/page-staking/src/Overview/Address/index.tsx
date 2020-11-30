@@ -7,15 +7,17 @@ import type { Balance, EraIndex, SlashingSpans, ValidatorPrefs } from '@polkadot
 import type { ValidatorInfo } from '../../types';
 
 import BN from 'bn.js';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { ApiPromise } from '@polkadot/api';
-import { AddressSmall, Icon, LinkExternal, Badge } from '@polkadot/react-components';
+import { AddressSmall, Icon, LinkExternal, Badge, Button } from '@polkadot/react-components';
 import { checkVisibility } from '@polkadot/react-components/util';
-import { useApi, useCall } from '@polkadot/react-hooks';
+import { useApi, useCall, useToggle } from '@polkadot/react-hooks';
 import { FormatBalance } from '@polkadot/react-query';
 import { useTranslation } from '../../translate';
 
 import Favorite from './Favorite';
+import Voter from '../../models/vote'
+import PopMenu from '../../models'
 import NominatedBy from './NominatedBy';
 import Status from './Status';
 import StakeOther from './StakeOther';
@@ -62,6 +64,7 @@ function useAddressCalls(api: ApiPromise, address: string, isMain?: boolean) {
 function Address({ address, className = '', filterName, hasQueries, isElected, isFavorite, isMain, lastBlock, nominatedBy, onlineCount, onlineMessage, points, toggleFavorite, validatorInfo, withIdentity }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const { accountInfo } = useAddressCalls(api, address, isMain);
+  const [isToggleVote, toggleVote] = useToggle();
   const { t } = useTranslation();
 
 
@@ -103,7 +106,6 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
 
       <td className='highlight--color'>
 
-
         {
           JSON.stringify(validatorInfo?.isValidating) === 'true' ? (<span>
             <Badge
@@ -126,21 +128,18 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
               {t<string>('Candidate')}
             </span>))
         }
-
-
       </td>
 
       {isMain && (
-        <td className='number media--1100'>
+        <td className='number '>
           { (
             <FormatBalance value={validatorInfo?.totalNomination} />
           )}
         </td>
       )}
 
-
       {isMain && (
-        <td className='number media--1100'>
+        <td className='number'>
           { (
             <FormatBalance value={validatorInfo?.selfBonded} />
           )}
@@ -148,7 +147,7 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
       )}
 
       {isMain && (
-        <td className='number media--1100'>
+        <td className='number'>
           { (
             <FormatBalance value={validatorInfo?.rewardPotBalance} />
           )}
@@ -163,25 +162,31 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
           </td> */}
           <td className='number'>
             {lastBlock}
+
           </td>
+
         </>
       )}
       <td>
-        {hasQueries && (
-          <Icon
-            className='highlight--color'
-            icon='chart-line'
-            onClick={_onQueryStats}
+        {isToggleVote && (
+          <Voter
+            onClose={toggleVote}
+            validatorId={validatorInfo?.account + ''}
+            onSuccess={() => { }}
           />
         )}
+        <div>
+          <Icon
+            color='orange'
+            icon='check'
+            onClick={toggleVote}
+          />
+        </div>
+
       </td>
-      <td className='links media--1200'>
-        <LinkExternal
-          data={address}
-          isLogo
-          type={isMain ? 'validator' : 'intention'}
-        />
-      </td>
+      <PopMenu validatorInfo={validatorInfo} />
+
+
     </tr>
   );
 }
