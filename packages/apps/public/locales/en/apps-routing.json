@@ -1,5 +1,6 @@
 {
   "nav.accounts": "Accounts",
+  "nav.addAccount": "Add account",
   "nav.addresses": "Address book",
   "nav.allAccounts": "All accounts",
   "nav.calendar": "Event calendar",
@@ -11,8 +12,10 @@
   "nav.extrinsics": "Extrinsics",
   "nav.generic-asset": "Generic asset",
   "nav.js": "Javascript",
+  "nav.mining": "Mining",
   "nav.parachains": "Parachains",
   "nav.poll": "Token poll",
+  "nav.restore": "Restore JSON",
   "nav.rpc": "RPC calls",
   "nav.settings": "Settings",
   "nav.signing": "Sign and verify",
@@ -23,5 +26,6 @@
   "nav.tech-comm": "Tech. comm.",
   "nav.trade": "DEX",
   "nav.transfer": "Transfer",
-  "nav.treasury": "Treasury"
+  "nav.treasury": "Treasury",
+  "nav.trust": "Trustee"
 }

@@ -16,13 +16,12 @@ import { isJSON } from './utils'
 
 import basicMd from './md/basic.md';
 import Overview from './Overview';
-
+import UserNomination from './userNominatoin'
 import Query from './Query';
 import Summary from './Overview/Summary';
 
 import { STORE_FAVS_BASE } from './constants';
 import { useTranslation } from './translate';
-import useSortedTargets from './useSortedTargets';
 
 const HIDDEN_ACC = ['actions', 'payout'];
 
@@ -79,6 +78,10 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
       hasParams: true,
       name: 'query',
       text: t<string>('Validator stats')
+    },
+    {
+      name: 'nomination',
+      text: t<string>('My Staking')
     }
   ], []);
 
@@ -103,6 +106,12 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
         stakingOverview={stakingOverview}
       />
       <Switch>
+        <Route path={`${basePath}/nomination`}>
+          <UserNomination
+            basePath={basePath}
+            onStatusChange={() => { }}
+          />
+        </Route>
         <Route path={[`${basePath}/query/:value`, `${basePath}/query`]}>
           <Query />
         </Route>
@@ -120,6 +129,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
     </main>
   );
 }
+
 
 export default React.memo(styled(StakingApp)(({ theme }: ThemeProps) => `
   .staking--hidden {
