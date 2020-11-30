@@ -33,9 +33,11 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
   const { hasAccounts, allAccounts } = useAccounts();
   const { pathname } = useLocation();
   const [favorites, toggleFavorite] = useFavorites(STORE_FAVS_BASE);
-  const targets = useSortedTargets(favorites);
+
   const validators = useCall<string>(api.rpc.xstaking.getValidators);
   let validatorInfoList: ValidatorInfo[] = JSON.parse(isJSON(validators) ? validators : '[]');
+
+  const targets = validatorInfoList;
 
   const stakingOverview = {
     validators: validatorInfoList.map(item => item.account),

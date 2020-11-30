@@ -176,7 +176,7 @@ export default function useSortedTargets(favorites: string[]): SortedTargets {
   //const electedInfo = useCall<DeriveStakingElected>(api.derive.staking.electedInfo);
   //const waitingInfo = useCall<DeriveStakingWaiting>(api.derive.staking.waitingInfo);
   const lastEra = useCall<BN>(api.derive.session.indexes, undefined, transformEra);
-  const lastReward = new BN(1);// useCall<BN>(lastEra && api.query.staking.erasValidatorReward, [lastEra], transformReward);
+  const lastReward = new BN(0);// useCall<BN>(lastEra && api.query.staking.erasValidatorReward, [lastEra], transformReward);
   const [calcWith, setCalcWith] = useState<BN | undefined>(baseBalance());
   const calcWithDebounce = useDebounce(calcWith);
 

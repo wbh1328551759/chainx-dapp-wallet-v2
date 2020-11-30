@@ -23,7 +23,7 @@ interface Props {
   next?: string[];
   setNominators?: (nominators: string[]) => void;
   stakingOverview?: DeriveStakingOverview;
-  targets: SortedTargets;
+  targets: ValidatorInfo[];
   toggleFavorite: (address: string) => void;
 }
 
@@ -109,15 +109,6 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
     [favorites, next, stakingOverview]
   );
 
-  const infoMap = useMemo(
-    () => (targets?.validators || []).reduce((result: Record<string, ValidatorInfo>, info): Record<string, ValidatorInfo> => {
-      result[info.accountId.toString()] = info;
-
-      return result;
-    }, {}),
-    [targets]
-  );
-
   const nominatedBy = useMemo(
     () => nominators ? extractNominators(nominators) : null,
     [nominators]
@@ -126,9 +117,8 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
   const headerActiveRef = useRef([
     [t('validators'), 'start', 2],
     [t('other stake'), 'expand'],
-    [t('own stake'), 'media--1100'],
-    [t('commission')],
-    [t('points')],
+    [t('own stake')],
+    [t('pots balances')],
     [t('last #')],
     [],
     [undefined, 'media--1200']
@@ -151,11 +141,11 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
           onlineMessage={recentlyOnline?.[address]?.hasMessage}
           points={eraPoints[address]}
           toggleFavorite={toggleFavorite}
-          validatorInfo={infoMap[address]}
+          validatorInfo={targets.find(item => item.account === address)}
           withIdentity={withIdentity}
         />
       )),
-    [byAuthor, eraPoints, hasQueries, infoMap, nameFilter, nominatedBy, recentlyOnline, toggleFavorite, withIdentity]
+    [byAuthor, eraPoints, hasQueries, targets, nameFilter, nominatedBy, recentlyOnline, toggleFavorite, withIdentity]
   );
 
   return (

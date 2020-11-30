@@ -45,35 +45,12 @@ interface StakingState {
   stakeOwn?: BN;
 }
 
-function expandInfo ({ exposure, validatorPrefs }: ValidatorInfo): StakingState {
-  let nominators: [string, Balance][] = [];
-  let stakeTotal: BN | undefined;
-  let stakeOther: BN | undefined;
-  let stakeOwn: BN | undefined;
-
-  if (exposure) {
-    nominators = exposure.others.map(({ value, who }): [string, Balance] => [who.toString(), value.unwrap()]);
-    stakeTotal = exposure.total.unwrap();
-    stakeOwn = exposure.own.unwrap();
-    stakeOther = stakeTotal.sub(stakeOwn);
-  }
-
-  const commission = (validatorPrefs as ValidatorPrefs)?.commission?.unwrap();
-
-  return {
-    commission: commission?.toHuman(),
-    nominators,
-    stakeOther,
-    stakeOwn,
-    stakeTotal
-  };
-}
 
 const transformSlashes = {
   transform: (opt: Option<SlashingSpans>) => opt.unwrapOr(null)
 };
 
-function useAddressCalls (api: ApiPromise, address: string, isMain?: boolean) {
+function useAddressCalls(api: ApiPromise, address: string, isMain?: boolean) {
   const params = useMemo(() => [address], [address]);
   const accountInfo = useCall<DeriveAccountInfo>(api.derive.accounts.info, params);
   const slashingSpans = useCall<SlashingSpans | null>(!isMain && api.query.staking.slashingSpans, params, transformSlashes);
@@ -81,14 +58,10 @@ function useAddressCalls (api: ApiPromise, address: string, isMain?: boolean) {
   return { accountInfo, slashingSpans };
 }
 
-function Address ({ address, className = '', filterName, hasQueries, isElected, isFavorite, isMain, lastBlock, nominatedBy, onlineCount, onlineMessage, points, toggleFavorite, validatorInfo, withIdentity }: Props): React.ReactElement<Props> | null {
+function Address({ address, className = '', filterName, hasQueries, isElected, isFavorite, isMain, lastBlock, nominatedBy, onlineCount, onlineMessage, points, toggleFavorite, validatorInfo, withIdentity }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
-  const { accountInfo, slashingSpans } = useAddressCalls(api, address, isMain);
+  const { accountInfo } = useAddressCalls(api, address, isMain);
 
-  const { commission, nominators, stakeOther, stakeOwn } = useMemo(
-    () => validatorInfo ? expandInfo(validatorInfo) : { nominators: [] },
-    [validatorInfo]
-  );
 
   const isVisible = useMemo(
     () => accountInfo ? checkVisibility(api, address, accountInfo, filterName, withIdentity) : true,
@@ -114,46 +87,49 @@ function Address ({ address, className = '', filterName, hasQueries, isElected, 
           isFavorite={isFavorite}
           toggleFavorite={toggleFavorite}
         />
-        <Status
+        {/* <Status
           isElected={isElected}
           isMain={isMain}
           nominators={nominatedBy || nominators}
           onlineCount={onlineCount}
           onlineMessage={onlineMessage}
-        />
+        /> */}
       </td>
       <td className='address'>
         <AddressSmall value={address} />
       </td>
-      {isMain
-        ? (
-          <StakeOther
-            nominators={nominators}
-            stakeOther={stakeOther}
-          />
-        )
-        : (
-          <NominatedBy
-            nominators={nominatedBy}
-            slashingSpans={slashingSpans}
-          />
-        )
-      }
+
       {isMain && (
         <td className='number media--1100'>
-          {stakeOwn?.gtn(0) && (
-            <FormatBalance value={stakeOwn} />
+          { (
+            <FormatBalance value={validatorInfo?.totalNomination} />
           )}
         </td>
       )}
-      <td className='number'>
-        {commission}
-      </td>
+
+
+      {isMain && (
+        <td className='number media--1100'>
+          { (
+            <FormatBalance value={validatorInfo?.selfBonded} />
+          )}
+        </td>
+      )}
+
+      {isMain && (
+        <td className='number media--1100'>
+          { (
+            <FormatBalance value={validatorInfo?.rewardPotBalance} />
+          )}
+        </td>
+      )}
+
+
       {isMain && (
         <>
-          <td className='number'>
+          {/* <td className='number'>
             {points}
-          </td>
+          </td> */}
           <td className='number'>
             {lastBlock}
           </td>

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { DeriveStakingOverview } from '@polkadot/api-derive/types';
-import type { SortedTargets } from '../types';
+import type { ValidatorInfo } from '../types';
 
 import React from 'react';
 
@@ -15,11 +15,11 @@ interface Props {
   isIntentions?: boolean;
   next?: string[];
   stakingOverview?: DeriveStakingOverview;
-  targets: SortedTargets;
+  targets: ValidatorInfo[];
   toggleFavorite: (address: string) => void;
 }
 
-function Overview ({ className = '', favorites, hasQueries, isIntentions, next, stakingOverview, targets, toggleFavorite }: Props): React.ReactElement<Props> {
+function Overview({ className = '', favorites, hasQueries, isIntentions, next, stakingOverview, targets, toggleFavorite }: Props): React.ReactElement<Props> {
   return (
     <div className={`staking--Overview ${className}`}>
       <CurrentList
