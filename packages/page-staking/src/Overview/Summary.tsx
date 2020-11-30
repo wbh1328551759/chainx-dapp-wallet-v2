@@ -19,7 +19,7 @@ interface Props {
   stakingOverview?: DeriveStakingOverview;
 }
 
-function Summary ({ className = '', isVisible, next, nominators, stakingOverview }: Props): React.ReactElement<Props> {
+function Summary({ className = '', isVisible, next, nominators, stakingOverview }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { lastBlockAuthors, lastBlockNumber } = useContext(BlockAuthorsContext);
 
@@ -28,25 +28,10 @@ function Summary ({ className = '', isVisible, next, nominators, stakingOverview
       <section>
         {stakingOverview && (
           <CardSummary label={t<string>('validators')}>
-            {stakingOverview.validators.length}&nbsp;/&nbsp;{stakingOverview.validatorCount.toString()}
+            {stakingOverview.validatorCount.toString()} &nbsp;/&nbsp; {stakingOverview.validators.length}
           </CardSummary>
         )}
-        {!!next?.length && (
-          <CardSummary
-            className='media--1000'
-            label={t<string>('waiting')}
-          >
-            {next.length}
-          </CardSummary>
-        )}
-        {!!nominators?.length && (
-          <CardSummary
-            className='media--1100'
-            label={t<string>('nominators')}
-          >
-            {nominators.length}
-          </CardSummary>
-        )}
+
       </section>
       <section>
         <CardSummary

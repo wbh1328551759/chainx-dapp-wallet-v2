@@ -38,28 +38,48 @@ interface ValidatorInfoRank {
   rankReward: number;
 }
 
-export interface ValidatorInfo extends ValidatorInfoRank {
-  accountId: AccountId;
-  bondOther: BN;
-  bondOwn: Balance;
-  bondShare: number;
-  bondTotal: Balance;
-  commissionPer: number;
-  exposure: Exposure;
-  hasIdentity: boolean;
-  isActive: boolean;
-  isCommission: boolean;
-  isElected: boolean;
-  isFavorite: boolean;
-  isNominating: boolean;
-  key: string;
-  numNominators: number;
-  parentId: string | null;
-  rewardPayout: BN;
-  rewardSplit: BN;
-  validatorPayment: BN;
-  validatorPrefs?: ValidatorPrefs | ValidatorPrefsTo196;
+
+export interface ValidatorInfo {
+  account: string,
+  registeredAt: string,
+  isChilled: boolean,
+  totalNomination: string,
+  lastTotalVoteWeight: string,
+  lastTotalVoteWeightUpdate: string,
+  isValidating: boolean,
+  referralId: string,
+  selfBonded: string,
+  rewardPotAccount: string,
+  rewardPotBalance: number
 }
+
+export interface UserNominationInfo {
+  account: string,
+  vote: string,
+  interest: string,
+}
+// export interface ValidatorInfo extends ValidatorInfoRank {
+//   accountId: AccountId;
+//   bondOther: BN;
+//   bondOwn: Balance;
+//   bondShare: number;
+//   bondTotal: Balance;
+//   commissionPer: number;
+//   exposure: Exposure;
+//   hasIdentity: boolean;
+//   isActive: boolean;
+//   isCommission: boolean;
+//   isElected: boolean;
+//   isFavorite: boolean;
+//   isNominating: boolean;
+//   key: string;
+//   numNominators: number;
+//   parentId: string | null;
+//   rewardPayout: BN;
+//   rewardSplit: BN;
+//   validatorPayment: BN;
+//   validatorPrefs?: ValidatorPrefs | ValidatorPrefsTo196;
+// }
 
 export type TargetSortBy = keyof ValidatorInfoRank;
 

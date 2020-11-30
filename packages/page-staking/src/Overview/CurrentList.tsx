@@ -37,7 +37,7 @@ interface Filtered {
 
 const EmptyAuthorsContext: React.Context<Authors> = React.createContext<Authors>({ byAuthor: {}, eraPoints: {}, lastBlockAuthors: [], lastHeaders: [] });
 
-function filterAccounts (accounts: string[] = [], elected: string[], favorites: string[], without: string[]): AccountExtend[] {
+function filterAccounts(accounts: string[] = [], elected: string[], favorites: string[], without: string[]): AccountExtend[] {
   return accounts
     .filter((accountId): boolean => !without.includes(accountId as any))
     .map((accountId): AccountExtend => [
@@ -45,20 +45,20 @@ function filterAccounts (accounts: string[] = [], elected: string[], favorites: 
       elected.includes(accountId),
       favorites.includes(accountId)
     ])
-    .sort(([,, isFavA]: AccountExtend, [,, isFavB]: AccountExtend): number =>
+    .sort(([, , isFavA]: AccountExtend, [, , isFavB]: AccountExtend): number =>
       isFavA === isFavB
         ? 0
         : (isFavA ? -1 : 1)
     );
 }
 
-function accountsToString (accounts: AccountId[]): string[] {
-  return accounts.map((accountId): string => accountId.toString());
-}
 
-function getFiltered (stakingOverview: DeriveStakingOverview, favorites: string[], next?: string[]): Filtered {
-  const allElected = accountsToString(stakingOverview.nextElected);
-  const validatorIds = accountsToString(stakingOverview.validators);
+
+function getFiltered(stakingOverview: DeriveStakingOverview, favorites: string[], next?: string[]): Filtered {
+  const allElected = [""]
+  //accountsToString(stakingOverview.nextElected);
+  const validatorIds: string[] = stakingOverview.validators
+  //accountsToString(stakingOverview.validators);
   const validators = filterAccounts(validatorIds, allElected, favorites, []);
   const elected = filterAccounts(allElected, allElected, favorites, validatorIds);
   const waiting = filterAccounts(next, [], favorites, allElected);
@@ -70,7 +70,7 @@ function getFiltered (stakingOverview: DeriveStakingOverview, favorites: string[
   };
 }
 
-function extractNominators (nominations: [StorageKey, Option<Nominations>][]): Record<string, [string, EraIndex, number][]> {
+function extractNominators(nominations: [StorageKey, Option<Nominations>][]): Record<string, [string, EraIndex, number][]> {
   return nominations.reduce((mapped: Record<string, [string, EraIndex, number][]>, [key, optNoms]) => {
     if (optNoms.isSome && key.args.length) {
       const nominatorId = key.args[0].toString();
@@ -92,7 +92,7 @@ function extractNominators (nominations: [StorageKey, Option<Nominations>][]): R
   }, {});
 }
 
-function CurrentList ({ favorites, hasQueries, isIntentions, next, stakingOverview, targets, toggleFavorite }: Props): React.ReactElement<Props> | null {
+function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOverview, targets, toggleFavorite }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { api } = useApi();
   const { byAuthor, eraPoints } = useContext(isIntentions ? EmptyAuthorsContext : BlockAuthorsContext);
@@ -122,14 +122,6 @@ function CurrentList ({ favorites, hasQueries, isIntentions, next, stakingOvervi
     () => nominators ? extractNominators(nominators) : null,
     [nominators]
   );
-
-  const headerWaitingRef = useRef([
-    [t('intentions'), 'start', 2],
-    [t('nominators'), 'expand'],
-    [t('commission'), 'number'],
-    [],
-    []
-  ]);
 
   const headerActiveRef = useRef([
     [t('validators'), 'start', 2],
@@ -166,39 +158,21 @@ function CurrentList ({ favorites, hasQueries, isIntentions, next, stakingOvervi
     [byAuthor, eraPoints, hasQueries, infoMap, nameFilter, nominatedBy, recentlyOnline, toggleFavorite, withIdentity]
   );
 
-  return isIntentions
-    ? (
-      <Table
-        empty={!isLoading && waiting && t<string>('No waiting validators found')}
-        filter={
-          <Filtering
-            nameFilter={nameFilter}
-            setNameFilter={setNameFilter}
-            setWithIdentity={setWithIdentity}
-            withIdentity={withIdentity}
-          />
-        }
-        header={headerWaitingRef.current}
-      >
-        {isLoading ? undefined : _renderRows(elected, false).concat(_renderRows(waiting, false))}
-      </Table>
-    )
-    : (
-      <Table
-        empty={!isLoading && validators && t<string>('No active validators found')}
-        filter={
-          <Filtering
-            nameFilter={nameFilter}
-            setNameFilter={setNameFilter}
-            setWithIdentity={setWithIdentity}
-            withIdentity={withIdentity}
-          />
-        }
-        header={headerActiveRef.current}
-      >
-        {isLoading ? undefined : _renderRows(validators, true)}
-      </Table>
-    );
+  return (
+    <Table
+      empty={!isLoading && validators && t<string>('No active validators found')}
+      filter={
+        <Filtering
+          nameFilter={nameFilter}
+          setNameFilter={setNameFilter}
+          setWithIdentity={setWithIdentity}
+          withIdentity={withIdentity}
+        />
+      }
+      header={headerActiveRef.current}
+    >
+      {isLoading ? undefined : _renderRows(validators, true)}
+    </Table>)
 }
 
 export default React.memo(CurrentList);

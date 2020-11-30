@@ -15,11 +15,11 @@ import { BN_ONE, BN_ZERO, formatBalance } from '@polkadot/util';
 const PERBILL = new BN(1_000_000_000);
 const EMPTY_PARTIAL = {};
 
-function baseBalance (): BN {
+function baseBalance(): BN {
   return new BN('1'.padEnd(formatBalance.getDefaults().decimals + 4, '0'));
 }
 
-function mapIndex (mapBy: TargetSortBy): (info: ValidatorInfo, index: number) => ValidatorInfo {
+function mapIndex(mapBy: TargetSortBy): (info: ValidatorInfo, index: number) => ValidatorInfo {
   return (info, index): ValidatorInfo => {
     info[mapBy] = index + 1;
 
@@ -27,11 +27,11 @@ function mapIndex (mapBy: TargetSortBy): (info: ValidatorInfo, index: number) =>
   };
 }
 
-function isWaitingDerive (derive: DeriveStakingElected | DeriveStakingWaiting): derive is DeriveStakingWaiting {
+function isWaitingDerive(derive: DeriveStakingElected | DeriveStakingWaiting): derive is DeriveStakingWaiting {
   return !(derive as DeriveStakingElected).nextElected;
 }
 
-function sortValidators (list: ValidatorInfo[]): ValidatorInfo[] {
+function sortValidators(list: ValidatorInfo[]): ValidatorInfo[] {
   const existing: string[] = [];
 
   return list
@@ -80,7 +80,7 @@ function sortValidators (list: ValidatorInfo[]): ValidatorInfo[] {
     );
 }
 
-function extractSingle (allAccounts: string[], amount: BN = baseBalance(), derive: DeriveStakingElected | DeriveStakingWaiting, favorites: string[], perValidatorReward: BN): [ValidatorInfo[], string[]] {
+function extractSingle(allAccounts: string[], amount: BN = baseBalance(), derive: DeriveStakingElected | DeriveStakingWaiting, favorites: string[], perValidatorReward: BN): [ValidatorInfo[], string[]] {
   const nominators: Record<string, boolean> = {};
   const emptyExposure = registry.createType('Exposure');
   const info = derive.info;
@@ -146,7 +146,7 @@ function extractSingle (allAccounts: string[], amount: BN = baseBalance(), deriv
   return [list, Object.keys(nominators)];
 }
 
-function extractInfo (allAccounts: string[], amount: BN = baseBalance(), electedDerive: DeriveStakingElected, waitingDerive: DeriveStakingWaiting, favorites: string[], lastReward = BN_ONE): Partial<SortedTargets> {
+function extractInfo(allAccounts: string[], amount: BN = baseBalance(), electedDerive: DeriveStakingElected, waitingDerive: DeriveStakingWaiting, favorites: string[], lastReward = BN_ONE): Partial<SortedTargets> {
   const perValidatorReward = lastReward.divn(electedDerive.info.length);
   const [elected, nominators] = extractSingle(allAccounts, amount, electedDerive, favorites, perValidatorReward);
   const [waiting] = extractSingle(allAccounts, amount, waitingDerive, favorites, perValidatorReward);
@@ -170,21 +170,19 @@ const transformReward = {
   transform: (optBalance: Option<Balance>) => optBalance.unwrapOrDefault()
 };
 
-export default function useSortedTargets (favorites: string[]): SortedTargets {
+export default function useSortedTargets(favorites: string[]): SortedTargets {
   const { api } = useApi();
   const { allAccounts } = useAccounts();
-  const electedInfo = useCall<DeriveStakingElected>(api.derive.staking.electedInfo);
-  const waitingInfo = useCall<DeriveStakingWaiting>(api.derive.staking.waitingInfo);
+  //const electedInfo = useCall<DeriveStakingElected>(api.derive.staking.electedInfo);
+  //const waitingInfo = useCall<DeriveStakingWaiting>(api.derive.staking.waitingInfo);
   const lastEra = useCall<BN>(api.derive.session.indexes, undefined, transformEra);
-  const lastReward = useCall<BN>(lastEra && api.query.staking.erasValidatorReward, [lastEra], transformReward);
+  const lastReward = new BN(1);// useCall<BN>(lastEra && api.query.staking.erasValidatorReward, [lastEra], transformReward);
   const [calcWith, setCalcWith] = useState<BN | undefined>(baseBalance());
   const calcWithDebounce = useDebounce(calcWith);
 
   const partial = useMemo(
-    () => electedInfo && waitingInfo
-      ? extractInfo(allAccounts, calcWithDebounce, electedInfo, waitingInfo, favorites, lastReward)
-      : EMPTY_PARTIAL,
-    [allAccounts, calcWithDebounce, electedInfo, favorites, lastReward, waitingInfo]
+    () => Object,
+    [allAccounts, calcWithDebounce, {}, favorites, lastReward, {}]
   );
 
   return { ...partial, calcWith, lastReward, setCalcWith };
