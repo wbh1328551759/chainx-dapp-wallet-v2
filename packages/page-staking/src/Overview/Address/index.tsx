@@ -9,7 +9,7 @@ import type { ValidatorInfo } from '../../types';
 import BN from 'bn.js';
 import React, { useCallback, useMemo } from 'react';
 import { ApiPromise } from '@polkadot/api';
-import { AddressSmall, Icon, LinkExternal } from '@polkadot/react-components';
+import { AddressSmall, Icon, LinkExternal, Badge } from '@polkadot/react-components';
 import { checkVisibility } from '@polkadot/react-components/util';
 import { useApi, useCall } from '@polkadot/react-hooks';
 import { FormatBalance } from '@polkadot/react-query';
@@ -102,10 +102,31 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
       </td>
 
       <td className='highlight--color'>
+
+
         {
-          JSON.stringify(validatorInfo?.isValidating) === 'true' ? t<string>('Validator') :
-            (JSON.stringify(validatorInfo?.isChilled) === 'true' ? t<string>('Drop Out') : t<string>('Candidate'))
+          JSON.stringify(validatorInfo?.isValidating) === 'true' ? (<span>
+            <Badge
+              color='green'
+              icon='chevron-right'
+            />
+            {t<string>('Validator')}
+          </span>) :
+            (JSON.stringify(validatorInfo?.isChilled) === 'true' ? (<span>
+              <Badge
+                color='red'
+                icon='chevron-right'
+              />
+              {t<string>('Drop Out')}
+            </span>) : (<span>
+              <Badge
+                color='blue'
+                icon='chevron-right'
+              />
+              {t<string>('Candidate')}
+            </span>))
         }
+
 
       </td>
 
