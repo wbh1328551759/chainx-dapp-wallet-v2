@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-function Ledgend ({ className }: Props): React.ReactElement<Props> {
+function Ledgend({ className }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
@@ -44,7 +44,7 @@ function Ledgend ({ className }: Props): React.ReactElement<Props> {
         />
         {t('Nominating')}
       </span>
-      <span>
+      {/* <span>
         <Badge
           color='red'
           icon='balance-scale-right'
@@ -57,7 +57,7 @@ function Ledgend ({ className }: Props): React.ReactElement<Props> {
           icon='skull-crossbones'
         />
         {t('Slashed')}
-      </span>
+      </span> */}
     </div>
   );
 }
