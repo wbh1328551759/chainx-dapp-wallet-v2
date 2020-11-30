@@ -7,6 +7,7 @@ import { u8aToHex } from '@polkadot/util';
 import ClipBoard from './ClipBoard';
 import infoIcon from './explan.svg';
 import { useTranslation } from '../../translate';
+import {useApi} from '@polkadot/react-hooks';
 
 const StyledDialog = styled(Dialog)`
   main.content {
@@ -123,10 +124,20 @@ export default function ({ address, onClose }: Props) {
   // const [checked, setChecked] = useState(false)
   const { t } = useTranslation();
   const [channel, setChannel] = useState('');
+  const { api } = useApi();
+  const [hotAddress, setHotAddress] = useState<string>('')
   const addressHex = u8aToHex(
-    new TextEncoder().encode(`${address}${channel ? '@' + channel : ''}`)
-  ).replace(/^0x/, '');
+    new TextEncoder('utf-8').encode(`${address}${channel ? '@' + channel : ''}`)
+  ).replace(/^0x/, '')
 
+  useEffect((): void => {
+    async function getHotAddress() {
+      const dividendRes = await api.rpc.xgatewaycommon.bitcoinTrusteeSessionInfo();
+      setHotAddress(dividendRes.hotAddress.addr)
+    }
+
+    getHotAddress();
+  }, []);
   return (
     <StyledDialog
       handleClose={onClose}
@@ -181,7 +192,7 @@ export default function ({ address, onClose }: Props) {
           <h3 style={{ marginBottom: 0 }}>
             <span className='title'>{t('Trust hot multi-signature address')}</span>
             <ClipBoard className={'addr'}
-              id=''>2N5QAjp4oaUbJCQqhsMiwSK1oYGJNUnAgqM</ClipBoard>
+              id=''>{hotAddress}</ClipBoard>
           </h3>
         </section>
 

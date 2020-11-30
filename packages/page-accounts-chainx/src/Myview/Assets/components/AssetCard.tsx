@@ -43,12 +43,12 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
   const aaa = useCall<string>(api.rpc.xminingasset.getDividendByAccount, ['5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB'])
 
   useEffect(() => {
-   console.log('x:'+JSON.stringify(x))
-   console.log(JSON.stringify(x))
-   console.log(x)
-    console.log('aaa:'+JSON.stringify(aaa))
-    console.log(JSON.stringify(aaa))
-    console.log(aaa)
+   // console.log('x:'+JSON.stringify(x))
+   // console.log(JSON.stringify(x))
+   // console.log(x)
+   //  console.log('aaa:'+JSON.stringify(aaa))
+   //  console.log(JSON.stringify(aaa))
+   //  console.log(aaa)
  })
 
   useEffect((): void => {
@@ -60,12 +60,12 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       Object.keys(userDividend).forEach((key: string) => {
         currentDividend = userDividend[key];
       });
-      // setInterests(Number(currentDividend) / Math.pow(10, 8));
-      setInterests(dividendRes[1])
+      setInterests(Number(currentDividend) / Math.pow(10, 8));
+      // setInterests(dividendRes[1])
     }
 
     getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
-  }, [currentAccount,interests]);
+  }, [currentAccount]);
 
   return (
     <Card>
