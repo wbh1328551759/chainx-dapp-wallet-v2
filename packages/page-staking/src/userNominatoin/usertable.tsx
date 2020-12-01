@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { AddressMini, Button } from '@polkadot/react-components';
+import { AccountName } from '@polkadot/react-components-chainx';
 import Vote from './vote';
 import { useToggle } from '@polkadot/react-hooks';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
@@ -55,7 +56,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
   return (
     <tr>
       <td>
-        <AddressMini
+        <AccountName
           key={nomination?.validatorId}
           value={nomination?.validatorId}
           withLockedVote

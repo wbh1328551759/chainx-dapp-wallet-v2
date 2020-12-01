@@ -11,10 +11,12 @@ import styled from 'styled-components';
 import registry from '@polkadot/react-api/typeRegistry';
 import { AccountSidebarToggle } from '@polkadot/app-accounts/Sidebar';
 import { useCall, useApi } from '@polkadot/react-hooks';
+import { useReadChainStorage } from '@polkadot/react-hooks-chainx';
 import { isFunction, stringToU8a } from '@polkadot/util';
 
-import { getAddressName } from './util';
-import Badge from './Badge';
+import { getAddressName } from '@polkadot/react-components/util';
+import { isJSON } from './utils'
+import Badge from '@polkadot/react-components/Badge';
 
 interface Props {
   children?: React.ReactNode;
@@ -136,6 +138,9 @@ function AccountName({ children, className = '', defaultName, label, onClick, ov
   const [name, setName] = useState<React.ReactNode>(() => extractName((value || '').toString(), undefined, defaultName));
   const toggleSidebar = useContext(AccountSidebarToggle);
 
+  const validatorData: string = useReadChainStorage('xStaking', 'validators', value);
+
+
   // set the actual nickname, local name, accountIndex, accountId
   useEffect((): void => {
     const { accountId, accountIndex, identity, nickname } = info || {};
@@ -156,7 +161,11 @@ function AccountName({ children, className = '', defaultName, label, onClick, ov
     } else {
       setName(defaultOrAddr(defaultName, cacheAddr, accountIndex));
     }
-  }, [api, defaultName, info, toggle, value]);
+    if (isJSON(validatorData)) {
+      setName(`${JSON.parse(validatorData).referralId}`);
+    }
+
+  }, [api, defaultName, info, toggle, value, validatorData]);
 
   const _onNameEdit = useCallback(
     () => setName(defaultOrAddr(defaultName, (value || '').toString())),
