@@ -3,7 +3,7 @@ import Card from './CardWrapper';
 import Logo from './Logo';
 import styled from 'styled-components';
 import {useTranslation} from '@polkadot/app-accounts/translate';
-import {useApi, useCall} from '@polkadot/react-hooks';
+import {useApi} from '@polkadot/react-hooks';
 import FooterWithdrawal from '@polkadot/app-accounts-chainx/Myview/Assets/components/FooterWithdrawal';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
@@ -42,7 +42,6 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
   const [usableInterests, setUsableInterests] = useState<number>();
   const {currentAccount} = useContext(AccountContext);
 
-
   useEffect((): void => {
     async function getDividend(account: string) {
       const dividendRes = await api.rpc.xminingasset.getDividendByAccount(account);
@@ -51,15 +50,16 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       Object.keys(userDividend).forEach((key: string) => {
         currentDividend = userDividend[key];
       });
-      const bgOwnInterests = new BigNumber(toPrecision(currentDividend.own, 4));
-      const bgOtherInterests = new BigNumber(toPrecision(currentDividend.other, 4));
+      const bgOwnInterests = new BigNumber(toPrecision(currentDividend.own, 8));
+      const bgOtherInterests = new BigNumber(toPrecision(currentDividend.other, 8));
       const bgAllInterests = bgOwnInterests.toNumber() + bgOtherInterests.toNumber();
 
-      setAllInterests(bgAllInterests);
-      setUsableInterests(bgOwnInterests.toNumber());
+      setAllInterests(+bgAllInterests.toFixed(4));
+      setUsableInterests(+bgOwnInterests.toNumber().toFixed(4));
     }
 
     getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
+    // getDividend(currentAccount)
   });
   return (
     <Card>

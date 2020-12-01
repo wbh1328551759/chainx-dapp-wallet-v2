@@ -7,11 +7,19 @@ import {KeyringSectionOption} from '@polkadot/ui-keyring/options/types';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import LabelHelp from '@polkadot/react-components/LabelHelp';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
+import styled from 'styled-components';
 
 interface FooterProps {
   allInterests: number | undefined,
   usableInterests: number | undefined
 }
+
+const ActionsButton = styled(Modal.Actions)`
+  display: flex;
+  > button{
+    width: 105px;
+  }
+`
 
 export default function ({allInterests, usableInterests}: FooterProps): React.ReactElement<FooterProps> {
   const {t} = useTranslation();
@@ -72,7 +80,7 @@ export default function ({allInterests, usableInterests}: FooterProps): React.Re
                   {t('avaliable interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
                 </span>
               </Modal.Column>
-              <Modal.Actions onCancel={toggleWithDrawButton}>
+              <ActionsButton onCancel={toggleWithDrawButton}>
                 <TxButton
                   accountId={accountId}
                   icon='plus'
@@ -80,7 +88,7 @@ export default function ({allInterests, usableInterests}: FooterProps): React.Re
                   params={[1]}
                   tx='xMiningAsset.claim'
                 />
-              </Modal.Actions>
+              </ActionsButton>
             </Modal.Columns>
           </Modal.Content>
         </Modal>)
