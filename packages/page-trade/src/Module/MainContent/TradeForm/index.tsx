@@ -14,12 +14,10 @@ export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactE
   const currentAccount = useContext(AccountContext);
   const [currentAccountInfo, setCurrentAccountInfo] = useState<AssetsInfo>();
 
+  console.log('currentAccount:'+JSON.stringify(currentAccount))
   useEffect((): void => {
     async function getAssets(account: string): Promise<any> {
       const res = await api.api.rpc.xassets.getAssetsByAccount(account);
-      console.log('------')
-      console.log('res')
-      console.log(res)
       let current: AssetsInfo = {
         Locked: "0",
         Reserved: "0",
@@ -31,8 +29,6 @@ export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactE
       Object.keys(userAssets).forEach((key: string) => {
         current = userAssets[key] as AssetsInfo;
       });
-      console.log('current')
-      console.log(current)
       if (JSON.stringify(current) === "{}") {
         current = {
           Locked: "0",
@@ -50,11 +46,9 @@ export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactE
       setCurrentAccountInfo(current)
 
     }
-    getAssets('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB')
-    console.log('currentAccountInfo')
-    console.log(currentAccountInfo)
-    // getAssets(currentAccount.currentAccount)
-  }, [])
+    // getAssets('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB')
+    getAssets(currentAccount.currentAccount)
+  }, [currentAccount])
 
   return (
     <Wrapper>
