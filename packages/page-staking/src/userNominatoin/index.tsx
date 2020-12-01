@@ -10,9 +10,11 @@ import { useTranslation } from '../translate';
 import { Nomination, UserNominations, Dividended, UserInterest } from '@polkadot/react-hooks-chainx/types';
 
 import UserTable from './usertable';
+import { ValidatorInfo } from '../types';
 
 interface Props {
   account: KeyringAddress;
+  validatorInfoList: ValidatorInfo[];
   className?: string;
 }
 
@@ -23,7 +25,7 @@ const Wrapper = styled.div`
   height:100px;
 `;
 
-function UserNomination({ className = '' }: Props): React.ReactElement<Props> | null {
+function UserNomination({ className = '', validatorInfoList }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { currentAccount } = useContext(AccountContext);
   const { api } = useApi();
@@ -114,6 +116,7 @@ function UserNomination({ className = '' }: Props): React.ReactElement<Props> | 
                 return <UserTable
                   accountId={currentAccount}
                   nomination={state.allNominations[index]}
+                  validatorInfoList={validatorInfoList}
                   userInterest={userInterest?.interests?.find(item => item.validator === state.allNominations[index].validatorId)?.interest}
                   onStausChange={async (status) => {
                     setLoading(false)

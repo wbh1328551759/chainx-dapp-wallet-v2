@@ -109,6 +109,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
         <Route path={`${basePath}/nomination`}>
           <UserNomination
             basePath={basePath}
+            validatorInfoList={validatorInfoList}
             onStatusChange={() => { }}
           />
         </Route>
