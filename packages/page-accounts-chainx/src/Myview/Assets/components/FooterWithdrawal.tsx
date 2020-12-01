@@ -59,14 +59,18 @@ export default function ({allInterests, usableInterests}: FooterProps): React.Re
                   // onChange={setAccount}
                   labelExtra={
                     <span>
-                      {t('total interests')}： {allInterests ? allInterests : toPrecision(0, 8)}
+                      {t('total interests')}： {allInterests ? allInterests : toPrecision(0, 4)}
                       {/*<LabelHelp help={'111111'}/>*/}
-                      {t('avaliable interest')} : {usableInterests ? usableInterests : 0 / Math.pow(10, 8)}
                     </span>
                   }
                   type='account'
                   withLabel
                 />
+              </Modal.Column>
+              <Modal.Column>
+                <span>
+                  {t('avaliable interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
+                </span>
               </Modal.Column>
               <Modal.Actions onCancel={toggleWithDrawButton}>
                 <TxButton

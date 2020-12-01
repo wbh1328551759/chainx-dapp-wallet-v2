@@ -45,14 +45,14 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
 
   useEffect((): void => {
     async function getDividend(account: string) {
-      const dividendRes = await api.rpc.xminingasset.getDividendByAccount('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
+      const dividendRes = await api.rpc.xminingasset.getDividendByAccount(account);
       let currentDividend: any = '';
       const userDividend = JSON.parse(dividendRes);
       Object.keys(userDividend).forEach((key: string) => {
         currentDividend = userDividend[key];
       });
-      const bgOwnInterests = new BigNumber(toPrecision(currentDividend.own, 8));
-      const bgOtherInterests = new BigNumber(toPrecision(currentDividend.other, 8));
+      const bgOwnInterests = new BigNumber(toPrecision(currentDividend.own, 4));
+      const bgOtherInterests = new BigNumber(toPrecision(currentDividend.other, 4));
       const bgAllInterests = bgOwnInterests.toNumber() + bgOtherInterests.toNumber();
 
       setAllInterests(bgAllInterests);
@@ -61,7 +61,6 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
 
     getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
   });
-
   return (
     <Card>
       <header>
