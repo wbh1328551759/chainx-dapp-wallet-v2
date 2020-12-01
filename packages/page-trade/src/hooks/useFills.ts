@@ -15,7 +15,7 @@ export default function useFills(): Fill[] {
     }
 
     fetch();
-  }, [state]);
+  }, []);
 
   return state;
 }

@@ -7,11 +7,19 @@ import {KeyringSectionOption} from '@polkadot/ui-keyring/options/types';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import LabelHelp from '@polkadot/react-components/LabelHelp';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
+import styled from 'styled-components';
 
 interface FooterProps {
   allInterests: number | undefined,
   usableInterests: number | undefined
 }
+
+const ActionsButton = styled(Modal.Actions)`
+  display: flex;
+  > button{
+    width: 105px;
+  }
+`
 
 export default function ({allInterests, usableInterests}: FooterProps): React.ReactElement<FooterProps> {
   const {t} = useTranslation();
@@ -59,24 +67,28 @@ export default function ({allInterests, usableInterests}: FooterProps): React.Re
                   // onChange={setAccount}
                   labelExtra={
                     <span>
-                      {t('total interests')}： {allInterests ? allInterests : toPrecision(0, 8)}
+                      {t('total interests')}： {allInterests ? allInterests : toPrecision(0, 4)}
                       {/*<LabelHelp help={'111111'}/>*/}
-                      {t('avaliable interest')} : {usableInterests ? usableInterests : 0 / Math.pow(10, 8)}
                     </span>
                   }
                   type='account'
                   withLabel
                 />
               </Modal.Column>
-              <Modal.Actions onCancel={toggleWithDrawButton}>
+              <Modal.Column>
+                <span>
+                  {t('avaliable interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
+                </span>
+              </Modal.Column>
+              <ActionsButton onCancel={toggleWithDrawButton}>
                 <TxButton
-                  accountId={accountId}
+                  accountId={currentAccount}
                   icon='plus'
                   label={t('Withdraw interest')}
                   params={[1]}
                   tx='xMiningAsset.claim'
                 />
-              </Modal.Actions>
+              </ActionsButton>
             </Modal.Columns>
           </Modal.Content>
         </Modal>)

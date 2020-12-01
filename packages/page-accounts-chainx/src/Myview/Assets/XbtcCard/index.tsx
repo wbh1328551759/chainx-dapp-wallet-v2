@@ -5,7 +5,7 @@ import AssetView from '../components/AssetView';
 import { AssetLine, DetailWrapper } from '../components/common';
 import { PrimaryButton, DefaultButton } from '@chainx/ui';
 import Transfer from '../../../modals/XBTCTransfer';
-import { useAccounts, useApi, useToggle } from '@polkadot/react-hooks';
+import { useApi, useToggle } from '@polkadot/react-hooks';
 import { AssetsInfo } from "@polkadot/react-hooks-chainx/types";
 import Deposite from '../../../modals/deposite';
 import Withdraw from '../../../modals/withdraw';
@@ -17,7 +17,6 @@ import { AccountContext } from '@polkadot/react-components-chainx/AccountProvide
 export default function (): React.ReactElement {
   const { api } = useApi();
   const { t } = useTranslation();
-  const { allAccounts } = useAccounts();
   const currentAccount = useContext(AccountContext);
   const [isTransferOpen, toggleTransfer] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
@@ -28,15 +27,14 @@ export default function (): React.ReactElement {
   useEffect((): void => {
     async function getAssets(account: string): Promise<any> {
       const res = await api.rpc.xassets.getAssetsByAccount(account);
-      let current: AssetsInfo = {
+      let current = {
         Locked: "0",
         Reserved: "0",
         ReservedDexSpot: "0",
         ReservedWithdrawal: "0",
         Usable: "0"
-      };
+      }as AssetsInfo;
       const userAssets = JSON.parse(res);
-
       Object.keys(userAssets).forEach((key: string) => {
         current = userAssets[key] as AssetsInfo;
       });
@@ -69,6 +67,7 @@ export default function (): React.ReactElement {
       setCurrentAccountInfo(current)
 
     }
+    // getAssets('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB')
     getAssets(currentAccount.currentAccount)
   }, [currentAccount])
 
