@@ -6,7 +6,7 @@ import { Address, AccountId } from '@polkadot/types/interfaces';
 import React from 'react';
 import styled from 'styled-components';
 
-import AccountName from './AccountName';
+import AccountName from '@polkadot/react-components-chainx/AccountName';
 import IdentityIcon from './IdentityIcon';
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
   value?: string | Address | AccountId | null | Uint8Array;
 }
 
-function AddressSmall ({ children, className = '', defaultName, onClickName, overrideName, toggle, value, withSidebar = true }: Props): React.ReactElement<Props> {
+function AddressSmall({ children, className = '', defaultName, onClickName, overrideName, toggle, value, withSidebar = true }: Props): React.ReactElement<Props> {
   return (
     <div className={`ui--AddressSmall ${className}`}>
       <IdentityIcon value={value as Uint8Array} />
