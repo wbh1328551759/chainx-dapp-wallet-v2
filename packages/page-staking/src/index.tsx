@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { AppProps as Props, ThemeProps } from '@polkadot/react-components/types';
-import type { ElectionStatus } from '@polkadot/types/interfaces';
 
 import React, { useMemo } from 'react';
 import { Route, Switch } from 'react-router';
@@ -13,6 +12,7 @@ import Tabs from '@polkadot/react-components/Tabs';
 import { useAccounts, useApi, useFavorites, useCall } from '@polkadot/react-hooks';
 import { ValidatorInfo } from './types'
 import { isJSON } from './utils'
+import AccountSelect from '@polkadot/react-components-chainx/AccountSelect';
 
 import basicMd from './md/basic.md';
 import Overview from './Overview';
@@ -73,21 +73,21 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
       name: 'overview',
       text: t<string>('Staking overview')
     },
-
+    {
+      name: 'nomination',
+      text: t<string>('My Staking')
+    },
     {
       hasParams: true,
       name: 'query',
       text: t<string>('Validator stats')
     },
-    {
-      name: 'nomination',
-      text: t<string>('My Staking')
-    }
   ], []);
 
   return (
     <main className={`staking--App ${className}`}>
-      <HelpOverlay md={basicMd as string} />
+      {/* <HelpOverlay md={basicMd as string} /> */}
+      <AccountSelect />
       <header>
         <Tabs
           basePath={basePath}

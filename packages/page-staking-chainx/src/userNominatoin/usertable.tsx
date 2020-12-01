@@ -140,6 +140,16 @@ function UserTable({ accountId, allNomination, userInfo, onStausChange }: Props)
                 value={who}
                 withLockedVote
               />
+              <Button
+                icon='paper-plane'
+                label={t<string>('Vote')}
+                onClick={toggleVote}
+              />
+              <Button
+                icon='paper-plane'
+                label={t<string>('ReBound')}
+                onClick={toggleRebound}
+              />
             </td>
 
             <td>
@@ -201,23 +211,24 @@ function UserTable({ accountId, allNomination, userInfo, onStausChange }: Props)
                   )
                 }
 
-                {/* {
-          isReBoundOpen && (
-            <ReBond
-              account={accountId}
-              onClose={toggleRebound}
-              options={options}
-              value={voters[0]}
-              onSuccess={onStausChange}
-            />
-          )
-        } */}
+                {
+                  isReBoundOpen && (
+                    <ReBond
+                      account={accountId}
+                      onClose={toggleRebound}
+                      options={options}
+                      value={voters[0]}
+                      onSuccess={onStausChange}
+                    />
+                  )
+                }
 
                 <Button
                   icon='paper-plane'
                   label={t<string>('Vote')}
                   onClick={toggleVote}
                 />
+
                 <Button
                   icon='paper-plane'
                   label={t<string>('Claim Interest')}
@@ -228,6 +239,7 @@ function UserTable({ accountId, allNomination, userInfo, onStausChange }: Props)
                   label={t<string>('UnBound')}
                   onClick={toggleUnbound}
                 />
+
                 {
                   redeemOptions.length > 0 ? (
                     <Button
@@ -237,6 +249,7 @@ function UserTable({ accountId, allNomination, userInfo, onStausChange }: Props)
                     />
                   ) : null
                 }
+
               </td>
             </tr>
           </tr>)

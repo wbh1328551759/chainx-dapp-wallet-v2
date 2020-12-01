@@ -95,8 +95,8 @@ function UserNomination({ className = '' }: Props): React.ReactElement<Props> | 
 
   const headerRef = useRef([
     [t<string>('My stake'), 'start'],
-    // [t<string>('Stake detail')],
-    // [t<string>('Operation')]
+    [t<string>('Stake detail')],
+    [t<string>('Operation')]
 
   ]);
 
@@ -108,26 +108,34 @@ function UserNomination({ className = '' }: Props): React.ReactElement<Props> | 
           header={headerRef.current}
         >
           {
+            currentAccount && state.allNominations.map((item, index) => {
+              const userInterest = state.allDividended.find(item => item.account === currentAccount)
+              if (item.account === currentAccount) {
+                return <UserTable
+                  accountId={currentAccount}
+                  nomination={state.allNominations[index]}
+                  userInterest={userInterest?.interests?.find(item => item.validator === state.allNominations[index].validatorId)?.interest}
+                  onStausChange={async (status) => {
+                    setLoading(false)
+                    let userNominations = await getNominationAndDividedExternal(currentAccount, api)
+                    setState(userNominations)
+                    setLoading(true)
+                  }}
 
-            currentAccount && state.allNominations.find((item) => item.account === currentAccount)
-              ? <UserTable
-                accountId={currentAccount}
-                allNomination={state.allNominations.slice()}
-                userInfo={state.allDividended.slice()}
-                onStausChange={async (status) => {
-                  setLoading(false)
-                  let userNominations = await getNominationAndDividedExternal(currentAccount, api)
-                  setState(userNominations)
-                  setLoading(true)
-                }}
-              /> : null
+                />
+              } else {
+                return null;
+              }
+            })
           }
+
 
         </Table>
       </div>
     </div>
   );
 }
+
 
 export default React.memo(styled(UserNomination)`
 

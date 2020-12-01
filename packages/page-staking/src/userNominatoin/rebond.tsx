@@ -21,7 +21,8 @@ interface Props {
 
 function ReBond({ account, onClose, options, value, onSuccess }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const [validatorId, setValidatorId] = useState<string | null | undefined>();
+  const [validatorTo, setValidatorTo] = useState<string | null | undefined>();
+
   const [validatorOptions, setValidatorOptions] = useState<KeyringSectionOption[]>();
   const [amount, setAmount] = useState<BN | undefined>();
   const { api } = useApi();
@@ -38,6 +39,7 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
         name: cur.account
       })
     });
+    setValidatorTo(validatorOptionsArray[0].value)
     setValidatorOptions(validatorOptionsArray)
   }
 
@@ -78,21 +80,45 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
           <Modal.Column>
             <InputAddress
               defaultValue={value}
-              help={t<string>('Rebond vote validator')}
+              isDisabled={!!value}
+              value={value}
+              help={t<string>('from validator')}
               hideAddress={true}
-              label={t<string>('Rebond')}
+              label={t<string>('from validator')}
               labelExtra={
                 <span> </span>
               }
-              onChange={setValidatorId}
-              options={
-                validatorOptions
-              }
+              // onChange={setValidatorFrom}
+              // options={
+              //   validatorOptions
+              // }
               type='allPlus'
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Rebond vote validator')}</p>
+            <p>{t<string>('from validator')}</p>
+          </Modal.Column>
+        </Modal.Columns>
+
+        <Modal.Columns>
+          <Modal.Column>
+            <InputAddress
+              help={t<string>('to validator')}
+              hideAddress={true}
+              label={t<string>('to validator')}
+              labelExtra={
+                <span> </span>
+              }
+              onChange={setValidatorTo}
+              options={
+                validatorOptions
+              }
+              defaultValue={validatorTo}
+              type='allPlus'
+            />
+          </Modal.Column>
+          <Modal.Column>
+            <p>{t<string>('to validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -117,9 +143,9 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
           icon='sign-in-alt'
           label={t<string>('Rebond vote validator')}
           onStart={onClose}
-          params={[validatorId, amount]}
+          params={[value, validatorTo, amount]}
           onSuccess={onSuccess}
-          tx='xStaking.unbond'
+          tx='xStaking.rebond'
         />
       </Modal.Actions>
     </Modal>

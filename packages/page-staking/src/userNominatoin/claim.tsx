@@ -18,8 +18,10 @@ interface Props {
 
 function Claim({ account, onClose, options, value, onSuccess }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const [validatorId, setValidatorId] = useState<string | null | undefined>();
+  const [validatorId, setValidatorId] = useState<string | null | undefined>(value);
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
+
+  console.log('claim:.........' + value)
 
   return (
     <Modal
@@ -52,16 +54,14 @@ function Claim({ account, onClose, options, value, onSuccess }: Props): React.Re
           <Modal.Column>
             <InputAddress
               defaultValue={value}
+              isDisabled={!!value}
               help={t<string>('Claim Interests')}
               hideAddress={true}
               label={t<string>('Claim Interests')}
               labelExtra={
                 <span> </span>
               }
-              onChange={setValidatorId}
-              options={
-                options
-              }
+              value={value}
               type='allPlus'
             />
           </Modal.Column>
