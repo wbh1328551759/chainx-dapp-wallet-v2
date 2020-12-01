@@ -51,7 +51,7 @@ interface ChainData {
 }
 
 export const DEFAULT_DECIMALS = registry.createType('u32', 15);
-export const DEFAULT_SS58 = registry.createType('u32', addressDefaults.prefix);
+export const DEFAULT_SS58 = registry.createType('u32', 42);
 
 let api: ApiPromise;
 
@@ -121,9 +121,7 @@ async function retrieve(api: ApiPromise, injectedPromise: Promise<InjectedExtens
 async function loadOnReady(api: ApiPromise, injectedPromise: Promise<InjectedExtension[]>, store: KeyringStore | undefined, types: Record<string, Record<string, string>>): Promise<ApiState> {
   registry.register(types);
   const { injectedAccounts, properties, systemChain, systemChainType, systemName, systemVersion } = await retrieve(api, injectedPromise);
-  const ss58Format = uiSettings.prefix === -1
-    ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber()
-    : uiSettings.prefix;
+  const ss58Format = Number(JSON.stringify(properties.ss58Format))
   const tokenSymbol = properties.tokenSymbol.unwrapOr(undefined)?.toString();
   const tokenDecimals = properties.tokenDecimals.unwrapOr(DEFAULT_DECIMALS).toNumber();
   const isEthereum = ethereumNetworks.includes(api.runtimeVersion.specName.toString());

@@ -15,7 +15,7 @@ import { Button, Input, Table } from '@polkadot/react-components';
 import { BN_ZERO } from '@polkadot/util';
 
 import { useTranslation } from '../translate';
-import CreateModal from '../modals/Create';
+import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
 import ImportModal from '../modals/Import';
 import Ledger from '../modals/Ledger';
 import Multisig from '../modals/MultisigCreate';
@@ -43,7 +43,7 @@ interface Props {
 
 const STORE_FAVS = 'accounts:favorites';
 
-function Overview ({ className = '', onStatusChange }: Props): React.ReactElement<Props> {
+function Overview({ className = '', onStatusChange }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const { allAccounts, hasAccounts } = useAccounts();

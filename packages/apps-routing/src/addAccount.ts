@@ -4,7 +4,7 @@
 import { TFunction } from 'i18next';
 import { Route } from './types';
 
-import Modal from '@polkadot/app-accounts/modals/Create';
+import Modal from '@polkadot/app-accounts-chainx/modals/Create';
 
 export default function create(t: TFunction): Route {
   return {

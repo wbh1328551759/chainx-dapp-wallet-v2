@@ -113,7 +113,7 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
               options={
                 validatorOptions
               }
-              defaultValue={validatorTo}
+              defaultValue={(validatorOptions && validatorOptions?.length) > 0 ? validatorOptions[0]?.value : ''}
               type='allPlus'
             />
           </Modal.Column>
