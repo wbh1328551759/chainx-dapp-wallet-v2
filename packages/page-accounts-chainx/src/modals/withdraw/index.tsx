@@ -38,10 +38,12 @@ function Withdraw({ account, btc, onClose }: Props): React.ReactElement<Props> {
     if (!withdrawAddress) {
       setAddressErrMsg('必填');
       setDisabled(true);
-    } else if (!['1', '3'].includes(withdrawAddress[0])) {
-      setAddressErrMsg('提现的BTC地址必须以1或3开头');
-      setDisabled(true);
-    } else {
+    }
+    // else if (!['1', '3'].includes(withdrawAddress[0])) {
+    //   setAddressErrMsg('提现的BTC地址必须以1或3开头');
+    //   setDisabled(true);
+    // }
+    else {
       setAddressErrMsg('')
       setDisabled(false)
     }
