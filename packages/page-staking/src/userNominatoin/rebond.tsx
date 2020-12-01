@@ -9,43 +9,33 @@ import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import { ValidatorInfo } from '../types';
-import { useApi } from '@polkadot/react-hooks';
 
 interface Props {
   account?: string;
   options?: KeyringSectionOption[];
   value?: string | null | undefined;
   onClose: () => void;
-  onSuccess?: TxCallback
+  onSuccess?: TxCallback;
+  validatorInfoList: ValidatorInfo[];
 }
 
-function ReBond({ account, onClose, options, value, onSuccess }: Props): React.ReactElement<Props> {
+function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [validatorTo, setValidatorTo] = useState<string | null | undefined>();
 
-  const [validatorOptions, setValidatorOptions] = useState<KeyringSectionOption[]>();
   const [amount, setAmount] = useState<BN | undefined>();
-  const { api } = useApi();
+  let validatorOptionsArray: KeyringSectionOption[] = [];
 
-  async function getValidator() {
-    const validators = await api.rpc.xstaking.getValidators();
-    let validatorOptionsArray: KeyringSectionOption[] = [];
-    validators.forEach((item: any) => {
-      const cur = item as ValidatorInfo;
+  validatorInfoList.forEach((item: any) => {
+    const cur = item as ValidatorInfo;
+    validatorOptionsArray.push({
+      key: cur.account,
+      value: cur.account,
+      name: cur.account
+    })
+  });
 
-      validatorOptionsArray.push({
-        key: cur.account,
-        value: cur.account,
-        name: cur.account
-      })
-    });
-    setValidatorTo(validatorOptionsArray[0].value)
-    setValidatorOptions(validatorOptionsArray)
-  }
 
-  useEffect((): void => {
-    getValidator()
-  })
 
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
 
@@ -111,9 +101,10 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
               }
               onChange={setValidatorTo}
               options={
-                validatorOptions
+                validatorOptionsArray
               }
-              defaultValue={(validatorOptions && validatorOptions?.length) > 0 ? validatorOptions[0]?.value : ''}
+              value={(validatorInfoList && validatorInfoList?.length) > 0 ? validatorInfoList[0]?.account : ''}
+              defaultValue={(validatorInfoList && validatorInfoList?.length) > 0 ? validatorInfoList[0]?.account : ''}
               type='allPlus'
             />
           </Modal.Column>

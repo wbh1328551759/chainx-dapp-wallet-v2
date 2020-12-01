@@ -13,17 +13,19 @@ import ReBond from './rebond'
 import Claim from './claim';
 import { useTranslation } from '../translate';
 import { TxCallback } from '@polkadot/react-components/Status/types';
+import { ValidatorInfo } from '../types';
 
 interface Props {
   accountId?: string;
   nomination?: Nomination,
   userInterest?: string;
   onStausChange?: TxCallback;
+  validatorInfoList: ValidatorInfo[];
 }
 
 
 
-function UserTable({ accountId, nomination, userInterest, onStausChange }: Props): React.ReactElement<Props> {
+function UserTable({ accountId, nomination, userInterest, onStausChange, validatorInfoList }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const [isVoteOpen, toggleVote] = useToggle();
@@ -124,7 +126,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange }: Props
               <ReBond
                 account={accountId}
                 onClose={toggleRebound}
-
+                validatorInfoList={validatorInfoList}
                 value={nomination?.validatorId}
                 onSuccess={onStausChange}
               />
