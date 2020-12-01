@@ -116,7 +116,7 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
 
   const headerActiveRef = useRef([
     [t('validators'), 'start', 2],
-    [t('status'), 'expand'],
+    [t('current status'), 'expand'],
     [t('other stake'), 'expand'],
     [t('own stake')],
     [t('pots balances')],

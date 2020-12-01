@@ -97,9 +97,10 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
 
   const headerRef = useRef([
     [t<string>('My stake'), 'start'],
-    [t<string>('Stake detail')],
-    [t<string>('Operation')]
-
+    [t<string>('Number of votes'), 'start'],
+    [t<string>('Number of Interests'), 'start'],
+    [t<string>('Freeze'), 'start'],
+    [undefined, undefined, undefined, undefined, undefined, 'start']
   ]);
 
   return (

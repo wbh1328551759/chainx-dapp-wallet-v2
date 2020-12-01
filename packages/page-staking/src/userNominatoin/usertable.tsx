@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { AddressMini, Button } from '@polkadot/react-components';
-import { AccountName } from '@polkadot/react-components-chainx';
+import { AddressSmall } from '@polkadot/react-components-chainx';
 import Vote from './vote';
 import { useToggle } from '@polkadot/react-hooks';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
@@ -56,7 +56,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
   return (
     <tr>
       <td>
-        <AccountName
+        <AddressSmall
           key={nomination?.validatorId}
           value={nomination?.validatorId}
           withLockedVote
@@ -64,108 +64,109 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
       </td>
 
       <td>
-        {t<string>('Number of votes')}:<FormatBalance value={nomination?.nomination}></FormatBalance>
+        <FormatBalance value={nomination?.nomination}></FormatBalance>
       </td>
       <td>
-        {t<string>('Number of Interests')} :<FormatBalance value={userInterest}></FormatBalance>
+        <FormatBalance value={userInterest}></FormatBalance>
       </td>
       <td>
-        {t<string>('Freeze')} :<FormatBalance value={chunkes}></FormatBalance>
+        <FormatBalance value={chunkes}></FormatBalance>
       </td>
-      <tr>
-        <td className='button' key="claim">
-          {
-            isClaim && (
-              <Claim
-                account={accountId}
-                onClose={toggleClaim}
 
-                value={nomination?.validatorId}
-                onSuccess={onStausChange}
-              />
-            )
-          }
-          {isVoteOpen && (
-            <Vote
+      <td className='button' key="claim">
+        {
+          isClaim && (
+            <Claim
               account={accountId}
-              key="vote"
-              onClose={toggleVote}
-
+              onClose={toggleClaim}
 
               value={nomination?.validatorId}
               onSuccess={onStausChange}
             />
-          )}
+          )
+        }
+        {isVoteOpen && (
+          <Vote
+            account={accountId}
+            key="vote"
+            onClose={toggleVote}
 
-          {
-            isRebackOpen && (
-              <Reback
-                account={accountId}
-                onClose={toggleReback}
 
-                redeemOptions={redeemOptions}
-                key="reback"
-                onSuccess={onStausChange}
-                value={nomination?.validatorId}
-              />
-            )
-          }
-          {
-            isBoundOpen && (
-              <UnBound
-                account={accountId}
-                onClose={toggleUnbound}
-                onSuccess={onStausChange}
-                key="unbond"
-                value={nomination?.validatorId}
-              />
-            )
-          }
+            value={nomination?.validatorId}
+            onSuccess={onStausChange}
+          />
+        )}
 
-          {
-            isReBoundOpen && (
-              <ReBond
-                account={accountId}
-                onClose={toggleRebound}
-                validatorInfoList={validatorInfoList}
-                value={nomination?.validatorId}
-                onSuccess={onStausChange}
-              />
-            )
-          }
+        {
+          isRebackOpen && (
+            <Reback
+              account={accountId}
+              onClose={toggleReback}
 
-          <Button
-            icon='paper-plane'
-            label={t<string>('Vote')}
-            onClick={toggleVote}
-          />
-          <Button
-            icon='paper-plane'
-            label={t<string>('Claim Interest')}
-            onClick={toggleClaim}
-          />
-          <Button
-            icon='paper-plane'
-            label={t<string>('UnBound')}
-            onClick={toggleUnbound}
-          />
-          <Button
-            icon='paper-plane'
-            label={t<string>('ReBound')}
-            onClick={toggleRebound}
-          />
-          {
-            Number(chunkes) > 0 ? (
-              <Button
-                icon='paper-plane'
-                label={t<string>('Redemption')}
-                onClick={toggleReback}
-              />
-            ) : null
-          }
-        </td>
-      </tr>
-    </tr>
+              redeemOptions={redeemOptions}
+              key="reback"
+              onSuccess={onStausChange}
+              value={nomination?.validatorId}
+            />
+          )
+        }
+        {
+          isBoundOpen && (
+            <UnBound
+              account={accountId}
+              onClose={toggleUnbound}
+              onSuccess={onStausChange}
+              key="unbond"
+              value={nomination?.validatorId}
+            />
+          )
+        }
+
+        {
+          isReBoundOpen && (
+            <ReBond
+              account={accountId}
+              onClose={toggleRebound}
+              validatorInfoList={validatorInfoList}
+              value={nomination?.validatorId}
+              onSuccess={onStausChange}
+            />
+          )
+        }
+
+        <Button
+          color="orange"
+          icon='paper-plane'
+          label={t<string>('Vote')}
+          onClick={toggleVote}
+        />
+        <Button
+          icon='paper-plane'
+          label={t<string>('Claim Interest')}
+          onClick={toggleClaim}
+        />
+        <Button
+          icon='paper-plane'
+          label={t<string>('UnBound')}
+          onClick={toggleUnbound}
+        />
+        <Button
+          icon='paper-plane'
+          label={t<string>('ReBound')}
+          onClick={toggleRebound}
+        />
+        {
+          Number(chunkes) > 0 ? (
+            <Button
+              icon='paper-plane'
+              label={t<string>('Redemption')}
+              onClick={toggleReback}
+            />
+          ) : null
+        }
+      </td>
+    </tr >
+
   )
 
 
