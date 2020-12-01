@@ -14,7 +14,6 @@ import BigNumber from 'bignumber.js';
 type Props = {
   nodeName: string,
   setNodeName?: React.Dispatch<string>
-  assetsInfo: AssetsInfo | undefined;
 }
 
 export default function ({ nodeName }: Props): React.ReactElement<Props> {
