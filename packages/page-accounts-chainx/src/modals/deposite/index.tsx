@@ -1,13 +1,14 @@
-
-import React, { useEffect, useState } from 'react';
-import { Dialog } from '@chainx/ui';
+import React, {useEffect, useState} from 'react';
+import {Dialog} from '@chainx/ui';
 import styled from 'styled-components';
 
-import { u8aToHex } from '@polkadot/util';
+import {u8aToHex} from '@polkadot/util';
 import ClipBoard from './ClipBoard';
 import infoIcon from './explan.svg';
-import { useTranslation } from '../../translate';
+import {useTranslation} from '../../translate';
 import {useApi} from '@polkadot/react-hooks';
+import CheckBox from '@polkadot/app-accounts-chainx/modals/deposite/components/CheckBox';
+import IntentionSelect from '@polkadot/app-accounts-chainx/modals/deposite/components/IntentionSelect';
 
 const StyledDialog = styled(Dialog)`
   main.content {
@@ -120,20 +121,20 @@ interface Props {
   address: string
 }
 
-export default function ({ address, onClose }: Props) {
-  // const [checked, setChecked] = useState(false)
-  const { t } = useTranslation();
+export default function ({address, onClose}: Props) {
+  // const [checked, setChecked] = useState(false);
+  const {t} = useTranslation();
   const [channel, setChannel] = useState('');
-  const { api } = useApi();
-  const [hotAddress, setHotAddress] = useState<string>('')
+  const {api} = useApi();
+  const [hotAddress, setHotAddress] = useState<string>('');
   const addressHex = u8aToHex(
     new TextEncoder('utf-8').encode(`${address}${channel ? '@' + channel : ''}`)
-  ).replace(/^0x/, '')
+  ).replace(/^0x/, '');
 
   useEffect((): void => {
     async function getHotAddress() {
       const dividendRes = await api.rpc.xgatewaycommon.bitcoinTrusteeSessionInfo();
-      setHotAddress(dividendRes.hotAddress.addr)
+      setHotAddress(dividendRes.hotAddress.addr);
     }
 
     getHotAddress();
@@ -142,7 +143,7 @@ export default function ({ address, onClose }: Props) {
     <StyledDialog
       handleClose={onClose}
       open
-      title={'跨链充值'}
+      title={t('Recharge')}
     >
       <main className='content'>
         <h1>
@@ -151,48 +152,48 @@ export default function ({ address, onClose }: Props) {
         </h1>
         <p className={'op-return'}>{t('get the information for the 16-OP_RETURN address')}</p>
         <section className='show-code'>
-          {/* <h3> */}
-          {/*  <span className="title">OP_RETURN</span> */}
-          {/*  <CheckBox */}
-          {/*    checked={checked} */}
-          {/*    onClick={() => setChecked(!checked)} */}
-          {/*    className="channel" */}
-          {/*  > */}
-          {/*    {$t('ASSET_ADD_REFERRER')} */}
-          {/*  </CheckBox> */}
-          {/* </h3> */}
-          {/* {checked ? ( */}
-          {/*  <IntentionSelect */}
-          {/*    value={channel} */}
-          {/*    onChange={setChannel} */}
-          {/*    style={{ marginBottom: 8 }} */}
-          {/*  /> */}
-          {/* ) : null} */}
-          <ClipBoard className='hex'
-            id='' >{addressHex}</ClipBoard>
+          <h3>
+            <span className="title">OP_RETURN</span>
+            {/*<CheckBox*/}
+            {/*  checked={checked}*/}
+            {/*  onClick={() => setChecked(!checked)}*/}
+            {/*  className="channel"*/}
+            {/*>*/}
+            {/*  {t('Add a referrer (optional)')}*/}
+            {/*</CheckBox>*/}
+          </h3>
+          {/*{checked ? (*/}
+          {/*  <IntentionSelect*/}
+          {/*    value={channel}*/}
+          {/*    onChange={setChannel}*/}
+          {/*    style={{marginBottom: 8}}*/}
+          {/*  />*/}
+          {/*) : null}*/}
+          <ClipBoard className='hex' id=''>{addressHex}</ClipBoard>
         </section>
         <h1 className='step-2'>
           <span className='step'>{t('the second step')}</span>
           <span className='text'>{t('start a cross-chain top-up withdrawal')}</span>
         </h1>
-        <p className='input'>{t('recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
+        <p
+          className='input'>{t('recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
         <ul className={'info'}>
           <li>
             <img alt='info'
-              src={infoIcon} />
+                 src={infoIcon}/>
             <span>{t('the top-up amount must be greater than 0.001 BTC')}</span>
           </li>
           <li>
             <img alt='info'
-              src={infoIcon} />
+                 src={infoIcon}/>
             <span>{t('currently, only cross-chain top-up initiated by BTC addresses starting with 1 and 3 is supported')}</span>
           </li>
         </ul>
         <section className='show-code'>
-          <h3 style={{ marginBottom: 0 }}>
+          <h3 style={{marginBottom: 0}}>
             <span className='title'>{t('Trust hot multi-signature address')}</span>
             <ClipBoard className={'addr'}
-              id=''>{hotAddress}</ClipBoard>
+                       id=''>{hotAddress}</ClipBoard>
           </h3>
         </section>
 

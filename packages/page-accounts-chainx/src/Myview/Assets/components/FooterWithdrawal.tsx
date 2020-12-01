@@ -82,7 +82,7 @@ export default function ({allInterests, usableInterests}: FooterProps): React.Re
               </Modal.Column>
               <ActionsButton onCancel={toggleWithDrawButton}>
                 <TxButton
-                  accountId={accountId}
+                  accountId={currentAccount}
                   icon='plus'
                   label={t('Withdraw interest')}
                   params={[1]}

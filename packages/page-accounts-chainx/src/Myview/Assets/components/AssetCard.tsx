@@ -58,9 +58,9 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       setUsableInterests(+bgOwnInterests.toNumber().toFixed(4));
     }
 
-    getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
-    // getDividend(currentAccount)
-  });
+    // getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
+    getDividend(currentAccount)
+  }, [currentAccount]);
   return (
     <Card>
       <header>
