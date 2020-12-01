@@ -1,6 +1,5 @@
 
 import React from 'react';
-import _ from 'lodash';
 import styled from 'styled-components';
 import { toPrecision } from '../../../../components/toPrecision';
 import BigNumber from 'bignumber.js';
@@ -15,7 +14,7 @@ const Wrapper = styled.div`
 
 type Props = {
   asset: string | undefined,
-  free: string | undefined,
+  free: number | string,
   precision: number
 }
 

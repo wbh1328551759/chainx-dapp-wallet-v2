@@ -1,39 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Wrapper from './Wrapper';
 import Free from '../components/Free';
 import Label from '../components/Label';
-import { AmountInput, Slider } from '@chainx/ui';
-import { marks } from '../constants';
-import { toPrecision } from '../../../../components/toPrecision';
-import { TxButton } from '@polkadot/react-components';
-import { AssetsInfo } from '@polkadot/react-hooks-chainx/types';
+import {AmountInput, Slider} from '@chainx/ui';
+import {marks} from '../constants';
+import {toPrecision} from '../../../../components/toPrecision';
+import {TxButton} from '@polkadot/react-components';
 import usePcxFree from '../../../../hooks/usePcxFree';
-import { useTranslation } from '../../../../translate';
+import {useTranslation} from '../../../../translate';
 import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
+import {useAccounts} from '@polkadot/react-hooks';
+
 type Props = {
   nodeName: string,
   setNodeName?: React.Dispatch<string>
 }
 
-export default function ({ nodeName }: Props): React.ReactElement<Props> {
+export default function ({nodeName}: Props): React.ReactElement<Props> {
+  const {hasAccounts} = useAccounts()
   const fills = useFills();
-  const defaultValue = new BigNumber(toPrecision(fills[0]?.price, 9)).toFixed(7);
-  const [price, setPrice] = useState(toPrecision(1, 7));
-  const [disabled, setDisabled] = useState(true);
-  const [amount, setAmount] = useState(toPrecision(1, 7));
-  const [max, setMax] = useState(0);
-  const [percentage, setPercentage] = useState(0);
+  const defaultValue = new BigNumber(toPrecision(fills[0]?.price, 9)).toNumber().toFixed(7);
+  const [price, setPrice] = useState<number | string>(Number(toPrecision(2, 5)));
+  const [disabled, setDisabled] = useState<boolean>(true);
+  const [amount, setAmount] = useState<number | string>(Number(toPrecision(0, 7)));
+  const [max, setMax] = useState<number>(0);
+  const [percentage, setPercentage] = useState<number>(0);
   const pcxFree = usePcxFree(nodeName);
-  const { t } = useTranslation();
-  const bgAmount = new BigNumber(amount)
-  const bgPrice = new BigNumber(price)
+  const {t} = useTranslation();
+  const bgAmount = new BigNumber(amount);
+  const bgPrice = new BigNumber(price);
 
   const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
 
   useEffect(() => {
     if (fills[0]?.price) {
-      setPrice((price) => new BigNumber(toPrecision(fills[0]?.price, 9)).toFixed(7));
+      const bgPrice = new BigNumber(toPrecision(fills[0]?.price, 9));
+      setPrice(+bgPrice.toNumber().toFixed(7));
     }
   }, [fills[0]?.price]);
 
@@ -48,7 +51,7 @@ export default function ({ nodeName }: Props): React.ReactElement<Props> {
   }, [amount, price]);
 
   useEffect(() => {
-    const bgPcxFree = new BigNumber(toPrecision(pcxFree.free, 8))
+    const bgPcxFree = new BigNumber(toPrecision(pcxFree.free, 8));
     setMax(Number(bgPcxFree));
   }, [pcxFree.free, price]);
 
@@ -57,8 +60,8 @@ export default function ({ nodeName }: Props): React.ReactElement<Props> {
     <Wrapper>
       <div className='info'>
         <Free asset={'PCX'}
-          free={pcxFree.free?.toString()}
-          precision={8} />
+              free={hasAccounts ? pcxFree.free : Number(toPrecision(0, 7)).toString()}
+              precision={8}/>
       </div>
       <div className='price input'>
         {/*<PriceWrapper data-tip={t(`Min selling price：${Number(pcxFree.free)}`)}>*/}
@@ -72,7 +75,7 @@ export default function ({ nodeName }: Props): React.ReactElement<Props> {
             setPrice(value);
           }}
           precision={7}
-          style={{ maxWidth: 216 }}
+          style={{maxWidth: 216}}
           tokenName={'BTC'}
           value={price}
         />
@@ -84,7 +87,7 @@ export default function ({ nodeName }: Props): React.ReactElement<Props> {
           id='sell-amount'
           onChange={(value) => {
             if (value > max) {
-              setAmount(max.toFixed(7));
+              setAmount(+max.toFixed(7));
               setPercentage(100);
             } else {
               setAmount(value);
@@ -92,7 +95,7 @@ export default function ({ nodeName }: Props): React.ReactElement<Props> {
             }
           }}
           precision={7}
-          style={{ maxWidth: 216 }}
+          style={{maxWidth: 216}}
           tokenName={'PCX'}
           value={amount}
         />
@@ -104,10 +107,10 @@ export default function ({ nodeName }: Props): React.ReactElement<Props> {
         max={100}
         min={0}
         onChange={(value: number) => {
-          const bgMax = new BigNumber(max)
-          setPercentage((percentage) => value);
+          const bgMax = new BigNumber(max);
+          setPercentage(value);
           const calcMax = bgMax.multipliedBy(value).dividedBy(100).toFixed(7);
-          setAmount((amount) => isFinite(Number(calcMax)) ? calcMax : defaultValue);
+          setAmount(isFinite(Number(calcMax)) ? +calcMax : defaultValue);
 
         }}
         value={percentage}
@@ -127,9 +130,11 @@ export default function ({ nodeName }: Props): React.ReactElement<Props> {
             accountId={nodeName}
             isDisabled={disabled}
             label={t('Sell PCX')}
-            params={[0, 'Limit', 'Sell', bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(), bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
+            params={[0, 'Limit', 'Sell',
+              bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(),
+              bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
             tx='xSpot.putOrder'
-          // onClick={sign}
+            // onClick={sign}
           />
         </div>
       </div>

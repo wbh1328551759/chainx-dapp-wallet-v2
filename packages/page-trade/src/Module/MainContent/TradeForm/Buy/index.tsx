@@ -1,16 +1,16 @@
-
-import React, { useEffect, useState } from 'react';
-import Wrapper  from './Wrapper';
+import React, {useEffect, useState} from 'react';
+import Wrapper from './Wrapper';
 import Free from '../components/Free';
-import { AmountInput, Slider } from '@chainx/ui';
+import {AmountInput, Slider} from '@chainx/ui';
 import Label from '../components/Label';
-import { marks } from '../constants';
-import { TxButton } from '@polkadot/react-components';
-import { AssetsInfo } from '@polkadot/react-hooks/types';
-import { useTranslation } from '../../../../translate';
-import { toPrecision } from '../../../../components/toPrecision';
+import {marks} from '../constants';
+import {TxButton} from '@polkadot/react-components';
+import {AssetsInfo} from '@polkadot/react-hooks/types';
+import {useTranslation} from '../../../../translate';
+import {toPrecision} from '../../../../components/toPrecision';
 import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
+import {useAccounts} from '@polkadot/react-hooks';
 
 type Props = {
   nodeName: string,
@@ -18,23 +18,23 @@ type Props = {
   assetsInfo: AssetsInfo | undefined;
 }
 
-export default function ({ assetsInfo, nodeName }: Props): React.ReactElement<Props> {
+export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Props> {
   const fills = useFills();
-  const fillPrice = fills[0]?.price || 0
+  const fillPrice = fills[0]?.price || 0;
   const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
-  const [price, setPrice] = useState(toPrecision(1, 7));
-  const [amount, setAmount] = useState(toPrecision(1, 7));
+  const [price, setPrice] = useState(toPrecision(2, 5));
+  const [amount, setAmount] = useState(toPrecision(0, 7));
   const [percentage, setPercentage] = useState(0);
   const [max, setMax] = useState(new BigNumber(0));
   const [disabled, setDisabled] = useState(true);
-  const { t } = useTranslation();
-  const bgAmount = new BigNumber(amount)
-  const bgPrice = new BigNumber(price)
+  const {t} = useTranslation();
+  const bgAmount = new BigNumber(amount);
+  const bgPrice = new BigNumber(price);
   const volume = (bgAmount.multipliedBy(bgPrice)).toFixed(7);
   useEffect(() => {
-    const bgFillPrice = new BigNumber(toPrecision(fillPrice, 9))
+    const bgFillPrice = new BigNumber(toPrecision(fillPrice, 9));
     if (fillPrice) {
-      setPrice((price) => bgFillPrice.toFixed(7));
+      setPrice(bgFillPrice.toFixed(7));
     }
   }, [fillPrice]);
 
@@ -49,7 +49,7 @@ export default function ({ assetsInfo, nodeName }: Props): React.ReactElement<Pr
   }, [amount, price]);
 
   useEffect(() => {
-    const bgAssetsInfoUsable = new BigNumber(toPrecision(Number(assetsInfo?.Usable), 8))
+    const bgAssetsInfoUsable = new BigNumber(toPrecision(Number(assetsInfo?.Usable), 8));
     setMax(bgAssetsInfoUsable.dividedBy(bgPrice));
   }, [assetsInfo, price]);
 
@@ -77,7 +77,7 @@ export default function ({ assetsInfo, nodeName }: Props): React.ReactElement<Pr
               setPrice((price) => value);
             }}
             precision={7}
-            style={{ width: 216 }}
+            style={{width: 216}}
             tokenName={'BTC'}
             value={price}
           />
@@ -97,7 +97,7 @@ export default function ({ assetsInfo, nodeName }: Props): React.ReactElement<Pr
             }
           }}
           precision={7}
-          style={{ maxWidth: 216 }}
+          style={{maxWidth: 216}}
           tokenName={'PCX'}
           value={amount}
         />
@@ -128,9 +128,11 @@ export default function ({ assetsInfo, nodeName }: Props): React.ReactElement<Pr
             accountId={nodeName}
             isDisabled={disabled}
             label={t('Buy PCX')}
-            params={[0, 'Limit', 'Buy', bgAmount.multipliedBy(Math.pow(10, 8)).toNumber() , bgPrice.multipliedBy( Math.pow(10, 9)).toNumber()]}
+            params={[0, 'Limit', 'Buy',
+              bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(),
+              bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
             tx='xSpot.putOrder'
-          // onClick={sign}
+            // onClick={sign}
           />
         </div>
 
