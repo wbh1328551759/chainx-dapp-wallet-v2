@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
 
-function Button ({ children, className = '', icon, isBasic, isBusy, isCircular, isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, onMouseEnter, onMouseLeave, tabIndex, withoutLink }: ButtonProps): React.ReactElement<ButtonProps> {
+function Button({ children, className = '', icon, isBasic, isBusy, isCircular, isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, onMouseEnter, onMouseLeave, tabIndex, withoutLink, color }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(
     () => !(isBusy || isDisabled) && onClick && onClick(),
     [isBusy, isDisabled, onClick]
@@ -24,7 +24,7 @@ function Button ({ children, className = '', icon, isBasic, isBusy, isCircular, 
       onMouseLeave={onMouseLeave}
       tabIndex={tabIndex}
     >
-      <Icon icon={icon} />
+      <Icon icon={icon} color={color} />
       {label}
       {children}
       <Spinner

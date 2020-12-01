@@ -21,7 +21,6 @@ function Claim({ account, onClose, options, value, onSuccess }: Props): React.Re
   const [validatorId, setValidatorId] = useState<string | null | undefined>(value);
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
 
-  console.log('claim:.........' + value)
 
   return (
     <Modal
@@ -66,7 +65,7 @@ function Claim({ account, onClose, options, value, onSuccess }: Props): React.Re
             />
           </Modal.Column>
           <Modal.Column>
-            <p>Current Validator</p>
+            <p>{t<string>('Current interest validator')}</p>
           </Modal.Column>
         </Modal.Columns>
       </Modal.Content>

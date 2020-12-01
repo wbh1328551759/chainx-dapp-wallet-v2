@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
-import { AddressMini, AddressSmall, Button } from '@polkadot/react-components';
-import { AccountName } from '@polkadot/react-components-chainx';
+import { AddressMini, Button } from '@polkadot/react-components';
+import { AddressSmall } from '@polkadot/react-components-chainx';
 import Vote from './vote';
 import { useToggle } from '@polkadot/react-hooks';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
@@ -135,6 +135,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
         }
 
         <Button
+          color="orange"
           icon='paper-plane'
           label={t<string>('Vote')}
           onClick={toggleVote}

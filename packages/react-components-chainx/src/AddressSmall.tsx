@@ -6,8 +6,8 @@ import { Address, AccountId } from '@polkadot/types/interfaces';
 import React from 'react';
 import styled from 'styled-components';
 
-import AccountName from '@polkadot/react-components/AccountName';
-import IdentityIcon from './IdentityIcon';
+import AccountName from '@polkadot/react-components-chainx/AccountName';
+import IdentityIcon from '@polkadot/react-components/IdentityIcon';
 
 interface Props {
   children?: React.ReactNode;
