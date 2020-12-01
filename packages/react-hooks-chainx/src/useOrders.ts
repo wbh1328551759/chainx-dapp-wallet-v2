@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {useApi} from '@polkadot/react-hooks';
 
 interface OrderProps {
   id: number;
@@ -32,6 +33,7 @@ interface Orders {
 }
 
 export default function useOrders(nodeName = ''): Orders {
+  const api = useApi();
   const [state, setState] = useState<Orders>({
     NowOrders: [],
     HistoryOrders: []
@@ -39,14 +41,16 @@ export default function useOrders(nodeName = ''): Orders {
 
   useEffect((): void => {
     async function fetchOrders(): Promise<void> {
-      if (nodeName === '') {
-        return;
+      const testOrMain = await api.api.rpc.system.properties();
+      const testOrMainNum = JSON.parse(testOrMain);
+      let res;
+      if (testOrMainNum.ss58Format === 42) {
+        res = await axios.get('http://8.210.38.126:3214/dex/open_orders/0?page=0&page_size=20');
+      } else {
+         res = await axios.get(
+          `https://api-v2.chainx.org/accounts/${nodeName}/open_orders?page=0&page_size=10`
+        );
       }
-
-      const res = await axios.get(
-        `https://api-v2.chainx.org/accounts/${nodeName}/open_orders?page=0&page_size=10`
-      );
-
       setState({
         NowOrders: res.data.items.filter(
           (item: NowOrder) => item.remaining / Number(item.props.amount) < 1
@@ -58,8 +62,8 @@ export default function useOrders(nodeName = ''): Orders {
       });
     }
 
-    fetchOrders();
-  }, [state, nodeName]);
+    fetchOrders()
+  }, [nodeName]);
 
   return state;
 }

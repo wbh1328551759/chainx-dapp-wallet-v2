@@ -38,7 +38,6 @@ export default function ({ accounts, allAssets, interestTotal }: Props): React.R
           width='30' />
         <h6>X-BTC</h6>
       </div>
-
     </header>
   );
 }

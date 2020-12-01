@@ -22,7 +22,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
   const fills = useFills();
   const fillPrice = fills[0]?.price || 0;
   const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
-  const [price, setPrice] = useState(toPrecision(2, 5));
+  const [price, setPrice] = useState(toPrecision(0, 7));
   const [amount, setAmount] = useState(toPrecision(0, 7));
   const [percentage, setPercentage] = useState(0);
   const [max, setMax] = useState(new BigNumber(0));

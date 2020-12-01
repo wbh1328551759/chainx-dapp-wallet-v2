@@ -21,10 +21,9 @@ interface OpenOders {
 export default function useAsksBids(): OpenOders {
   const api = useApi();
   const [state, setState] = useState<OpenOders>({Asks: [], Bids: []});
-  let timeId;
+  let AskBidTimeId: any = '';
   useEffect(() => {
     async function fetchAskBid() {
-      console.log(1);
       const testOrMain = await api.api.rpc.system.properties();
       const testOrMainNum = JSON.parse(testOrMain);
       let res;
@@ -39,12 +38,11 @@ export default function useAsksBids(): OpenOders {
       });
     }
 
-    timeId = setInterval(() => {
-      window.clearInterval(timeId);
+    AskBidTimeId = setInterval(() => {
       fetchAskBid();
     }, 5000);
-    return () => window.clearInterval(timeId);
-  }, [timeId]);
+    return () => window.clearInterval(AskBidTimeId);
+  }, [AskBidTimeId]);
 
   return state;
 }

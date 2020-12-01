@@ -21,9 +21,9 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
   const {hasAccounts} = useAccounts()
   const fills = useFills();
   const defaultValue = new BigNumber(toPrecision(fills[0]?.price, 9)).toNumber().toFixed(7);
-  const [price, setPrice] = useState<number | string>(Number(toPrecision(2, 5)));
+  const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
   const [disabled, setDisabled] = useState<boolean>(true);
-  const [amount, setAmount] = useState<number | string>(Number(toPrecision(0, 7)));
+  const [amount, setAmount] = useState<number | string>(toPrecision(0, 7));
   const [max, setMax] = useState<number>(0);
   const [percentage, setPercentage] = useState<number>(0);
   const pcxFree = usePcxFree(nodeName);
@@ -36,7 +36,7 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
   useEffect(() => {
     if (fills[0]?.price) {
       const bgPrice = new BigNumber(toPrecision(fills[0]?.price, 9));
-      setPrice(+bgPrice.toNumber().toFixed(7));
+      setPrice(bgPrice.toNumber().toFixed(7));
     }
   }, [fills[0]?.price]);
 
