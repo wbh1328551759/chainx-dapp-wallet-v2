@@ -55,7 +55,8 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
         <Modal.Columns>
           <Modal.Column>
             <InputAddress
-              defaultValue={options ? options[0].value : null}
+              defaultValue={value}
+              isDisabled={!!value}
               help={t<string>('Redeem the current node')}
               hideAddress={true}
               label={'redeem'}
@@ -64,10 +65,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
               }
               onChange={(value) => {
                 const filterOptions = redeemOptions.filter((item) => item.validatorId === value);
-
-
                 const currentOptions: DropdownOptions = [];
-
                 filterOptions.forEach((item, index) => {
                   currentOptions.push(
                     {

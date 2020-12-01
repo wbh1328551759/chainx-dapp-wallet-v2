@@ -36,7 +36,7 @@ type SeedType = 'bip' | 'raw' | 'dev';
 interface AddressState {
   address: string | null;
   derivePath: string;
-  deriveValidation? : DeriveValidationOutput
+  deriveValidation?: DeriveValidationOutput
   isSeedValid: boolean;
   pairType: KeypairType;
   seed: string;
@@ -57,7 +57,7 @@ interface DeriveValidationOutput {
 const DEFAULT_PAIR_TYPE = 'sr25519';
 const STEPS_COUNT = 3;
 
-function deriveValidate (seed: string, seedType: SeedType, derivePath: string, pairType: KeypairType): DeriveValidationOutput {
+function deriveValidate(seed: string, seedType: SeedType, derivePath: string, pairType: KeypairType): DeriveValidationOutput {
   try {
     const { password, path } = keyExtractSuri(`${seed}${derivePath}`);
     let result: DeriveValidationOutput = {};
@@ -83,21 +83,21 @@ function deriveValidate (seed: string, seedType: SeedType, derivePath: string, p
   }
 }
 
-function isHexSeed (seed: string): boolean {
+function isHexSeed(seed: string): boolean {
   return isHex(seed) && seed.length === 66;
 }
 
-function rawValidate (seed: string): boolean {
+function rawValidate(seed: string): boolean {
   return ((seed.length > 0) && (seed.length <= 32)) || isHexSeed(seed);
 }
 
-function addressFromSeed (phrase: string, derivePath: string, pairType: KeypairType): string {
+function addressFromSeed(phrase: string, derivePath: string, pairType: KeypairType): string {
   return keyring
-    .createFromUri(`${phrase.trim()}${derivePath}`, {}, pairType)
+    .createFromUri(`${phrase.trim()}${derivePath}`, {}, 'sr25519')
     .address;
 }
 
-function newSeed (seed: string | undefined | null, seedType: SeedType): string {
+function newSeed(seed: string | undefined | null, seedType: SeedType): string {
   switch (seedType) {
     case 'bip':
       return mnemonicGenerate();
@@ -108,7 +108,7 @@ function newSeed (seed: string | undefined | null, seedType: SeedType): string {
   }
 }
 
-function generateSeed (_seed: string | undefined | null, derivePath: string, seedType: SeedType, pairType: KeypairType = DEFAULT_PAIR_TYPE): AddressState {
+function generateSeed(_seed: string | undefined | null, derivePath: string, seedType: SeedType, pairType: KeypairType = DEFAULT_PAIR_TYPE): AddressState {
   const seed = newSeed(_seed, seedType);
   const address = addressFromSeed(seed, derivePath, pairType);
 
@@ -123,7 +123,7 @@ function generateSeed (_seed: string | undefined | null, derivePath: string, see
   };
 }
 
-function updateAddress (seed: string, derivePath: string, seedType: SeedType, pairType: KeypairType): AddressState {
+function updateAddress(seed: string, derivePath: string, seedType: SeedType, pairType: KeypairType): AddressState {
   const deriveValidation = deriveValidate(seed, seedType, derivePath, pairType);
   let isSeedValid = seedType === 'raw'
     ? rawValidate(seed)
@@ -149,13 +149,13 @@ function updateAddress (seed: string, derivePath: string, seedType: SeedType, pa
   };
 }
 
-export function downloadAccount ({ json, pair }: CreateResult): void {
+export function downloadAccount({ json, pair }: CreateResult): void {
   const blob = new Blob([JSON.stringify(json)], { type: 'application/json; charset=utf-8' });
 
   FileSaver.saveAs(blob, `${pair.address}.json`);
 }
 
-function createAccount (suri: string, pairType: KeypairType, { genesisHash, name, tags = [] }: CreateOptions, password: string, success: string): ActionStatus {
+function createAccount(suri: string, pairType: KeypairType, { genesisHash, name, tags = [] }: CreateOptions, password: string, success: string): ActionStatus {
   // we will fill in all the details below
   const status = { action: 'create' } as ActionStatus;
 
@@ -180,7 +180,7 @@ function createAccount (suri: string, pairType: KeypairType, { genesisHash, name
   return status;
 }
 
-function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, type: propsType }: Props): React.ReactElement<Props> {
+function Create({ className = '', onClose, onStatusChange, seed: propsSeed, type: propsType }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api, isDevelopment, isEthereum } = useApi();
   const [{ address, derivePath, deriveValidation, isSeedValid, pairType, seed, seedType }, setAddress] = useState<AddressState>(generateSeed(propsSeed, '', propsSeed ? 'raw' : 'bip', isEthereum ? 'ethereum' : propsType));
@@ -434,40 +434,40 @@ function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, typ
       </Modal.Content>
       <Modal.Actions onCancel={onClose}>
         {step === 1 &&
+          <Button
+            icon='step-forward'
+            isDisabled={!isFirstStepValid}
+            label={t<string>('Next')}
+            onClick={_nextStep}
+          />
+        }
+        {step === 2 &&
+          <><Button
+            icon='step-backward'
+            label={t<string>('Prev')}
+            onClick={_previousStep}
+          />
             <Button
               icon='step-forward'
-              isDisabled={!isFirstStepValid}
+              isDisabled={!isSecondStepValid}
               label={t<string>('Next')}
               onClick={_nextStep}
             />
-        }
-        {step === 2 &&
-           <><Button
-             icon='step-backward'
-             label={t<string>('Prev')}
-             onClick={_previousStep}
-           />
-           <Button
-             icon='step-forward'
-             isDisabled={!isSecondStepValid}
-             label={t<string>('Next')}
-             onClick={_nextStep}
-           />
-           </>}
+          </>}
         {step === 3 &&
-            <>
-              <Button
-                icon='step-backward'
-                label={t<string>('Prev')}
-                onClick={_previousStep}
-              />
-              <Button
-                icon='plus'
-                isBusy={isBusy}
-                label={t<string>('Save')}
-                onClick={_onCommit}
-              />
-            </>
+          <>
+            <Button
+              icon='step-backward'
+              label={t<string>('Prev')}
+              onClick={_previousStep}
+            />
+            <Button
+              icon='plus'
+              isBusy={isBusy}
+              label={t<string>('Save')}
+              onClick={_onCommit}
+            />
+          </>
         }
       </Modal.Actions>
     </Modal>

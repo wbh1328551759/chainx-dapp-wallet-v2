@@ -55,6 +55,9 @@ function UnBond({ account, onClose, options, value, onSuccess }: Props): React.R
           <Modal.Column>
             <InputAddress
               defaultValue={value}
+              isDisabled={!!value}
+              value={value}
+
               help='UnBound'
               hideAddress={true}
               label='UnBound'

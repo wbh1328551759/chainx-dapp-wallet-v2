@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import createRoutes from '@polkadot/apps-routing';
 import { ChainImg, Icon } from '@polkadot/react-components';
 import { useAccounts, useApi, useCall } from '@polkadot/react-hooks';
+import AccountStatus from '@polkadot/app-accounts-chainx/AccountStatus'
 
 import Item from './Item';
 import { findMissingApis } from '../endpoint';
@@ -106,6 +107,7 @@ function Menu({ className = '' }: Props): React.ReactElement<Props> {
   const location = useLocation();
 
   const externalRef = useRef(createExternals(t));
+  const _accountChecked = ['5V7rQu6vsJyDvnGLsDAQKnamjRuCSCmjPaPL1cba714Zudjx'];
 
   const groupRef = useRef({
     accounts: t('Accounts'),
@@ -157,6 +159,11 @@ function Menu({ className = '' }: Props): React.ReactElement<Props> {
 
         </ul>
       </div>
+      {/* <div className='menuSection'>
+        <ul className='menuItems account'>
+          <AccountStatus accountChecked={_accountChecked} />
+        </ul>
+      </div> */}
       <div className='menuSection'>
         <ul className='menuItems chainBrowser'>
           <Item
@@ -166,6 +173,8 @@ function Menu({ className = '' }: Props): React.ReactElement<Props> {
           />
         </ul>
       </div>
+
+
       {/* <div className='menuSection '> */}
       {/*  <ul className='menuItems'> */}
       {/*    {externalRef.current.map((route): React.ReactNode => ( */}
@@ -179,7 +188,7 @@ function Menu({ className = '' }: Props): React.ReactElement<Props> {
       {/* </div> */}
 
       <NodeInfo />
-    </div>
+    </div >
   );
 }
 
@@ -243,6 +252,20 @@ export default React.memo(styled(Menu)`
     list-style: none;
     margin: 0 1rem 0 0;
     padding: 0;
+    &.account{
+      > li{
+        > a{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          > img{
+            height: 1.3rem;
+            margin-right: 0.5rem;
+            width: 1.3rem;
+          }
+        }
+      }
+    }
     &.chainBrowser{
       > li{
         > a{

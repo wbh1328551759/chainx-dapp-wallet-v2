@@ -58,6 +58,7 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
           <Modal.Column>
             <InputAddress
               defaultValue={value}
+              isDisabled={!!value}
               help={t<string>('Vote for Validator')}
               hideAddress={true}
               label={t<string>('Vote for Validator')}

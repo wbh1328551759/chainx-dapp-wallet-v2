@@ -62,7 +62,7 @@ export default function create(t: TFunction): Routes {
     rpc(t),
     signing(t),
     sudo(t),
-    js(t),
+    // js(t),
     trade(t),
     settings(t),
 
