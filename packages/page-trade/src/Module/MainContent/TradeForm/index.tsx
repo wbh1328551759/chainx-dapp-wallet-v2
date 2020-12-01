@@ -14,7 +14,6 @@ export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactE
   const currentAccount = useContext(AccountContext);
   const [currentAccountInfo, setCurrentAccountInfo] = useState<AssetsInfo>();
 
-  console.log('currentAccount:'+JSON.stringify(currentAccount))
   useEffect((): void => {
     async function getAssets(account: string): Promise<any> {
       const res = await api.api.rpc.xassets.getAssetsByAccount(account);
