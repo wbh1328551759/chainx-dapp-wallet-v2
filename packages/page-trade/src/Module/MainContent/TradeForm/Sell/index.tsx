@@ -127,7 +127,7 @@ export default function ({ nodeName }: Props): React.ReactElement<Props> {
             accountId={nodeName}
             isDisabled={disabled}
             label={t('Sell PCX')}
-            params={[0, 'Limit', 'Sell', bgAmount.multipliedBy(Math.pow(10, 8)), bgPrice.multipliedBy(Math.pow(10, 9))]}
+            params={[0, 'Limit', 'Sell', bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(), bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
             tx='xSpot.putOrder'
           // onClick={sign}
           />
