@@ -60,9 +60,9 @@ function createLiveNetworks(t: TFunction): LinkOption[] {
     {
       dnslink: 'ChainX',
       info: 'ChainX',
-      text: 'ChainX Main-1 Network',
+      text: 'ChainX Main Network',
       textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
-      value: endsArray[Math.floor((Math.random() * 3))]
+      value: 'wss://mainnet.chainx.org/ws'
     },
     {
       dnslink: 'ChainX',
