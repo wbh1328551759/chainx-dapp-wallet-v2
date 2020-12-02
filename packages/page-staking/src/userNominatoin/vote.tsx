@@ -3,12 +3,13 @@
 
 import BN from 'bn.js';
 import React, { useState } from 'react';
-import { InputBalance, InputAddress, Modal, TxButton } from '@polkadot/react-components';
+import { InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { Available } from '@polkadot/react-query';
+import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
 
 interface Props {
   account?: string;
@@ -79,15 +80,15 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
 
         <Modal.Columns>
           <Modal.Column>
-            <InputBalance
+            <InputPCXBalance
               autoFocus
-              help={t<string>('Vote Amonut')}
-              label={t<string>('Vote Amonut')}
+              help={t<string>('Vote Amount')}
+              label={t<string>('Vote Amount')}
               onChange={setAmount}
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Vote Amonut')}</p>
+            <p>{t<string>('Vote Amount')}</p>
           </Modal.Column>
         </Modal.Columns>
       </Modal.Content>
