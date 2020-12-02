@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import BN from 'bn.js';
-import React, { useEffect, useState } from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import { Input, InputBalance, InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { InputXBTCBalance } from '@polkadot/react-components-chainx'
 import { useTranslation } from '../../translate';
@@ -11,7 +11,8 @@ import styled from 'styled-components';
 interface Props {
   onClose: () => void;
   btc: string | undefined | null;
-  account: string | undefined
+  account: string | undefined,
+  setX?: Dispatch<number>
 }
 const Wrapper = styled(Modal)`
   > .content{
@@ -25,7 +26,7 @@ const Wrapper = styled(Modal)`
   }
 `
 
-function Withdraw({ account, btc, onClose }: Props): React.ReactElement<Props> {
+function Withdraw({ account, btc, onClose, setX }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const [amount, setAmount] = useState<BN | undefined>();
@@ -47,7 +48,6 @@ function Withdraw({ account, btc, onClose }: Props): React.ReactElement<Props> {
       setAddressErrMsg('')
       setDisabled(false)
     }
-console.log('btc:'+JSON.stringify(btc))
   }, [withdrawAddress]);
 
   return (
@@ -130,6 +130,7 @@ console.log('btc:'+JSON.stringify(btc))
           params={['1', amount, withdrawAddress, memo ? memo.trim() : '']}
           tx='xGatewayCommon.withdraw'
           isDisabled={disabled}
+          onSuccess={() => setX ? setX(Math.random()) : {}}
         />
       </Modal.Actions>
     </Wrapper>

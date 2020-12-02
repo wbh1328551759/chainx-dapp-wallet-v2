@@ -22,7 +22,7 @@ export default function (): React.ReactElement {
   const [isDepositeOpen, toggleDeposite] = useToggle();
   const [isWithdraw, toggleWithdraw] = useToggle();
   const [currentAccountInfo, setCurrentAccountInfo] = useState<AssetsInfo>();
-
+  const [x, setX] = useState(0)
 
   useEffect((): void => {
     async function getAssets(account: string): Promise<any> {
@@ -69,7 +69,7 @@ export default function (): React.ReactElement {
     }
     // getAssets('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB')
     getAssets(currentAccount.currentAccount)
-  }, [currentAccount])
+  }, [currentAccount, x])
 
   const buttonGroup = (
     <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
@@ -85,6 +85,7 @@ export default function (): React.ReactElement {
           account={currentAccount.currentAccount}
           btc={currentAccountInfo?.Usable}
           onClose={toggleWithdraw}
+          setX={setX}
         />
       )
       }
@@ -93,6 +94,7 @@ export default function (): React.ReactElement {
           key='modal-transfer'
           onClose={toggleTransfer}
           senderId={currentAccount.currentAccount}
+          seX={setX}
         />
       )}
 

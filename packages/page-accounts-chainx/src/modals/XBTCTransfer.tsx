@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import BN from 'bn.js';
-import React, { useEffect, useState } from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { InputAddress, Input, Modal, TxButton } from '@polkadot/react-components';
 // import { useApi, useCall } from '@polkadot/react-hooks';
@@ -15,11 +15,12 @@ interface Props {
   onClose: () => void;
   recipientId?: string;
   senderId?: string;
+  setX?: Dispatch<number>
 }
 const P = styled.p`
   color: red;
 `
-function Transfer ({ className = '', onClose, recipientId: propRecipientId, senderId: propSenderId }: Props): React.ReactElement<Props> {
+function Transfer ({ className = '', onClose, recipientId: propRecipientId, senderId: propSenderId, setX }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [amount, setAmount] = useState<string | undefined>();
   const [hasAvailable] = useState(true);
@@ -110,6 +111,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
             [recipientId, 1, Number(amount) * Math.pow(10, 8)]
           }
           tx={'xAssets.transfer'}
+          onSuccess={() => setX ? setX(Math.random()) :{}}
         />
       </Modal.Actions>
     </Modal>
