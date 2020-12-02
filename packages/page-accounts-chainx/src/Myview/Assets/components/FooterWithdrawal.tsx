@@ -1,5 +1,5 @@
 import {Button, InputAddress, Modal, TxButton} from '@polkadot/react-components';
-import React, {useContext} from 'react';
+import React, {Dispatch, useContext} from 'react';
 import {useAccounts, useToggle} from '@polkadot/react-hooks';
 import {useAccountAssets} from '@polkadot/react-hooks-chainx';
 import {useTranslation} from '@polkadot/app-accounts/translate';
@@ -11,7 +11,8 @@ import styled from 'styled-components';
 
 interface FooterProps {
   allInterests: number | undefined,
-  usableInterests: number | undefined
+  usableInterests: number | undefined,
+  setY?: Dispatch<number>
 }
 
 const ActionsButton = styled(Modal.Actions)`
@@ -21,7 +22,7 @@ const ActionsButton = styled(Modal.Actions)`
   }
 `
 
-export default function ({allInterests, usableInterests}: FooterProps): React.ReactElement<FooterProps> {
+export default function ({allInterests, usableInterests, setY}: FooterProps): React.ReactElement<FooterProps> {
   const {t} = useTranslation();
   const options: KeyringSectionOption[] = [];
   const [isWithDrawButton, toggleWithDrawButton] = useToggle();
@@ -86,6 +87,7 @@ export default function ({allInterests, usableInterests}: FooterProps): React.Re
                   label={t('Withdraw interest')}
                   params={[1]}
                   tx='xMiningAsset.claim'
+                  onSuccess={() => setY ? setY(Math.random()) :{}}
                 />
               </ActionsButton>
             </Modal.Columns>

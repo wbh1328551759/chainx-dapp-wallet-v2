@@ -32,15 +32,22 @@ const Desc = styled.span`
   line-height: 16px;
 `;
 
-export default React.memo(function (props) {
+interface LogoProps{
+  logo: any,
+  name: any,
+  tokenName: any
+}
+
+function Logo({logo, name, tokenName}: LogoProps) {
   return (
     <Wrapper>
       <img alt='logo'
-        src={props.logo} />
+        src={logo} />
       <section className='info'>
-        <Title>{props.name}</Title>
-        <Desc>{props.tokenName}</Desc>
+        <Title>{name}</Title>
+        <Desc>{tokenName}</Desc>
       </section>
     </Wrapper>
   );
-});
+};
+export default React.memo(Logo)
