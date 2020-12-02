@@ -1,28 +1,32 @@
+
 // Copyright 2017-2020 @polkadot/app-accounts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { DeriveBalancesAll } from '@polkadot/api-derive/types';
+import type {DeriveBalancesAll} from '@polkadot/api-derive/types';
+import type {AccountInfo} from '@polkadot/types/interfaces';
 
 import BN from 'bn.js';
-import React, { useEffect, useState } from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import styled from 'styled-components';
-import { InputAddress, InputBalance, Modal, Toggle, TxButton } from '@polkadot/react-components';
-import { useApi, useCall } from '@polkadot/react-hooks';
-import { Available } from '@polkadot/react-query';
-import { BN_ZERO, isFunction } from '@polkadot/util';
+import {InputAddress, Modal, Toggle, TxButton} from '@polkadot/react-components';
+import {useApi, useCall} from '@polkadot/react-hooks';
+import {Available} from '@polkadot/react-query';
+import {BN_ZERO, isFunction} from '@polkadot/util';
 
-import { useTranslation } from '../translate';
+import {useTranslation} from '../translate';
+import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
 
 interface Props {
   className?: string;
   onClose: () => void;
   recipientId?: string;
   senderId?: string;
+  setN?: Dispatch<number>
 }
 
-function Transfer ({ className = '', onClose, recipientId: propRecipientId, senderId: propSenderId,onStatusChange }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const { api } = useApi();
+function Transfer({className = '', onClose, recipientId: propRecipientId, senderId: propSenderId, setN}: Props): React.ReactElement<Props> {
+  const {t} = useTranslation();
+  const {api} = useApi();
   const [amount, setAmount] = useState<BN | undefined>(BN_ZERO);
   const [hasAvailable] = useState(true);
   const [isProtected, setIsProtected] = useState(true);
@@ -31,7 +35,8 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
   const [recipientId, setRecipientId] = useState<string | null>(propRecipientId || null);
   const [senderId, setSenderId] = useState<string | null>(propSenderId || null);
   const balances = useCall<DeriveBalancesAll>(api.derive.balances.all, [senderId]);
-  const [,setA] =useState(0)
+  const accountInfo = useCall<AccountInfo>(api.query.system.account, [senderId]);
+
   useEffect((): void => {
     if (balances && balances.accountId.eq(senderId) && recipientId && senderId && isFunction(api.rpc.payment?.queryInfo)) {
       setTimeout((): void => {
@@ -39,7 +44,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
           api.tx.balances
             .transfer(recipientId, balances.availableBalance)
             .paymentInfo(senderId)
-            .then(({ partialFee }): void => {
+            .then(({partialFee}: any): void => {
               const maxTransfer = balances.availableBalance.sub(partialFee);
 
               setMaxTransfer(
@@ -58,8 +63,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
     }
   }, [api, balances, recipientId, senderId]);
 
-  const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
-  const canToggleAll = !isProtected && balances && balances.accountId.eq(senderId) && maxTransfer;
+  const canToggleAll = !isProtected && balances && balances.accountId.eq(senderId) && maxTransfer && (!accountInfo || !accountInfo.refcount || accountInfo.refcount.isZero());
 
   return (
     <Modal
@@ -78,7 +82,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                 label={t<string>('send from account')}
                 labelExtra={
                   <Available
-                    label={transferrable}
+                    label={t<string>('transferrable')}
                     params={senderId}
                   />
                 }
@@ -99,7 +103,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                 label={t<string>('send to address')}
                 labelExtra={
                   <Available
-                    label={transferrable}
+                    label={t<string>('transferrable')}
                     params={recipientId}
                   />
                 }
@@ -115,7 +119,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
             <Modal.Column>
               {canToggleAll && isAll
                 ? (
-                  <InputBalance
+                  <InputPCXBalance
                     autoFocus
                     defaultValue={maxTransfer}
                     help={t<string>('The full account balance to be transferred, minus the transaction fees')}
@@ -126,7 +130,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                 )
                 : (
                   <>
-                    <InputBalance
+                    <InputPCXBalance
                       autoFocus
                       help={t<string>('Type the amount you want to transfer. Note that you can select the unit on the right e.g sending 1 milli is equivalent to sending 0.001.')}
                       isError={!hasAvailable}
@@ -134,7 +138,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                       label={t<string>('amount')}
                       onChange={setAmount}
                     />
-                    <InputBalance
+                    <InputPCXBalance
                       defaultValue={api.consts.balances.existentialDeposit}
                       help={t<string>('The minimum amount that an account should have to be deemed active')}
                       isDisabled
@@ -178,6 +182,9 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
           isDisabled={!hasAvailable || !recipientId || !amount}
           label={t<string>('Make Transfer')}
           onStart={onClose}
+          onSuccess={() => {
+            setN? setN(Math.random()): {};
+          }}
           params={
             canToggleAll && isAll
               ? [recipientId, maxTransfer]
@@ -188,7 +195,6 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
               ? 'balances.transferKeepAlive'
               : 'balances.transfer'
           }
-          onSuccess={onStatusChange}
         />
       </Modal.Actions>
     </Modal>
