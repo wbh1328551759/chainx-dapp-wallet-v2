@@ -16,7 +16,8 @@ jobs:
           port: '22'
           script: |
             whoami
-            cd dapp-wallet
+            cd chainx-dapp-wallet-v3
+            ls -all
             git stash
             git checkout main
             git pull origin main
