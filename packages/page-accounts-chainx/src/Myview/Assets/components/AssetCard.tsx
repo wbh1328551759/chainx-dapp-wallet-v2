@@ -41,7 +41,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
   const [allInterests, setAllInterests] = useState<number>();
   const [usableInterests, setUsableInterests] = useState<number>();
   const {currentAccount} = useContext(AccountContext);
-  const [y, setY] = useState<number>(0);
+  const [n, setN] = useState<number>(0);
   useEffect((): void => {
     async function getDividend(account: string) {
       const dividendRes = await api.rpc.xminingasset.getDividendByAccount(account);
@@ -60,7 +60,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
 
     // getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
     getDividend(currentAccount);
-  }, [currentAccount, y]);
+  }, [currentAccount, n]);
   return (
     <Card>
       <header>
@@ -81,7 +81,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
           <span>  {allInterests ? allInterests : 0} PCX</span>
         </div>
         <div>
-          <FooterWithdrawal allInterests={allInterests} usableInterests={usableInterests} setY={setY}/>
+          <FooterWithdrawal allInterests={allInterests} usableInterests={usableInterests} setN={setN}/>
         </div>
       </Footer>
     </Card>

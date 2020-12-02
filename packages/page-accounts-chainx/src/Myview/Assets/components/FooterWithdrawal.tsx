@@ -12,7 +12,7 @@ import styled from 'styled-components';
 interface FooterProps {
   allInterests: number | undefined,
   usableInterests: number | undefined,
-  setY?: Dispatch<number>
+  setN: Dispatch<number>
 }
 
 const ActionsButton = styled(Modal.Actions)`
@@ -22,7 +22,7 @@ const ActionsButton = styled(Modal.Actions)`
   }
 `
 
-export default function ({allInterests, usableInterests, setY}: FooterProps): React.ReactElement<FooterProps> {
+export default function ({allInterests, usableInterests, setN}: FooterProps): React.ReactElement<FooterProps> {
   const {t} = useTranslation();
   const options: KeyringSectionOption[] = [];
   const [isWithDrawButton, toggleWithDrawButton] = useToggle();
@@ -87,7 +87,9 @@ export default function ({allInterests, usableInterests, setY}: FooterProps): Re
                   label={t('Withdraw interest')}
                   params={[1]}
                   tx='xMiningAsset.claim'
-                  onSuccess={() => setY ? setY(Math.random()) :{}}
+                  onSuccess={() => {
+                    setN(Math.random())
+                  }}
                 />
               </ActionsButton>
             </Modal.Columns>

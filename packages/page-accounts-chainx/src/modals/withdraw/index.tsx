@@ -3,17 +3,18 @@
 
 import BN from 'bn.js';
 import React, {Dispatch, useEffect, useState} from 'react';
-import { Input, InputBalance, InputAddress, Modal, TxButton } from '@polkadot/react-components';
-import { InputXBTCBalance } from '@polkadot/react-components-chainx'
-import { useTranslation } from '../../translate';
+import {Input, InputAddress, Modal, TxButton} from '@polkadot/react-components';
+import {InputXBTCBalance} from '@polkadot/react-components-chainx';
+import {useTranslation} from '../../translate';
 import styled from 'styled-components';
 
 interface Props {
   onClose: () => void;
   btc: string | undefined | null;
   account: string | undefined,
-  setX?: Dispatch<number>
+  setN: Dispatch<number>
 }
+
 const Wrapper = styled(Modal)`
   > .content{
     > div > div:nth-child(2){
@@ -24,29 +25,29 @@ const Wrapper = styled(Modal)`
       }
     }
   }
-`
+`;
 
-function Withdraw({ account, btc, onClose, setX }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
+function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Props> {
+  const {t} = useTranslation();
 
   const [amount, setAmount] = useState<BN | undefined>();
   const [memo, setMemo] = useState<string | null | undefined>();
   const [accountId, setAccount] = useState<string | null | undefined>();
   const [withdrawAddress, setWithdrawAddress] = useState<string | null | undefined>();
   const [disabled, setDisabled] = useState(false);
-  const [addressErrMsg, setAddressErrMsg] = useState('')
+  const [addressErrMsg, setAddressErrMsg] = useState('');
   useEffect(() => {
     if (!withdrawAddress) {
       setAddressErrMsg('必填');
       setDisabled(true);
     }
-    // else if (!['1', '3'].includes(withdrawAddress[0])) {
-    //   setAddressErrMsg('提现的BTC地址必须以1或3开头');
-    //   setDisabled(true);
+      // else if (!['1', '3'].includes(withdrawAddress[0])) {
+      //   setAddressErrMsg('提现的BTC地址必须以1或3开头');
+      //   setDisabled(true);
     // }
     else {
-      setAddressErrMsg('')
-      setDisabled(false)
+      setAddressErrMsg('');
+      setDisabled(false);
     }
   }, [withdrawAddress]);
 
@@ -130,7 +131,9 @@ function Withdraw({ account, btc, onClose, setX }: Props): React.ReactElement<Pr
           params={['1', amount, withdrawAddress, memo ? memo.trim() : '']}
           tx='xGatewayCommon.withdraw'
           isDisabled={disabled}
-          onSuccess={() => setX ? setX(Math.random()) : {}}
+          onSuccess={() => {
+            setN(Math.random());
+          }}
         />
       </Modal.Actions>
     </Wrapper>

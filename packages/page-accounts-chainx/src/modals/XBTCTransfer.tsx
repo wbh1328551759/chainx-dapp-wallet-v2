@@ -1,41 +1,38 @@
 // Copyright 2017-2020 @polkadot/app-accounts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from 'bn.js';
 import React, {Dispatch, useEffect, useState} from 'react';
 import styled from 'styled-components';
-import { InputAddress, Input, Modal, TxButton } from '@polkadot/react-components';
-// import { useApi, useCall } from '@polkadot/react-hooks';
-// import { BN_ZERO, isFunction } from '@polkadot/util';
+import {InputAddress, Input, Modal, TxButton} from '@polkadot/react-components';
 
-import { useTranslation } from '../translate';
+import {useTranslation} from '../translate';
 
 interface Props {
   className?: string;
   onClose: () => void;
   recipientId?: string;
   senderId?: string;
-  setX?: Dispatch<number>
+  setN: Dispatch<number>
 }
+
 const P = styled.p`
   color: red;
-`
-function Transfer ({ className = '', onClose, recipientId: propRecipientId, senderId: propSenderId, setX }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
+`;
+
+function Transfer({className = '', onClose, recipientId: propRecipientId, senderId: propSenderId, setN}: Props): React.ReactElement<Props> {
+  const {t} = useTranslation();
   const [amount, setAmount] = useState<string | undefined>();
   const [hasAvailable] = useState(true);
-  const [maxTransfer, setMaxTransfer] = useState<BN | null>(null);
   const [recipientId, setRecipientId] = useState<string | null>(propRecipientId || null);
   const [senderId, setSenderId] = useState<string | null>(propSenderId || null);
-  const [amountErrMsg, setAmountErrMsg] = useState('')
+  const [amountErrMsg, setAmountErrMsg] = useState('');
   useEffect(() => {
-    if(Number(amount) <= 0){
-      setAmountErrMsg(t('Please enter a valid quantity'))
-    }else{
-      setAmountErrMsg('')
+    if (Number(amount) <= 0) {
+      setAmountErrMsg(t('Please enter a valid quantity'));
+    } else {
+      setAmountErrMsg('');
     }
-  console.log('propSenderId:'+JSON.stringify(propSenderId))
-  }, [amount])
+  }, [amount]);
 
   return (
     <Modal
@@ -107,11 +104,13 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
           isDisabled={!hasAvailable || !recipientId || !amount || (Number(amount) <= 0)}
           label={t<string>('Make Transfer')}
           onStart={onClose}
+          onSuccess={() => {
+            setN(Math.random());
+          }}
           params={
             [recipientId, 1, Number(amount) * Math.pow(10, 8)]
           }
           tx={'xAssets.transfer'}
-          onSuccess={() => setX ? setX(Math.random()) :{}}
         />
       </Modal.Actions>
     </Modal>

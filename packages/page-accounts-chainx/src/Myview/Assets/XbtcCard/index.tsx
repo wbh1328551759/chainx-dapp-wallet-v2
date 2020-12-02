@@ -22,8 +22,7 @@ export default function (): React.ReactElement {
   const [isDepositeOpen, toggleDeposite] = useToggle();
   const [isWithdraw, toggleWithdraw] = useToggle();
   const [currentAccountInfo, setCurrentAccountInfo] = useState<AssetsInfo>();
-  const [x, setX] = useState(0)
-
+  const [n, setN] = useState(0)
   useEffect((): void => {
     async function getAssets(account: string): Promise<any> {
       const res = await api.rpc.xassets.getAssetsByAccount(account);
@@ -65,11 +64,12 @@ export default function (): React.ReactElement {
         XbtcInterests: currentDividend
       });
       setCurrentAccountInfo(current)
+      console.log('n:'+n)
 
     }
     // getAssets('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB')
     getAssets(currentAccount.currentAccount)
-  }, [currentAccount, x])
+  }, [currentAccount, n])
 
   const buttonGroup = (
     <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
@@ -85,7 +85,7 @@ export default function (): React.ReactElement {
           account={currentAccount.currentAccount}
           btc={currentAccountInfo?.Usable}
           onClose={toggleWithdraw}
-          setX={setX}
+          setN={setN}
         />
       )
       }
@@ -94,7 +94,8 @@ export default function (): React.ReactElement {
           key='modal-transfer'
           onClose={toggleTransfer}
           senderId={currentAccount.currentAccount}
-          seX={setX}
+          n={n}
+          setN={setN}
         />
       )}
 

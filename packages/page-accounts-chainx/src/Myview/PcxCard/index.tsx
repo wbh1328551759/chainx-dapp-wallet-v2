@@ -125,7 +125,6 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
             onClose={toggleTransfer}
             senderId={currentAccount}
             onStatusChange={onStatusChange}
-            n={n}
             setN={setN}
           />
         )}

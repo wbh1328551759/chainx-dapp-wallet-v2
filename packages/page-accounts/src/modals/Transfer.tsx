@@ -5,7 +5,7 @@ import type {DeriveBalancesAll} from '@polkadot/api-derive/types';
 import type {AccountInfo} from '@polkadot/types/interfaces';
 
 import BN from 'bn.js';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {InputAddress, InputBalance, Modal, Toggle, TxButton} from '@polkadot/react-components';
 import {useApi, useCall} from '@polkadot/react-hooks';
@@ -13,19 +13,16 @@ import {Available} from '@polkadot/react-query';
 import {BN_ZERO, isFunction} from '@polkadot/util';
 
 import {useTranslation} from '../translate';
-import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
-import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
 
 interface Props {
   className?: string;
   onClose: () => void;
   recipientId?: string;
   senderId?: string;
-  n?: number,
-  setN?: any
+  setN?: Dispatch<number>
 }
 
-function Transfer({className = '', onClose, recipientId: propRecipientId, senderId: propSenderId, n, setN}: Props): React.ReactElement<Props> {
+function Transfer({className = '', onClose, recipientId: propRecipientId, senderId: propSenderId, setN}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const {api} = useApi();
   const [amount, setAmount] = useState<BN | undefined>(BN_ZERO);
@@ -189,7 +186,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
           label={t<string>('Make Transfer')}
           onStart={onClose}
           onSuccess={() => {
-            setN(Math.random());
+            setN? setN(Math.random()): {};
           }}
           params={
             canToggleAll && isAll
