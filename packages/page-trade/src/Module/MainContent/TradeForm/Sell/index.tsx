@@ -6,7 +6,7 @@ import {AmountInput, Slider} from '@chainx/ui';
 import {marks} from '../constants';
 import {toPrecision} from '../../../../components/toPrecision';
 import {TxButton} from '@polkadot/react-components';
-import usePcxFree from '../../../../hooks/usePcxFree';
+import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
 import {useTranslation} from '../../../../translate';
 import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';

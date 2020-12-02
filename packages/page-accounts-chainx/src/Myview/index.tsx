@@ -37,7 +37,7 @@ interface Props {
   onStatusChange: (status: ActionStatus) => void;
 }
 
-function AssetManagement({ className = '', onStatusChange }: Props): React.ReactElement<Props> {
+function AssetManagement({ onStatusChange }: Props): React.ReactElement<Props> {
   const { hasAccounts } = useAccounts();
   return (
     hasAccounts ?

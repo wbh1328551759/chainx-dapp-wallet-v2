@@ -1,29 +1,33 @@
 // Copyright 2017-2020 @polkadot/app-accounts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { DeriveBalancesAll } from '@polkadot/api-derive/types';
-import type { AccountInfo } from '@polkadot/types/interfaces';
+import type {DeriveBalancesAll} from '@polkadot/api-derive/types';
+import type {AccountInfo} from '@polkadot/types/interfaces';
 
 import BN from 'bn.js';
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from 'styled-components';
-import { InputAddress, InputBalance, Modal, Toggle, TxButton } from '@polkadot/react-components';
-import { useApi, useCall } from '@polkadot/react-hooks';
-import { Available } from '@polkadot/react-query';
-import { BN_ZERO, isFunction } from '@polkadot/util';
+import {InputAddress, InputBalance, Modal, Toggle, TxButton} from '@polkadot/react-components';
+import {useApi, useCall} from '@polkadot/react-hooks';
+import {Available} from '@polkadot/react-query';
+import {BN_ZERO, isFunction} from '@polkadot/util';
 
-import { useTranslation } from '../translate';
+import {useTranslation} from '../translate';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
 
 interface Props {
   className?: string;
   onClose: () => void;
   recipientId?: string;
   senderId?: string;
+  n?: number,
+  setN?: any
 }
 
-function Transfer ({ className = '', onClose, recipientId: propRecipientId, senderId: propSenderId }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const { api } = useApi();
+function Transfer({className = '', onClose, recipientId: propRecipientId, senderId: propSenderId, n, setN}: Props): React.ReactElement<Props> {
+  const {t} = useTranslation();
+  const {api} = useApi();
   const [amount, setAmount] = useState<BN | undefined>(BN_ZERO);
   const [hasAvailable] = useState(true);
   const [isProtected, setIsProtected] = useState(true);
@@ -34,6 +38,11 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
   const balances = useCall<DeriveBalancesAll>(api.derive.balances.all, [senderId]);
   const accountInfo = useCall<AccountInfo>(api.query.system.account, [senderId]);
 
+  // const onClickTransfer = () => {
+  //   setA(Math.random())
+  // }
+
+
   useEffect((): void => {
     if (balances && balances.accountId.eq(senderId) && recipientId && senderId && isFunction(api.rpc.payment?.queryInfo)) {
       setTimeout((): void => {
@@ -41,7 +50,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
           api.tx.balances
             .transfer(recipientId, balances.availableBalance)
             .paymentInfo(senderId)
-            .then(({ partialFee }): void => {
+            .then(({partialFee}: any): void => {
               const maxTransfer = balances.availableBalance.sub(partialFee);
 
               setMaxTransfer(
@@ -179,6 +188,9 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
           isDisabled={!hasAvailable || !recipientId || !amount}
           label={t<string>('Make Transfer')}
           onStart={onClose}
+          onSuccess={() => {
+            setN(Math.random());
+          }}
           params={
             canToggleAll && isAll
               ? [recipientId, maxTransfer]

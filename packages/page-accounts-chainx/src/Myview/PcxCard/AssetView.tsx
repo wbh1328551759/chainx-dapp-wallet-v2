@@ -1,6 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import BN from 'bn.js'
+import styled from 'styled-components';
 import { FormatBalance } from '@polkadot/react-query';
 
 const Title = styled.h6`
@@ -27,7 +26,7 @@ const Value = styled.div`
 type Props = {
   title: string,
   bold?: any,
-  value: BN
+  value: number
 }
 
 export default function ({ bold, title, value }: Props): React.ReactElement<Props> {

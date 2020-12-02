@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import Card from './Card';
 import styled from 'styled-components';
@@ -6,13 +6,14 @@ import AssetView from './AssetView';
 import Logo from './Logo';
 import AccountInfo from './AccountInfo';
 import backgroundImg from './background.svg';
-import { WhiteButton } from '@chainx/ui';
-import { useApi, useToggle } from '@polkadot/react-hooks';
+import {WhiteButton} from '@chainx/ui';
+import {useApi, useToggle} from '@polkadot/react-hooks';
 import Transfer from '@polkadot/app-accounts/modals/Transfer';
-import usePcxFree from '../../../../page-trade/src/hooks/usePcxFree';
-import { useTranslation } from '@polkadot/app-accounts/translate';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
+import {useTranslation} from '@polkadot/app-accounts/translate';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import BN from 'bn.js';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
 
 const InnerWrapper = styled.div`
   position: relative;
@@ -52,34 +53,40 @@ const CornerBackground = styled.div`
   opacity: 0.2;
 `;
 
-export default function (props): React.ReactElement {
+interface PcxCardProps {
+  onStatusChange: (status: ActionStatus) => void;
+}
+
+export default function ({onStatusChange}: PcxCardProps): React.ReactElement<PcxCardProps> {
   const api = useApi();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [isTransferOpen, toggleTransfer] = useToggle();
+  const [n, setN] = useState(0);
 
-  const { currentAccount } = useContext(AccountContext);
-  const pcxFree = usePcxFree(currentAccount);
+  const {currentAccount} = useContext(AccountContext);
+  const pcxFree = usePcxFree(currentAccount, n);
   const freeBalance = new BN(pcxFree.free);
-  const allBalance = freeBalance.add(new BN(pcxFree.reserved))
-
+  const allBalance = freeBalance.add(new BN(pcxFree.reserved)).toNumber();
+  const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
+  const bgFeeFrozen = new BN(pcxFree.feeFrozen);
   return (
     <Card>
       <InnerWrapper>
         <header>
-          <Logo />
-          <AccountInfo />
+          <Logo/>
+          <AccountInfo/>
         </header>
         <section className='free' key='free'>
           <AssetView
             bold
             title={t('free balance')}
-            value={new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen))}
+            value={bgUsableBalance.toNumber()}
           />
 
           {api.api.tx.balances?.transfer && currentAccount && (
             <WhiteButton
               onClick={toggleTransfer}
-              style={{ marginLeft: 32, height: 28, marginBottom: 4 }}
+              style={{marginLeft: 32, height: 28, marginBottom: 4}}
             >
               {t('Transfer')}
             </WhiteButton>
@@ -96,7 +103,7 @@ export default function (props): React.ReactElement {
               <AssetView
                 key={Math.random()}
                 title={t('frozen voting')}
-                value={new BN(pcxFree.feeFrozen)}
+                value={bgFeeFrozen.toNumber()}
               />
               {/* <AssetView
                 title="交易冻结"
@@ -111,13 +118,15 @@ export default function (props): React.ReactElement {
             </>
           )}
         </section>
-        <CornerBackground />
+        <CornerBackground/>
         {isTransferOpen && (
           <Transfer
             key='modal-transfer'
             onClose={toggleTransfer}
             senderId={currentAccount}
-            onStatusChange={props.onStatusChange}
+            onStatusChange={onStatusChange}
+            n={n}
+            setN={setN}
           />
         )}
       </InnerWrapper>
