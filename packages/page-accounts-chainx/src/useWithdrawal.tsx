@@ -17,12 +17,12 @@ export default function useWithdrawal(currentAccount = ''): Withdrawal[] {
   const [state, setState] = useState<Withdrawal[]>([]);
   let withdrawalTimeId: any = '';
 
-  async function fetchWithdrawals() {
+  async function fetchWithdrawals(currentAccount: string) {
     const testOrMain = await api.api.rpc.system.properties();
     const testOrMainNum = JSON.parse(testOrMain);
     let res: any;
     if (testOrMainNum.ss58Format === 42) {
-      res = await axios.get('http://8.210.38.126:3214/accounts/${currentAccount}/withdrawals?page=0&page_size=20');
+      res = await axios.get(`http://8.210.38.126:3214/accounts/${currentAccount}/withdrawals?page=0&page_size=20`);
     } else {
       res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/withdrawals?page=0&page_size=20`);
     }
@@ -30,12 +30,12 @@ export default function useWithdrawal(currentAccount = ''): Withdrawal[] {
   }
 
   useEffect((): void => {
-    fetchWithdrawals();
+    fetchWithdrawals(currentAccount);
   }, []);
 
   useEffect(() => {
     withdrawalTimeId = setInterval(() => {
-      fetchWithdrawals();
+      fetchWithdrawals(currentAccount);
     }, 5000);
 
     return () => window.clearInterval(withdrawalTimeId);

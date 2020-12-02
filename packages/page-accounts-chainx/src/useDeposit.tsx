@@ -17,12 +17,12 @@ export default function useDeposit(currentAccount = ''): Deposit[] {
   const [state, setState] = useState<Deposit[]>([]);
   let depositTimeId: any = '';
 
-  async function fetchDeposits() {
+  async function fetchDeposits(currentAccount: string) {
     const testOrMain = await api.api.rpc.system.properties();
     const testOrMainNum = JSON.parse(testOrMain);
     let res: any;
     if (testOrMainNum.ss58Format === 42) {
-      res = await axios.get('http://8.210.38.126:3214/accounts/${currentAccount}/deposits?page=0&page_size=20');
+      res = await axios.get(`http://8.210.38.126:3214/accounts/${currentAccount}/deposits?page=0&page_size=20`);
     } else {
       res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/deposits?page=0&page_size=20`);
     }
@@ -30,12 +30,12 @@ export default function useDeposit(currentAccount = ''): Deposit[] {
   }
 
   useEffect((): void => {
-    fetchDeposits();
+    fetchDeposits(currentAccount);
   }, []);
 
   useEffect(() => {
     depositTimeId = setInterval(() => {
-      fetchDeposits();
+      fetchDeposits(currentAccount);
     }, 5000);
 
     return () => window.clearInterval(depositTimeId);
