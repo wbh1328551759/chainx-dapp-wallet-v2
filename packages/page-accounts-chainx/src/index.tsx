@@ -51,12 +51,10 @@ function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Pr
       </header>
       <Switch>
         <Route>
-
           <Myview
             basePath={basePath}
             onStatusChange={onStatusChange}
           />
-
         </Route>
       </Switch>
     </Main>

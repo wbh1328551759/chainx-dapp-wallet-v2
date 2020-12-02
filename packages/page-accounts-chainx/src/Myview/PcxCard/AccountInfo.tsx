@@ -40,7 +40,7 @@ export default function (): React.ReactElement {
     <Wrapper>
       <Title>{name || '-'}</Title>
       <Address>{allAccounts && currentAccount || '-'}</Address>
-      <div>{t('trust、senator、the node of validate')}</div>
+      {/*<div>{t('trust、senator、the node of validate')}</div>*/}
     </Wrapper>
   );
 }
