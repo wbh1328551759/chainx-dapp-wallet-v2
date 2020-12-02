@@ -3,7 +3,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import Wrapper from './Wrapper';
 import Buy from './Buy';
 import Sell from './Sell';
-import ReactTooltip from 'react-tooltip';
 import {useAccounts, useApi} from '@polkadot/react-hooks';
 import {AssetsInfo} from '@polkadot/react-hooks-chainx/types';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
@@ -57,9 +56,6 @@ export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactE
         setNodeName={setNodeName}
       />
       <Sell nodeName={nodeName}/>
-      <ReactTooltip effect='solid'
-        place='top'
-        type='dark' />
     </Wrapper>
   );
 }

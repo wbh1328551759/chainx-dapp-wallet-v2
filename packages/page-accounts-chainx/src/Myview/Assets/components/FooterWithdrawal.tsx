@@ -1,11 +1,11 @@
 import {Button, InputAddress, Modal, TxButton} from '@polkadot/react-components';
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {useAccounts, useToggle} from '@polkadot/react-hooks';
 import {useAccountAssets} from '@polkadot/react-hooks-chainx';
 import {useTranslation} from '@polkadot/app-accounts/translate';
 import {KeyringSectionOption} from '@polkadot/ui-keyring/options/types';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
-import LabelHelp from '@polkadot/react-components/LabelHelp';
+// import LabelHelp from '@polkadot/react-components/LabelHelp';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 import styled from 'styled-components';
 
@@ -29,7 +29,6 @@ export default function ({allInterests, usableInterests}: FooterProps): React.Re
   const {allAssets} = useAccountAssets(allAccounts);
   const canwithDrawAccounts: string[] = [];
   const {currentAccount} = useContext(AccountContext);
-  const [accountId, setAccount] = useState<string | null | undefined>();
 
   allAssets.map((item) => {
     if (Number(item.XbtcInterests) > 0) {

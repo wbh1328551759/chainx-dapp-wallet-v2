@@ -1,0 +1,25 @@
+
+name: remote ssh command
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: '8.210.209.20'
+          username: 'root'
+          password: 'Lianwang@chainnet.tech'
+          port: '22'
+          script: |
+            whoami
+            cd chainx-dapp-wallet-v3
+            ls -all
+            git stash
+            git checkout main
+            git pull origin main
+            yarn
+            yarn run build:www

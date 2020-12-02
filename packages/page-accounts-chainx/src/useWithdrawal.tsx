@@ -1,7 +1,7 @@
-
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 import axios from 'axios';
+import {useApi} from '@polkadot/react-hooks';
 
 interface Withdrawal {
   id: number,
@@ -13,18 +13,33 @@ interface Withdrawal {
 }
 
 export default function useWithdrawal(currentAccount = ''): Withdrawal[] {
+  const api = useApi();
   const [state, setState] = useState<Withdrawal[]>([]);
-  useEffect((): void => {
-    async function fetchWithdrawals() {
-      if (currentAccount === '') {
-        return;
-      }
-      const res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/withdrawals?page=0&page_size=20`);
-      setState(res.data.items);
-    }
+  let withdrawalTimeId: any = '';
 
+  async function fetchWithdrawals() {
+    const testOrMain = await api.api.rpc.system.properties();
+    const testOrMainNum = JSON.parse(testOrMain);
+    let res: any;
+    if (testOrMainNum.ss58Format === 42) {
+      res = await axios.get('http://8.210.38.126:3214/accounts/${currentAccount}/withdrawals?page=0&page_size=20');
+    } else {
+      res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/withdrawals?page=0&page_size=20`);
+    }
+    setState(res.data.items);
+  }
+
+  useEffect((): void => {
     fetchWithdrawals();
-  }, [currentAccount]);
+  }, []);
+
+  useEffect(() => {
+    withdrawalTimeId = setInterval(() => {
+      fetchWithdrawals();
+    }, 5000);
+
+    return () => window.clearInterval(withdrawalTimeId);
+  }, [currentAccount, withdrawalTimeId]);
 
   return state;
 }

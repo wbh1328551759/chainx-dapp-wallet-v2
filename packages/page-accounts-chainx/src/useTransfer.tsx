@@ -1,6 +1,6 @@
-
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
+import {useApi} from '@polkadot/react-hooks';
 
 interface Transfer {
   id: number,
@@ -11,23 +11,35 @@ interface Transfer {
   createdAt: number
 }
 
-
 export default function useTransfer(currentAccount = ''): Transfer[] {
+  const api = useApi();
   const [state, setState] = useState<Transfer[]>([]);
+  let transferTimeId: any = '';
+
+  async function fetchTransfers() {
+    const testOrMain = await api.api.rpc.system.properties();
+    const testOrMainNum = JSON.parse(testOrMain);
+    let res: any;
+    if (testOrMainNum.ss58Format === 42) {
+      res = await axios.get('http://8.210.38.126:3214/accounts/${currentAccount}/transfers?page=0&page_size=20');
+    } else {
+      res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/transfers?page=0&page_size=10`);
+      // let res = await axios.get(`https://api-v2.chainx.org/accounts/5Escb2u24DLhTSJBkStrfQjQcdDe9XaP4wsa3EA9BGAhk8mu/transfers?page=0&page_size=10`);
+    }
+    setState(res.data.items);
+  }
 
   useEffect((): void => {
-    async function fetchTransfers() {
-      if (currentAccount === '') {
-        return;
-      }
-      let res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/transfers?page=0&page_size=10`);
-      // let res = await axios.get(`https://api-v2.chainx.org/accounts/5Escb2u24DLhTSJBkStrfQjQcdDe9XaP4wsa3EA9BGAhk8mu/transfers?page=0&page_size=10`);
-
-      setState(res.data.items);
-    }
-
     fetchTransfers();
-  }, [currentAccount]);
-  console.log()
+  }, []);
+
+  useEffect(() => {
+    transferTimeId = setInterval(() => {
+      fetchTransfers();
+    }, 5000);
+
+    return () => window.clearInterval(transferTimeId);
+  }, [currentAccount, transferTimeId]);
+
   return state;
 }
