@@ -22,10 +22,6 @@ export default function useTransfer(currentAccount = ''): Transfer[] {
     let res: any;
     if (testOrMainNum.ss58Format === 42) {
       res = await axios.get(`http://8.210.38.126:3214/accounts/${currentAccount}/transfers?page=0&page_size=20`);
-     console.log('curreny')
-      console.log(currentAccount)
-      console.log('res')
-      console.log(res)
     } else {
       res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/transfers?page=0&page_size=10`);
       // let res = await axios.get(`https://api-v2.chainx.org/accounts/5Escb2u24DLhTSJBkStrfQjQcdDe9XaP4wsa3EA9BGAhk8mu/transfers?page=0&page_size=10`);
