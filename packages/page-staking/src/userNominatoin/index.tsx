@@ -64,7 +64,6 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
         currentAccount
       );
 
-      console.log(JSON.stringify(userDividedRes))
       let current: any = {};
       const dividedArray: Dividended[] = [];
       const userDivided = JSON.parse(userDividedRes);
@@ -94,7 +93,8 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
     getNominationAndDivided()
 
   }, [currentAccount])
-
+  console.log('state')
+  console.log(state)
   const headerRef = useRef([
     [t<string>('My stake'), 'start'],
     [t<string>('Number of votes'), 'start'],
@@ -102,7 +102,12 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
     [t<string>('Freeze'), 'start'],
     [undefined, undefined, undefined, undefined, undefined, 'start']
   ]);
-
+  const validNominations = state.allNominations.filter((nmn,index) => {
+    const userInterest = state.allDividended.find(dvd => dvd.account === currentAccount)
+    const isInNmN = userInterest?.interests.find(ist => ist.validator === nmn.validatorId)
+    const NotZero = userInterest?.interests.find(ist => (Number(ist.interest) !== 0 || Number(nmn.nomination) !== 0))
+    return isInNmN && NotZero
+  } )
   return (
     <div>
       <div className={className}>
@@ -111,14 +116,14 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
           header={headerRef.current}
         >
           {
-            currentAccount && state.allNominations.map((item, index) => {
+            currentAccount && validNominations.map((item, index) => {
               const userInterest = state.allDividended.find(item => item.account === currentAccount)
               if (item.account === currentAccount) {
                 return <UserTable
                   accountId={currentAccount}
-                  nomination={state.allNominations[index]}
+                  nomination={validNominations[index]}
                   validatorInfoList={validatorInfoList}
-                  userInterest={userInterest?.interests?.find(item => item.validator === state.allNominations[index].validatorId)?.interest}
+                  userInterest={userInterest?.interests?.find(item => item.validator === validNominations[index].validatorId)?.interest}
                   onStausChange={async (status) => {
                     setLoading(false)
                     let userNominations = await getNominationAndDividedExternal(currentAccount, api)
@@ -143,7 +148,7 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
 
 export default React.memo(styled(UserNomination)`
 
-  
+
   .filter--tags {
     .ui--Dropdown {
       padding-left: 0;
