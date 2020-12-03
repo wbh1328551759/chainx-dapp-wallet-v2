@@ -12,7 +12,6 @@ export default function useFills(): Fill[] {
     let res;
     if (testOrMainNum.ss58Format === 42) {
       res = await axios.get('http://8.210.38.126:3214/dex/fills/0');
-      console.log('1');
     } else {
       res = await axios.get('https://api-v2.chainx.org/dex/fills/0');
     }
