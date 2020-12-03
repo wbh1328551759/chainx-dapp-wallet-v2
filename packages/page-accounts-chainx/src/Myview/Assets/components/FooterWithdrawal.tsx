@@ -1,5 +1,5 @@
 import {Button, InputAddress, Modal, TxButton} from '@polkadot/react-components';
-import React, {Dispatch, useContext} from 'react';
+import React, {Dispatch, useContext, useEffect, useState} from 'react';
 import {useAccounts, useToggle} from '@polkadot/react-hooks';
 import {useAccountAssets} from '@polkadot/react-hooks-chainx';
 import {useTranslation} from '@polkadot/app-accounts/translate';
@@ -12,6 +12,7 @@ import styled from 'styled-components';
 interface FooterProps {
   allInterests: number | undefined,
   usableInterests: number | undefined,
+  insufficientStake: number | undefined,
   setN: Dispatch<number>
 }
 
@@ -20,9 +21,13 @@ const ActionsButton = styled(Modal.Actions)`
   > button{
     width: 105px;
   }
+`;
+const Tip = styled.span`
+  color: red;
+  margin-left: 1.5rem;
 `
 
-export default function ({allInterests, usableInterests, setN}: FooterProps): React.ReactElement<FooterProps> {
+export default function ({allInterests, usableInterests, insufficientStake, setN}: FooterProps): React.ReactElement<FooterProps> {
   const {t} = useTranslation();
   const options: KeyringSectionOption[] = [];
   const [isWithDrawButton, toggleWithDrawButton] = useToggle();
@@ -30,6 +35,7 @@ export default function ({allInterests, usableInterests, setN}: FooterProps): Re
   const {allAssets} = useAccountAssets(allAccounts);
   const canwithDrawAccounts: string[] = [];
   const {currentAccount} = useContext(AccountContext);
+  const [disabled, setDisabled] = useState<boolean>();
 
   allAssets.map((item) => {
     if (Number(item.XbtcInterests) > 0) {
@@ -45,6 +51,9 @@ export default function ({allInterests, usableInterests, setN}: FooterProps): Re
       }
     );
   });
+  useEffect(() => {
+    insufficientStake === 0 ? setDisabled(false) : setDisabled(true);
+  }, [allInterests, usableInterests, insufficientStake]);
 
   return (
     <div>
@@ -79,6 +88,12 @@ export default function ({allInterests, usableInterests, setN}: FooterProps): Re
                 <span>
                   {t('avaliable interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
                 </span>
+                {insufficientStake === 0 ? '' :
+                <Tip>
+                  {'需抵押：'}{insufficientStake ? insufficientStake : toPrecision(0, 4)}
+                </Tip>
+                }
+
               </Modal.Column>
               <ActionsButton onCancel={toggleWithDrawButton}>
                 <TxButton
@@ -86,9 +101,10 @@ export default function ({allInterests, usableInterests, setN}: FooterProps): Re
                   icon='plus'
                   label={t('Withdraw interest')}
                   params={[1]}
+                  isDisabled={disabled}
                   tx='xMiningAsset.claim'
                   onSuccess={() => {
-                    setN(Math.random())
+                    setN(Math.random());
                   }}
                 />
               </ActionsButton>

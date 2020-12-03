@@ -35,6 +35,7 @@ const Wrapper = styled.div`
 interface Props {
   className?: string;
   onStatusChange: (status: ActionStatus) => void;
+  basePath: string;
 }
 
 function AssetManagement({ onStatusChange }: Props): React.ReactElement<Props> {

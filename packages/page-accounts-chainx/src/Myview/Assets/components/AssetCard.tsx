@@ -40,6 +40,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
   const {api} = useApi();
   const [allInterests, setAllInterests] = useState<number>();
   const [usableInterests, setUsableInterests] = useState<number>();
+  const [insufficientStake, setInsufficientStake] = useState<number>()
   const {currentAccount} = useContext(AccountContext);
   const [n, setN] = useState<number>(0);
   useEffect((): void => {
@@ -52,15 +53,18 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       });
       const bgOwnInterests = new BigNumber(toPrecision(currentDividend.own, 8));
       const bgOtherInterests = new BigNumber(toPrecision(currentDividend.other, 8));
+      const bgInsufficientStake = new BigNumber(toPrecision(currentDividend.insufficientStake, 8))
       const bgAllInterests = bgOwnInterests.toNumber() + bgOtherInterests.toNumber();
 
       setAllInterests(+bgAllInterests.toFixed(4));
       setUsableInterests(+bgOwnInterests.toNumber().toFixed(4));
+      setInsufficientStake(+bgInsufficientStake.toNumber().toFixed(4))
     }
 
     // getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
     getDividend(currentAccount);
   }, [currentAccount, n]);
+
   return (
     <Card>
       <header>
@@ -81,7 +85,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
           <span>  {allInterests ? allInterests : 0} PCX</span>
         </div>
         <div>
-          <FooterWithdrawal allInterests={allInterests} usableInterests={usableInterests} setN={setN}/>
+          <FooterWithdrawal allInterests={allInterests} usableInterests={usableInterests} insufficientStake={insufficientStake} setN={setN}/>
         </div>
       </Footer>
     </Card>
