@@ -27,7 +27,7 @@ export default function useAsksBids(): OpenOders {
     const testOrMainNum = JSON.parse(testOrMain);
     let res;
     if (testOrMainNum.ss58Format === 42) {
-      res = await axios.get('http://8.210.38.126:3214/dex/depth/0?cnt=6');
+      res = await axios.get('https://testnet-api.chainx.org/dex/depth/0?cnt=6');
     } else {
       res = await axios.get('https://api-v2.chainx.org/dex/depth/0');
     }
