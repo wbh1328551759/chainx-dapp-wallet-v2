@@ -64,8 +64,6 @@ export default function (): React.ReactElement {
         XbtcInterests: currentDividend
       });
       setCurrentAccountInfo(current)
-      console.log('n:'+n)
-
     }
     // getAssets('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB')
     getAssets(currentAccount.currentAccount)

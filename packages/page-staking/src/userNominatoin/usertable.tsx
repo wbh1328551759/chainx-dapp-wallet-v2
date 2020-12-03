@@ -41,7 +41,6 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
     return total + Number(record.value);
   }, 0) : 0;
 
-  console.log(JSON.stringify(userInterest))
   const redeemOptions: object[] = [];
 
   nomination?.unbondedChunks ? nomination?.unbondedChunks.map((item, index) => {
