@@ -22,7 +22,7 @@ export default function useDeposit(currentAccount = ''): Deposit[] {
     const testOrMainNum = JSON.parse(testOrMain);
     let res: any;
     if (testOrMainNum.ss58Format === 42) {
-      res = await axios.get(`http://8.210.38.126:3214/accounts/${currentAccount}/deposits?page=0&page_size=20`);
+      res = await axios.get(`https://testnet-api.chainx.org/accounts/${currentAccount}/deposits?page=0&page_size=20`);
     } else {
       res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/deposits?page=0&page_size=20`);
     }
