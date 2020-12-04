@@ -24,13 +24,13 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
   const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
   const [price, setPrice] = useState(toPrecision(0, 7));
   const [amount, setAmount] = useState(toPrecision(0, 7));
-  const [percentage, setPercentage] = useState(0);
-  const [max, setMax] = useState(new BigNumber(0));
+  const [percentage, setPercentage] = useState<number>(0);
+  const [max, setMax] = useState<number>(0);
   const [disabled, setDisabled] = useState(true);
   const {t} = useTranslation();
   const bgAmount = new BigNumber(amount);
   const bgPrice = new BigNumber(price);
-  const volume = (bgAmount.multipliedBy(bgPrice)).toFixed(7);
+  const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
   useEffect(() => {
     const bgFillPrice = new BigNumber(toPrecision(fillPrice, 9));
     if (fillPrice) {
@@ -50,7 +50,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
 
   useEffect(() => {
     const bgAssetsInfoUsable = new BigNumber(toPrecision(Number(assetsInfo?.Usable), 8));
-    setMax(bgAssetsInfoUsable.dividedBy(bgPrice));
+    setMax(bgAssetsInfoUsable.dividedBy(bgPrice).toNumber());
   }, [assetsInfo, price]);
 
   return (
@@ -92,7 +92,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
               setAmount(max.toFixed(7));
               setPercentage(100);
             } else {
-              setAmount((amount) => value);
+              setAmount(value);
               setPercentage((value / max) * 100);
             }
           }}
@@ -110,8 +110,8 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
         min={0}
         onChange={(value: number) => {
           setPercentage((percentage) => value);
-          const calcMax = max.multipliedBy(value).dividedBy(100).toFixed(7);
-          setAmount((amount) => isFinite(Number(calcMax)) ? calcMax : defaultValue);
+          const calcMax = ((max*value)/100).toFixed(7);
+          setAmount(() => isFinite(Number(calcMax)) ? calcMax : defaultValue);
         }}
         value={percentage}
         valueLabelDisplay='off'
@@ -119,7 +119,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
       <div className='volume'>
         <span>{t('Volume')} </span>
         <span>
-          {Number(volume).toFixed(8)} {'BTC'}
+          {volume.toNumber()? volume.toNumber().toFixed(8): toPrecision(0, 8)} {'BTC'}
         </span>
       </div>
       <div className='button'>

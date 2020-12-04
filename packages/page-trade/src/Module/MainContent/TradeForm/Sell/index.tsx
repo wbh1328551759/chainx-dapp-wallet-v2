@@ -18,7 +18,7 @@ type Props = {
 }
 
 export default function ({nodeName}: Props): React.ReactElement<Props> {
-  const {hasAccounts} = useAccounts()
+  const {hasAccounts} = useAccounts();
   const fills = useFills();
   const defaultValue = new BigNumber(toPrecision(fills[0]?.price, 9)).toNumber().toFixed(7);
   const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
@@ -120,7 +120,7 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
       <div className='volume'>
         <span>{t('Volume')} </span>
         <span>
-          {volume.toFixed(8)} {'BTC'}
+          {volume.toNumber() ? volume.toNumber().toFixed(8) : toPrecision(0, 8)} {'BTC'}
         </span>
       </div>
 
