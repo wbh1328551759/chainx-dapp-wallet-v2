@@ -11,6 +11,7 @@ import {toPrecision} from '../../../../components/toPrecision';
 import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
 import {useAccounts} from '@polkadot/react-hooks';
+import {api} from '@polkadot/react-api';
 
 type Props = {
   nodeName: string,
@@ -53,6 +54,16 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
     setMax(bgAssetsInfoUsable.dividedBy(bgPrice).toNumber());
   }, [assetsInfo, price]);
 
+  useEffect(() => {
+    async function judgeNet(){
+      const testOrMain = await api.rpc.system.properties();
+      const testOrMainNum = JSON.parse(testOrMain);
+      if (testOrMainNum.ss58Format !== 42) {
+        setDisabled(true)
+      }
+    }
+    judgeNet()
+  })
   return (
     <Wrapper>
       <div className='info'>

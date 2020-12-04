@@ -11,6 +11,7 @@ import {useTranslation} from '../../../../translate';
 import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
 import {useAccounts} from '@polkadot/react-hooks';
+import {api} from '@polkadot/react-api';
 
 type Props = {
   nodeName: string,
@@ -55,6 +56,16 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
     setMax(Number(bgPcxFree));
   }, [pcxFree.free, price]);
 
+  useEffect(() => {
+    async function judgeNet(){
+      const testOrMain = await api.rpc.system.properties();
+      const testOrMainNum = JSON.parse(testOrMain);
+      if (testOrMainNum.ss58Format !== 42) {
+        setDisabled(true)
+      }
+    }
+    judgeNet()
+  })
 
   return (
     <Wrapper>
@@ -87,7 +98,7 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
           id='sell-amount'
           onChange={(value) => {
             if (value > max) {
-              setAmount(+max.toFixed(7));
+              setAmount(max.toFixed(7));
               setPercentage(100);
             } else {
               setAmount(value);
@@ -110,8 +121,7 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
           const bgMax = new BigNumber(max);
           setPercentage(value);
           const calcMax = bgMax.multipliedBy(value).dividedBy(100).toFixed(7);
-          setAmount(isFinite(Number(calcMax)) ? +calcMax : defaultValue);
-
+          setAmount(isFinite(Number(calcMax)) ? +calcMax : Number(toPrecision(0,7)).toFixed(7));
         }}
         value={percentage}
         valueLabelDisplay='off'
