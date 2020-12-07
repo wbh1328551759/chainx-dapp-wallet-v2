@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Wrapper from './Wrapper';
 import Free from '../components/Free';
 import {AmountInput, Slider} from '@chainx/ui';
@@ -8,10 +8,11 @@ import {TxButton} from '@polkadot/react-components';
 import {AssetsInfo} from '@polkadot/react-hooks/types';
 import {useTranslation} from '../../../../translate';
 import {toPrecision} from '../../../../components/toPrecision';
-import useFills from '../../../../hooks/useFills';
+// import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
 import {useAccounts} from '@polkadot/react-hooks';
 import {api} from '@polkadot/react-api';
+import { FillContext } from '../../../FillProvider';
 
 type Props = {
   nodeName: string,
@@ -20,7 +21,8 @@ type Props = {
 }
 
 export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Props> {
-  const fills = useFills();
+  // const fills = useFills();
+  const { fills } = useContext(FillContext);
   const fillPrice = fills[0]?.price || 0;
   const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
   const [price, setPrice] = useState(toPrecision(0, 7));

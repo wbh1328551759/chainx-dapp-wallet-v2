@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { toPrecision } from '../../components/toPrecision';
-import useFills from '../../hooks/useFills';
+import { FillContext } from '../FillProvider';
+// import useFills from '../../hooks/useFills';
 
 const Wrapper = styled.div`
   background: #ffffff;
@@ -15,7 +16,9 @@ const Wrapper = styled.div`
 `;
 
 export default function (): React.ReactElement {
-  const fills = useFills();
+  // const fills = useFills();
+  const { fills } = useContext(FillContext);
+  
   const [latest, setLatest] = useState();
 
   return (

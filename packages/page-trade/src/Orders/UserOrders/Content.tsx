@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Table, TableBody, TableRow } from '@chainx/ui';
 import moment from 'moment';
 import { toPrecision } from '../../components/toPrecision';
@@ -15,12 +15,13 @@ import cancelIcon from '../svg/cancel.svg';
 import cancelDisabledIcon from '../svg/cancel-disabled.svg';
 import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { TxButton } from '@polkadot/react-components';
+import { FillContext } from '../../Module/FillProvider';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
   const [disabled, setDisabled] = useState(false);
   const [targetId, setTargetId] = useState(null);
   const { NowOrders } = useOrders(nodeName);
-
+  // const { NowOrders } = useContext(FillContext);
   const cancelOrder = async (id: number) => {
     setDisabled(true);
     setTargetId(id);

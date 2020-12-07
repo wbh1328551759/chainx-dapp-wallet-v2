@@ -13,7 +13,8 @@ import Orders from './Orders';
 
 import { useTranslation } from './translate';
 
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import { AccountContext, AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
+import { FillProvider } from './Module/FillProvider';
 
 function TradeApp({ basePath }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
@@ -43,11 +44,15 @@ function TradeApp({ basePath }: Props): React.ReactElement<Props> {
       </header>
       <Switch>
         <Route path={`${basePath}/`}>
-          <Wrapper>
-            <Trade nodeName={currentAccount}
-              setNodeName={setNodeName} />
-            <Orders nodeName={currentAccount} />
-          </Wrapper>
+          <AccountProvider>
+            <FillProvider>
+              <Wrapper>
+                <Trade nodeName={currentAccount}
+                  setNodeName={setNodeName} />
+                <Orders nodeName={currentAccount} />
+              </Wrapper>
+              </FillProvider>
+          </AccountProvider>
         </Route>
       </Switch>
     </Wrapper>
