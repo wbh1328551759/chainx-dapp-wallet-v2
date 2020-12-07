@@ -1,31 +1,42 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps as Props } from '@polkadot/react-components/types';
+import {BareProps as Props} from '@polkadot/react-components/types';
 
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
-import { useApi } from '@polkadot/react-hooks';
-import { NodeName, NodeVersion } from '@polkadot/react-query';
+import {useApi} from '@polkadot/react-hooks';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
+import {NodeName, NodeVersion} from '@polkadot/react-query';
+import AccountStatus from '@polkadot/react-components-chainx/AccountStatus';
+import {StatusContext} from '@polkadot/react-components';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkgJson = require('../../package.json') as { version: string };
 
 const uiInfo = `apps v${pkgJson.version}`;
 
-function NodeInfo ({ className = '' }: Props): React.ReactElement<Props> {
-  const { api, isApiReady } = useApi();
+function NodeInfo({className = ''}: Props): React.ReactElement<Props> {
+  const {api, isApiReady} = useApi();
+  let [storedValue, setValue] = useLocalStorage<string>('currentAccount');
+  const { queueAction } = useContext(StatusContext);
 
   return (
     <div className={`${className} media--1400 highlight--color-contrast`}>
       {isApiReady && (
-        <div>
-          <NodeName />&nbsp;
-          <NodeVersion label='v' />
-        </div>
+        <AccountStatus
+          storedValue={storedValue}
+          onStatusChange={queueAction}
+          setStoredValue={setValue}
+        />
+        // <div>
+        //   <NodeName/>&nbsp;
+        //   <NodeVersion label='v'/>
+        // </div>
       )}
-      <div>{api.libraryInfo.replace('@polkadot/', '')}</div>
-      <div>{uiInfo}</div>
+      {/*<div>{api.libraryInfo.replace('@polkadot/', '')}</div>*/}
+      {/*<div>{uiInfo}</div>*/}
+
     </div>
   );
 }
