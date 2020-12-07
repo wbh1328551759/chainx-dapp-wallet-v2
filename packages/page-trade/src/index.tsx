@@ -38,7 +38,6 @@ function TradeApp({ basePath }: Props): React.ReactElement<Props> {
             basePath={basePath}
             items={itemsRef.current}
           />
-          <AccountSelect />
         </>
       </header>
       <Switch>
