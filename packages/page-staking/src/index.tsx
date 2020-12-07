@@ -16,7 +16,7 @@ import AccountSelect from '@polkadot/react-components-chainx/AccountSelect';
 
 import basicMd from './md/basic.md';
 import Overview from './Overview';
-import UserNomination from './userNominatoin'
+import UserNomination from './userNomination'
 import Query from './Query';
 import Summary from './Overview/Summary';
 
