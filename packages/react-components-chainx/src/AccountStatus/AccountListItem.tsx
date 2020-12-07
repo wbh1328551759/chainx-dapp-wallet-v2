@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import { AddressSmall, Balance, Button} from '@polkadot/react-components';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import { useTranslation } from '../translate';
 
 function noop () { }
 
@@ -21,7 +22,7 @@ interface Props {
 }
 
 function Account ({ address, className, isAccountChecked, setStoredValue }: Props): React.ReactElement<Props> | null {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const { changeAccount } = useContext(AccountContext);
 
   return (
@@ -34,7 +35,7 @@ function Account ({ address, className, isAccountChecked, setStoredValue }: Prop
 
       <td className='middle'>
         <Balance className='accountBox--all'
-                 label={'余额： '}
+                 label={t('balances')}
                  params={address} />
 
       </td>
@@ -48,7 +49,7 @@ function Account ({ address, className, isAccountChecked, setStoredValue }: Prop
           : <Button
             icon={'plus'}
             isBasic={true}
-            label={'更改'}
+            label={t('Change')}
             onClick={() => {
               setStoredValue(address)
               changeAccount(address)

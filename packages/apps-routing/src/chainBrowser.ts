@@ -12,7 +12,7 @@ export default function create (t: TFunction): Route {
       needsApi: []
     },
     group: 'network',
-    icon: 'server',
+    icon: 'network-wired',
     name: 'chainBrowser',
     text: t('nav.browser', 'ChainBrowser', { ns: 'apps-routing' })
   };

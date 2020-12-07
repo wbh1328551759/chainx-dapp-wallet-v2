@@ -25,7 +25,7 @@ interface Props extends ModalProps, I18nProps {
   onStatusChange: (status) => void;
 }
 
-type SortedAccount = { address: string; isFavorite: boolean };
+type SortedAccount = { address: string | undefined; isFavorite: boolean };
 
 const STORE_FAVS = 'accounts:favorites';
 
@@ -36,17 +36,17 @@ function AccountList({storedValue, className, onClose, onStatusChange, setStored
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [favorites, toggleFavorite] = useFavorites(STORE_FAVS);
   const [sortedAccounts, setSortedAccounts] = useState<SortedAccount[]>([]);
-  let x = {address: undefined, isFavorite: false};
-  let arr: SortedAccount[] = [];
+  let sortedAccount = {address: undefined, isFavorite: false};
+  let SortedAccounts: SortedAccount[] = [];
 
   useEffect((): void => {
     allAccounts.map((address, index) => {
-      x = {address: undefined, isFavorite: false};
-      x.address = allAccounts[index];
-      x.isFavorite = index === 0;
-      arr.push(x);
+      sortedAccount = {address: undefined, isFavorite: false};
+      sortedAccount.address = allAccounts[index];
+      sortedAccount.isFavorite = index === 0;
+      SortedAccounts.push(sortedAccount);
     });
-    setSortedAccounts(arr);
+    setSortedAccounts(SortedAccounts);
 
   }, [allAccounts, favorites]);
 
@@ -73,12 +73,12 @@ function AccountList({storedValue, className, onClose, onStatusChange, setStored
         <>
           <div className={'overviewTab'}>
             <div>
-              <p>{'Choose account'}</p>
+              <p>{t('Choose account')}</p>
             </div>
             <div>
               <Button
                 icon={'plus'}
-                label={'添加账户'}
+                label={t('Add account')}
                 onClick={_toggleCreate}
               />
               <Button
