@@ -90,8 +90,7 @@ function UserNomination({className = '', validatorInfoList}: Props): React.React
 
     getNominationAndDivided();
   }, [currentAccount]);
-  console.log('state');
-  console.log(state);
+
   const headerRef = useRef([
     [t<string>('My stake'), 'start'],
     [t<string>('Number of votes'), 'start'],
