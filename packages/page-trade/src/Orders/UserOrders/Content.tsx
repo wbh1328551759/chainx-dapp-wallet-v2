@@ -15,13 +15,13 @@ import cancelIcon from '../svg/cancel.svg';
 import cancelDisabledIcon from '../svg/cancel-disabled.svg';
 import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { TxButton } from '@polkadot/react-components';
-import { FillContext } from '../../Module/FillProvider';
+import { OrderContext } from '../OrderProvider';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
   const [disabled, setDisabled] = useState(false);
   const [targetId, setTargetId] = useState(null);
-  const { NowOrders } = useOrders(nodeName);
-  // const { NowOrders } = useContext(FillContext);
+  // const { NowOrders } = useOrders(nodeName);
+  const {  NowOrders } = useContext(OrderContext);
   const cancelOrder = async (id: number) => {
     setDisabled(true);
     setTargetId(id);

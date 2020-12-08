@@ -23,18 +23,15 @@ type Props = {
 
 export default function ({nodeName}: Props): React.ReactElement<Props> {
   const {hasAccounts} = useAccounts();
-  const fills = useFills();
-  // const { fills } = useContext(FillContext);
+  // const fills = useFills();
+  const { fills } = useContext(FillContext);
   const defaultValue = new BigNumber(toPrecision(fills[0]?.price, 9)).toNumber().toFixed(7);
   const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
   const [disabled, setDisabled] = useState<boolean>(true);
   const [amount, setAmount] = useState<number | string>(toPrecision(0, 7));
   const [max, setMax] = useState<number>(0);
   const [percentage, setPercentage] = useState<number>(0);
-  // const { currentAccount } = useContext(AccountContext);
   const pcxFree = usePcxFree(nodeName);
-  console.log("pcxFree:")
-  console.log(JSON.parse(JSON.stringify(pcxFree)))
   const {t} = useTranslation();
   const bgAmount = new BigNumber(amount);
   const bgPrice = new BigNumber(price);

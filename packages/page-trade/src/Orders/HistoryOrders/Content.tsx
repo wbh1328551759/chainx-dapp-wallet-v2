@@ -13,11 +13,11 @@ import moment from 'moment';
 import { HeadCell, StatCell } from '../Wrapper';
 import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { useTranslation } from '../../translate';
-import { FillContext } from '../../Module/FillProvider';
+import { OrderContext } from '../OrderProvider';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
-  const { HistoryOrders } = useOrders(nodeName);
-  // const { HistoryOrders } = useContext(FillContext);
+  // const { HistoryOrders } = useOrders(nodeName);
+  const {  HistoryOrders } = useContext(OrderContext);
   const { t } = useTranslation();
 
   return (

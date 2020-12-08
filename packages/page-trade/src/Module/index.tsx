@@ -9,11 +9,13 @@ import { FillProvider } from './FillProvider';
 export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
 
   return (
-    <Wrapper>
-      <AskBid />
-      <MainContent nodeName={nodeName}
-        setNodeName={setNodeName} />
-      <Fills />
-    </Wrapper>
+    <FillProvider>
+      <Wrapper>
+        <AskBid />
+        <MainContent nodeName={nodeName}
+          setNodeName={setNodeName} />
+        <Fills />
+      </Wrapper>
+    </FillProvider>
   );
 }
