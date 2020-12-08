@@ -262,8 +262,8 @@ function Overview({ basePath, className = '', onStatusChange }: Props): React.Re
           onClick={toggleProxy}
         />
       </Button.Group>
-      {/* <BannerExtension /> */}
-      <BannerClaims />
+       {/*<BannerExtension /> */}
+      {/*<BannerClaims />*/}
       <Table
         empty={(!hasAccounts || (!isLoading && sortedAccountsWithDelegation)) && t<string>('You don\'t have any accounts. Some features are currently hidden and will only become available once you have accounts.')}
         filter={filter}
