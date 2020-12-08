@@ -3,10 +3,11 @@
 
 import BN from 'bn.js';
 import React, { useState } from 'react';
-import { Input, InputBalance, InputAddress, Modal, TxButton } from '@polkadot/react-components';
+import { Input, InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
 import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
+import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
 
 interface Props {
   nodeslist?: string[],
@@ -61,7 +62,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess }: Props): React.ReactE
         </Modal.Columns>
         <Modal.Columns>
           <Modal.Column>
-            <InputBalance
+            <InputPCXBalance
               autoFocus
               help={t<string>('Number of node mortgages')}
               label={t<string>('Number of node mortgages')}

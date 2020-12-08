@@ -3,12 +3,13 @@
 
 import BN from 'bn.js';
 import React, { useEffect, useState } from 'react';
-import { InputBalance, InputAddress, Modal, TxButton } from '@polkadot/react-components';
+import { InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import { ValidatorInfo } from '../types';
+import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
 
 interface Props {
   account?: string;
@@ -115,7 +116,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
 
         <Modal.Columns>
           <Modal.Column>
-            <InputBalance
+            <InputPCXBalance
               autoFocus
               help={t<string>('Rebond Amount')}
               label={t<string>('Rebond Amount')}
