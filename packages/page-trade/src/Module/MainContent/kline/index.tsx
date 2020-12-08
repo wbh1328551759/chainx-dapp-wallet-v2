@@ -61,20 +61,14 @@ export default function () {
       let res;
       if (testOrMainNum.ss58Format === 42) {
         res = await axios.get('https://testnet-api.chainx.org/dex/kline/0/86400');
-
-        dataList.push(...res.data)
-        console.log('dataList')
-        console.log(dataList)
+        dataList.push(...res.data.items)
       } else {
-        const defaultData = await axios.get('https://api.chainx.org/kline/?pairid=0&type=86400&start_date=1561861285&end_date=1605061285');
-        const {length} = defaultData.data
-        const defaultValue = defaultData.data.slice(length-8, length-1)
         res = await axios.get('https://api-v2.chainx.org/dex/kline/0/1000');
-        res.data.items[0].open !== 0 ? dataList.push(...res.data) : dataList.push(...defaultValue);
+        dataList.push(...res.data.items)
       }
 
       dataList.map(data => {
-        data.timestamp = data.time * 1000
+        data.timestamp = data.time
         data.open = toPrecision(data.open,8)
         data.high = toPrecision(data.high,8)
         data.close = toPrecision(data.close,8)
