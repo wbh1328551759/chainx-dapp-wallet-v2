@@ -4,10 +4,11 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AddressRow, Button } from '@polkadot/react-components';
+import { AddressRow } from '@polkadot/react-components';
 import { ActionStatus } from '@polkadot/react-components/Status/types';
 import AccountList from './AccountList';
 import { useTranslation } from '../translate';
+import Button from '@polkadot/react-components-chainx/Button';
 
 interface Props {
   onStatusChange?: (status: ActionStatus) => void;
@@ -46,7 +47,7 @@ function AccountStatus ({ storedValue, onStatusChange, setStoredValue, className
           <Button
             className='ui--AccountStatus-ChangeAccount'
             isBasic={true}
-            label={t('Change account')}
+            icon='angle-down'
             onClick={_toggleAccountList}
           />
         </div>
@@ -91,6 +92,9 @@ const StyledWrapper = styled.div`
       .ui--Row-icon{
         display: flex;
         align-items: center;
+        > .ui--IdentityIcon{
+          background: white;
+        }
         svg{
           width: 46px;
           height: 46px;
@@ -98,7 +102,9 @@ const StyledWrapper = styled.div`
       }
     }
     > button{
-      color: black;
+      background: rgba(63, 63, 63);
+      border-radius: 0.15rem;
+      padding: 0.7em 0.1em 0.7em 0.1em;
     }
   }
 

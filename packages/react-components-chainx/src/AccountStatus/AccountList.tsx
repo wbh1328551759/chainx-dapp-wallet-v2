@@ -14,8 +14,8 @@ import {I18nProps} from '@polkadot/react-components/types';
 import Account from './AccountListItem';
 import {Button, Modal, Table} from '@polkadot/react-components';
 import {ModalProps} from '@polkadot/app-accounts/types';
-import Create from '@polkadot/app-accounts/modals/Create';
-import Import from '@polkadot/app-accounts/modals/Import';
+import Create from '@polkadot/app-accounts-chainx/modals/Create';
+import Import from '@polkadot/app-accounts-chainx/modals/Import';
 import { useTranslation } from '../translate';
 
 interface Props extends ModalProps, I18nProps {
