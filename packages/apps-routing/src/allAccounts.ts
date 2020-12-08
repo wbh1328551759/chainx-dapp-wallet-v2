@@ -3,8 +3,8 @@
 
 import { TFunction } from 'i18next';
 import { Route } from './types';
-// import Component from '../../page-accounts-chainx/src/Accounts';
 import Component from '@polkadot/app-accounts-chainx/Accounts/index'
+
 export default function create(t: TFunction): Route {
   return {
     Component,
