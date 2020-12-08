@@ -9,9 +9,10 @@ import {useAccounts, useApi, useIpfs, useToggle} from '@polkadot/react-hooks';
 import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 import {NodeName, NodeVersion} from '@polkadot/react-query';
 import AccountStatus from '@polkadot/react-components-chainx/AccountStatus';
-import {Button, StatusContext} from '@polkadot/react-components';
+import { StatusContext } from '@polkadot/react-components';
 import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
 import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
+import Button from '@polkadot/react-components-chainx/Button';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
@@ -41,7 +42,6 @@ function NodeInfo({className = ''}: Props): React.ReactElement<Props> {
             setStoredValue={setValue}
           /> :
           <Button
-            icon='plus'
             isDisabled={isIpfs}
             label={t<string>('Add account')}
             onClick={toggleCreate}
