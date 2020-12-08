@@ -1,25 +1,28 @@
 // Copyright 2017-2020 @polkadot/app-explorer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { DeriveSessionProgress } from '@polkadot/api-derive/types';
-import type { Forcing } from '@polkadot/types/interfaces';
+import type {DeriveSessionProgress} from '@polkadot/api-derive/types';
+import type {Forcing} from '@polkadot/types/interfaces';
 
 import React from 'react';
-import { CardSummary } from '@polkadot/react-components';
-import { useApi, useCall } from '@polkadot/react-hooks';
-import { formatNumber } from '@polkadot/util';
+import {Button, CardSummary} from '@polkadot/react-components';
+import {useApi, useCall, useToggle} from '@polkadot/react-hooks';
+import {formatNumber} from '@polkadot/util';
 
-import { useTranslation } from './translate';
+import {useTranslation} from './translate';
+import RegisterNewNode from '@polkadot/app-staking/models/register';
 
 interface Props {
   withEra?: boolean;
   withSession?: boolean;
 }
 
-function SummarySession ({ withEra = true, withSession = true }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const { api } = useApi();
+function SummarySession({withEra = true, withSession = true}: Props): React.ReactElement<Props> {
+  const {t} = useTranslation();
+  const {api} = useApi();
   const sessionInfo = useCall<DeriveSessionProgress>(api.query.staking && api.derive.session?.progress);
+  const [isRegister, toggleRegister] = useToggle();
+
   const forcing = useCall<Forcing>(api.query.staking?.forceEra);
 
   const eraLabel = t<string>('era');
@@ -29,46 +32,52 @@ function SummarySession ({ withEra = true, withSession = true }: Props): React.R
 
   return (
     <>
-      {sessionInfo && (
-        <>
-          {withSession && (
-            sessionInfo.sessionLength.gtn(1)
-              ? (
-                <CardSummary
-                  label={sessionLabel}
-                  progress={{
-                    total: sessionInfo.sessionLength,
-                    value: sessionInfo.sessionProgress,
-                    withTime: true
-                  }}
-                />
-              )
-              : (
-                <CardSummary label={sessionLabel}>
-                  #{formatNumber(sessionInfo.currentIndex)}
-                </CardSummary>
-              )
-          )}
-          {forcing && !forcing.isForceNone && withEra && (
-            sessionInfo.sessionLength.gtn(1)
-              ? (
-                <CardSummary
-                  label={eraLabel}
-                  progress={{
-                    total: forcing.isForceAlways ? sessionInfo.sessionLength : sessionInfo.eraLength,
-                    value: forcing.isForceAlways ? sessionInfo.sessionProgress : sessionInfo.eraProgress,
-                    withTime: true
-                  }}
-                />
-              )
-              : (
-                <CardSummary label={eraLabel}>
-                  #{formatNumber(sessionInfo.activeEra)}
-                </CardSummary>
-              )
-          )}
-        </>
-      )}
+      {isRegister && (<RegisterNewNode onClose={toggleRegister}/>)}
+
+      <Button
+        icon='plus'
+        onClick={toggleRegister}
+        label={t('Register Node')}
+      />
+      {/*{sessionInfo && (*/}
+      {/*  <>*/}
+      {/*    {withSession && (*/}
+      {/*      sessionInfo.sessionLength.gtn(1)*/}
+      {/*        ? (*/}
+      {/*          <CardSummary*/}
+      {/*            label={sessionLabel}*/}
+      {/*            progress={{*/}
+      {/*              total: sessionInfo.sessionLength,*/}
+      {/*              value: sessionInfo.sessionProgress,*/}
+      {/*              withTime: true*/}
+      {/*            }}*/}
+      {/*          />*/}
+      {/*        )*/}
+      {/*        : (*/}
+      {/*          <CardSummary label={sessionLabel}>*/}
+      {/*            #{formatNumber(sessionInfo.currentIndex)}*/}
+      {/*          </CardSummary>*/}
+      {/*        )*/}
+      {/*    )}*/}
+      {/*    {forcing && !forcing.isForceNone && withEra && (*/}
+      {/*      sessionInfo.sessionLength.gtn(1)*/}
+      {/*        ? (*/}
+      {/*          <CardSummary*/}
+      {/*            label={eraLabel}*/}
+      {/*            progress={{*/}
+      {/*              total: forcing.isForceAlways ? sessionInfo.sessionLength : sessionInfo.eraLength,*/}
+      {/*              value: forcing.isForceAlways ? sessionInfo.sessionProgress : sessionInfo.eraProgress,*/}
+      {/*              withTime: true*/}
+      {/*            }}*/}
+      {/*          />*/}
+      {/*        )*/}
+      {/*        : (*/}
+      {/*          <CardSummary label={eraLabel}>*/}
+      {/*            #{formatNumber(sessionInfo.activeEra)}*/}
+      {/*          </CardSummary>*/}
+      {/*        )*/}
+      {/*    )}*/}
+      {/*)}*/}
     </>
   );
 }

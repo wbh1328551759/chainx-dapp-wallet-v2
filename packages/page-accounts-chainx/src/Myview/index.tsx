@@ -5,10 +5,9 @@ import Assets from './Assets';
 import styled from 'styled-components';
 import Records from './Records';
 import AccountSelect from '@polkadot/react-components-chainx/AccountSelect';
-import { ActionStatus } from '@polkadot/react-components/Status/types';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
 import NoAccount from './NoAccount';
-import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
-import { useAccounts } from '@polkadot/react-hooks';
+import {useAccounts} from '@polkadot/react-hooks';
 
 const Wrapper = styled.div`
   padding: 16px 0;
@@ -38,22 +37,21 @@ interface Props {
   basePath: string;
 }
 
-function AssetManagement({ onStatusChange }: Props): React.ReactElement<Props> {
-  const { hasAccounts } = useAccounts();
+function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
+  const {hasAccounts} = useAccounts();
   return (
     hasAccounts ?
-      <AccountProvider>
-        <Wrapper className='wrapper'>
-          <AccountSelect />
-          <div className='left'>
-            <PcxCard onStatusChange={onStatusChange} />
-            <Assets />
-          </div>
-          <div className='right'>
-            <Records />
-          </div>
-        </Wrapper>
-      </AccountProvider> : <NoAccount onStatusChange={onStatusChange} />
+      <Wrapper className='wrapper'>
+        <AccountSelect/>
+        <div className='left'>
+          <PcxCard onStatusChange={onStatusChange}/>
+          <Assets/>
+        </div>
+        <div className='right'>
+          <Records/>
+        </div>
+      </Wrapper>
+      : <NoAccount onStatusChange={onStatusChange}/>
   );
 }
 

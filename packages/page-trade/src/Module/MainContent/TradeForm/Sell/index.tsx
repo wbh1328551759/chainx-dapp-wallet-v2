@@ -121,7 +121,7 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
           const bgMax = new BigNumber(max);
           setPercentage(value);
           const calcMax = bgMax.multipliedBy(value).dividedBy(100).toFixed(7);
-          setAmount(isFinite(Number(calcMax)) ? +calcMax : Number(toPrecision(0,7)).toFixed(7));
+          setAmount(isFinite(Number(calcMax)) ? calcMax : Number(toPrecision(0,7)).toFixed(7));
         }}
         value={percentage}
         valueLabelDisplay='off'

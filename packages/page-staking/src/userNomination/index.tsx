@@ -1,16 +1,15 @@
-
-import React, { useRef, useContext, useEffect, useState } from 'react';
+import React, {useRef, useContext, useEffect, useState} from 'react';
 import styled from 'styled-components';
-import { KeyringAddress } from '@polkadot/ui-keyring/types';
-import { Table } from '@polkadot/react-components';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-import { useApi } from '@polkadot/react-hooks';
-import { getNominationAndDividedExternal } from '@polkadot/react-hooks-chainx/useNomination';
-import { useTranslation } from '../translate';
-import { Nomination, UserNominations, Dividended, UserInterest } from '@polkadot/react-hooks-chainx/types';
+import {KeyringAddress} from '@polkadot/ui-keyring/types';
+import {Table} from '@polkadot/react-components';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {useApi} from '@polkadot/react-hooks';
+import {getNominationAndDividedExternal} from '@polkadot/react-hooks-chainx/useNomination';
+import {useTranslation} from '../translate';
+import {Nomination, UserNominations, Dividended, UserInterest} from '@polkadot/react-hooks-chainx/types';
 
 import UserTable from './usertable';
-import { ValidatorInfo } from '../types';
+import {ValidatorInfo} from '../types';
 
 interface Props {
   account: KeyringAddress;
@@ -25,11 +24,11 @@ const Wrapper = styled.div`
   height:100px;
 `;
 
-function UserNomination({ className = '', validatorInfoList }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation();
-  const { currentAccount } = useContext(AccountContext);
-  const { api } = useApi();
-  const [isLoading, setLoading] = useState<boolean>(true)
+function UserNomination({className = '', validatorInfoList}: Props): React.ReactElement<Props> | null {
+  const {t} = useTranslation();
+  const {currentAccount} = useContext(AccountContext);
+  const {api} = useApi();
+  const [isLoading, setLoading] = useState<boolean>(true);
   //let { allDividended, allNominations } = useNomination([currentAccount]);
 
   const [state, setState] = useState<UserNominations>({
@@ -39,7 +38,7 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
 
   useEffect((): void => {
     async function getNominationAndDivided() {
-      setLoading(true)
+      setLoading(true);
 
       const allNominations: Nomination[] = [];
       const allDividended: UserInterest[] = [];
@@ -82,15 +81,15 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
       };
 
       allDividended.push(userInterest);
-      setLoading(false)
+      setLoading(false);
       setState({
         allNominations: allNominations,
         allDividended: allDividended
       });
     }
 
-    getNominationAndDivided()
-  }, [currentAccount])
+    getNominationAndDivided();
+  }, [currentAccount]);
 
   const headerRef = useRef([
     [t<string>('My stake'), 'start'],
@@ -99,12 +98,17 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
     [t<string>('Freeze'), 'start'],
     [undefined, undefined, undefined, undefined, undefined, 'start']
   ]);
-  const validNominations = state.allNominations.filter((nmn,index) => {
-    const userInterest = state.allDividended.find(dvd => dvd.account === currentAccount)
-    const isInNmN = userInterest?.interests.find(ist => ist.validator === nmn.validatorId)
-    const NotZero = userInterest?.interests.find(ist => (Number(ist.interest) !== 0 || Number(nmn.nomination) !== 0))
-    return isInNmN && NotZero
-  } )
+  const validNominations = state.allNominations.filter((nmn, index) => {
+    const userInterests = state.allDividended.filter(dvd => dvd.account === currentAccount);
+    const interestNode = userInterests[0]?.interests.find(i => i.validator === nmn.validatorId);
+    const blInterestNode = Boolean(interestNode? Number(interestNode?.interest) !== 0: 0);
+    const chunkes: number = nmn?.unbondedChunks ? nmn.unbondedChunks.reduce((total, record) => {
+      return total + Number(record.value);
+    }, 0) : 0;
+    const blNomination: boolean = Boolean(Number(nmn.nomination) !== 0);
+    return blNomination || Boolean(chunkes !== 0) || blInterestNode ;
+  });
+
   return (
     <div>
       <div className={className}>
@@ -114,7 +118,7 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
         >
           {
             currentAccount && validNominations.map((item, index) => {
-              const userInterest = state.allDividended.find(item => item.account === currentAccount)
+              const userInterest = state.allDividended.find(item => item.account === currentAccount);
               if (item.account === currentAccount) {
                 return <UserTable
                   accountId={currentAccount}
@@ -122,13 +126,12 @@ function UserNomination({ className = '', validatorInfoList }: Props): React.Rea
                   validatorInfoList={validatorInfoList}
                   userInterest={userInterest?.interests?.find(item => item.validator === validNominations[index].validatorId)?.interest}
                   onStausChange={async (status) => {
-                    setLoading(false)
-                    let userNominations = await getNominationAndDividedExternal(currentAccount, api)
-                    setState(userNominations)
-                    setLoading(true)
+                    setLoading(false);
+                    let userNominations = await getNominationAndDividedExternal(currentAccount, api);
+                    setState(userNominations);
+                    setLoading(true);
                   }}
-
-                />
+                />;
               } else {
                 return null;
               }
