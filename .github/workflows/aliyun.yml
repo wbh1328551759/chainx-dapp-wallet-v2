@@ -16,10 +16,10 @@ jobs:
           port: '22'
           script: |
             whoami
-            cd chainx-dapp-wallet-v3
+            cd dapp-wallet-test
             ls -all
             git stash
-            git checkout main
-            git pull origin main
+            git checkout testnet
+            git pull origin testnet
             yarn
             yarn run build:www

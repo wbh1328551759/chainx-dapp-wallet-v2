@@ -46,6 +46,8 @@ export default function useOrders(nodeName = ''): Orders {
       let res;
       if (testOrMainNum.ss58Format === 42) {
         res = await axios.get(`https://testnet-api.chainx.org/accounts/${nodeName}/open_orders?page=0&page_size=10`);
+        console.log('res')
+        console.log(res)
       } else {
          res = await axios.get(
           `https://api-v2.chainx.org/accounts/${nodeName}/open_orders?page=0&page_size=10`

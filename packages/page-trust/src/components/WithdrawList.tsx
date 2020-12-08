@@ -1,7 +1,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import BN from 'bn.js';
+import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 
 const Wrapper = styled.tr`
   color: inherit;
@@ -77,7 +77,7 @@ export default function ({ addr, applicant, assetId, balance, ext, height, id, s
       <td>{height}</td>
       <td className='blue'> {assetId}</td>
       <td>BTC</td>
-      <td className='strong'>{balance} </td>
+      <td className='strong'>{toPrecision(balance,8)} </td>
       <td><a href=''
         target='_blank'>{applicant} </a></td>
       <td><a href=''
