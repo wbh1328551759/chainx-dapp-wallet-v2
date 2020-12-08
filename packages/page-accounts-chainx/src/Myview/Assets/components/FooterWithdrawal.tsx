@@ -86,12 +86,12 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
               </Modal.Column>
               <Modal.Column>
                 <span>
-                  {t('avaliable interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
+                  {t('available interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
                 </span>
-                {insufficientStake === 0 ? '' :
+                {insufficientStake ?
                 <Tip>
-                  {'需抵押：'}{insufficientStake ? insufficientStake : toPrecision(0, 4)}
-                </Tip>
+                  {'需抵押：'}{insufficientStake }
+                </Tip>: ''
                 }
 
               </Modal.Column>

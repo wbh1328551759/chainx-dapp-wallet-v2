@@ -64,7 +64,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
     // getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
     getDividend(currentAccount);
   }, [currentAccount, n]);
-
+console.log('insufficientStake:'+insufficientStake)
   return (
     <Card>
       <header>
