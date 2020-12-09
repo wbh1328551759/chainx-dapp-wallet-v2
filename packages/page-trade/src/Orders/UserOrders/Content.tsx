@@ -21,14 +21,7 @@ import BigNumber from 'bignumber.js';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
   const { t } = useTranslation();
-  const [disabled, setDisabled] = useState(false);
-  const [targetId, setTargetId] = useState(null);
-  // const { NowOrders } = useOrders(nodeName);
   const {  NowOrders } = useContext(OrderContext);
-  const cancelOrder = async (id: number) => {
-    setDisabled(true);
-    setTargetId(id);
-  };
 
   return (
     <Table>
@@ -87,7 +80,6 @@ export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNa
                 <TxButton
                   accountId={nodeName}
                   icon={'window-close'}
-                  isDisabled={disabled}
                   label={t('Cancel')}
                   params={[0, order._id]}
                   tx='xSpot.cancelOrder'
