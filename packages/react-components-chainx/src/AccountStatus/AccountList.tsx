@@ -82,8 +82,8 @@ function AccountList({storedValue, className, onClose, onStatusChange, setStored
                 onClick={_toggleCreate}
               />
               <Button
-                icon={'plus'}
-                label={t('Restore')}
+                icon={'sync'}
+                label={t('Restore JSON')}
                 onClick={_toggleImport}
               />
             </div>
