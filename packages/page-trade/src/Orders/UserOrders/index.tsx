@@ -3,13 +3,11 @@ import React, { useContext } from 'react';
 import TableHead from './Head';
 import Content from './Content';
 import Empty from '../../components/Empty';
-import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { useTranslation } from '../../translate';
-import { OrderContext } from '../OrderProvider';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
-  // const { NowOrders } = useOrders(nodeName);
-  const {  NowOrders } = useContext(OrderContext);
+  const {  NowOrders } = useContext(DexContext);
   const { t } = useTranslation();
 
   return (

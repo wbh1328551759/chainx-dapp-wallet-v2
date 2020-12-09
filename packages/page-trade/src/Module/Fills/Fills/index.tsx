@@ -4,14 +4,12 @@ import TitledCard from '../../../components/TitledCard';
 import Head from './Head';
 import Body from './Body';
 import Empty from '../../../components/Empty';
-// import useFills from '../../../hooks/useFills';
 import { useTranslation } from '../../../translate';
-import { FillContext } from '../../FillProvider';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 
 export default function () {
-  // const fills = useFills();
-  const { fills } = useContext(FillContext);
+  const { fills } = useContext(DexContext);
   const { t } = useTranslation();
 
   return (

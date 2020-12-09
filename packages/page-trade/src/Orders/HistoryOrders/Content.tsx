@@ -11,11 +11,11 @@ import {
 import moment from 'moment';
 import {HeadCell, StatCell} from '../Wrapper';
 import {useTranslation} from '../../translate';
-import {OrderContext} from '../OrderProvider';
 import BigNumber from 'bignumber.js';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 export default function (): React.ReactElement {
-  const {HistoryOrders} = useContext(OrderContext);
+  const {HistoryOrders} = useContext(DexContext);
   const {t} = useTranslation();
 
   return (

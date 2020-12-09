@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useApi} from '@polkadot/react-hooks';
-import {AssetsInfo} from '@polkadot/react-hooks-chainx/types';
 
 interface Ask {
   '_id': string,
@@ -11,16 +10,16 @@ interface Ask {
   'isAsk': boolean
 }
 
-type Bid = Ask
+interface Bid extends Ask{}
 
-interface OpenOders {
+interface OpenOrders {
   Asks: Ask[];
   Bids: Bid[];
 }
 
-export default function useAsksBids(): OpenOders {
+export default function useAsksBids(): OpenOrders {
   const api = useApi();
-  const [state, setState] = useState<OpenOders>({Asks: [], Bids: []});
+  const [state, setState] = useState<OpenOrders>({Asks: [], Bids: []});
   let askBidTimeId: any = '';
   async function fetchAskBid() {
     const testOrMain = await api.api.rpc.system.properties();

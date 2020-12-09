@@ -7,8 +7,7 @@ import AmountCell from '../../components/AmountCell';
 import TimeCell from './TimeCell';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { FillContext } from '../../FillProvider';
-// import useFills from '../../../hooks/useFills';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 const Wrapper = styled.div`
   height: 360px;
@@ -19,8 +18,7 @@ const Wrapper = styled.div`
 `;
 
 export default function (): React.ReactElement {
-  // const fills = useFills();
-  const { fills } = useContext(FillContext);
+  const { fills } = useContext(DexContext);
   return (
     <Wrapper>
       <Table>

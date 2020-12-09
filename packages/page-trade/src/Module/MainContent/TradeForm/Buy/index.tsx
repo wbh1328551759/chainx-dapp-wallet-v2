@@ -5,14 +5,12 @@ import {AmountInput, Slider} from '@chainx/ui';
 import Label from '../components/Label';
 import {marks} from '../constants';
 import {TxButton} from '@polkadot/react-components';
-import {AssetsInfo} from '@polkadot/react-hooks/types';
+import {AssetsInfo} from '@polkadot/react-hooks-chainx/types';
 import {useTranslation} from '../../../../translate';
 import {toPrecision} from '../../../../components/toPrecision';
-// import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
-import {useAccounts} from '@polkadot/react-hooks';
 import {api} from '@polkadot/react-api';
-import { FillContext } from '../../../FillProvider';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 type Props = {
   nodeName: string,
@@ -21,7 +19,7 @@ type Props = {
 }
 
 export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Props> {
-  const { fills } = useContext(FillContext);
+  const {fills} = useContext(DexContext);
   const fillPrice = fills[0]?.price || 0;
   const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
   const [price, setPrice] = useState(toPrecision(0, 7));
@@ -56,15 +54,16 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
   }, [assetsInfo, price]);
 
   useEffect(() => {
-    async function judgeNet(){
+    async function judgeNet() {
       const testOrMain = await api.rpc.system.properties();
       const testOrMainNum = JSON.parse(testOrMain);
       if (testOrMainNum.ss58Format !== 42) {
-        setDisabled(true)
+        setDisabled(true);
       }
     }
-    judgeNet()
-  })
+
+    judgeNet();
+  });
   return (
     <Wrapper>
       <div className='info'>
@@ -122,7 +121,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
         min={0}
         onChange={(value: number) => {
           setPercentage((percentage) => value);
-          const calcMax = ((max*value)/100).toFixed(7);
+          const calcMax = ((max * value) / 100).toFixed(7);
           setAmount(() => isFinite(Number(calcMax)) ? calcMax : defaultValue);
         }}
         value={percentage}
@@ -131,7 +130,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
       <div className='volume'>
         <span>{t('Volume')} </span>
         <span>
-          {volume.toNumber()? volume.toNumber().toFixed(8): toPrecision(0, 8)} {'BTC'}
+          {volume.toNumber() ? volume.toNumber().toFixed(8) : toPrecision(0, 8)} {'BTC'}
         </span>
       </div>
       <div className='button'>
@@ -144,10 +143,12 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
               bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(),
               bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
             tx='xSpot.putOrder'
+            onSuccess={() => {
+
+            }}
             // onClick={sign}
           />
         </div>
-
       </div>
     </Wrapper>
   );

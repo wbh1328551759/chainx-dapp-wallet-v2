@@ -38,7 +38,7 @@ interface Orders {
   HistoryOrders: HistoryOrder[];
 }
 
-export default function useOrders(nodeName = ''): Orders {
+export default function useOrders(currentAccount = ''): Orders {
   const api = useApi();
   const [state, setState] = useState<Orders>({
     NowOrders: [],
@@ -52,11 +52,11 @@ export default function useOrders(nodeName = ''): Orders {
       let nowOrdersList: any;
       let historyOrdersList: any;
       if (testOrMainNum.ss58Format === 42) {
-        nowOrdersList = await axios.get(`https://testnet-api.chainx.org/accounts/${nodeName}/open_orders?page=0&page_size=10`);
-        historyOrdersList = await axios.get(`https://testnet-api.chainx.org/accounts/${nodeName}/deals?page=0&page_size=10`)
+        nowOrdersList = await axios.get(`https://testnet-api.chainx.org/accounts/${currentAccount}/open_orders?page=0&page_size=10`);
+        historyOrdersList = await axios.get(`https://testnet-api.chainx.org/accounts/${currentAccount}/deals?page=0&page_size=10`)
       } else {
-        nowOrdersList = await axios.get(`https://api-v2.chainx.org/accounts/${nodeName}/open_orders?page=0&page_size=10`);
-        historyOrdersList = await axios.get(`https://api-v2.chainx.org/accounts/${nodeName}/deals?page=0&page_size=10`)
+        nowOrdersList = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/open_orders?page=0&page_size=10`);
+        historyOrdersList = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/deals?page=0&page_size=10`)
       }
       setState({
         NowOrders: nowOrdersList.data.items,
@@ -64,7 +64,7 @@ export default function useOrders(nodeName = ''): Orders {
       });
     }
     fetchOrders()
-  }, [nodeName]);
+  }, [currentAccount]);
 
   return state;
 }

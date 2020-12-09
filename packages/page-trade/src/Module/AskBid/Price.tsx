@@ -2,8 +2,7 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { toPrecision } from '../../components/toPrecision';
-import { FillContext } from '../FillProvider';
-// import useFills from '../../hooks/useFills';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 const Wrapper = styled.div`
   background: #ffffff;
@@ -16,9 +15,8 @@ const Wrapper = styled.div`
 `;
 
 export default function (): React.ReactElement {
-  // const fills = useFills();
-  const { fills } = useContext(FillContext);
-  
+  const { fills } = useContext(DexContext);
+
   const [latest, setLatest] = useState();
 
   return (

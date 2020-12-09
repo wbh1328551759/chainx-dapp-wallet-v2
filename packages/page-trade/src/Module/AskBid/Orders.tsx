@@ -9,7 +9,7 @@ import {
 } from './Wrapper';
 import { toPrecision } from '../../components/toPrecision';
 
-type Props = {
+interface Props {
   orders: any[],
   isAsk: boolean
 }

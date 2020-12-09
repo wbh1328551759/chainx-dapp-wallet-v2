@@ -8,12 +8,10 @@ import {toPrecision} from '../../../../components/toPrecision';
 import {TxButton} from '@polkadot/react-components';
 import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
 import {useTranslation} from '../../../../translate';
-import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
 import {useAccounts} from '@polkadot/react-hooks';
 import {api} from '@polkadot/react-api';
-import { FillContext } from '../../../FillProvider';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 
 type Props = {
@@ -23,9 +21,7 @@ type Props = {
 
 export default function ({nodeName}: Props): React.ReactElement<Props> {
   const {hasAccounts} = useAccounts();
-  // const fills = useFills();
-  const { fills } = useContext(FillContext);
-  const defaultValue = new BigNumber(toPrecision(fills[0]?.price, 9)).toNumber().toFixed(7);
+  const { fills } = useContext(DexContext);
   const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
   const [disabled, setDisabled] = useState<boolean>(true);
   const [amount, setAmount] = useState<number | string>(toPrecision(0, 7));

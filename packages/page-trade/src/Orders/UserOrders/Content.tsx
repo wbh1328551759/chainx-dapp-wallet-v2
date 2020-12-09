@@ -1,5 +1,5 @@
 
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Table, TableBody, TableRow } from '@chainx/ui';
 import moment from 'moment';
 import { toPrecision } from '../../components/toPrecision';
@@ -11,17 +11,14 @@ import {
   PairCell,
   TimeCell
 } from './Wrapper';
-import cancelIcon from '../svg/cancel.svg';
-import cancelDisabledIcon from '../svg/cancel-disabled.svg';
-import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { TxButton } from '@polkadot/react-components';
-import { OrderContext } from '../OrderProvider';
 import {useTranslation} from '../../translate';
 import BigNumber from 'bignumber.js';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
   const { t } = useTranslation();
-  const {  NowOrders } = useContext(OrderContext);
+  const {  NowOrders } = useContext(DexContext);
 
   return (
     <Table>
