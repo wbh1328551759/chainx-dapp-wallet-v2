@@ -39,7 +39,7 @@ export default function (props: { withdrawal: Withdraw }): React.ReactElement {
       </header>
       <main>
         <span className='text'>
-          {toPrecision(props.withdrawal.data[2], 8)}
+          {toPrecision(props.withdrawal.data[1].balance, 8)}
         </span>
         {/*<span className='state'>*/}
         {/* <span className="text">{getState(props.withdrawal.txstate)}</span> */}
