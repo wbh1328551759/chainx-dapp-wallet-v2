@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useApi} from '@polkadot/react-hooks';
 
@@ -38,7 +38,7 @@ interface Orders {
   HistoryOrders: HistoryOrder[];
 }
 
-export default function useOrders(currentAccount = ''): Orders {
+export default function useOrders(currentAccount = '', isLoading: boolean): Orders {
   const api = useApi();
   const [state, setState] = useState<Orders>({
     NowOrders: [],
@@ -64,7 +64,7 @@ export default function useOrders(currentAccount = ''): Orders {
       });
     }
     fetchOrders()
-  }, [currentAccount]);
+  }, [currentAccount, isLoading]);
 
   return state;
 }

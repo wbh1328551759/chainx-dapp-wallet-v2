@@ -7,7 +7,7 @@ import {useAccounts, useApi} from '@polkadot/react-hooks';
 import {AssetsInfo} from '@polkadot/react-hooks-chainx/types';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
-export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
+export default function (): React.ReactElement {
   const hasAccounts = useAccounts()
   const api = useApi()
   const currentAccount = useContext(AccountContext);
@@ -50,12 +50,8 @@ export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactE
 
   return (
     <Wrapper>
-      <Buy
-        assetsInfo={hasAccounts ?currentAccountInfo: undefined}
-        nodeName={nodeName}
-        setNodeName={setNodeName}
-      />
-      <Sell nodeName={nodeName}/>
+      <Buy assetsInfo={hasAccounts ?currentAccountInfo: undefined}/>
+      <Sell/>
     </Wrapper>
   );
 }

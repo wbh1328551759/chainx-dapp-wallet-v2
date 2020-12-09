@@ -15,10 +15,12 @@ import { TxButton } from '@polkadot/react-components';
 import {useTranslation} from '../../translate';
 import BigNumber from 'bignumber.js';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
-export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
+export default function (): React.ReactElement {
   const { t } = useTranslation();
-  const {  NowOrders } = useContext(DexContext);
+  const { NowOrders } = useContext(DexContext);
+  const {currentAccount} = useContext(AccountContext);
 
   return (
     <Table>
@@ -75,7 +77,7 @@ export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNa
               {/*</FillCell>*/}
               <ActionCell>
                 <TxButton
-                  accountId={nodeName}
+                  accountId={currentAccount}
                   icon={'window-close'}
                   label={t('Cancel')}
                   params={[0, order._id]}

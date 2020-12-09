@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useApi} from '@polkadot/react-hooks';
 
-export default function useFills(): Fill[] {
+export default function useFills(isLoading: boolean): Fill[] {
   const api = useApi();
   const [state, setState] = useState<Fill[]>([]);
   let fillTimeId: any = '';
@@ -21,8 +21,9 @@ export default function useFills(): Fill[] {
   }
 
   useEffect(() => {
+    window.clearInterval(fillTimeId)
     fetchFills()
-  }, [])
+  }, [isLoading])
 
   useEffect(() => {
     fillTimeId = setInterval(() => {

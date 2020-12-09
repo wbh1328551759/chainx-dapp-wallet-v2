@@ -12,26 +12,22 @@ import BigNumber from 'bignumber.js';
 import {useAccounts} from '@polkadot/react-hooks';
 import {api} from '@polkadot/react-api';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
-
-type Props = {
-  nodeName: string,
-  setNodeName?: React.Dispatch<string>
-}
-
-export default function ({nodeName}: Props): React.ReactElement<Props> {
+export default function (): React.ReactElement {
   const {hasAccounts} = useAccounts();
-  const { fills } = useContext(DexContext);
+  const { fills, setLoading } = useContext(DexContext);
+  const {currentAccount} = useContext(AccountContext);
+  const pcxFree = usePcxFree(currentAccount);
+  const {t} = useTranslation();
+
   const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
   const [disabled, setDisabled] = useState<boolean>(true);
   const [amount, setAmount] = useState<number | string>(toPrecision(0, 7));
   const [max, setMax] = useState<number>(0);
   const [percentage, setPercentage] = useState<number>(0);
-  const pcxFree = usePcxFree(nodeName);
-  const {t} = useTranslation();
   const bgAmount = new BigNumber(amount);
   const bgPrice = new BigNumber(price);
-
   const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
 
   useEffect(() => {
@@ -137,13 +133,14 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
       <div className='button'>
         <div>
           <TxButton
-            accountId={nodeName}
+            accountId={currentAccount}
             isDisabled={disabled}
             label={t('Sell PCX')}
             params={[0, 'Limit', 'Sell',
               bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(),
               bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
             tx='xSpot.putOrder'
+            onSuccess={() => setLoading(true)}
             // onClick={sign}
           />
         </div>

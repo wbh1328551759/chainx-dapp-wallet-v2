@@ -6,7 +6,7 @@ import Empty from '../../components/Empty';
 import { useTranslation } from '../../translate';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
-export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
+export default function (): React.ReactElement {
   const { HistoryOrders } = useContext(DexContext);
   const { t } = useTranslation();
 
@@ -14,7 +14,7 @@ export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNa
     <>
       {HistoryOrders.length > 0 ? (
         <>
-          <Content nodeName={nodeName} />
+          <Content />
         </>
       ) : (
           <>

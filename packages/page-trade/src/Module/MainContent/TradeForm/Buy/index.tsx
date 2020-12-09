@@ -11,15 +11,17 @@ import {toPrecision} from '../../../../components/toPrecision';
 import BigNumber from 'bignumber.js';
 import {api} from '@polkadot/react-api';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 type Props = {
-  nodeName: string,
-  setNodeName?: React.Dispatch<string>
   assetsInfo: AssetsInfo | undefined;
 }
 
-export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Props> {
-  const {fills} = useContext(DexContext);
+export default function ({assetsInfo}: Props): React.ReactElement<Props> {
+  const {fills, setLoading} = useContext(DexContext);
+  const {currentAccount} = useContext(AccountContext);
+  const {t} = useTranslation();
+
   const fillPrice = fills[0]?.price || 0;
   const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
   const [price, setPrice] = useState(toPrecision(0, 7));
@@ -27,7 +29,6 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
   const [percentage, setPercentage] = useState<number>(0);
   const [max, setMax] = useState<number>(0);
   const [disabled, setDisabled] = useState(true);
-  const {t} = useTranslation();
   const bgAmount = new BigNumber(amount);
   const bgPrice = new BigNumber(price);
   const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
@@ -85,7 +86,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
           <AmountInput
             id='buy-price'
             onChange={(value) => {
-              setPrice((price) => value);
+              setPrice(() => value);
             }}
             precision={7}
             style={{width: 216}}
@@ -120,7 +121,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
         max={100}
         min={0}
         onChange={(value: number) => {
-          setPercentage((percentage) => value);
+          setPercentage(() => value);
           const calcMax = ((max * value) / 100).toFixed(7);
           setAmount(() => isFinite(Number(calcMax)) ? calcMax : defaultValue);
         }}
@@ -136,16 +137,14 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
       <div className='button'>
         <div>
           <TxButton
-            accountId={nodeName}
+            accountId={currentAccount}
             isDisabled={disabled}
             label={t('Buy PCX')}
             params={[0, 'Limit', 'Buy',
               bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(),
               bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
             tx='xSpot.putOrder'
-            onSuccess={() => {
-
-            }}
+            onSuccess={() => setLoading(true)}
             // onClick={sign}
           />
         </div>

@@ -39,9 +39,8 @@ function TradeApp({basePath}: Props): React.ReactElement<Props> {
         <Route path={`${basePath}/`}>
           <DexProvider>
             <Wrapper>
-              <Trade nodeName={currentAccount}
-                     setNodeName={setNodeName}/>
-              <Orders nodeName={currentAccount}/>
+              <Trade />
+              <Orders />
             </Wrapper>
           </DexProvider>
         </Route>

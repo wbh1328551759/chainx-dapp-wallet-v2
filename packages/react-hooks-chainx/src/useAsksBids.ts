@@ -17,7 +17,7 @@ interface OpenOrders {
   Bids: Bid[];
 }
 
-export default function useAsksBids(): OpenOrders {
+export default function useAsksBids(isLoading: boolean): OpenOrders {
   const api = useApi();
   const [state, setState] = useState<OpenOrders>({Asks: [], Bids: []});
   let askBidTimeId: any = '';
@@ -37,8 +37,9 @@ export default function useAsksBids(): OpenOrders {
   }
 
   useEffect(() => {
+    window.clearInterval(askBidTimeId)
     fetchAskBid()
-  },[])
+  },[isLoading])
 
   useEffect(() => {
     askBidTimeId = setInterval(() => {
