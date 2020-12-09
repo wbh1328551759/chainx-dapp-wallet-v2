@@ -21,7 +21,6 @@ type Props = {
 }
 
 export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Props> {
-  // const fills = useFills();
   const { fills } = useContext(FillContext);
   const fillPrice = fills[0]?.price || 0;
   const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);

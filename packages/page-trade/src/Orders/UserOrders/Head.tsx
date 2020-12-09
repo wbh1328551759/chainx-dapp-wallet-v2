@@ -11,21 +11,21 @@ export default function (): React.ReactElement {
     <Table>
       <TableHead>
         <TableRow>
-          <HeadCell style={{ width: '12%' }}>{t('Date')}</HeadCell>
-          <HeadCell style={{ width: '5%' }}>{t('Number')}</HeadCell>
-          <HeadCell style={{ width: '8%' }}>{t('Pair')}</HeadCell>
-          <HeadCell style={{ width: '11%' }}>
+          <HeadCell style={{ width: '18%' }}>{t('Date')}</HeadCell>
+          <HeadCell style={{ width: '11%' }}>{t('Number')}</HeadCell>
+          <HeadCell style={{ width: '16%' }}>{t('Pair')}</HeadCell>
+          <HeadCell style={{ width: '17%' }}>
             {t('Order Price')}
           </HeadCell>
-          <HeadCell style={{ width: '13%' }}>
+          <HeadCell style={{ width: '19%' }}>
             {t('Order Amount')}
           </HeadCell>
-          <HeadCell style={{ width: '16%' }}>
-            {t('Freeze Amount')}
-          </HeadCell>
-          <HeadCell style={{ width: '16%' }}>
-            {t('Filled / Percentage %')}
-          </HeadCell>
+          {/*<HeadCell style={{ width: '16%' }}>*/}
+          {/*  {t('Freeze Amount')}*/}
+          {/*</HeadCell>*/}
+          {/*<HeadCell style={{ width: '16%' }}>*/}
+          {/*  {t('Filled / Percentage %')}*/}
+          {/*</HeadCell>*/}
           <HeadCell style={{ textAlign: 'right' }}>
             {t('Operation')}
           </HeadCell>
