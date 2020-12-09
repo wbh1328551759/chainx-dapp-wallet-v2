@@ -11,7 +11,7 @@ export default function (): React.ReactElement {
     <Table>
       <TableHead>
         <TableRow>
-          <HeadCell style={{ width: '18%' }}>{t('Date')}</HeadCell>
+          <HeadCell style={{ width: '18%' }}>{t('BlockHeight')}</HeadCell>
           <HeadCell style={{ width: '11%' }}>{t('Number')}</HeadCell>
           <HeadCell style={{ width: '16%' }}>{t('Pair')}</HeadCell>
           <HeadCell style={{ width: '17%' }}>

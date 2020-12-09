@@ -41,7 +41,7 @@ export default function (): React.ReactElement {
                 <div>
                   <span className={order.props.side} />
                   <span className='time'>
-                    {moment(order.blockHeight).format('YYYY/MM/DD HH:mm')}
+                    {order.blockHeight}
                   </span>
                 </div>
               </TimeCell>
