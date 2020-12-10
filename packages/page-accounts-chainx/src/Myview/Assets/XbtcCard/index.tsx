@@ -12,7 +12,7 @@ import Deposite from '../../../modals/deposite/deposite';
 import Withdraw from '../../../modals/withdraw';
 import { useTranslation } from '@polkadot/app-accounts/translate';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-import { DefaultBtn, PrimaryBtn } from '../../components';
+import Button from '@polkadot/react-components-chainx/Button';
 
 
 
@@ -99,25 +99,28 @@ export default function (): React.ReactElement {
         />
       )}
 
-      <PrimaryBtn
+      <Button
+        className="btnLists primaryBtn"
         onClick={toggleDeposite}
         style={{ marginRight: 8 }}
       >
         {t('Top-up')}
-      </PrimaryBtn>
-      <DefaultBtn
+      </Button>
+      <Button
+        className="btnLists defaultBtn"
         onClick={toggleWithdraw}
         style={{ marginRight: 8 }}
       >
         {t('Withdrawals')}
-      </DefaultBtn>
+      </Button>
       {api.tx.balances?.transfer && (
-        <DefaultBtn
+        <Button
+          className="btnLists defaultBtn"
           onClick={toggleTransfer}
           style={{ marginRight: 8 }}
         >
           {t('Transfer')}
-        </DefaultBtn>
+        </Button>
       )}
     </div>
   );

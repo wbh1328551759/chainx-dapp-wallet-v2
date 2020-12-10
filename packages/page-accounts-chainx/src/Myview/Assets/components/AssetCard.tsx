@@ -16,6 +16,37 @@ const HeadWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  .btnLists {
+    color: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0,0,0,0.04);
+    padding: 1px 2em;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: Cairo, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 14px;
+    text-transform: none;
+    margin-right: 8px;
+  }
+  .primaryBtn {
+    background-color: #F6C94A;
+    &:hover {
+      background-color: #E7BD45 !important;
+      color: rgba(0, 0, 0, 0.7) !important;
+      box-shadow: none;
+    }
+  }
+  .defaultBtn {
+    background-color: #F2F3F4;
+    &:hover {
+      background-color: #E8E9EA !important;
+      color: rgba(0, 0, 0, 0.7) !important;
+      box-shadow: none;
+    }
+  }
 `;
 const Footer = styled.footer`
   display: flex;
