@@ -6,7 +6,7 @@ import AssetView from './AssetView';
 import Logo from './Logo';
 import AccountInfo from './AccountInfo';
 import backgroundImg from './background.svg';
-import {WhiteButton} from '@chainx/ui';
+// import {WhiteButton} from '@chainx/ui';
 import {useApi, useToggle} from '@polkadot/react-hooks';
 import Transfer from '@polkadot/app-accounts-chainx/modals/Transfer';
 import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
@@ -14,6 +14,7 @@ import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import BN from 'bn.js';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
+import { WhiteBtn } from '../components';
 
 const InnerWrapper = styled.div`
   position: relative;
@@ -53,6 +54,8 @@ const CornerBackground = styled.div`
   opacity: 0.2;
 `;
 
+
+
 interface PcxCardProps {
   onStatusChange: (status: ActionStatus) => void;
 }
@@ -84,12 +87,12 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
           />
 
           {api.api.tx.balances?.transfer && currentAccount && (
-            <WhiteButton
+            <WhiteBtn
               onClick={toggleTransfer}
               style={{marginLeft: 32, height: 28, marginBottom: 4}}
             >
               {t('Transfer')}
-            </WhiteButton>
+            </WhiteBtn>
           )}
         </section>
         <section className='details' key="details">
