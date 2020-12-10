@@ -102,14 +102,12 @@ export default function (): React.ReactElement {
       <Button
         className="btnLists primaryBtn"
         onClick={toggleDeposite}
-        style={{ marginRight: 8 }}
       >
         {t('Top-up')}
       </Button>
       <Button
         className="btnLists defaultBtn"
         onClick={toggleWithdraw}
-        style={{ marginRight: 8 }}
       >
         {t('Withdrawals')}
       </Button>
@@ -117,7 +115,6 @@ export default function (): React.ReactElement {
         <Button
           className="btnLists defaultBtn"
           onClick={toggleTransfer}
-          style={{ marginRight: 8 }}
         >
           {t('Transfer')}
         </Button>
