@@ -72,7 +72,8 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
                 <InputAddress
                   defaultValue={currentAccount}
                   help={t<string>('Select the account you wish to submit the tip from.')}
-                  label={t('Select the account for withdrawal')}
+                  label={t('Claim Interests')}
+                  isDisabled
                   // onChange={setAccount}
                   labelExtra={
                     <span>
