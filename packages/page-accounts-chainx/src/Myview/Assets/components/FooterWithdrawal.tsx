@@ -89,12 +89,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
                 <span>
                   {t('available interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
                 </span>
-                {insufficientStake ?
-                <Tip>
-                  {'需抵押：'}{insufficientStake }
-                </Tip>: ''
-                }
-
+                {insufficientStake ? <Tip>{'需抵押：'}{insufficientStake }</Tip>: ''}
               </Modal.Column>
               <ActionsButton onCancel={toggleWithDrawButton}>
                 <TxButton
