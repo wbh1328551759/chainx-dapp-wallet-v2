@@ -52,16 +52,16 @@ export default function (): React.ReactElement {
     setMax(Number(bgPcxFree));
   }, [pcxFree.free, price]);
 
-  useEffect(() => {
-    async function judgeNet(){
-      const testOrMain = await api.rpc.system.properties();
-      const testOrMainNum = JSON.parse(testOrMain);
-      if (testOrMainNum.ss58Format !== 42) {
-        setDisabled(true)
-      }
-    }
-    judgeNet()
-  })
+  // useEffect(() => {
+  //   async function judgeNet(){
+  //     const testOrMain = await api.rpc.system.properties();
+  //     const testOrMainNum = JSON.parse(testOrMain);
+  //     if (testOrMainNum.ss58Format !== 42) {
+  //       setDisabled(true)
+  //     }
+  //   }
+  //   judgeNet()
+  // })
 
   return (
     <Wrapper>
