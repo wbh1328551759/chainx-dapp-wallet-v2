@@ -60,14 +60,14 @@ export default function () {
       const testOrMainNum = JSON.parse(testOrMain);
       let res;
       if (testOrMainNum.ss58Format === 42) {
-        res = await axios.get('https://testnet-api.chainx.org/dex/kline/0/86400');
+        res = await axios.get('https://testnet-api.chainx.org/dex/kline/0/86400000');
         dataList.push(...res.data.items)
       } else {
         res = await axios.get('https://api-v2.chainx.org/dex/kline/0/1000');
         dataList.push(...res.data.items)
       }
 
-      dataList.map(data => {
+      dataList.reverse().map(data => {
         data.timestamp = data.time
         data.open = toPrecision(data.open,8)
         data.high = toPrecision(data.high,8)
