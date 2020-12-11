@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Wrapper, { Header, SymbolCell } from './Wrapper';
 import { Table, TableBody, TableHead, TableRow } from '@chainx/ui';
 import HeadCell from '../../components/HeadCell';
@@ -8,11 +8,12 @@ import {
   PairPriceDownCell
 } from '../../components/PriceCell';
 import { toPrecision } from '../../../components/toPrecision';
-import useFills from '../../../hooks/useFills';
 import { useTranslation } from '../../../translate';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+
 
 export default function (): React.ReactElement {
-  const fills = useFills();
+  const { fills } = useContext(DexContext);
   const latest = fills[0]?.price || toPrecision(0, 7);
   const currencies = ['PCX'];
   const precision = 9;

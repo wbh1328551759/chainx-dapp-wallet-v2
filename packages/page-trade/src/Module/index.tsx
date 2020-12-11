@@ -5,13 +5,13 @@ import MainContent from './MainContent';
 import Fills from './Fills';
 import Wrapper from './Wrapper';
 
-export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
+export default function (): React.ReactElement {
+
   return (
-    <Wrapper>
-      <AskBid />
-      <MainContent nodeName={nodeName}
-        setNodeName={setNodeName} />
-      <Fills />
-    </Wrapper>
+      <Wrapper>
+        <AskBid />
+        <MainContent />
+        <Fills />
+      </Wrapper>
   );
 }

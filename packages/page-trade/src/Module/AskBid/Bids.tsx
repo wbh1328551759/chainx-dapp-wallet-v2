@@ -1,10 +1,10 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import Orders from './Orders';
-import useAsksBids from '@polkadot/react-hooks-chainx/useAsksBids';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 export default function (): React.ReactElement {
-  const { Bids } = useAsksBids();
+  const { Bids } = useContext(DexContext);
 
   return <Orders isAsk={false}
     orders={Bids} />;

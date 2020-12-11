@@ -164,15 +164,15 @@ function Menu({ className = '' }: Props): React.ReactElement<Props> {
           <AccountStatus accountChecked={_accountChecked} />
         </ul>
       </div> */}
-      <div className='menuSection'>
-        <ul className='menuItems chainBrowser'>
-          <Item
-            isBrowser
-            isToplevel
-            route={{ href: 'https://scan-v2.chainx.org/', name: 'chainBrowser', text: t('ChainBrowser') }}
-          />
-        </ul>
-      </div>
+      {/*<div className='menuSection'>*/}
+      {/*  <ul className='menuItems chainBrowser'>*/}
+      {/*    <Item*/}
+      {/*      isBrowser*/}
+      {/*      isToplevel*/}
+      {/*      route={{ href: 'https://scan-v2.chainx.org/', name: 'chainBrowser', text: t('ChainBrowser') }}*/}
+      {/*    />*/}
+      {/*  </ul>*/}
+      {/*</div>*/}
 
 
       {/* <div className='menuSection '> */}

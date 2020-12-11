@@ -1,26 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Wrapper from './Wrapper';
 import Free from '../components/Free';
 import {AmountInput, Slider} from '@chainx/ui';
 import Label from '../components/Label';
 import {marks} from '../constants';
 import {TxButton} from '@polkadot/react-components';
-import {AssetsInfo} from '@polkadot/react-hooks/types';
+import {AssetsInfo} from '@polkadot/react-hooks-chainx/types';
 import {useTranslation} from '../../../../translate';
 import {toPrecision} from '../../../../components/toPrecision';
-import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
-import {useAccounts} from '@polkadot/react-hooks';
 import {api} from '@polkadot/react-api';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 type Props = {
-  nodeName: string,
-  setNodeName?: React.Dispatch<string>
   assetsInfo: AssetsInfo | undefined;
 }
 
-export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Props> {
-  const fills = useFills();
+export default function ({assetsInfo}: Props): React.ReactElement<Props> {
+  const {fills, setLoading} = useContext(DexContext);
+  const {currentAccount} = useContext(AccountContext);
+  const {t} = useTranslation();
+
   const fillPrice = fills[0]?.price || 0;
   const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
   const [price, setPrice] = useState(toPrecision(0, 7));
@@ -28,7 +29,6 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
   const [percentage, setPercentage] = useState<number>(0);
   const [max, setMax] = useState<number>(0);
   const [disabled, setDisabled] = useState(true);
-  const {t} = useTranslation();
   const bgAmount = new BigNumber(amount);
   const bgPrice = new BigNumber(price);
   const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
@@ -54,16 +54,17 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
     setMax(bgAssetsInfoUsable.dividedBy(bgPrice).toNumber());
   }, [assetsInfo, price]);
 
-  useEffect(() => {
-    async function judgeNet(){
-      const testOrMain = await api.rpc.system.properties();
-      const testOrMainNum = JSON.parse(testOrMain);
-      if (testOrMainNum.ss58Format !== 42) {
-        setDisabled(true)
-      }
-    }
-    judgeNet()
-  })
+  // useEffect(() => {
+  //   async function judgeNet() {
+  //     const testOrMain = await api.rpc.system.properties();
+  //     const testOrMainNum = JSON.parse(testOrMain);
+  //     if (testOrMainNum.ss58Format !== 42) {
+  //       setDisabled(true);
+  //     }
+  //   }
+  //
+  //   judgeNet();
+  // });
   return (
     <Wrapper>
       <div className='info'>
@@ -85,7 +86,7 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
           <AmountInput
             id='buy-price'
             onChange={(value) => {
-              setPrice((price) => value);
+              setPrice(() => value);
             }}
             precision={7}
             style={{width: 216}}
@@ -120,8 +121,8 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
         max={100}
         min={0}
         onChange={(value: number) => {
-          setPercentage((percentage) => value);
-          const calcMax = ((max*value)/100).toFixed(7);
+          setPercentage(() => value);
+          const calcMax = ((max * value) / 100).toFixed(7);
           setAmount(() => isFinite(Number(calcMax)) ? calcMax : defaultValue);
         }}
         value={percentage}
@@ -130,23 +131,23 @@ export default function ({assetsInfo, nodeName}: Props): React.ReactElement<Prop
       <div className='volume'>
         <span>{t('Volume')} </span>
         <span>
-          {volume.toNumber()? volume.toNumber().toFixed(8): toPrecision(0, 8)} {'BTC'}
+          {volume.toNumber() ? volume.toNumber().toFixed(8) : toPrecision(0, 8)} {'BTC'}
         </span>
       </div>
       <div className='button'>
         <div>
           <TxButton
-            accountId={nodeName}
+            accountId={currentAccount}
             isDisabled={disabled}
             label={t('Buy PCX')}
             params={[0, 'Limit', 'Buy',
               bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(),
               bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
             tx='xSpot.putOrder'
+            onSuccess={() => setLoading(true)}
             // onClick={sign}
           />
         </div>
-
       </div>
     </Wrapper>
   );

@@ -6,7 +6,7 @@ import AssetView from './AssetView';
 import Logo from './Logo';
 import AccountInfo from './AccountInfo';
 import backgroundImg from './background.svg';
-import {WhiteButton} from '@chainx/ui';
+// import {WhiteButton} from '@chainx/ui';
 import {useApi, useToggle} from '@polkadot/react-hooks';
 import Transfer from '@polkadot/app-accounts-chainx/modals/Transfer';
 import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
@@ -14,6 +14,7 @@ import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import BN from 'bn.js';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
+import Button from '@polkadot/react-components-chainx/Button';
 
 const InnerWrapper = styled.div`
   position: relative;
@@ -33,7 +34,26 @@ const InnerWrapper = styled.div`
     margin-top: 10px;
     align-items: flex-end;
   }
-
+  .whiteBtn {
+    color: rgba(0, 0, 0, 0.72);
+    border: 1px solid rgba(0,0,0,0.04);
+    padding: 1px 2em;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: Cairo, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 14px;
+    text-transform: none;
+    margin: 0 0 4px 32px;
+    &:hover {
+      background: #E8E9EA !important;
+      color: rgba(0, 0, 0, 0.72) !important;
+      box-shadow: none;
+    }
+  }
   section.details {
     display: flex;
     margin-top: 32px;
@@ -52,6 +72,8 @@ const CornerBackground = styled.div`
   height: 147px;
   opacity: 0.2;
 `;
+
+
 
 interface PcxCardProps {
   onStatusChange: (status: ActionStatus) => void;
@@ -84,12 +106,14 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
           />
 
           {api.api.tx.balances?.transfer && currentAccount && (
-            <WhiteButton
+            <Button
+              className="whiteBtn"
               onClick={toggleTransfer}
-              style={{marginLeft: 32, height: 28, marginBottom: 4}}
+              // style={{marginLeft: 32, height: 28, marginBottom: 4}}
+              isBasic={true}
             >
               {t('Transfer')}
-            </WhiteButton>
+            </Button>
           )}
         </section>
         <section className='details' key="details">

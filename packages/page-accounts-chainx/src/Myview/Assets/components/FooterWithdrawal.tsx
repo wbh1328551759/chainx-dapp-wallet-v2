@@ -72,7 +72,8 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
                 <InputAddress
                   defaultValue={currentAccount}
                   help={t<string>('Select the account you wish to submit the tip from.')}
-                  label={t('Select the account for withdrawal')}
+                  label={t('Claim Interests')}
+                  isDisabled
                   // onChange={setAccount}
                   labelExtra={
                     <span>
@@ -86,14 +87,9 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
               </Modal.Column>
               <Modal.Column>
                 <span>
-                  {t('avaliable interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
+                  {t('available interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
                 </span>
-                {insufficientStake ?
-                <Tip>
-                  {'需抵押：'}{insufficientStake ? insufficientStake : toPrecision(0, 4)}
-                </Tip>:''
-                }
-
+                {insufficientStake ? <Tip>{'需抵押：'}{insufficientStake }</Tip>: ''}
               </Modal.Column>
               <ActionsButton onCancel={toggleWithDrawButton}>
                 <TxButton

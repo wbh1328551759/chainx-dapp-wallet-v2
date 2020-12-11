@@ -11,7 +11,8 @@ import logo from './xrc20-btc.svg';
 import { AssetLine, DetailWrapper } from '../components/common';
 // import $t from '../../../../locale'
 import AssetView from '../components/AssetView';
-import { PrimaryButton } from '@chainx/ui';
+import { PrimaryBtn } from '../../components';
+// import { PrimaryButton } from '@chainx/ui';
 // import ConvertDialog from './ConvertDialog'
 // import { accountIdSelector } from '../../../selectors/assets'
 
@@ -36,12 +37,12 @@ export default function () {
 
   const footer = (
     <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-      <PrimaryButton
+      <PrimaryBtn
         onClick={() => setDialogOpen(true)}
         style={{ marginRight: 8 }}
       >
         划转
-      </PrimaryButton>
+      </PrimaryBtn>
     </div>
   );
 

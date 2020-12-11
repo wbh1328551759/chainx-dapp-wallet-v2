@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Table, TableBody, TableRow } from '@chainx/ui';
 import moment from 'moment';
 import { toPrecision } from '../../components/toPrecision';
@@ -11,100 +11,79 @@ import {
   PairCell,
   TimeCell
 } from './Wrapper';
-import cancelIcon from '../svg/cancel.svg';
-import cancelDisabledIcon from '../svg/cancel-disabled.svg';
-import useOrders from '@polkadot/react-hooks-chainx/useOrders';
 import { TxButton } from '@polkadot/react-components';
+import {useTranslation} from '../../translate';
+import BigNumber from 'bignumber.js';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
-export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
-  const [disabled, setDisabled] = useState(false);
-  const [targetId, setTargetId] = useState(null);
-  const { NowOrders } = useOrders(nodeName);
-
-  const cancelOrder = async (id: number) => {
-    setDisabled(true);
-    setTargetId(id);
-  };
+export default function (): React.ReactElement {
+  const { t } = useTranslation();
+  const { NowOrders } = useContext(DexContext);
+  const {currentAccount} = useContext(AccountContext);
 
   return (
     <Table>
       <TableBody>
         {NowOrders.map((order, index) => {
           const currencyPair = [['PCX', 'BTC']];
-          const amount = toPrecision(Number(order.props.amount), 8);
-          const precision = 9;
-          const unitPrecision = 1;
-          const price = toPrecision(order.props.price, precision, false).toFixed(
-            precision - unitPrecision
-          );
-          const fillPercentage = Number(
-            (order.remaining / Number(order.props.amount)) * 100
-          ).toFixed(2);
+          const bgAmount = new BigNumber(toPrecision(Number(order.props.amount), 8))
+          const amount = bgAmount.toNumber().toFixed(8)
+          const bgPrice = new BigNumber(toPrecision(order.props.price, 9, false))
+          const price = bgPrice.toNumber().toFixed(8);
+          // const fillPercentage = Number(
+          //   (order.remaining / Number(order.props.amount)) * 100
+          // ).toFixed(2);
 
           return (
             <TableRow key={index}>
-              <TimeCell style={{ width: '12%' }}>
+              <TimeCell style={{ width: '18%' }}>
                 <div>
                   <span className={order.props.side} />
                   <span className='time'>
-                    {moment(order.blockHeight * 1000).format('YYYY/MM/DD HH:mm')}
+                    {order.blockHeight}
                   </span>
                 </div>
               </TimeCell>
-              <IndexCell style={{ width: '5%' }}>{order._id}</IndexCell>
+              <IndexCell style={{ width: '11%' }}>{order._id}</IndexCell>
               <PairCell
-                style={{ width: '8%' }}
+                style={{ width: '16%' }}
               >{currencyPair[order.props.pairId][0]}/{currencyPair[order.props.pairId][1]}</PairCell>
-              <NumberCell style={{ width: '11%' }}>
+              <NumberCell style={{ width: '17%' }}>
                 {price + ' '}
                 <span>{currencyPair[order.props.pairId][1]}</span>
               </NumberCell>
-              <NumberCell style={{ width: '13%' }}>
+              <NumberCell style={{ width: '19%' }}>
                 {amount + ' '}
                 <span>{currencyPair[order.props.pairId][0]}</span>
               </NumberCell>
-              <NumberCell style={{ width: '16%' }}>
-                {order.props.side === 'Sell'
-                  ? amount + ' '
-                  : amount + ' '}
-                <span>{currencyPair[order.props.pairId][order.props.side === 'Sell' ? 0 : 1]}</span>
-                {/* <span>{currencyPair[order.props.pairId][0]}</span> */}
-
-              </NumberCell>
-              <FillCell
-                className={order.remaining <= 0 ? 'zero' : order.props.side}
-                style={{ width: '16%' }}
-              >
-                <span className='amount'>{`${toPrecision(
-                  order.remaining,
-                  8
-                )}`}</span>
-                <span className='percentage'> / {fillPercentage}% </span>
-              </FillCell>
+              {/*冻结金额*/}
+              {/*<NumberCell style={{ width: '16%' }}>*/}
+              {/*  {order.props.side === 'Sell'*/}
+              {/*    ? amount + ' '*/}
+              {/*    : amount + ' '}*/}
+              {/*  <span>{currencyPair[order.props.pairId][order.props.side === 'Sell' ? 0 : 1]}</span>*/}
+              {/*</NumberCell>*/}
+              {/*成交率*/}
+              {/*<FillCell*/}
+              {/*  className={order.remaining <= 0 ? 'zero' : order.props.side}*/}
+              {/*  style={{ width: '16%' }}*/}
+              {/*>*/}
+              {/*  <span className='amount'>{`${toPrecision(*/}
+              {/*    order.remaining,*/}
+              {/*    8*/}
+              {/*  )}`}</span>*/}
+              {/*  <span className='percentage'> / {fillPercentage}% </span>*/}
+              {/*</FillCell>*/}
               <ActionCell>
                 <TxButton
-                  accountId={nodeName}
+                  accountId={currentAccount}
                   icon={'window-close'}
-                  isDisabled={disabled}
-                  label={'取消'}
+                  label={t('Cancel')}
                   params={[0, order._id]}
                   tx='xSpot.cancelOrder'
                 // onClick={sign}
                 />
-                {/* {disabled && targetId === order._id ? ( */}
-                {/*  <img */}
-                {/*    src={cancelDisabledIcon} */}
-                {/*    alt="cancel" */}
-                {/*    onClick={() => cancelOrder(order._id)} */}
-                {/*  /> */}
-                {/* ) : ( */}
-                {/*  <img */}
-                {/*    src={cancelIcon} */}
-                {/*    alt="cancel" */}
-                {/*    onClick={() => cancelOrder(order._id)} */}
-                {/*    className="cancel" */}
-                {/*  /> */}
-                {/* )} */}
               </ActionCell>
             </TableRow>
           );

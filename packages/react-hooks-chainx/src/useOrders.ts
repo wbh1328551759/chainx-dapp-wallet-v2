@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useApi} from '@polkadot/react-hooks';
 
@@ -25,14 +25,20 @@ interface NowOrder {
   lastUpdateAt: number;
 }
 
-type HistoryOrder = NowOrder;
+interface HistoryOrder{
+  tradingHistoryIdx: number;
+  turnover: number;
+  price: number;
+  pairId: number;
+  blockTime: number;
+}
 
 interface Orders {
   NowOrders: NowOrder[];
   HistoryOrders: HistoryOrder[];
 }
 
-export default function useOrders(nodeName = ''): Orders {
+export default function useOrders(currentAccount = '', isLoading: boolean): Orders {
   const api = useApi();
   const [state, setState] = useState<Orders>({
     NowOrders: [],
@@ -43,27 +49,22 @@ export default function useOrders(nodeName = ''): Orders {
     async function fetchOrders(): Promise<void> {
       const testOrMain = await api.api.rpc.system.properties();
       const testOrMainNum = JSON.parse(testOrMain);
-      let res;
+      let nowOrdersList: any;
+      let historyOrdersList: any;
       if (testOrMainNum.ss58Format === 42) {
-        res = await axios.get(`https://testnet-api.chainx.org/accounts/${nodeName}/open_orders?page=0&page_size=10`);
+        nowOrdersList = await axios.get(`https://testnet-api.chainx.org/accounts/${currentAccount}/open_orders?page=0&page_size=10`);
+        historyOrdersList = await axios.get(`https://testnet-api.chainx.org/accounts/${currentAccount}/deals?page=0&page_size=10`)
       } else {
-         res = await axios.get(
-          `https://api-v2.chainx.org/accounts/${nodeName}/open_orders?page=0&page_size=10`
-        );
+        nowOrdersList = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/open_orders?page=0&page_size=10`);
+        historyOrdersList = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/deals?page=0&page_size=10`)
       }
       setState({
-        NowOrders: res.data.items.filter(
-          (item: NowOrder) => item.remaining / Number(item.props.amount) < 1
-        ),
-        HistoryOrders: res.data.items.filter(
-          (item: HistoryOrder) =>
-            item.remaining / Number(item.props.amount) === 1
-        )
+        NowOrders: nowOrdersList.data.items,
+        HistoryOrders: historyOrdersList.data.items
       });
     }
-
     fetchOrders()
-  }, [nodeName]);
+  }, [currentAccount, isLoading]);
 
   return state;
 }

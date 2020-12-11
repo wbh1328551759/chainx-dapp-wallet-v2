@@ -4,12 +4,11 @@ import Wrapper from './Wrapper';
 import Kline from './kline';
 import TradeForm from './TradeForm';
 
-export default function ({ nodeName, setNodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
+export default function (): React.ReactElement {
   return (
     <Wrapper className='content'>
       <Kline />
-      <TradeForm nodeName={nodeName}
-        setNodeName={setNodeName} />
+      <TradeForm />
     </Wrapper>
   );
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Wrapper from './Wrapper';
 import Free from '../components/Free';
 import Label from '../components/Label';
@@ -8,30 +8,26 @@ import {toPrecision} from '../../../../components/toPrecision';
 import {TxButton} from '@polkadot/react-components';
 import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
 import {useTranslation} from '../../../../translate';
-import useFills from '../../../../hooks/useFills';
 import BigNumber from 'bignumber.js';
 import {useAccounts} from '@polkadot/react-hooks';
 import {api} from '@polkadot/react-api';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
-type Props = {
-  nodeName: string,
-  setNodeName?: React.Dispatch<string>
-}
-
-export default function ({nodeName}: Props): React.ReactElement<Props> {
+export default function (): React.ReactElement {
   const {hasAccounts} = useAccounts();
-  const fills = useFills();
-  const defaultValue = new BigNumber(toPrecision(fills[0]?.price, 9)).toNumber().toFixed(7);
+  const { fills, setLoading } = useContext(DexContext);
+  const {currentAccount} = useContext(AccountContext);
+  const pcxFree = usePcxFree(currentAccount);
+  const {t} = useTranslation();
+
   const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
   const [disabled, setDisabled] = useState<boolean>(true);
   const [amount, setAmount] = useState<number | string>(toPrecision(0, 7));
   const [max, setMax] = useState<number>(0);
   const [percentage, setPercentage] = useState<number>(0);
-  const pcxFree = usePcxFree(nodeName);
-  const {t} = useTranslation();
   const bgAmount = new BigNumber(amount);
   const bgPrice = new BigNumber(price);
-
   const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
 
   useEffect(() => {
@@ -56,16 +52,16 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
     setMax(Number(bgPcxFree));
   }, [pcxFree.free, price]);
 
-  useEffect(() => {
-    async function judgeNet(){
-      const testOrMain = await api.rpc.system.properties();
-      const testOrMainNum = JSON.parse(testOrMain);
-      if (testOrMainNum.ss58Format !== 42) {
-        setDisabled(true)
-      }
-    }
-    judgeNet()
-  })
+  // useEffect(() => {
+  //   async function judgeNet(){
+  //     const testOrMain = await api.rpc.system.properties();
+  //     const testOrMainNum = JSON.parse(testOrMain);
+  //     if (testOrMainNum.ss58Format !== 42) {
+  //       setDisabled(true)
+  //     }
+  //   }
+  //   judgeNet()
+  // })
 
   return (
     <Wrapper>
@@ -137,13 +133,14 @@ export default function ({nodeName}: Props): React.ReactElement<Props> {
       <div className='button'>
         <div>
           <TxButton
-            accountId={nodeName}
+            accountId={currentAccount}
             isDisabled={disabled}
             label={t('Sell PCX')}
             params={[0, 'Limit', 'Sell',
               bgAmount.multipliedBy(Math.pow(10, 8)).toNumber(),
               bgPrice.multipliedBy(Math.pow(10, 9)).toNumber()]}
             tx='xSpot.putOrder'
+            onSuccess={() => setLoading(true)}
             // onClick={sign}
           />
         </div>
