@@ -13,6 +13,7 @@ import { StatusContext } from '@polkadot/react-components';
 import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
 import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
 import Button from '@polkadot/react-components-chainx/Button';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
@@ -22,6 +23,7 @@ function NodeInfo({className = ''}: Props): React.ReactElement<Props> {
   const {hasAccounts} = useAccounts();
   const {isApiReady} = useApi();
   let [storedValue, setValue] = useLocalStorage<string>('currentAccount');
+  const {currentAccount} = useContext(AccountContext);
   const {queueAction} = useContext(StatusContext);
   const [isCreateOpen, toggleCreate] = useToggle();
   const {isIpfs} = useIpfs();
@@ -37,7 +39,7 @@ function NodeInfo({className = ''}: Props): React.ReactElement<Props> {
 
       {isApiReady && (hasAccounts ?
           <AccountStatus
-            storedValue={storedValue}
+            storedValue={currentAccount}
             onStatusChange={queueAction}
             setStoredValue={setValue}
           /> :
