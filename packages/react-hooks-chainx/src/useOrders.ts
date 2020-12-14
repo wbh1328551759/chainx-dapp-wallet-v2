@@ -3,26 +3,13 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useApi} from '@polkadot/react-hooks';
 
-interface OrderProps {
-  id: number;
-  side: string;
-  price: number;
-  amount: string;
-  pairId: number;
-  submitter: string;
-  orderType: string;
-  createdAt: number;
-}
 interface NowOrder {
-  _id: number;
-  blockHeight: number;
-  blockHash: string;
-  props: OrderProps;
-  status: string;
-  remaining: number;
-  executedIndices: [];
-  alreadyFilled: number;
-  lastUpdateAt: number;
+  createdAt: number;
+  id: number;
+  pairId: number;
+  price: number;
+  amount: number;
+  side: 'Sell' | 'Buy';
 }
 
 interface HistoryOrder{
@@ -49,17 +36,17 @@ export default function useOrders(currentAccount = '', isLoading: boolean): Orde
     async function fetchOrders(): Promise<void> {
       const testOrMain = await api.api.rpc.system.properties();
       const testOrMainNum = JSON.parse(testOrMain);
-      let nowOrdersList: any;
+      const nowOrdersData  = await api.api.rpc.xspot.getOrdersByAccount(currentAccount, 0, 100)
+      const nowOrdersList = JSON.parse(JSON.stringify(nowOrdersData)).data
+
       let historyOrdersList: any;
       if (testOrMainNum.ss58Format === 42) {
-        nowOrdersList = await axios.get(`https://testnet-api.chainx.org/accounts/${currentAccount}/open_orders?page=0&page_size=10`);
         historyOrdersList = await axios.get(`https://testnet-api.chainx.org/accounts/${currentAccount}/deals?page=0&page_size=10`)
       } else {
-        nowOrdersList = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/open_orders?page=0&page_size=10`);
         historyOrdersList = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/deals?page=0&page_size=10`)
       }
       setState({
-        NowOrders: nowOrdersList.data.items,
+        NowOrders: nowOrdersList,
         HistoryOrders: historyOrdersList.data.items
       });
     }

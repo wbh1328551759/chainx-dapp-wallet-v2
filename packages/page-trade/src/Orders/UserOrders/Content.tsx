@@ -16,20 +16,21 @@ import {useTranslation} from '../../translate';
 import BigNumber from 'bignumber.js';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {useApi} from '@polkadot/react-hooks';
 
 export default function (): React.ReactElement {
   const { t } = useTranslation();
+  const currencyPair = [['PCX', 'BTC']];
   const { NowOrders } = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
-
+  console.log(NowOrders)
   return (
     <Table>
       <TableBody>
         {NowOrders.map((order, index) => {
-          const currencyPair = [['PCX', 'BTC']];
-          const bgAmount = new BigNumber(toPrecision(Number(order.props.amount), 8))
+          const bgAmount = new BigNumber(toPrecision(Number(order.amount), 8))
           const amount = bgAmount.toNumber().toFixed(7)
-          const bgPrice = new BigNumber(toPrecision(order.props.price, 9, false))
+          const bgPrice = new BigNumber(toPrecision(order.price, 9, false))
           const price = bgPrice.toNumber().toFixed(7);
           // const fillPercentage = Number(
           //   (order.remaining / Number(order.props.amount)) * 100
@@ -39,23 +40,23 @@ export default function (): React.ReactElement {
             <TableRow key={index}>
               <TimeCell style={{ width: '18%' }}>
                 <div>
-                  <span className={order.props.side} />
+                  <span className={order.side} />
                   <span className='time'>
-                    {order.blockHeight}
+                    {order.createdAt}
                   </span>
                 </div>
               </TimeCell>
-              <IndexCell style={{ width: '11%' }}>{order._id}</IndexCell>
+              <IndexCell style={{ width: '11%' }}>{order.id}</IndexCell>
               <PairCell
                 style={{ width: '16%' }}
-              >{currencyPair[order.props.pairId][0]}/{currencyPair[order.props.pairId][1]}</PairCell>
+              >{currencyPair[order.pairId][0]}/{currencyPair[order.pairId][1]}</PairCell>
               <NumberCell style={{ width: '17%' }}>
                 {price + ' '}
-                <span>{currencyPair[order.props.pairId][1]}</span>
+                <span>{currencyPair[order.pairId][1]}</span>
               </NumberCell>
               <NumberCell style={{ width: '19%' }}>
                 {amount + ' '}
-                <span>{currencyPair[order.props.pairId][0]}</span>
+                <span>{currencyPair[order.pairId][0]}</span>
               </NumberCell>
               {/*冻结金额*/}
               {/*<NumberCell style={{ width: '16%' }}>*/}
@@ -80,7 +81,7 @@ export default function (): React.ReactElement {
                   accountId={currentAccount}
                   icon={'window-close'}
                   label={t('Cancel')}
-                  params={[0, order._id]}
+                  params={[0, 11]}
                   tx='xSpot.cancelOrder'
                 // onClick={sign}
                 />

@@ -16,15 +16,12 @@ interface Ask {
 interface Bid extends Ask {}
 
 interface NowOrder {
-  _id: number;
-  blockHeight: number;
-  blockHash: string;
-  props: NowOrderProps;
-  status: string;
-  remaining: number;
-  executedIndices: [];
-  alreadyFilled: number;
-  lastUpdateAt: number;
+  createdAt: number;
+  id: number;
+  pairId: number;
+  price: number;
+  amount: number;
+  side: 'Sell' | 'Buy';
 }
 
 interface HistoryOrder {
@@ -33,17 +30,6 @@ interface HistoryOrder {
   price: number;
   pairId: number;
   blockTime: number;
-}
-
-interface NowOrderProps {
-  id: number;
-  side: string;
-  price: number;
-  amount: string;
-  pairId: number;
-  submitter: string;
-  orderType: string;
-  createdAt: number;
 }
 
 export interface DexContextData {
