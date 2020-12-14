@@ -28,9 +28,9 @@ export default function (): React.ReactElement {
         {NowOrders.map((order, index) => {
           const currencyPair = [['PCX', 'BTC']];
           const bgAmount = new BigNumber(toPrecision(Number(order.props.amount), 8))
-          const amount = bgAmount.toNumber().toFixed(8)
+          const amount = bgAmount.toNumber().toFixed(7)
           const bgPrice = new BigNumber(toPrecision(order.props.price, 9, false))
-          const price = bgPrice.toNumber().toFixed(8);
+          const price = bgPrice.toNumber().toFixed(7);
           // const fillPercentage = Number(
           //   (order.remaining / Number(order.props.amount)) * 100
           // ).toFixed(2);

@@ -50,9 +50,9 @@ export default function (): React.ReactElement {
         {HistoryOrders.map((order, index) => {
           const currencyPair = [['PCX', 'BTC']];
           const bgAmount = new BigNumber(toPrecision(Number(order.turnover), 8));
-          const amount = bgAmount.toNumber().toFixed(8)
+          const amount = bgAmount.toNumber().toFixed(7)
           const bgPrice = new BigNumber(toPrecision(order.price, 9, false));
-          const price = bgPrice.toNumber().toFixed(8);
+          const price = bgPrice.toNumber().toFixed(7);
           // const precision = 9;
           // const unitPrecision = 1;
           // const fillPercentage = Number(
