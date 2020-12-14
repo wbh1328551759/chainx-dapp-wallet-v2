@@ -69,17 +69,17 @@ export default function () {
 
       dataList.reverse().map(data => {
         data.timestamp = data.time
-        data.open = toPrecision(data.open,8)
-        data.high = toPrecision(data.high,8)
-        data.close = toPrecision(data.close,8)
-        data.low = toPrecision(data.low,8)
-        data.volume = toPrecision(data.volume,8)
+        data.open = toPrecision(data.open,7)
+        data.high = toPrecision(data.high,7)
+        data.close = toPrecision(data.close,7)
+        data.low = toPrecision(data.low,7)
+        data.volume = toPrecision(data.volume,7)
       })
 
       const kLineChart = init('basic-k-line');
       kLineChart.applyNewData(dataList);
       kLineChart.setZoomEnabled(false);
-      kLineChart.setPrecision(8, 8)
+      kLineChart.setPrecision(7, 7)
       kLineChart.setStyleOptions({
         floatLayer: {
           prompt: {
@@ -94,7 +94,7 @@ export default function () {
           }
         }
       });
-      kLineChart.setTechnicalIndicatorPrecision(8, 'yAxis')
+      kLineChart.setTechnicalIndicatorPrecision(7, 'yAxis')
       kLineChart.setScrollEnabled(false);
     }
 

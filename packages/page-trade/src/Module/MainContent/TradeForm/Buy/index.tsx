@@ -131,7 +131,7 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
       <div className='volume'>
         <span>{t('Volume')} </span>
         <span>
-          {volume.toNumber() ? volume.toNumber().toFixed(8) : toPrecision(0, 8)} {'BTC'}
+          {volume.toNumber() ? volume.toNumber().toFixed(7) : toPrecision(0, 7)} {'BTC'}
         </span>
       </div>
       <div className='button'>

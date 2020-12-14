@@ -8,6 +8,7 @@ import TimeCell from './TimeCell';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import BigNumber from 'bignumber.js';
 
 const Wrapper = styled.div`
   height: 360px;
@@ -30,7 +31,8 @@ export default function (): React.ReactElement {
             const m = moment(fill.blockTime);
             const time = m.format('HH:mm:ss');
             const fullTime = m.format('HH:mm:ss');
-
+            const bgAmount = new BigNumber(fill.turnover)
+            const amount = bgAmount.toNumber() / 10
             return (
               <TableRow key={index}>
                 {fill.arise ? (
@@ -43,9 +45,9 @@ export default function (): React.ReactElement {
                     </PriceDownCell>
                   )}
                 <AmountCell
-                  precision={8}
+                  precision={7}
                   style={{ width: '42%' }}
-                  value={fill.turnover}
+                  value={amount}
                 />
                 <TimeCell style={{ width: '28%' }}
                   title={fullTime}>

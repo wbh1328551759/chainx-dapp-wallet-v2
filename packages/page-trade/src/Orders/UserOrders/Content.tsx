@@ -23,7 +23,6 @@ export default function (): React.ReactElement {
   const currencyPair = [['PCX', 'BTC']];
   const { NowOrders } = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
-  console.log(NowOrders)
   return (
     <Table>
       <TableBody>
