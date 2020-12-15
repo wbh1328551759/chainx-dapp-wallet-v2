@@ -13,13 +13,16 @@ import {useAccounts} from '@polkadot/react-hooks';
 import {api} from '@polkadot/react-api';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import BN from 'bn.js';
 
 export default function (): React.ReactElement {
+  const {t} = useTranslation();
   const {hasAccounts} = useAccounts();
   const { fills, setLoading } = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
   const pcxFree = usePcxFree(currentAccount);
-  const {t} = useTranslation();
+  const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
+
 
   const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -67,7 +70,7 @@ export default function (): React.ReactElement {
     <Wrapper>
       <div className='info'>
         <Free asset={'PCX'}
-              free={hasAccounts ? pcxFree.free : Number(toPrecision(0, 7)).toString()}
+              free={hasAccounts ? bgUsableBalance.toNumber() : Number(toPrecision(0, 7)).toString()}
               precision={8}/>
       </div>
       <div className='price input'>
