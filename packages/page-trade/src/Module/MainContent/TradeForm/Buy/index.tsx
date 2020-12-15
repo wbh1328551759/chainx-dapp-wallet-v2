@@ -5,7 +5,7 @@ import {AmountInput, Slider} from '@chainx/ui';
 import Label from '../components/Label';
 import {marks} from '../constants';
 import {TxButton} from '@polkadot/react-components';
-import {AssetsInfo} from '@polkadot/react-hooks-chainx/types';
+import {AssetsInfo, TradingPairs} from '@polkadot/react-hooks-chainx/types';
 import {useTranslation} from '../../../../translate';
 import {toPrecision} from '../../../../components/toPrecision';
 import BigNumber from 'bignumber.js';
@@ -15,9 +15,10 @@ import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider'
 
 type Props = {
   assetsInfo: AssetsInfo | undefined;
+  tradingPairsInfo: TradingPairs | undefined;
 }
 
-export default function ({assetsInfo}: Props): React.ReactElement<Props> {
+export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElement<Props> {
   const {fills, setLoading} = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
   const {t} = useTranslation();
@@ -32,6 +33,17 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
   const bgAmount = new BigNumber(amount);
   const bgPrice = new BigNumber(price);
   const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
+  const [maxValidBidData, setMaxValidBidData] = useState<number>(0)
+
+  useEffect(()=> {
+    if(tradingPairsInfo){
+      const bgLowestAsk = new BigNumber(tradingPairsInfo.lowestAsk)
+      const maxValidBid = bgLowestAsk.toNumber() + Math.pow(100, tradingPairsInfo.tickDecimals)
+      const bgMaxValidBid = new BigNumber(toPrecision(maxValidBid, 9))
+      setMaxValidBidData(bgMaxValidBid.toNumber())
+    }
+  }, [tradingPairsInfo])
+
   useEffect(() => {
     const bgFillPrice = new BigNumber(toPrecision(fillPrice, 9));
     if (fillPrice) {
@@ -40,19 +52,18 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
   }, [fillPrice]);
 
   useEffect(() => {
-    if (Number(amount) <= 0) {
+    if (bgAmount.toNumber() <= 0) {
       setDisabled(true);
-    } else if (Number(price) <= 0) {
+    } else if (bgPrice.toNumber() <= 0 || bgPrice.toNumber() > maxValidBidData) {
       setDisabled(true);
+      alert(`买入价格需低于${maxValidBidData}`)
     } else {
       setDisabled(false);
     }
-  }, [amount, price]);
 
-  useEffect(() => {
     const bgAssetsInfoUsable = new BigNumber(toPrecision(Number(assetsInfo?.Usable), 8));
     setMax(bgAssetsInfoUsable.dividedBy(bgPrice).toNumber());
-  }, [assetsInfo, price]);
+  }, [amount, price, assetsInfo]);
 
   // useEffect(() => {
   //   async function judgeNet() {

@@ -14,15 +14,19 @@ import {api} from '@polkadot/react-api';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import BN from 'bn.js';
+import {AssetsInfo, TradingPairs} from '@polkadot/react-hooks-chainx/types';
 
-export default function (): React.ReactElement {
+type Props = {
+  tradingPairsInfo: TradingPairs | undefined;
+}
+
+export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const {hasAccounts} = useAccounts();
   const { fills, setLoading } = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
   const pcxFree = usePcxFree(currentAccount);
   const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
-
 
   const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -32,6 +36,19 @@ export default function (): React.ReactElement {
   const bgAmount = new BigNumber(amount);
   const bgPrice = new BigNumber(price);
   const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
+  const [minValidAskData, setMinValidAskData] = useState<number>(0)
+
+  useEffect(()=> {
+    if(tradingPairsInfo){
+      const bgHighestBid= new BigNumber(tradingPairsInfo.highestBid)
+      const minValidAsk = bgHighestBid.toNumber() - Math.pow(100, tradingPairsInfo.tickDecimals) < 0
+        ? 100 : bgHighestBid.toNumber() - Math.pow(100, tradingPairsInfo.tickDecimals)
+
+      const bgMinValidAsk= new BigNumber(toPrecision(minValidAsk, 9))
+      setMinValidAskData(bgMinValidAsk.toNumber())
+    }
+  }, [tradingPairsInfo])
+
 
   useEffect(() => {
     if (fills[0]?.price) {
@@ -41,19 +58,19 @@ export default function (): React.ReactElement {
   }, [fills[0]?.price]);
 
   useEffect(() => {
-    if (Number(amount) <= 0) {
+    if (bgAmount.toNumber() <= 0) {
       setDisabled(true);
-    } else if (Number(price) <= 0) {
+    } else if (bgPrice.toNumber() <= 0 || bgPrice.toNumber()  < minValidAskData) {
       setDisabled(true);
+      alert(`卖出价格应高于${minValidAskData.toFixed(7)}`)
     } else {
       setDisabled(false);
     }
-  }, [amount, price]);
-
-  useEffect(() => {
     const bgPcxFree = new BigNumber(toPrecision(pcxFree.free, 8));
-    setMax(Number(bgPcxFree));
-  }, [pcxFree.free, price]);
+    setMax(bgPcxFree.toNumber());
+
+  }, [amount, price, pcxFree.free]);
+
 
   // useEffect(() => {
   //   async function judgeNet(){
