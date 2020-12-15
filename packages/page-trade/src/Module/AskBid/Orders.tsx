@@ -23,11 +23,11 @@ export default function ({ isAsk, orders }: Props): React.ReactElement<Props> {
       <Table>
         <TableBody>
           {orders.map((order, index) => {
-            const bgPrice = new BigNumber(toPrecision(order.price, 9))
+            const bgPrice = new BigNumber(toPrecision(order[0], 9))
             const price = bgPrice.toNumber().toFixed(
               7
             );
-            const bgAmount = new BigNumber(order.amount)
+            const bgAmount = new BigNumber(order[1])
             const amount = bgAmount.toNumber() / 10
 
             return (
