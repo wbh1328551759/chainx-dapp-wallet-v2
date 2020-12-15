@@ -16,12 +16,11 @@ import {useTranslation} from '../../translate';
 import BigNumber from 'bignumber.js';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
-import {useApi} from '@polkadot/react-hooks';
 
 export default function (): React.ReactElement {
   const { t } = useTranslation();
   const currencyPair = [['PCX', 'BTC']];
-  const { NowOrders } = useContext(DexContext);
+  const { NowOrders, setLoading } = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
   return (
     <Table>
@@ -82,6 +81,7 @@ export default function (): React.ReactElement {
                   label={t('Cancel')}
                   params={[0, order.id]}
                   tx='xSpot.cancelOrder'
+                  onSuccess={() => setLoading(true)}
                 // onClick={sign}
                 />
               </ActionCell>

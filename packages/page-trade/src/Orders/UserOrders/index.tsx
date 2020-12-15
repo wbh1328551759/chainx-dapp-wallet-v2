@@ -10,11 +10,10 @@ export default function (): React.ReactElement {
   const {NowOrders} = useContext(DexContext);
   const {t} = useTranslation();
   const {isLoading} = useContext(DexContext);
-
   return (
     <>
       <TableHead/>
-      {isLoading ?<Spinner/> :NowOrders && NowOrders.length > 0 ? (
+      {isLoading && NowOrders.length <= 0 ?<Spinner/> :NowOrders && NowOrders.length > 0 ? (
         <Content/>
       ) : (
         <Empty style={{marginTop: 30, marginBottom: 30}}
