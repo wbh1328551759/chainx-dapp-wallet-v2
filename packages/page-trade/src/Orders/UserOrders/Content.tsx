@@ -80,7 +80,7 @@ export default function (): React.ReactElement {
                   accountId={currentAccount}
                   icon={'window-close'}
                   label={t('Cancel')}
-                  params={[0, 11]}
+                  params={[0, order.id]}
                   tx='xSpot.cancelOrder'
                 // onClick={sign}
                 />

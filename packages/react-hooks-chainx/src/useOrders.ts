@@ -50,6 +50,7 @@ export default function useOrders(currentAccount = '', isLoading: boolean): Orde
         HistoryOrders: historyOrdersList.data.items
       });
     }
+
     fetchOrders()
   }, [currentAccount, isLoading]);
 
