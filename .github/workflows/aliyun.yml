@@ -18,9 +18,7 @@ jobs:
             whoami
             cd chainx-dapp-wallet-v3
             ls -all
-            git stash
-            git checkout testnet
-            git stash
-            git pull origin testnet
+            git checkout main
+            git pull origin main
             yarn
             yarn run build:www
