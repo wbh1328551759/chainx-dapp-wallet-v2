@@ -18,6 +18,7 @@ jobs:
             whoami
             cd dapp-wallet-test
             ls -all
+            git stash
             git checkout testnet
             git stash
             git pull origin testnet
