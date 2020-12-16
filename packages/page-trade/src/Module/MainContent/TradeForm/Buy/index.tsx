@@ -12,8 +12,8 @@ import BigNumber from 'bignumber.js';
 import {api} from '@polkadot/react-api';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
-import InputDex from '@polkadot/react-components-chainx/InputDex';
 import valueToText from '@polkadot/react-params/valueToText';
+import InputDex from '@polkadot/react-components-chainx/InputDex';
 // import Input from '@polkadot/react-components-chainx/Input';
 
 type Props = {
@@ -126,12 +126,6 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
               setAmount(value);
               // setPercentage((value / max) * 100);
             }
-          }}
-          onKeyUp={(value)=>{
-            // const val = amount.target.attributes.value.value
-            // console.log(amount.target.attributes.value.value)
-            // console.log(val)
-            value.replace(/^\d{0,}(\.\d{0,2})?$/g)
           }}
           maxLength={13}
           precision={7}
