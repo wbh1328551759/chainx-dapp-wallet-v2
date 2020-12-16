@@ -111,7 +111,7 @@ export default (theme: ThemeDef): string => `
 
   .ui--Tooltip {
     text-align: center;
-    z-index: 1002;
+    z-index: 1002 !important;
     max-width: 300px;
   }
 `;

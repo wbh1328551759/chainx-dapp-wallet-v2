@@ -3,7 +3,7 @@
 
 import { TFunction } from 'i18next';
 import { Route } from './types';
-import Component from '../../page-accounts/src/Accounts';
+import Component from '@polkadot/app-accounts-chainx/Accounts/index'
 
 export default function create(t: TFunction): Route {
   return {
@@ -13,7 +13,7 @@ export default function create(t: TFunction): Route {
     },
     group: 'accounts',
     icon: 'users',
-    name: 'All accounts',
+    name: 'allAccounts',
     text: t('nav.allAccounts', 'All accounts', { ns: 'apps-routing' })
   };
 }

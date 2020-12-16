@@ -5,9 +5,10 @@ import moment from 'moment';
 import { PriceAriseCell, PriceDownCell } from '../../components/PriceCell';
 import AmountCell from '../../components/AmountCell';
 import TimeCell from './TimeCell';
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import useFills from '../../../hooks/useFills';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import BigNumber from 'bignumber.js';
 
 const Wrapper = styled.div`
   height: 360px;
@@ -18,8 +19,7 @@ const Wrapper = styled.div`
 `;
 
 export default function (): React.ReactElement {
-  const fills = useFills();
-
+  const { fills } = useContext(DexContext);
   return (
     <Wrapper>
       <Table>
@@ -31,7 +31,8 @@ export default function (): React.ReactElement {
             const m = moment(fill.blockTime);
             const time = m.format('HH:mm:ss');
             const fullTime = m.format('HH:mm:ss');
-
+            const bgAmount = new BigNumber(fill.turnover)
+            const amount = bgAmount.toNumber() / 10
             return (
               <TableRow key={index}>
                 {fill.arise ? (
@@ -44,9 +45,9 @@ export default function (): React.ReactElement {
                     </PriceDownCell>
                   )}
                 <AmountCell
-                  precision={8}
+                  precision={7}
                   style={{ width: '42%' }}
-                  value={fill.turnover}
+                  value={amount}
                 />
                 <TimeCell style={{ width: '28%' }}
                   title={fullTime}>

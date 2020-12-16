@@ -8,8 +8,9 @@ import {
   TableWrapper
 } from './Wrapper';
 import { toPrecision } from '../../components/toPrecision';
+import BigNumber from 'bignumber.js';
 
-type Props = {
+interface Props {
   orders: any[],
   isAsk: boolean
 }
@@ -22,9 +23,12 @@ export default function ({ isAsk, orders }: Props): React.ReactElement<Props> {
       <Table>
         <TableBody>
           {orders.map((order, index) => {
-            const price = Number(toPrecision(order.price, 9)).toFixed(
+            const bgPrice = new BigNumber(toPrecision(order[0], 9))
+            const price = bgPrice.toNumber().toFixed(
               7
             );
+            const bgAmount = new BigNumber(order[1])
+            const amount = bgAmount.toNumber() / 10
 
             return (
               <TableRow key={index}>
@@ -40,8 +44,8 @@ export default function ({ isAsk, orders }: Props): React.ReactElement<Props> {
                 {/* 数量 */}
                 <OrderAmountCell
                   height={24}
-                  precision={8}
-                  value={order.amount}
+                  precision={7}
+                  value={amount}
                 />
                 {/* 累计 */}
                 {/* <SumCell height={24} > */}

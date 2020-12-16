@@ -43,7 +43,7 @@ export default function (): React.ReactElement {
   const { t } = useTranslation();
   const api = useApi();
   const headerRef = useRef([
-    [t('The time of application'), 'start', 1],
+    [t('BlockHeight'), 'start', 1],
     [t('identifier'), 'start', 1],
     [t('asset'), 'start'],
     [t('money'), 'start'],

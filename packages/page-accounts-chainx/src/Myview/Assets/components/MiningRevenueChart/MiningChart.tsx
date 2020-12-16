@@ -131,12 +131,12 @@ export default function (): React.ReactElement {
     {
       color: 'orange',
       type: 'X-BTC',
-      data: '1.1%'
+      data: '0.9%'
     },
     {
       color: 'blue',
       type: 'TR',
-      data: '21.3%'
+      data: '21.5%'
     },
     {
       color: 'grey',
@@ -152,7 +152,7 @@ export default function (): React.ReactElement {
     '#F7931B'
   ];
 
-  const power = [{ power: 57.6 }, { power: 20.0 }, { power: 21.3 }, { power: 1.1 }];
+  const power = [{ power: 57.6 }, { power: 20.0 }, { power: 21.5 }, { power: 0.9 }];
 
   useEffect(() => {
     if (power) {

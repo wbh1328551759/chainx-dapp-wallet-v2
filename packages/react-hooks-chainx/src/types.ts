@@ -182,6 +182,21 @@ export interface AssetsInfo {
   XbtcInterests: string;
 }
 
+export interface TradingPairs {
+  baseCurrency: number,
+  highestBid: string,
+  id: number,
+  lastUpdated: number,
+  latestPrice: string,
+  lowestAsk: string,
+  maxValidBid: string,
+  minValidAsk: string,
+  pipDecimals: number,
+  quoteCurrency: number,
+  tickDecimals: number,
+  tradable: boolean
+}
+
 export interface AssetInterest {
   Interest: string
 }

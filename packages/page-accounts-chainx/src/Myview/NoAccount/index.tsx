@@ -3,11 +3,11 @@ import React from 'react';
 import styled from 'styled-components';
 import noneLogo from '../Records/Empty/none.svg';
 import { Button } from '@polkadot/react-components';
-import { useTranslation } from '@polkadot/app-accounts/translate';
+import { useTranslation } from '@polkadot/app-accounts-chainx/translate';
 import { useIpfs, useToggle } from '@polkadot/react-hooks';
-import CreateModal from '@polkadot/app-accounts/modals/Create';
+import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
 import { ActionStatus } from '@polkadot/react-components/Status/types';
-import ImportModal from '@polkadot/app-accounts/modals/Import';
+import ImportModal from '@polkadot/app-accounts-chainx/modals/Import';
 const Wrapper = styled.div`
   margin: 0 !important;
   > .noAccount{

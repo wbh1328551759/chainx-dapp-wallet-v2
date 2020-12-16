@@ -33,6 +33,7 @@ import mining from './mining';
 import addAccount from '@polkadot/apps-routing/addAccount';
 import restore from '@polkadot/apps-routing/restore';
 import trust from './trust';
+import chainBrowser from '@polkadot/apps-routing/chainBrowser';
 
 export default function create(t: TFunction): Routes {
   return [
@@ -65,7 +66,7 @@ export default function create(t: TFunction): Routes {
     // js(t),
     trade(t),
     settings(t),
-
+    chainBrowser(t)
 
   ];
 }

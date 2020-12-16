@@ -60,32 +60,26 @@ export default function () {
       const testOrMainNum = JSON.parse(testOrMain);
       let res;
       if (testOrMainNum.ss58Format === 42) {
-        res = await axios.get('https://testnet-api.chainx.org/dex/kline/0/86400');
-
-        dataList.push(...res.data)
-        console.log('dataList')
-        console.log(dataList)
+        res = await axios.get('https://testnet-api.chainx.org/dex/kline/0/86400000');
+        dataList.push(...res.data.items)
       } else {
-        const defaultData = await axios.get('https://api.chainx.org/kline/?pairid=0&type=86400&start_date=1561861285&end_date=1605061285');
-        const {length} = defaultData.data
-        const defaultValue = defaultData.data.slice(length-8, length-1)
-        res = await axios.get('https://api-v2.chainx.org/dex/kline/0/1000');
-        res.data.items[0].open !== 0 ? dataList.push(...res.data) : dataList.push(...defaultValue);
+        res = await axios.get('https://api-v2.chainx.org/dex/kline/0/86400000');
+        dataList.push(...res.data.items)
       }
 
-      dataList.map(data => {
-        data.timestamp = data.time * 1000
-        data.open = toPrecision(data.open,8)
-        data.high = toPrecision(data.high,8)
-        data.close = toPrecision(data.close,8)
-        data.low = toPrecision(data.low,8)
-        data.volume = toPrecision(data.volume,8)
+      dataList.reverse().map(data => {
+        data.timestamp = data.time
+        data.open = toPrecision(data.open,7)
+        data.high = toPrecision(data.high,7)
+        data.close = toPrecision(data.close,7)
+        data.low = toPrecision(data.low,7)
+        data.volume = toPrecision(data.volume,7)
       })
 
       const kLineChart = init('basic-k-line');
       kLineChart.applyNewData(dataList);
       kLineChart.setZoomEnabled(false);
-      kLineChart.setPrecision(8, 8)
+      kLineChart.setPrecision(7, 7)
       kLineChart.setStyleOptions({
         floatLayer: {
           prompt: {
@@ -100,7 +94,7 @@ export default function () {
           }
         }
       });
-      kLineChart.setTechnicalIndicatorPrecision(8, 'yAxis')
+      kLineChart.setTechnicalIndicatorPrecision(7, 'yAxis')
       kLineChart.setScrollEnabled(false);
     }
 

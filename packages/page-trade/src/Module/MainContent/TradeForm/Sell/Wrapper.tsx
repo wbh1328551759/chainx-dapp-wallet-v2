@@ -1,4 +1,3 @@
-
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -12,6 +11,37 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    > div.tip{
+      position: absolute;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      bottom: -0.4rem;
+      font-size: 13px;
+      background: rgba(254, 254, 254);
+      border: 1px solid #dce0e2;
+      box-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
+      border-radius: 6px;
+      text-align: center;
+      height: 3rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      line-height: 3rem;
+      white-space: nowrap;
+
+    }
+     > div.arrows{
+        position: absolute;
+        margin-left: 50%;
+        bottom: -0.9rem;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 7px 0 7px;
+        border-color:  rgba(254, 254, 254) transparent transparent transparent;
+        box-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
+     }
   }
 
   & > div.input {

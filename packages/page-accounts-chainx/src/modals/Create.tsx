@@ -188,7 +188,7 @@ function createAccount(suri: string, pairType: KeypairType, { genesisHash, name,
 
 function Create({ className = '', onClose, onStatusChange, seed: propsSeed, type: propsType }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const { api, isDevelopment } = useApi();
+  const { api, isDevelopment, isEthereum } = useApi();
   const { changeAccount } = useContext(AccountContext);
   const [storedValue, setValue] = useLocalStorage('currentAccount')
   const [{ address, derivePath, deriveValidation, isSeedValid, pairType, seed, seedType }, setAddress] = useState<AddressState>(generateSeed(propsSeed, '', propsSeed ? 'raw' : 'bip', propsType));
@@ -336,6 +336,7 @@ function Create({ className = '', onClose, onStatusChange, seed: propsSeed, type
                   />
                   <CopyButton
                     className='copyMoved'
+                    type={seedType === 'bip' ? t<string>('mnemonic') : seedType === 'raw' ? isEthereum ? t<string>('private key') : 'seed' : t<string>('raw seed')}
                     value={seed}
                   />
                 </Input>

@@ -4,7 +4,6 @@ import PcxCard from './PcxCard';
 import Assets from './Assets';
 import styled from 'styled-components';
 import Records from './Records';
-import AccountSelect from '@polkadot/react-components-chainx/AccountSelect';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import NoAccount from './NoAccount';
 import {useAccounts} from '@polkadot/react-hooks';
@@ -42,7 +41,6 @@ function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
   return (
     hasAccounts ?
       <Wrapper className='wrapper'>
-        <AccountSelect/>
         <div className='left'>
           <PcxCard onStatusChange={onStatusChange}/>
           <Assets/>

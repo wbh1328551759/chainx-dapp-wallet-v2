@@ -3,14 +3,16 @@ import xbtcLogo from './xbtc.svg';
 import AssetCard from '../components/AssetCard';
 import AssetView from '../components/AssetView';
 import { AssetLine, DetailWrapper } from '../components/common';
-import { PrimaryButton, DefaultButton } from '@chainx/ui';
+// import { PrimaryButton, DefaultButton } from '@chainx/ui';
 import Transfer from '../../../modals/XBTCTransfer';
 import { useApi, useToggle } from '@polkadot/react-hooks';
 import { AssetsInfo } from "@polkadot/react-hooks-chainx/types";
-import Deposite from '../../../modals/deposite';
+// import Deposite from '../../../modals/deposite';
+import Deposite from '../../../modals/deposite/deposite';
 import Withdraw from '../../../modals/withdraw';
 import { useTranslation } from '@polkadot/app-accounts/translate';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import Button from '@polkadot/react-components-chainx/Button';
 
 
 
@@ -97,25 +99,25 @@ export default function (): React.ReactElement {
         />
       )}
 
-      <PrimaryButton
+      <Button
+        className="btnLists primaryBtn"
         onClick={toggleDeposite}
-        style={{ marginRight: 8 }}
       >
         {t('Top-up')}
-      </PrimaryButton>
-      <DefaultButton
+      </Button>
+      <Button
+        className="btnLists defaultBtn"
         onClick={toggleWithdraw}
-        style={{ marginRight: 8 }}
       >
         {t('Withdrawals')}
-      </DefaultButton>
+      </Button>
       {api.tx.balances?.transfer && (
-        <DefaultButton
+        <Button
+          className="btnLists defaultBtn"
           onClick={toggleTransfer}
-          style={{ marginRight: 8 }}
         >
           {t('Transfer')}
-        </DefaultButton>
+        </Button>
       )}
     </div>
   );

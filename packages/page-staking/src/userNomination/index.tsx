@@ -101,12 +101,12 @@ function UserNomination({className = '', validatorInfoList}: Props): React.React
   const validNominations = state.allNominations.filter((nmn, index) => {
     const userInterests = state.allDividended.filter(dvd => dvd.account === currentAccount);
     const interestNode = userInterests[0]?.interests.find(i => i.validator === nmn.validatorId);
-    const blInterestNode = Boolean(interestNode? Number(interestNode?.interest) !== 0: 0);
+    const blInterestNode = Boolean(interestNode ? Number(interestNode?.interest) !== 0 : 0);
     const chunkes: number = nmn?.unbondedChunks ? nmn.unbondedChunks.reduce((total, record) => {
       return total + Number(record.value);
     }, 0) : 0;
     const blNomination: boolean = Boolean(Number(nmn.nomination) !== 0);
-    return blNomination || Boolean(chunkes !== 0) || blInterestNode ;
+    return blNomination || Boolean(chunkes !== 0) || blInterestNode;
   });
 
   return (
