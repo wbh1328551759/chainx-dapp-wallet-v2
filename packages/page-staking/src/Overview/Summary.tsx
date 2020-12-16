@@ -10,6 +10,7 @@ import { CardSummary, IdentityIcon, SummaryBox } from '@polkadot/react-component
 import { BlockAuthorsContext } from '@polkadot/react-query';
 
 import { useTranslation } from '../translate';
+import { AddressSmall } from '@polkadot/react-components-chainx';
 
 interface Props {
   className?: string;
@@ -22,7 +23,6 @@ interface Props {
 function Summary({ className = '', isVisible, next, nominators, stakingOverview }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { lastBlockAuthors, lastBlockNumber } = useContext(BlockAuthorsContext);
-
   return (
     <SummaryBox className={`${className}${!isVisible ? ' staking--hidden' : ''}`}>
       <section>
@@ -46,6 +46,16 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview 
             />
           ))}
           {lastBlockNumber}
+        </CardSummary>
+      </section>
+      <section>
+        <CardSummary
+          className='validator--Summary-authors'
+          label={t<string>('block node')}
+        >
+          {lastBlockAuthors?.map((author): React.ReactNode => (
+            <AddressSmall value={author}  key={author} />
+          ))}
         </CardSummary>
       </section>
       <section>

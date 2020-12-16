@@ -1,6 +1,6 @@
 
 import React, { useContext } from 'react';
-import { Table, TableBody, TableRow } from '@chainx/ui';
+// import { Table, TableBody, TableRow } from '@chainx/ui';
 import moment from 'moment';
 import { toPrecision } from '../../components/toPrecision';
 import {
@@ -11,7 +11,7 @@ import {
   PairCell,
   TimeCell
 } from './Wrapper';
-import { TxButton } from '@polkadot/react-components';
+import { Table, TxButton } from '@polkadot/react-components';
 import {useTranslation} from '../../translate';
 import BigNumber from 'bignumber.js';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
@@ -24,7 +24,7 @@ export default function (): React.ReactElement {
   const {currentAccount} = useContext(AccountContext);
   return (
     <Table>
-      <TableBody>
+      {/* <TableBody> */}
         {NowOrders.map((order, index) => {
           const bgAmount = new BigNumber(toPrecision(Number(order.amount), 8))
           const amount = bgAmount.toNumber().toFixed(7)
@@ -35,7 +35,7 @@ export default function (): React.ReactElement {
           // ).toFixed(2);
 
           return (
-            <TableRow key={index}>
+            <tr key={index}>
               <TimeCell style={{ width: '18%' }}>
                 <div>
                   <span className={order.side} />
@@ -85,10 +85,10 @@ export default function (): React.ReactElement {
                 // onClick={sign}
                 />
               </ActionCell>
-            </TableRow>
+            </tr>
           );
         })}
-      </TableBody>
+      {/* </TableBody> */}
     </Table>
   );
 }

@@ -1,8 +1,8 @@
 
 import React, { useContext } from 'react';
 import Wrapper, { Header, SymbolCell } from './Wrapper';
-import { Table, TableBody, TableHead, TableRow } from '@chainx/ui';
-import HeadCell from '../../components/HeadCell';
+// import { Table, TableBody, TableHead, TableRow } from '@chainx/ui';
+import { HeadTitle } from '../../components/HeadCell';
 import {
   PairPriceAriseCell,
   PairPriceDownCell
@@ -10,6 +10,7 @@ import {
 import { toPrecision } from '../../../components/toPrecision';
 import { useTranslation } from '../../../translate';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import { Table } from '@polkadot/react-components';
 
 
 export default function (): React.ReactElement {
@@ -30,17 +31,17 @@ export default function (): React.ReactElement {
         </ul>
       </Header>
 
-      <Table>
-        <TableHead>
-          <TableRow>
-            <HeadCell>{t('Token')}</HeadCell>
-            <HeadCell style={{ textAlign: 'right' }}>
+      <Table className="marbot">
+        {/* <TableHead> */}
+          <tr>
+            <HeadTitle>{t('Token')}</HeadTitle>
+            <HeadTitle style={{ textAlign: 'right' }}>
               {t('Price')}
-            </HeadCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
+            </HeadTitle>
+          </tr>
+        {/* </TableHead> */}
+        {/* <TableBody> */}
+          <tr style={{background: "#fff"}}>
             <SymbolCell>{currencies[0]}</SymbolCell>
             {latest && latest.arise ? (
               <PairPriceAriseCell style={{ textAlign: 'right' }}>
@@ -55,9 +56,9 @@ export default function (): React.ReactElement {
                   )}
                 </PairPriceDownCell>
               )}
-          </TableRow>
+          </tr>
 
-        </TableBody>
+        {/* </TableBody> */}
       </Table>
     </Wrapper>
   );
