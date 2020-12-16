@@ -23,23 +23,23 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
   const {currentAccount} = useContext(AccountContext);
   const {t} = useTranslation();
 
-  const fillPrice = fills[0]?.price || 0;
-  const defaultValue = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
-  const [price, setPrice] = useState(toPrecision(0, 7));
-  const [amount, setAmount] = useState(toPrecision(0, 7));
+  const fillPrice: number = fills[0]?.price || 0;
+  const defaultValue: string = new BigNumber(toPrecision(fillPrice, 9)).toFixed(7);
+  const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
+  const [amount, setAmount] = useState<number | string>(toPrecision(0, 7));
   const [percentage, setPercentage] = useState<number>(0);
   const [max, setMax] = useState<number>(0);
-  const [disabled, setDisabled] = useState(true);
-  const bgAmount = new BigNumber(amount);
-  const bgPrice = new BigNumber(price);
-  const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
+  const [disabled, setDisabled] = useState<boolean>(true);
+  const bgAmount: BigNumber = new BigNumber(amount);
+  const bgPrice: BigNumber = new BigNumber(price);
+  const volume: BigNumber = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
   const [maxValidBidData, setMaxValidBidData] = useState<number>(0)
+  const [errDisplay, setErrDisplay] = useState<boolean>(false)
+
 
   useEffect(()=> {
     if(tradingPairsInfo){
-      const bgLowestAsk = new BigNumber(tradingPairsInfo.lowestAsk)
-      const maxValidBid = bgLowestAsk.toNumber() + Math.pow(100, tradingPairsInfo.tickDecimals)
-      const bgMaxValidBid = new BigNumber(toPrecision(maxValidBid, 9))
+      const bgMaxValidBid: BigNumber = new BigNumber(toPrecision(tradingPairsInfo.maxValidBid, 9))
       setMaxValidBidData(bgMaxValidBid.toNumber())
     }
   }, [tradingPairsInfo])
@@ -56,14 +56,17 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
       setDisabled(true);
     } else if (bgPrice.toNumber() <= 0 || bgPrice.toNumber() > maxValidBidData) {
       setDisabled(true);
-      alert(`买入价格需低于${maxValidBidData}`)
+      setErrDisplay(true)
+
+      // alert(`买入价格需低于${maxValidBidData}`)
     } else {
       setDisabled(false);
+      setErrDisplay(false)
     }
 
     const bgAssetsInfoUsable = new BigNumber(toPrecision(Number(assetsInfo?.Usable), 8));
     setMax(bgAssetsInfoUsable.dividedBy(bgPrice).toNumber());
-  }, [amount, price, assetsInfo]);
+  }, [amount, price, assetsInfo, errDisplay]);
 
   // useEffect(() => {
   //   async function judgeNet() {
@@ -84,6 +87,8 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
           free={assetsInfo?.Usable || '0'}
           precision={8}
         />
+        {errDisplay ? <div className='tip'>{t('The purchase price needs to be lower than')}{` ${maxValidBidData}`}</div>: ''}
+        {errDisplay ? <div className='arrows'/>: ''}
       </div>
 
       <div className='price input'>

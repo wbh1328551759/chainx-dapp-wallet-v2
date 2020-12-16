@@ -1537,6 +1537,8 @@
   "Choose account": "选择账号",
   "Register New Node": "注册节点",
   "BlockHeight": "块高",
+  "The selling price should be higher than": "卖出价格应高于",
+  "The purchase price needs to be lower than": "买入价格需低于",
   "{{balance}} voted": "{{balance}} 投票",
   "{{blocks}} blocks": "{{blocks}} 区块",
   "{{count}} key/value pairs encoded for submission": "{{count}}为提交而编码的密钥/值对",
