@@ -27,7 +27,7 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
 
   const {t} = useTranslation();
   const {hasAccounts} = useAccounts();
-  const {fills, setLoading} = useContext(DexContext);
+  const {fills, isLoading, setLoading} = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
   const pcxFree = usePcxFree(currentAccount);
   const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
@@ -43,12 +43,13 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
   const volume = new BigNumber((bgAmount.multipliedBy(bgPrice)).toFixed(7));
   const [minValidAskData, setMinValidAskData] = useState<number>(0);
   const [errDisplay, setErrDisplay] = useState<boolean>(false)
+
   useEffect(() => {
     if (tradingPairsInfo) {
       const bgMinValidAsk: BigNumber = new BigNumber(toPrecision(tradingPairsInfo.minValidAsk, 9));
       setMinValidAskData(bgMinValidAsk.toNumber());
     }
-  }, [tradingPairsInfo]);
+  }, [tradingPairsInfo, isLoading]);
 
 
   useEffect(() => {
@@ -66,12 +67,13 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
       setErrDisplay(true)
       // alert(`卖出价格应高于${minValidAskData.toFixed(7)}`);
     } else {
+      setErrDisplay(false)
       setDisabled(false);
     }
     const bgPcxFree = new BigNumber(toPrecision(pcxFree.free, 8));
     setMax(bgPcxFree.toNumber());
 
-  }, [amount, price, pcxFree.free, errDisplay]);
+  }, [amount, price, pcxFree.free, errDisplay, isLoading]);
 
 
   // useEffect(() => {
@@ -92,7 +94,7 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
               free={hasAccounts ? bgUsableBalance.toNumber() : Number(toPrecision(0, 7)).toString()}
               precision={8}/>
 
-        {errDisplay ? <div className={`tip ${errDisplay}`}>{t('The selling price should be higher than')}{ `${minValidAskData.toFixed(7)}`}</div>: ''}
+        {errDisplay ? <div className={`tip ${errDisplay}`}>{t('The selling price should be higher than')}{ ` ${minValidAskData.toFixed(7)}`}</div>: ''}
         {errDisplay ? <div className={`arrows ${errDisplay}`}/>: ''}
       </div>
       <div className='price input'>

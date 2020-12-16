@@ -36,7 +36,7 @@ const Wrapper = styled.div`
      > div.arrows{
         position: absolute;
         margin-left: 50%;
-        bottom: -12px;
+        bottom: -0.9rem;
         transform: translateX(-50%);
         width: 0;
         height: 0;
