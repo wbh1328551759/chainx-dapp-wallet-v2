@@ -106,7 +106,6 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
             onChange={(value: string | number) => {
               setPrice(() => value);
             }}
-            precision={7}
             tokenName={'BTC'}
             value={price}
             maxLength={13}
@@ -122,13 +121,13 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
               setAmount(max.toFixed(7));
               // setPercentage(100);
             } else {
-              
               setAmount(value);
               // setPercentage((value / max) * 100);
             }
           }}
+          autoFocus   
+          isZeroable
           maxLength={13}
-          precision={7}
           tokenName={'PCX'}
           value={amount}
         />

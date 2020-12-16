@@ -108,7 +108,6 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
           onChange={(value: string | number) => {
             setPrice(value);
           }}
-          precision={7}
           tokenName={'BTC'}
           value={price}
           maxLength={13}
@@ -129,7 +128,6 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
             }
           }}
           maxLength={13}
-          precision={7}
           tokenName={'PCX'}
           value={amount}
         />
