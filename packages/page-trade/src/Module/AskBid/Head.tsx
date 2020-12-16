@@ -1,21 +1,22 @@
 
-import { Table, TableHead, TableRow } from '@chainx/ui';
+// import { Table, TableHead, TableRow } from '@chainx/ui';
 import React from 'react';
-import HeadCell from '../components/HeadCell';
+import { HeadTitle } from '../components/HeadCell';
 import { useTranslation } from '../../translate';
+import { Table } from '@polkadot/react-components';
+
+
 
 export default function (): React.ReactElement {
   const { t } = useTranslation();
 
   return (
     <Table>
-      <TableHead>
-        <TableRow>
-          <HeadCell style={{ width: '30%' }}>{t('Price')}</HeadCell>
-          <HeadCell style={{ width: '30%' }}>{t('Quantity')}</HeadCell>
+      <tr>
+        <HeadTitle>{t('Price')}</HeadTitle>
+        <HeadTitle style={{ textAlign: 'left' }}>{t('Quantity')}</HeadTitle>
           {/* <HeadCell style={{ textAlign: 'right', width: '40%' }}>累计</HeadCell> */}
-        </TableRow>
-      </TableHead>
+      </tr>
     </Table>
   );
 }

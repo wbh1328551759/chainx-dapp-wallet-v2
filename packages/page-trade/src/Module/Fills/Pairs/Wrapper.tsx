@@ -1,10 +1,13 @@
 
 import styled from 'styled-components';
 import SideCard from '../../../components/SideCard';
-import { TableCell } from '@chainx/ui';
+// import { TableCell } from '@chainx/ui';
 
 const Wrapper = styled(SideCard)`
   padding: 16px 0;
+  .marbot {
+    margin-bottom: 0;
+  }
 `;
 
 export const Header = styled.header`
@@ -35,15 +38,16 @@ export const Header = styled.header`
   }
 `;
 
-export const SymbolCell = styled(TableCell)`
+export const SymbolCell = styled.td`
   opacity: 0.72;
   font-size: 14px !important;
   font-weight: 600 !important;
-  color: #000000;
+  color: rgba(0, 0, 0, .74);
   letter-spacing: 0.12px;
   line-height: 20px;
   border-bottom: 0 !important;
   width: 50%;
+  padding: 12px !important;
 `;
 
 export default Wrapper;

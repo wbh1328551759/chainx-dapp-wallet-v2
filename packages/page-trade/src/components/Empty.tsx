@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 
 type Props = {
   text: string,
-  style: string,
+  style?: string,
   className?: string
 }
 

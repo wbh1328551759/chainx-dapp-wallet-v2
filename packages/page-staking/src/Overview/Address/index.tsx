@@ -183,11 +183,10 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
             onClick={toggleVote}
           />
         </div>
-
       </td>
-      <PopMenu validatorInfo={validatorInfo} />
-
-
+      <td>
+        <PopMenu validatorInfo={validatorInfo} />
+      </td>
     </tr>
   );
 }

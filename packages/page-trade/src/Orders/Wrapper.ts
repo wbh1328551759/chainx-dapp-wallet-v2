@@ -52,7 +52,7 @@ export const HeadCell = styled(BaseCell)`
   font-weight: 600 !important;
 `;
 
-export const StatCell = styled(BaseCell)`
+export const StatCell = styled.td`
   opacity: 0.72 !important;
   text-align: right !important;
 `;

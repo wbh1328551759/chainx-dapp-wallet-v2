@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { Table, TableBody, TableRow } from '@chainx/ui';
+// import { TableBody, TableRow } from '@chainx/ui';
 import {
   OrderAmountCell,
   OrderPriceCell,
@@ -20,8 +20,8 @@ export default function ({ isAsk, orders }: Props): React.ReactElement<Props> {
     <TableWrapper
       style={{ flexDirection: isAsk ? 'column-reverse' : 'column' }}
     >
-      <Table>
-        <TableBody>
+      <table className="marbot">
+        <tbody>
           {orders.map((order, index) => {
             const bgPrice = new BigNumber(toPrecision(order[0], 9))
             const price = bgPrice.toNumber().toFixed(
@@ -31,7 +31,7 @@ export default function ({ isAsk, orders }: Props): React.ReactElement<Props> {
             const amount = bgAmount.toNumber() / 10
 
             return (
-              <TableRow key={index}>
+              <tr key={index}>
                 {/* 价格 */}
                 <OrderPriceCell
                   height={24}
@@ -51,11 +51,11 @@ export default function ({ isAsk, orders }: Props): React.ReactElement<Props> {
                 {/* <SumCell height={24} > */}
                 {/*  order 200 */}
                 {/* </SumCell> */}
-              </TableRow>
+              </tr>
             );
           })}
-        </TableBody>
-      </Table>
+          </tbody>
+      </table>
     </TableWrapper>
   );
 }

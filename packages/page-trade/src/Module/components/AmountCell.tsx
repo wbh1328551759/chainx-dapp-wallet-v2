@@ -9,6 +9,7 @@ const Cell = styled(BaseCell)`
   letter-spacing: 0.2px;
   line-height: 16px;
   padding: 0 0 0 12px !important;
+  width: 42%;
 `;
 
 type Props = {
