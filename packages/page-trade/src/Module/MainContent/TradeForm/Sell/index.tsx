@@ -63,6 +63,7 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
       setErrDisplay(true)
       // alert(`卖出价格应高于${minValidAskData.toFixed(7)}`);
     } else {
+      setErrDisplay(false)
       setDisabled(false);
     }
     const bgPcxFree = new BigNumber(toPrecision(pcxFree.free, 8));
