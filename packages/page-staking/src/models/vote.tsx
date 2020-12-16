@@ -8,19 +8,32 @@ import { useTranslation } from '../translate';
 import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
+import styled from 'styled-components';
 
 interface Props {
   validatorId: string | null | undefined;
   onClose: () => void;
-  onSuccess?: TxCallback
+  onSuccess?: TxCallback;
+  remainingVotesData: string | undefined;
 }
 
-function VoteNode({ onClose, validatorId, onSuccess }: Props): React.ReactElement<Props> {
+const VoteData = styled.span`
+  > span{
+    color: red;
+  }
+`
+
+function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [amount, setAmount] = useState<BN | undefined>();
   const [accountId, setAccount] = useState<string | null | undefined>();
 
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
+  const remainingVotes = <VoteData className='label'>
+    {t<string>('remaining votes')}
+    {'： '}
+    <span>{remainingVotesData ?  remainingVotesData: 0}</span>
+  </VoteData>
 
   return (
     <Modal
@@ -55,12 +68,7 @@ function VoteNode({ onClose, validatorId, onSuccess }: Props): React.ReactElemen
               help={t<string>('Vote for Validator')}
               isDisabled={!!validatorId}
               label={t<string>('Vote for Validator')}
-              labelExtra={
-                <Available
-                  label={transferrable}
-                  params={validatorId}
-                />
-              }
+              labelExtra={remainingVotesData && remainingVotesData > 0? remainingVotes: ''}
               type='allPlus'
             />
           </Modal.Column>
