@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
+import {useApi} from '@polkadot/react-hooks';
 
 const Wrapper = styled.tr`
   color: inherit;
@@ -72,16 +73,35 @@ interface Props {
 }
 
 export default function ({ addr, applicant, assetId, balance, ext, height, id, state }: Props): React.ReactElement<Props> {
+  const [accountUrl, setAccountUrl] = useState<string>('');
+  const [withdrawalUrl, setWithdrawalUr]= useState<string>('');
+  const api = useApi();
+
+  useEffect(() => {
+    async function judgeMainOrTest(){
+      const testOrMain = await api.api.rpc.system.properties();
+      const testOrMainNum = JSON.parse(testOrMain);
+
+      if (testOrMainNum.ss58Format === 42) {
+        setAccountUrl(`https://testnet-scan.chainx.org/accounts/${applicant}`)
+        setWithdrawalUr(`https://live.blockcypher.com/btc-testnet/address/${addr}`)
+      } else {
+        setAccountUrl(`https://scan-v2.chainx.org/accounts/${applicant}`)
+        setWithdrawalUr(`https://live.blockcypher.com/btc/address/${addr}`)
+      }
+    }
+
+    judgeMainOrTest()
+  },[])
+
   return (
     <Wrapper>
       <td>{height}</td>
       <td className='blue'> {assetId}</td>
       <td>BTC</td>
       <td className='strong'>{toPrecision(balance,8)} </td>
-      <td><a href=''
-        target='_blank'>{applicant} </a></td>
-      <td><a href=''
-        target='_blank'>{addr} </a></td>
+      <td><a href={accountUrl} target='_blank'>{applicant} </a></td>
+      <td><a href={withdrawalUrl} target='_blank'>{addr} </a></td>
       <td>{ext} </td>
       <td>{state}</td>
     </Wrapper>
