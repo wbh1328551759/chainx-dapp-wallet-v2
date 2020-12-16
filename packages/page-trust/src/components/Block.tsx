@@ -77,7 +77,7 @@ export default function (): React.ReactElement {
                 <WithdrawList
                   addr={addr}
                   applicant={applicant}
-                  assetId={assetId}
+                  assetId={id}
                   balance={balance}
                   ext={ext}
                   height={height}
