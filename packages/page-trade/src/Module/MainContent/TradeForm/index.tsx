@@ -5,6 +5,7 @@ import Sell from './Sell';
 import {useAccounts, useApi} from '@polkadot/react-hooks';
 import {AssetsInfo, TradingPairs} from '@polkadot/react-hooks-chainx/types';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 
 export default function (): React.ReactElement {
   const hasAccounts = useAccounts();
@@ -12,6 +13,7 @@ export default function (): React.ReactElement {
   const currentAccount = useContext(AccountContext);
   const [currentAccountInfo, setCurrentAccountInfo] = useState<AssetsInfo>();
   const [tradingPairsInfo, setTradingPairsInfo] = useState<TradingPairs>()
+  const {isLoading} = useContext(DexContext);
 
   useEffect((): void => {
     async function getAssets(account: string): Promise<any> {
@@ -60,7 +62,7 @@ export default function (): React.ReactElement {
     }
 
     getTradingPairsInfo();
-  }, []);
+  }, [isLoading]);
 
   return (
     <Wrapper>

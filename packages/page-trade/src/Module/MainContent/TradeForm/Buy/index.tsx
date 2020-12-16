@@ -19,7 +19,7 @@ type Props = {
 }
 
 export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElement<Props> {
-  const {fills, setLoading} = useContext(DexContext);
+  const {fills, isLoading, setLoading} = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
   const {t} = useTranslation();
 
@@ -36,13 +36,12 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
   const [maxValidBidData, setMaxValidBidData] = useState<number>(0)
   const [errDisplay, setErrDisplay] = useState<boolean>(false)
 
-
   useEffect(()=> {
     if(tradingPairsInfo){
       const bgMaxValidBid: BigNumber = new BigNumber(toPrecision(tradingPairsInfo.maxValidBid, 9))
       setMaxValidBidData(bgMaxValidBid.toNumber())
     }
-  }, [tradingPairsInfo])
+  }, [tradingPairsInfo, isLoading])
 
   useEffect(() => {
     const bgFillPrice = new BigNumber(toPrecision(fillPrice, 9));
@@ -66,7 +65,7 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
 
     const bgAssetsInfoUsable = new BigNumber(toPrecision(Number(assetsInfo?.Usable), 8));
     setMax(bgAssetsInfoUsable.dividedBy(bgPrice).toNumber());
-  }, [amount, price, assetsInfo, errDisplay]);
+  }, [amount, price, assetsInfo, errDisplay, isLoading]);
 
   // useEffect(() => {
   //   async function judgeNet() {
