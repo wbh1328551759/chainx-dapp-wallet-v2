@@ -86,8 +86,8 @@ interface accountAssetInfo {
 }
 
 export default function ({onStatusChange}: PcxCardProps): React.ReactElement<PcxCardProps> {
-  const api = useApi()
   const {isApiReady} = useApi();
+  const api = useApi()
 
   const {t} = useTranslation();
   const [isTransferOpen, toggleTransfer] = useToggle();
@@ -100,31 +100,53 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
   const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
   const bgFeeFrozen = new BN(pcxFree.feeFrozen);
 
-  // useEffect(() => {
-  //   const accountAssetInfo: accountAssetInfo = {
-  //     usableBalance: bgUsableBalance.toNumber(),
-  //     allBalance,
-  //     freeFrozen: bgFeeFrozen.toNumber()
-  //   };
-  //   setValue(JSON.stringify(accountAssetInfo));
-  // }, [currentAccount, pcxFree]);
-  // console.log('storedValue')
+  const a: accountAssetInfo  = JSON.parse(storedValue) as accountAssetInfo
+
+  const [de, setDefault] = useState<accountAssetInfo>(a)
+
+  console.log('de')
+  console.log(de)
+  useEffect(() => {
+    // const defalutValue = JSON.stringify({
+    //   usableBalance: 0,
+    //   allBalance: 0,
+    //   freeFrozen: 0
+    // })
+    //   const a: string = window.localStorage.getItem('accountAsset') || defalutValue
+    //   const b = JSON.parse(a)
+    //   setValue(b)
+
+  },[])
+
+  useEffect(() => {
+    const accountAssetInfo: accountAssetInfo = {
+      usableBalance: bgUsableBalance.toNumber(),
+      allBalance,
+      freeFrozen: bgFeeFrozen.toNumber()
+    };
+    setValue(JSON.stringify(accountAssetInfo));
+    console.log('放进去了')
+  }, [currentAccount, pcxFree]);
+
+  console.log('storedValue')
+  console.log('pcxFree')
+  console.log(JSON.stringify(pcxFree))
   // console.log(JSON.parse(storedValue))
   return (
     <Card>
       <InnerWrapper>
         <header>
           <Logo/>
-          <AccountInfo/>
+          {/*<AccountInfo/>*/}
         </header>
         <section className='free' key='free'>
           <AssetView
             bold
             title={t('free balance')}
-            value={bgUsableBalance.toNumber()}
+            value={isApiReady? bgUsableBalance.toNumber(): de.usableBalance}
           />
 
-          {api.api.tx.balances?.transfer && currentAccount && (
+          {isApiReady && api.api.tx.balances?.transfer && currentAccount && (
             <Button
               className="whiteBtn"
               onClick={toggleTransfer}
@@ -141,12 +163,12 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
               <AssetView
                 key={Math.random()}
                 title={t('total balance')}
-                value={allBalance}
+                value={isApiReady? allBalance: de.allBalance}
               />
               <AssetView
                 key={Math.random()}
                 title={t('frozen voting')}
-                value={bgFeeFrozen.toNumber()}
+                value={isApiReady? bgFeeFrozen.toNumber(): de.freeFrozen}
               />
               {/* <AssetView
                 title="交易冻结"

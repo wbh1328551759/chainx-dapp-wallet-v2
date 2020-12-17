@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 export default function usePcxFree(address = '',n = 0): PcxFree {
-  const { api } = useApi();
+  const { api, isApiReady } = useApi();
   const [state, setState] = useState<object>({});
   const { currentAccount } = useContext(AccountContext);
 
@@ -18,7 +18,7 @@ export default function usePcxFree(address = '',n = 0): PcxFree {
     }
 
     fetchPcxFree();
-  }, [currentAccount,n]);
+  }, [currentAccount, n, isApiReady]);
 
   return <PcxFree>state;
 }

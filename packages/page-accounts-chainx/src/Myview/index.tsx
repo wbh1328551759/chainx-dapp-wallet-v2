@@ -38,7 +38,7 @@ function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
       <Wrapper className='wrapper'>
         <div className='left'>
           <PcxCard onStatusChange={onStatusChange}/>
-          <Assets/>
+          {/*<Assets/>*/}
         </div>
         <div className='right'>
           <Records/>
