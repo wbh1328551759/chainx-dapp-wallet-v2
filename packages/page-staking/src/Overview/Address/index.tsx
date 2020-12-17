@@ -176,17 +176,13 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
             onSuccess={() => { }}
           />
         )}
-        <div>
-          <Icon
-            color='orange'
-            icon='check'
+          <Button
+            icon='sign-in-alt'
+            label={t<string>('Vote')}
             onClick={toggleVote}
           />
-        </div>
       </td>
-      <td>
-        <PopMenu validatorInfo={validatorInfo} />
-      </td>
+        {/* <PopMenu validatorInfo={validatorInfo} /> */}
     </tr>
   );
 }

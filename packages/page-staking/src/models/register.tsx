@@ -8,20 +8,22 @@ import { useTranslation } from '../translate';
 import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
+import { useAccounts } from '@polkadot/react-hooks';
 
 interface Props {
   nodeslist?: string[],
   onClose: () => void;
   onSuccess?: TxCallback;
+  account: string;
 }
 
-function RegisterNewNode({ nodeslist, onClose, onSuccess }: Props): React.ReactElement<Props> {
+function RegisterNewNode({ nodeslist, onClose, onSuccess, account }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [nodeName, setNodeName] = useState<string | null | undefined>();
   const [amount, setAmount] = useState<BN | undefined>();
   const [accountId, setAccount] = useState<string | null | undefined>();
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
-
+  const { hasAccounts } = useAccounts();
   return (
     <Modal
       header={t<string>('Register New Node')}
@@ -30,9 +32,26 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess }: Props): React.ReactE
       <Modal.Content>
         <Modal.Columns>
           <Modal.Column>
-            <InputAddress
+            {
+              hasAccounts ? <InputAddress
+              defaultValue={account}
               help='The actual account you wish to register account'
               label='register account'
+              isDisabled={!!account}
+              labelExtra={
+                <Available
+                  label={transferrable}
+                  params={account}
+                />
+              }
+              onChange={setAccount}
+              type='account'
+            /> : 
+            <InputAddress
+              defaultValue={accountId}
+              help='The actual account you wish to register account'
+              label='register account'
+              isDisabled={!!accountId}
               labelExtra={
                 <Available
                   label={transferrable}
@@ -42,6 +61,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess }: Props): React.ReactE
               onChange={setAccount}
               type='account'
             />
+          } 
           </Modal.Column>
           <Modal.Column>
             <p>{t<string>('Register New Node')}</p>

@@ -34,6 +34,8 @@ interface Props {
   precision?: number | undefined;
   tokenName?: string | undefined;
   onKeyPress?: () => void;
+  onKeyDown?: (event: React.KeyboardEvent<Element>) => void;
+  onKeyUp?: (event: React.KeyboardEvent<Element>) => void;
 }
 
 // const BN_TEN_THOUSAND = new BN(10_000);
@@ -76,7 +78,7 @@ function InputDex ({ autoFocus, children, className = '', precision, tokenName, 
           event.preventDefault();
         }
       }
-      
+
     },
     [isDecimal]
   );

@@ -10,10 +10,11 @@ import { TxCallback } from '@polkadot/react-components/Status/types';
 interface Props {
   onClose: () => void;
   validatorId: string | undefined;
-  onSuccess?: TxCallback
+  onSuccess?: TxCallback;
+  account: string
 }
 
-function Validate({ onClose, validatorId, onSuccess }: Props): React.ReactElement<Props> {
+function Validate({ onClose, validatorId, onSuccess, account}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const [accountId, setAccount] = useState<string | null | undefined>();
@@ -28,12 +29,14 @@ function Validate({ onClose, validatorId, onSuccess }: Props): React.ReactElemen
         <Modal.Columns>
           <Modal.Column>
             <InputAddress
+              defaultValue={account}
               help='The actual account you wish to participates account'
               label='participates account'
+              isDisabled={!!account}
               labelExtra={
                 <Available
                   label={transferrable}
-                  params={accountId}
+                  params={account}
                 />
               }
               onChange={setAccount}
