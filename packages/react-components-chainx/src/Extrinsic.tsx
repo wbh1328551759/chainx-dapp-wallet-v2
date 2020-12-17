@@ -79,14 +79,19 @@ function ExtrinsicDisplay({defaultValue, isDisabled, isError, isPrivate, label, 
     []
   );
 
+
   const {fn: {meta, method, section}, params} = extrinsic;
-  params[0].type.type = 'string';
-  if (params[0].type.sub && 'type' in params[0].type.sub) {
-    params[0].type.sub.type = 'string';
+
+
+  if(section === 'xGatewayBitcoin' && method === 'signWithdrawTx'){
+    params[0].type.type = 'string';
+    if (params[0].type.sub && 'type' in params[0].type.sub) {
+      params[0].type.sub.type = 'string';
+    }
   }
 
 
-  console.log(params);
+
   return (
     <div className='extrinsics--Extrinsic'>
       <InputExtrinsic
