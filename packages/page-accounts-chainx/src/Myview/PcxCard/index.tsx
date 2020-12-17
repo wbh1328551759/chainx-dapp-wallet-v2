@@ -15,6 +15,7 @@ import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider'
 import BN from 'bn.js';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import Button from '@polkadot/react-components-chainx/Button';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 
 const InnerWrapper = styled.div`
   position: relative;
@@ -74,23 +75,41 @@ const CornerBackground = styled.div`
 `;
 
 
-
 interface PcxCardProps {
   onStatusChange: (status: ActionStatus) => void;
 }
 
+interface accountAssetInfo {
+  usableBalance: number;
+  allBalance: number;
+  freeFrozen: number;
+}
+
 export default function ({onStatusChange}: PcxCardProps): React.ReactElement<PcxCardProps> {
-  const api = useApi();
+  const api = useApi()
+  const {isApiReady} = useApi();
+
   const {t} = useTranslation();
   const [isTransferOpen, toggleTransfer] = useToggle();
   const [n, setN] = useState(0);
-
+  const [storedValue, setValue] = useLocalStorage('accountAsset');
   const {currentAccount} = useContext(AccountContext);
   const pcxFree = usePcxFree(currentAccount, n);
   const freeBalance = new BN(pcxFree.free);
   const allBalance = freeBalance.add(new BN(pcxFree.reserved)).toNumber();
   const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
   const bgFeeFrozen = new BN(pcxFree.feeFrozen);
+
+  // useEffect(() => {
+  //   const accountAssetInfo: accountAssetInfo = {
+  //     usableBalance: bgUsableBalance.toNumber(),
+  //     allBalance,
+  //     freeFrozen: bgFeeFrozen.toNumber()
+  //   };
+  //   setValue(JSON.stringify(accountAssetInfo));
+  // }, [currentAccount, pcxFree]);
+  // console.log('storedValue')
+  // console.log(JSON.parse(storedValue))
   return (
     <Card>
       <InnerWrapper>

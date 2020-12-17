@@ -1,12 +1,9 @@
 import React from 'react';
-
 import PcxCard from './PcxCard';
 import Assets from './Assets';
 import styled from 'styled-components';
 import Records from './Records';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
-import NoAccount from './NoAccount';
-import {useAccounts} from '@polkadot/react-hooks';
 
 const Wrapper = styled.div`
   padding: 16px 0;
@@ -37,9 +34,7 @@ interface Props {
 }
 
 function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
-  const {hasAccounts} = useAccounts();
   return (
-    hasAccounts ?
       <Wrapper className='wrapper'>
         <div className='left'>
           <PcxCard onStatusChange={onStatusChange}/>
@@ -49,7 +44,6 @@ function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
           <Records/>
         </div>
       </Wrapper>
-      : <NoAccount onStatusChange={onStatusChange}/>
   );
 }
 

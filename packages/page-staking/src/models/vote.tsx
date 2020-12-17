@@ -33,6 +33,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
     {t<string>('remaining votes')}
     {'： '}
     <span>{remainingVotesData ?  remainingVotesData: 0}</span>
+    {'  PCX'}
   </VoteData>
 
   return (
@@ -68,7 +69,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
               help={t<string>('Vote for Validator')}
               isDisabled={!!validatorId}
               label={t<string>('Vote for Validator')}
-              labelExtra={remainingVotesData && remainingVotesData > 0? remainingVotes: ''}
+              labelExtra={remainingVotesData && Number(remainingVotesData) > 0? remainingVotes: ''}
               type='allPlus'
             />
           </Modal.Column>
