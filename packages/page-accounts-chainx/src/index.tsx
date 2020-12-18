@@ -33,6 +33,7 @@ function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Pr
   const { t } = useTranslation();
   const { isIpfs } = useIpfs();
   const {currentAccount} = useContext(AccountContext)
+  const {isApiReady} = useApi();
 
   const itemsRef = useRef([
     {

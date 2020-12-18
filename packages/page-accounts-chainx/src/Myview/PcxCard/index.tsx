@@ -87,7 +87,6 @@ interface accountPcxInfo{
 
 export default function ({onStatusChange}: PcxCardProps): React.ReactElement<PcxCardProps> {
   const {isApiReady} = useApi();
-  const api = useApi();
   const {t} = useTranslation();
   const [isTransferOpen, toggleTransfer] = useToggle();
   const [n, setN] = useState(0);
@@ -135,16 +134,17 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
             value={isApiReady  ? bgUsableBalance.toNumber() : defaultValue?.usableBalance}
           />
 
-          {isApiReady && api.api.tx.balances?.transfer && currentAccount && (
+          {/*{api.api.tx.balances?.transfer && currentAccount && (*/}
             <Button
               className="whiteBtn"
               onClick={toggleTransfer}
               // style={{marginLeft: 32, height: 28, marginBottom: 4}}
               isBasic={true}
+              isDisabled={!isApiReady && currentAccount}
             >
               {t('Transfer')}
             </Button>
-          )}
+          {/*)}*/}
         </section>
         <section className='details' key="details">
           {(
