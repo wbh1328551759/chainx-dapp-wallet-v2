@@ -89,7 +89,7 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
   }
 
   &.isDisabled, &.isReadOnly {
-    background: none;
+    background: rgba(237, 237, 238);
     box-shadow: none;
     cursor: not-allowed;
   }
