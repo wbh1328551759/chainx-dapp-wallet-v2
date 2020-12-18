@@ -76,8 +76,6 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
 
   }, [currentAccount, isApiReady, assetsInfo]);
 
-  console.log('defaultXbtcValue')
-  console.log(defaultXbtcValue)
   return (
     <div>
       <AssetLine>

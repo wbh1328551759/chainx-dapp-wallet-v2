@@ -33,6 +33,24 @@ const Wrapper = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    > .gif{
+      position: relative;
+      border: 2px solid red;
+      > img{
+        position: fixed;
+         left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+    }
+
+    > .shade{
+      background: rgba(0,0,0,0.2);
+      width: 100vw;
+      height:100vh;
+      z-index: 99;
+    }
   }
 `;
 
@@ -53,8 +71,13 @@ function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
         <div className='right'>
           <Records/>
         </div>
-        {!isApiReady && <div className='accountLoading'>
-          <img src={LoadingGif} alt="" height={40} width={40}/>
+        {!isApiReady &&
+
+        <div className='accountLoading'>
+          <div className='gif'>
+            <img src={LoadingGif} alt="" height={40} width={40}/>
+          </div>
+          <div className='shade'/>
         </div>}
       </Wrapper>
   );
