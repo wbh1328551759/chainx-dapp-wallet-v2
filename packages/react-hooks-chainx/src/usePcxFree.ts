@@ -4,21 +4,15 @@ import { useContext, useEffect, useState } from 'react';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import {useLocalStorage} from '@polkadot/react-hooks-chainx/index';
 
-export interface PcxFreeInfo{
-  feeFrozen: number;
-  free: number;
-  miscFrozen: number;
-  reserved: number;
-}
-
-export default function usePcxFree(address = '',n = 0): PcxFree {
+export default function usePcxFree(address = '',n = 0): PcxFreeInfo {
   const { api, isApiReady } = useApi();
   const [, setValue] = useLocalStorage('pcxFreeInfo')
+  const defaultPcxFreeValue = JSON.parse(window.localStorage.getItem('pcxFreeInfo'))
   const [state, setState] = useState<PcxFreeInfo>({
-    feeFrozen: 0,
-    free: 0,
-    miscFrozen: 0,
-    reserved: 0,
+    feeFrozen: defaultPcxFreeValue.feeFrozen,
+    free: defaultPcxFreeValue.free,
+    miscFrozen: defaultPcxFreeValue.miscFrozen,
+    reserved: defaultPcxFreeValue.reserved,
   });
   const { currentAccount } = useContext(AccountContext);
 
@@ -35,5 +29,5 @@ export default function usePcxFree(address = '',n = 0): PcxFree {
     fetchPcxFree();
   }, [currentAccount, n, isApiReady]);
 
-  return <PcxFree>state;
+  return <PcxFreeInfo>state;
 }

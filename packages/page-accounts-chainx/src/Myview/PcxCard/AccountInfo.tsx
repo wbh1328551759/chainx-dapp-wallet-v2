@@ -40,7 +40,6 @@ export default function (): React.ReactElement {
   const {name} = useAccountInfo(currentAccount);
   const [identify, setIdentify] = useState<string>('')
 
-  console.log(name)
   async function getIdentity(account: string): Promise<any> {
     const getStakingNode = await api.rpc.xstaking.getValidators();
     const getTrustNode = await api.rpc.xgatewaycommon.bitcoinTrusteeSessionInfo()
