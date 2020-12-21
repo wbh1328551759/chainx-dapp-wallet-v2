@@ -42,10 +42,10 @@ type Props = {
 }
 
 interface XbtcFreeInfo {
-  usableBalance: number,
-  reservedDexSpotBalance: number,
-  reservedWithdrawalBalance: number,
-  allBalance: number
+  usableBalance: string,
+  reservedDexSpotBalance: string,
+  reservedWithdrawalBalance: string,
+  allBalance: string
 }
 
 export default function ({assetsInfo}: Props): React.ReactElement<Props> {
@@ -59,11 +59,18 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
   const reservedWithdrawal = new BN(assetsInfo?.ReservedWithdrawal);
   const allBalance = usable.add(reservedDexSpot).add(reservedWithdrawal);
 
-  const [defaultXbtcValue, setDefaultXbtcValue] = useState<XbtcFreeInfo>();
-  const [defaultXbtc, setDefaultXbtc] = useState<AssetsInfo>()
+  const defaultValue = JSON.parse(window.localStorage.getItem('xbtcInfo'))
+  const [defaultXbtc, setDefaultXbtc] = useState<AssetsInfo>(defaultValue)
+
+  const [defaultXbtcValue, setDefaultXbtcValue] = useState<XbtcFreeInfo>({
+    usableBalance: defaultValue.usableBalance,
+    reservedDexSpotBalance: defaultValue.reservedDexSpotBalance,
+    reservedWithdrawalBalance: defaultValue.reservedWithdrawalBalance,
+    allBalance: defaultValue.allBalance
+  });
 
   useEffect(() => {
-    setDefaultXbtc(JSON.parse(window.localStorage.getItem('xbtcInfo')));
+    setDefaultXbtc(defaultValue);
     if (defaultXbtc) {
       setDefaultXbtcValue({
         usableBalance: defaultXbtc.Usable,
@@ -81,7 +88,7 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
       <AssetLine>
         <Frees
           asset='Balance'
-          free={isApiReady ? (assetsInfo?.Usable ? usable.toNumber() : '') : defaultXbtcValue?.usableBalance}
+          free={isApiReady ? (assetsInfo?.Usable ? usable.toNumber() : '') : defaultXbtcValue.usableBalance}
           precision={8}
         />
       </AssetLine>
@@ -94,7 +101,7 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
           <AssetLine>
             <Free
               asset={t('DEX Reserved')}
-              free={isApiReady ? (assetsInfo ? reservedDexSpot : '') : defaultXbtcValue?.reservedDexSpotBalance}
+              free={isApiReady ? (assetsInfo ? reservedDexSpot : '') : defaultXbtcValue.reservedDexSpotBalance}
               precision={8}
             />
           </AssetLine>
@@ -103,14 +110,14 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
           <AssetLine>
             <Free
               asset={t('Withdrawal Reserved')}
-              free={isApiReady ? (assetsInfo ? reservedWithdrawal : '') : defaultXbtcValue?.reservedWithdrawalBalance}
+              free={isApiReady ? (assetsInfo ? reservedWithdrawal : '') : defaultXbtcValue.reservedWithdrawalBalance}
               precision={8}
             />
           </AssetLine>
           <AssetLine>
             <Free
               asset={t('Total')}
-              free={isApiReady ? (assetsInfo ? allBalance : '') : defaultXbtcValue?.allBalance}
+              free={isApiReady ? (assetsInfo ? allBalance : '') : defaultXbtcValue.allBalance}
               precision={8}
             />
           </AssetLine>
