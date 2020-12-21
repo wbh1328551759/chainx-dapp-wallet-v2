@@ -3,7 +3,7 @@
 
 import type { DeriveStakingOverview } from '@polkadot/api-derive/types';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Dispatch, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SummarySession from '@polkadot/app-explorer/SummarySession';
 import { Button, CardSummary, IdentityIcon, Menu, SummaryBox } from '@polkadot/react-components';
@@ -26,9 +26,10 @@ interface Props {
   stakingOverview?: DeriveStakingOverview;
   targets: ValidatorInfo[];
   onStatusChange?: TxCallback;
+  setN: Dispatch<number>;
 }
 
-function Summary({ className = '', isVisible, next, nominators, stakingOverview, targets, onStatusChange }: Props): React.ReactElement<Props> {
+function Summary({ className = '', isVisible, next, nominators, stakingOverview, targets, onStatusChange, setN }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { lastBlockAuthors, lastBlockNumber } = useContext(BlockAuthorsContext);
   const { currentAccount } = useContext(AccountContext);
@@ -89,9 +90,9 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
                   />
               )}
             </span>) :
-              <SummarySession />
+              <SummarySession setN={setN} />
           }</span> : <span>
-            <SummarySession />
+            <SummarySession setN={setN} />
           </span>
         }
         <div>
@@ -102,6 +103,7 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
                       validatorId={stakingOverview?.CandidateorDrop[0].account + ''}
                       onSuccess={onStatusChange}
                       account={currentAccount}
+                      setN={setN}
                   />
               )
             }
@@ -112,6 +114,7 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
                       validatorId={stakingOverview?.CandidateorDrop[0].account + ''}
                       onSuccess={onStatusChange}
                       account={currentAccount}
+                      setN={setN}
                   />
               )
             }
