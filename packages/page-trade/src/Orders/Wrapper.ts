@@ -11,6 +11,9 @@ const Wrapper = styled.div`
   border: 1px solid #dce0e2;
 
   border-radius: 10px;
+  .marbot {
+    margin-bottom: 0;
+  }
 `;
 
 export default Wrapper;

@@ -31,12 +31,15 @@ export default function (): React.ReactElement {
     <Wrapper>
       <table>
         <tbody>
-          <tr>
-            <td>
-              {fills.length <= 0 && <Empty text={t('No deal')} />}
-            </td>
-          </tr>  
-
+          {
+            fills.length <= 0 && (
+              <tr>
+                <td>
+                  <Empty text={t('No deal')} />
+                </td>
+              </tr>  
+            )
+          }
         {/* <TableBody> */}
           {fills.map((fill, index) => {
             const price = Number(
