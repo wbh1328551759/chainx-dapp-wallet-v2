@@ -24,7 +24,7 @@ const Value = styled.p`
 
 type Props = {
   asset: string | undefined,
-  free: string | BN | undefined,
+  free: number,
   precision: number
 }
 

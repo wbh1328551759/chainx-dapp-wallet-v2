@@ -117,12 +117,13 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
       setUsableBalance(bgFree.sub(new BN(pcxFree.feeFrozen)).toNumber())
       setFreeFrozen((new BN(pcxFree.feeFrozen)).toNumber())
     }else{
-      setAllBalance(defaultValue.free + defaultValue.reserved)
-      setUsableBalance(defaultValue.free - defaultValue.feeFrozen)
-      setFreeFrozen(defaultValue.feeFrozen)
+      const bgFree = new BN(defaultValue.free )
+      setAllBalance(bgFree.add(new BN(defaultValue.reserved)).toNumber() )
+      setUsableBalance(bgFree.sub(new BN(defaultValue.feeFrozen)).toNumber())
+      setFreeFrozen(new BN(defaultValue.feeFrozen).toNumber())
     }
 
-  }, [defaultValue])
+  }, [defaultValue, isApiReady, pcxFree])
 
   return (
     <Card>

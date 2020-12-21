@@ -54,10 +54,13 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const currentAccount = useContext(AccountContext);
 
-  const usable = new BN(assetsInfo?.Usable);
-  const reservedDexSpot = new BN(assetsInfo?.ReservedDexSpot);
-  const reservedWithdrawal = new BN(assetsInfo?.ReservedWithdrawal);
-  const allBalance = usable.add(reservedDexSpot).add(reservedWithdrawal);
+  const [usable, setUsable] = useState<number>(0)
+  const [reservedDexSpot, setReservedDexSpot] = useState<number>(0)
+  const [reservedWithdrawal, setReservedWithdrawal] = useState<number>(0)
+  const [allBalance, setAllBalance] = useState<number>(0)
+  // const reservedDexSpot = new BN(assetsInfo?.ReservedDexSpot);
+  // const reservedWithdrawal = new BN(assetsInfo?.ReservedWithdrawal);
+  // const allBalance = usable.add(reservedDexSpot).add(reservedWithdrawal);
 
   const defaultValue = JSON.parse(window.localStorage.getItem('xbtcInfo'))
   const [defaultXbtc, setDefaultXbtc] = useState<AssetsInfo>(defaultValue)
@@ -80,15 +83,41 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
       });
     }
 
-
   }, [currentAccount, isApiReady, assetsInfo]);
+
+  useEffect(() => {
+    if(isApiReady && assetsInfo){
+      setUsable((new BN(assetsInfo.Usable)).toNumber())
+      setReservedDexSpot((new BN(assetsInfo.ReservedDexSpot)).toNumber())
+      setReservedWithdrawal((new BN(assetsInfo.ReservedWithdrawal)).toNumber())
+      setAllBalance(
+        (new BN(assetsInfo.Usable)).add(
+          (new BN(assetsInfo.ReservedDexSpot))).add(
+          (new BN(assetsInfo.ReservedWithdrawal)
+          )
+        ).toNumber()
+      )
+
+    }else{
+      setUsable((new BN(defaultXbtcValue.usableBalance)).toNumber())
+      setReservedDexSpot((new BN(defaultXbtcValue.reservedDexSpotBalance)).toNumber())
+      setReservedWithdrawal((new BN(defaultXbtcValue.reservedWithdrawalBalance)).toNumber())
+      setAllBalance(
+        (new BN(defaultXbtcValue.usableBalance)).add(
+          (new BN(defaultXbtcValue.reservedDexSpotBalance))).add(
+          (new BN(defaultXbtcValue.reservedWithdrawalBalance)
+          )
+        ).toNumber()
+      )
+    }
+  }, [defaultValue, isApiReady, assetsInfo])
 
   return (
     <div>
       <AssetLine>
         <Frees
           asset='Balance'
-          free={isApiReady ? (assetsInfo?.Usable ? usable.toNumber() : '') : defaultXbtcValue.usableBalance}
+          free={usable}
           precision={8}
         />
       </AssetLine>
@@ -101,7 +130,7 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
           <AssetLine>
             <Free
               asset={t('DEX Reserved')}
-              free={isApiReady ? (assetsInfo ? reservedDexSpot : '') : defaultXbtcValue.reservedDexSpotBalance}
+              free={reservedDexSpot}
               precision={8}
             />
           </AssetLine>
@@ -110,14 +139,14 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
           <AssetLine>
             <Free
               asset={t('Withdrawal Reserved')}
-              free={isApiReady ? (assetsInfo ? reservedWithdrawal : '') : defaultXbtcValue.reservedWithdrawalBalance}
+              free={reservedWithdrawal}
               precision={8}
             />
           </AssetLine>
           <AssetLine>
             <Free
               asset={t('Total')}
-              free={isApiReady ? (assetsInfo ? allBalance : '') : defaultXbtcValue.allBalance}
+              free={allBalance}
               precision={8}
             />
           </AssetLine>
