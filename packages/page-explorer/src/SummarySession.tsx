@@ -4,7 +4,7 @@
 import type {DeriveSessionProgress} from '@polkadot/api-derive/types';
 import type {Forcing} from '@polkadot/types/interfaces';
 
-import React, { useContext } from 'react';
+import React, { Dispatch, useContext } from 'react';
 import {Button, CardSummary} from '@polkadot/react-components';
 import {useApi, useCall, useToggle} from '@polkadot/react-hooks';
 import {formatNumber} from '@polkadot/util';
@@ -16,9 +16,10 @@ import { AccountContext } from '@polkadot/react-components-chainx/AccountProvide
 interface Props {
   withEra?: boolean;
   withSession?: boolean;
+  setN: Dispatch<number>;
 }
 
-function SummarySession({withEra = true, withSession = true}: Props): React.ReactElement<Props> {
+function SummarySession({withEra = true, withSession = true, setN }: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const {api} = useApi();
   const sessionInfo = useCall<DeriveSessionProgress>(api.query.staking && api.derive.session?.progress);
@@ -33,7 +34,7 @@ function SummarySession({withEra = true, withSession = true}: Props): React.Reac
 
   return (
     <>
-      {isRegister && (<RegisterNewNode account={currentAccount} onClose={toggleRegister}/>)}
+      {isRegister && (<RegisterNewNode account={currentAccount} onClose={toggleRegister} setN={setN}/>)}
 
       <Button
         icon='plus'
