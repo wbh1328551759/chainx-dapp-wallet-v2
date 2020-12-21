@@ -15,9 +15,6 @@ import {useApi} from '@polkadot/react-hooks';
 interface Props {
   onClose: () => void;
   address: string
-  btc: string | undefined | null;
-  account: string | undefined,
-  setN: Dispatch<number>
 }
 
 const Wrapper = styled(Modal)`

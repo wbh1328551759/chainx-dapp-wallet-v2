@@ -51,7 +51,7 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
   border: 1px solid #F6C94A;
 
   &:hover{
-    background: transparent !important;
+    background: transparent;
     color: #F6C94A !important;
     box-shadow: 0 0 1px #e1b15b;
   }
@@ -89,7 +89,19 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
   }
 
   &.isDisabled, &.isReadOnly {
-    background: none;
+    background: rgba(237, 237, 238);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  &.primaryBtn.isDisabled:hover{
+    background: rgba(237, 237, 238) !important;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  &.isDisabled, &.isReadOnly:hover{
+    background: rgba(237, 237, 238) !important;
     box-shadow: none;
     cursor: not-allowed;
   }

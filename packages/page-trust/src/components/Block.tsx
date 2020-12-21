@@ -27,7 +27,7 @@ const Content = styled.div`
     margin-right: -16px;
 `;
 
-type withdraw = {
+interface withdraw {
   id: number,
   assetId: number,
   applicant: string,
@@ -61,7 +61,7 @@ export default function (): React.ReactElement {
       ...value
     });
   });
-
+  console.log(withdrawList)
   return (
     <Block>
       <p>{t('Withdrawal list')}</p>

@@ -28,7 +28,7 @@ interface Fill {
   executedAt: number
 }
 
-interface PcxFree {
+interface PcxFreeInfo {
   free: number,
   reserved: number,
   miscFrozen: number,

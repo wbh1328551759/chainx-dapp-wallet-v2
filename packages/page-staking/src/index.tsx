@@ -3,7 +3,7 @@
 
 import type { AppProps as Props, ThemeProps } from '@polkadot/react-components/types';
 
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Route, Switch } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -22,6 +22,7 @@ import Summary from './Overview/Summary';
 
 import { STORE_FAVS_BASE } from './constants';
 import { useTranslation } from './translate';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 const HIDDEN_ACC = ['actions', 'payout'];
 
@@ -54,7 +55,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
   const { hasAccounts, allAccounts } = useAccounts();
   const { pathname } = useLocation();
   const [favorites, toggleFavorite] = useFavorites(STORE_FAVS_BASE);
-
+  const { currentAccount } = useContext(AccountContext);
   const validators = useCall<string>(api.rpc.xstaking.getValidators);
   let validatorInfoList: ValidatorInfo[] = JSON.parse(isJSON(validators) ? validators : '[]');
   validatorInfoList = getSortList(validatorInfoList)
@@ -64,7 +65,8 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
   const stakingOverview = {
     validators: validatorInfoList.map(item => item.account),
     accounts: allAccounts,
-    validatorCount: validatorInfoList.filter(item => item.isValidating).length
+    validatorCount: validatorInfoList.filter(item => item.isValidating).length,
+    CandidateorDrop: validatorInfoList.filter(item => item.account === currentAccount)
   }
 
   const items = useMemo(() => [
@@ -102,6 +104,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
       <Summary
         isVisible={pathname === basePath}
         next={[]}
+        targets={targets}
         nominators={targets.nominators}
         stakingOverview={stakingOverview}
       />

@@ -11,6 +11,9 @@ const Wrapper = styled.div`
   border: 1px solid #dce0e2;
 
   border-radius: 10px;
+  .marbot {
+    margin-bottom: 0;
+  }
 `;
 
 export default Wrapper;
@@ -52,7 +55,7 @@ export const HeadCell = styled(BaseCell)`
   font-weight: 600 !important;
 `;
 
-export const StatCell = styled(BaseCell)`
+export const StatCell = styled.td`
   opacity: 0.72 !important;
   text-align: right !important;
 `;

@@ -20,7 +20,7 @@ const Value = styled.p`
 
 interface Props {
   asset: string | undefined,
-  free: string | BN,
+  free: number,
   precision: number
 }
 

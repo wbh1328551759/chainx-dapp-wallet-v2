@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import Wrapper from './Wrapper';
 import Free from '../components/Free';
 import Label from '../components/Label';
-import {AmountInput, Slider} from '@chainx/ui';
+// import {AmountInput, Slider} from '@chainx/ui';
 import {marks} from '../constants';
 import {toPrecision} from '../../../../components/toPrecision';
 import {TxButton} from '@polkadot/react-components';
@@ -17,18 +17,21 @@ import BN from 'bn.js';
 import {AssetsInfo, TradingPairs} from '@polkadot/react-hooks-chainx/types';
 import LabelHelp from '@polkadot/react-components/LabelHelp';
 import Tooltip from '@polkadot/react-components/Tooltip';
+import InputDex from '@polkadot/react-components-chainx/InputDex';
 
 type Props = {
   tradingPairsInfo: TradingPairs | undefined;
 }
 
 export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
+
   const {t} = useTranslation();
   const {hasAccounts} = useAccounts();
   const {fills, isLoading, setLoading} = useContext(DexContext);
   const {currentAccount} = useContext(AccountContext);
   const pcxFree = usePcxFree(currentAccount);
   const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
+
 
   const [price, setPrice] = useState<number | string>(toPrecision(0, 7));
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -88,7 +91,7 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
     <Wrapper>
       <div className='info'>
         <Free asset={'PCX'}
-              free={hasAccounts ? bgUsableBalance.toNumber() : Number(toPrecision(0, 7)).toString()}
+              free={hasAccounts ? bgUsableBalance.toNumber().toString() : Number(toPrecision(0, 7)).toString()}
               precision={8}/>
 
         {errDisplay ? <div className={`tip ${errDisplay}`}>{t('The selling price should be higher than')}{ ` ${minValidAskData.toFixed(7)}`}</div>: ''}
@@ -100,39 +103,37 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
         {/* <img src={infoIcon} alt="info" /> */}
         {/*</PriceWrapper>*/}
 
-        <AmountInput
+        <InputDex
           id='sell-price'
-          onChange={(value) => {
+          onChange={(value: string | number) => {
             setPrice(value);
           }}
-          precision={7}
-          style={{maxWidth: 216}}
           tokenName={'BTC'}
           value={price}
+          maxLength={13}
         />
       </div>
 
       <div className='amount input'>
         <Label>{t('Quantity')}</Label>
-        <AmountInput
+        <InputDex
           id='sell-amount'
-          onChange={(value) => {
+          onChange={(value: string | number) => {
             if (value > max) {
               setAmount(max.toFixed(7));
-              setPercentage(100);
+              // setPercentage(100);
             } else {
               setAmount(value);
-              setPercentage((value / max) * 100);
+              // setPercentage((value / max) * 100);
             }
           }}
-          precision={7}
-          style={{maxWidth: 216}}
+          maxLength={13}
           tokenName={'PCX'}
           value={amount}
         />
       </div>
 
-      <Slider
+      {/* <Slider
         className='percentage'
         marks={marks}
         max={100}
@@ -145,7 +146,7 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
         }}
         value={percentage}
         valueLabelDisplay='off'
-      />
+      /> */}
 
       <div className='volume'>
         <span>{t('Volume')} </span>

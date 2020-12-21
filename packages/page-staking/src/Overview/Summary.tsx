@@ -3,13 +3,20 @@
 
 import type { DeriveStakingOverview } from '@polkadot/api-derive/types';
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SummarySession from '@polkadot/app-explorer/SummarySession';
-import { CardSummary, IdentityIcon, SummaryBox } from '@polkadot/react-components';
-import { BlockAuthorsContext } from '@polkadot/react-query';
+import { Button, CardSummary, IdentityIcon, Menu, SummaryBox } from '@polkadot/react-components';
+import { BlockAuthorsContext, ValidatorsContext } from '@polkadot/react-query';
 
 import { useTranslation } from '../translate';
+import { AddressSmall } from '@polkadot/react-components-chainx';
+import { ValidatorInfo } from '../types';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import { useAccounts, useToggle } from '@polkadot/react-hooks';
+import Chill from '../models/chill';
+import Validate from '../models/validate';
+import { TxCallback } from '@polkadot/react-components/Status/types';
 
 interface Props {
   className?: string;
@@ -17,12 +24,17 @@ interface Props {
   next?: string[];
   nominators?: string[];
   stakingOverview?: DeriveStakingOverview;
+  targets: ValidatorInfo[];
+  onStatusChange?: TxCallback;
 }
 
-function Summary({ className = '', isVisible, next, nominators, stakingOverview }: Props): React.ReactElement<Props> {
+function Summary({ className = '', isVisible, next, nominators, stakingOverview, targets, onStatusChange }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { lastBlockAuthors, lastBlockNumber } = useContext(BlockAuthorsContext);
-
+  const { currentAccount } = useContext(AccountContext);
+  const { hasAccounts } = useAccounts();
+  const [isValidateOpen, toggleValidate] = useToggle();
+  const [isChillOpen, toggleChill] = useToggle();
   return (
     <SummaryBox className={`${className}${!isVisible ? ' staking--hidden' : ''}`}>
       <section>
@@ -49,7 +61,62 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview 
         </CardSummary>
       </section>
       <section>
-        <SummarySession />
+        <CardSummary
+          className='validator--Summary-authors'
+          label={t<string>('block node')}
+        >
+          {lastBlockAuthors?.map((author): React.ReactNode => (
+            <AddressSmall value={author}  key={author} />
+          ))}
+        </CardSummary>
+      </section>
+      <section>
+        {
+          hasAccounts ? <span>{
+            targets.find(item => item.account === currentAccount) ? (<span>
+              {stakingOverview && (
+                stakingOverview.CandidateorDrop[0].isChilled ? (
+                    <Button
+                      icon='plus'
+                      onClick={toggleValidate}
+                      label={t<string>('Candidate')}
+                    />
+                ): 
+                  <Button
+                    icon='plus'
+                    onClick={toggleChill}
+                    label={t<string>('Drop')}
+                  />
+              )}
+            </span>) :
+              <SummarySession />
+          }</span> : <span>
+            <SummarySession />
+          </span>
+        }
+        <div>
+            {
+              isValidateOpen && (
+                  <Validate
+                      onClose={toggleValidate}
+                      validatorId={stakingOverview?.CandidateorDrop[0].account + ''}
+                      onSuccess={onStatusChange}
+                      account={currentAccount}
+                  />
+              )
+            }
+            {
+              isChillOpen && (
+                  <Chill
+                      onClose={toggleChill}
+                      validatorId={stakingOverview?.CandidateorDrop[0].account + ''}
+                      onSuccess={onStatusChange}
+                      account={currentAccount}
+                  />
+              )
+            }
+         
+        </div>
       </section>
     </SummaryBox>
   );

@@ -22,9 +22,8 @@ const ActionsButton = styled(Modal.Actions)`
     width: 105px;
   }
 `;
-const Tip = styled.span`
+const Tip = styled.div`
   color: red;
-  margin-left: 1.5rem;
 `
 
 export default function ({allInterests, usableInterests, insufficientStake, setN}: FooterProps): React.ReactElement<FooterProps> {
