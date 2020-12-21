@@ -61,7 +61,8 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
       const hisHeight = await api.query.xStaking.bondingDuration()
       const hisHeights = JSON.parse(JSON.stringify(hisHeight))
       const finalHeight = Number(lastHeights)+Number(hisHeights)
-      if(finalHeight>Number(lastBlockNumber)){
+      const lastBlocks = lastBlockNumber?.replace(',','')
+      if(finalHeight>parseInt(lastBlocks)){
         setReBonds(true)
       }else {
         setReBonds(false)
