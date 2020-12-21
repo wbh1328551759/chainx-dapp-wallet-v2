@@ -35,6 +35,7 @@ function UserNomination({className = '', validatorInfoList}: Props): React.React
     allNominations: [],
     allDividended: []
   });
+  
 
   useEffect((): void => {
     async function getNominationAndDivided() {
