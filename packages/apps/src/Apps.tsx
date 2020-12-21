@@ -15,6 +15,7 @@ import ConnectingOverlay from './overlays/Connecting';
 import Content from './Content';
 import Menu from './Menu';
 import WarmUp from './WarmUp';
+import NavBar from './NavBar/index'
 
 export const PORTAL_ID = 'portals';
 
@@ -31,7 +32,8 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
     <>
       <GlobalStyle uiHighlight={uiHighlight} />
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
-        <Menu />
+        {/*<Menu />*/}
+        <NavBar/>
         <AccountSidebar>
           <Signer>
             <Content />
