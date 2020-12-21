@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import noneLogo from '../Records/Empty/none.svg';
 import { Button } from '@polkadot/react-components';
 import { useTranslation } from '@polkadot/app-accounts-chainx/translate';
-import { useIpfs, useToggle } from '@polkadot/react-hooks';
+import {useApi, useIpfs, useToggle} from '@polkadot/react-hooks';
 import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
 import { ActionStatus } from '@polkadot/react-components/Status/types';
 import ImportModal from '@polkadot/app-accounts-chainx/modals/Import';
@@ -45,6 +45,7 @@ type Props = {
 }
 
 export default function ({ onStatusChange }: Props): React.ReactElement<Props> {
+  const {isApiReady} = useApi()
   const { t } = useTranslation();
   const [isCreateOpen, toggleCreate] = useToggle();
   const [isImportOpen, toggleImport] = useToggle();
@@ -59,13 +60,13 @@ export default function ({ onStatusChange }: Props): React.ReactElement<Props> {
         <ButtonGroup>
           <Button
             icon='plus'
-            isDisabled={isIpfs}
+            isDisabled={isIpfs || !isApiReady}
             label={t<string>('Add account')}
             onClick={toggleCreate}
           />
           <Button
             icon='sync'
-            isDisabled={isIpfs}
+            isDisabled={isIpfs || !isApiReady}
             label={t<string>('Restore JSON')}
             onClick={toggleImport}
           />

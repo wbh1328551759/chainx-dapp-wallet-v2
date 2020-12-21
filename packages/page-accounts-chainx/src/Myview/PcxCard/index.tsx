@@ -7,7 +7,7 @@ import Logo from './Logo';
 import AccountInfo from './AccountInfo';
 import backgroundImg from './background.svg';
 // import {WhiteButton} from '@chainx/ui';
-import {useApi, useToggle} from '@polkadot/react-hooks';
+import {useAccounts, useApi, useToggle} from '@polkadot/react-hooks';
 import Transfer from '@polkadot/app-accounts-chainx/modals/Transfer';
 import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
 import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
@@ -80,6 +80,7 @@ interface PcxCardProps {
 export default function ({onStatusChange}: PcxCardProps): React.ReactElement<PcxCardProps> {
   const {isApiReady} = useApi();
   const {t} = useTranslation();
+  const {hasAccounts} = useAccounts()
   const [isTransferOpen, toggleTransfer] = useToggle();
   const [n, setN] = useState(0);
   const {currentAccount} = useContext(AccountContext);
@@ -145,7 +146,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
               onClick={toggleTransfer}
               // style={{marginLeft: 32, height: 28, marginBottom: 4}}
               isBasic={true}
-              isDisabled={!isApiReady && currentAccount}
+              isDisabled={!isApiReady || !currentAccount || !hasAccounts}
             >
               {t('Transfer')}
             </Button>
