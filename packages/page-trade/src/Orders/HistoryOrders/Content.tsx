@@ -9,44 +9,19 @@ import {
   TimeCell
 } from '../UserOrders/Wrapper';
 import moment from 'moment';
-import {HeadCell, StatCell} from '../Wrapper';
+import { StatCell} from '../Wrapper';
 import {useTranslation} from '../../translate';
 import BigNumber from 'bignumber.js';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 import { Table } from '@polkadot/react-components';
-import { HeadTitles } from '../../Module/components/HeadCell';
+
 
 export default function (): React.ReactElement {
   const {HistoryOrders} = useContext(DexContext);
   const {t} = useTranslation();
 
   return (
-    <Table>
-      {/* <TableHead> */}
-        <tr>
-          <HeadTitles style={{width: '19%'}}>{t('Date')}</HeadTitles>
-          <HeadTitles style={{width: '12%'}}>{t('Number')}</HeadTitles>
-          <HeadTitles style={{width: '15%'}}>{t('Pair')}</HeadTitles>
-          <HeadTitles style={{width: '18%'}}>
-            {t('Order Price')}
-          </HeadTitles>
-          <HeadTitles style={{width: '21%'}}>
-            {t('Order Amount')}
-          </HeadTitles>
-          {/*<HeadTitles style={{ width: '15%' }}>*/}
-          {/*  {t('Filled / Percentage %')}*/}
-          {/*</HeadTitles>*/}
-          {/*<HeadTitles style={{ width: '11%' }}>*/}
-          {/*  {t('Avg Price')}*/}
-          {/*</HeadTitles>*/}
-          {/*<HeadTitles style={{ width: '15%' }}>*/}
-          {/*  {t('All Volume')}*/}
-          {/*</HeadTitles>*/}
-          <HeadTitles style={{textAlign: 'right'}}>
-            {t('Status')}
-          </HeadTitles>
-        </tr>
-      {/* </TableHead> */}
+    <Table className="marbot">
 
       {/* <TableBody> */}
         {HistoryOrders.map((order, index) => {

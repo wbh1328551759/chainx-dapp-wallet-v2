@@ -10,28 +10,28 @@ export default function () {
   const { t } = useTranslation();
 
   return (
-    <Table>
+    <Table className="marbot">
       {/* <TableHead> */}
-        <tr>
-          <HeadTitles style={{ width: '12%' }}>{t('Date')}</HeadTitles>
-          <HeadTitles style={{ width: '5%' }}>{t('Number')}</HeadTitles>
-          <HeadTitles style={{ width: '8%' }}>{t('Pair')}</HeadTitles>
-          <HeadTitles style={{ width: '11%' }}>
+      <tr>
+          <HeadTitles style={{width: '19%'}}>{t('Date')}</HeadTitles>
+          <HeadTitles style={{width: '12%'}}>{t('Number')}</HeadTitles>
+          <HeadTitles style={{width: '15%'}}>{t('Pair')}</HeadTitles>
+          <HeadTitles style={{width: '18%'}}>
             {t('Order Price')}
           </HeadTitles>
-          <HeadTitles style={{ width: '14%' }}>
+          <HeadTitles style={{width: '21%'}}>
             {t('Order Amount')}
           </HeadTitles>
-          <HeadTitles style={{ width: '15%' }}>
-            {t('Filled / Percentage %')}
-          </HeadTitles>
-          <HeadTitles style={{ width: '11%' }}>
-            {t('Avg Price')}
-          </HeadTitles>
-          <HeadTitles style={{ width: '15%' }}>
-            {t('All Volume')}
-          </HeadTitles>
-          <HeadTitles style={{ textAlign: 'right' }}>
+          {/*<HeadTitles style={{ width: '15%' }}>*/}
+          {/*  {t('Filled / Percentage %')}*/}
+          {/*</HeadTitles>*/}
+          {/*<HeadTitles style={{ width: '11%' }}>*/}
+          {/*  {t('Avg Price')}*/}
+          {/*</HeadTitles>*/}
+          {/*<HeadTitles style={{ width: '15%' }}>*/}
+          {/*  {t('All Volume')}*/}
+          {/*</HeadTitles>*/}
+          <HeadTitles style={{textAlign: 'right'}}>
             {t('Status')}
           </HeadTitles>
         </tr>

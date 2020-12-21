@@ -9,7 +9,7 @@ export default function (): React.ReactElement {
   const { t } = useTranslation();
 
   return (
-    <Table>
+    <Table className="marbot">
       {/* <TableHead> */}
         <tr>
           <HeadTitle style={{ width: '30%' }}>{t('Price')}</HeadTitle>
