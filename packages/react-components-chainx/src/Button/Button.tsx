@@ -93,6 +93,13 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
     box-shadow: none;
     cursor: not-allowed;
   }
+
+  &.primaryBtn.isDisabled:hover{
+    background: rgba(237, 237, 238) !important;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
   &.isDisabled, &.isReadOnly:hover{
     background: rgba(237, 237, 238) !important;
     box-shadow: none;

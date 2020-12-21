@@ -79,14 +79,14 @@ export default function (): React.ReactElement {
     <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
       {isDepositeOpen && (
         <Deposite
-          address={currentAccount.currentAccount}
+          address={currentAccount}
           onClose={toggleDeposite}
         />
       )
       }
       {isWithdraw && (
         <Withdraw
-          account={currentAccount.currentAccount}
+          account={currentAccount}
           btc={currentAccountInfo?.Usable}
           onClose={toggleWithdraw}
           setN={setN}
@@ -97,7 +97,7 @@ export default function (): React.ReactElement {
         <Transfer
           key='modal-transfer'
           onClose={toggleTransfer}
-          senderId={currentAccount.currentAccount}
+          senderId={currentAccount}
           n={n}
           setN={setN}
         />
