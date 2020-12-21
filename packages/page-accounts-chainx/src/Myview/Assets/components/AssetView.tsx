@@ -62,7 +62,12 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
   // const reservedWithdrawal = new BN(assetsInfo?.ReservedWithdrawal);
   // const allBalance = usable.add(reservedDexSpot).add(reservedWithdrawal);
 
-  const defaultValue = JSON.parse(window.localStorage.getItem('xbtcInfo'))
+  const defaultValue = JSON.parse(window.localStorage.getItem('xbtcInfo')) || {
+    usableBalance: 0,
+    reservedDexSpotBalance: 0,
+    reservedWithdrawalBalance: 0,
+    allBalance: 0
+  }
   const [defaultXbtc, setDefaultXbtc] = useState<AssetsInfo>(defaultValue)
 
   const [defaultXbtcValue, setDefaultXbtcValue] = useState<XbtcFreeInfo>({
