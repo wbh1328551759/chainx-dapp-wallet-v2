@@ -63,7 +63,7 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
       <section>
         <CardSummary
           className='validator--Summary-authors'
-          label={t<string>('block node')}
+          label={t<string>('block producer')}
         >
           {lastBlockAuthors?.map((author): React.ReactNode => (
             <AddressSmall value={author}  key={author} />
@@ -81,7 +81,7 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
                       onClick={toggleValidate}
                       label={t<string>('Candidate')}
                     />
-                ): 
+                ):
                   <Button
                     icon='plus'
                     onClick={toggleChill}
@@ -115,7 +115,7 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
                   />
               )
             }
-         
+
         </div>
       </section>
     </SummaryBox>
