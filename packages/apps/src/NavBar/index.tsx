@@ -9,6 +9,9 @@ const Wrapper = styled.div`
     display: flex;
     > ul{
       display: flex;
+      > li{
+        border: 1px solid red;
+      }
     }
   }
 `
