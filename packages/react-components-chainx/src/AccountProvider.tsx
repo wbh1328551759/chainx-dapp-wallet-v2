@@ -20,23 +20,15 @@ export const AccountContext = createContext<AccountContextData>({} as AccountCon
 
 export const AccountProvider: FC = ({ children }) => {
   const [storedValue] = useLocalStorage<string>('currentAccount', '');
-  // const [storedAsset] = useLocalStorage<string>('accountAsset', '')
   const [currentAccount, setAccount] = useState<string>(storedValue);
-  // const [currentAccountAsset, setCurrentAccountAsset] = useState<string>(storedAsset)
   function changeAccount(account: string) {
     setAccount(account);
   }
-
-  // function changeAccountAsset(accountAsset: string){
-  //   setCurrentAccountAsset(accountAsset)
-  // }
 
   return (
     <AccountContext.Provider value={{
       currentAccount,
       changeAccount,
-      // currentAccountAsset,
-      // changeAccountAsset
     }} >
       {children}
     </AccountContext.Provider>

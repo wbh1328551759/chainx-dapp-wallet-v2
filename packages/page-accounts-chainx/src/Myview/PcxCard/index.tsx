@@ -87,18 +87,26 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
   const pcxFree: PcxFreeInfo = usePcxFree(currentAccount, n);
   const [allBalance, setAllBalance] = useState<number>(0)
   const [usableBalance, setUsableBalance] = useState<number>(0)
-  const [freeFrozen, setFreeFrozen] = useState<number>(0)
+  const [feeFrozen, setFeeFrozen] = useState<number>(0)
   // const allBalance = freeBalance.add(new BN(pcxFree.reserved)).toNumber();
   // const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
   // const bgFreeFrozen = new BN(pcxFree.feeFrozen);
-
-  const [defaultValue, setDefaultValue] = useState<PcxFreeInfo>({})
+  const [defaultValue, setDefaultValue] = useState<PcxFreeInfo>({
+    free: 0,
+    reserved: 0,
+    miscFrozen: 0,
+    feeFrozen: 0
+  })
 
   useEffect(() => {
     if(!window.localStorage.getItem('pcxFreeInfo')){
       window.localStorage.setItem('pcxFreeInfo',JSON.stringify(defaultValue))
+      const bgFree = new BN(defaultValue.free )
+      setAllBalance(bgFree.add(new BN(defaultValue.reserved)).toNumber() )
+      setUsableBalance(bgFree.sub(new BN(defaultValue.feeFrozen)).toNumber())
+      setFeeFrozen(new BN(defaultValue.feeFrozen).toNumber())
     }else{
-      setDefaultValue(JSON.parse(window.localStorage.getItem('pcxFreeInfo')) )
+      setDefaultValue(JSON.parse(window.localStorage.getItem('pcxFreeInfo')))
       if(pcxFree){
         window.localStorage.setItem('pcxFreeInfo', JSON.stringify({
           free: pcxFree.free,
@@ -116,12 +124,12 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
       const bgFree = new BN(pcxFree.free)
       setAllBalance(bgFree.add(new BN(pcxFree.reserved)).toNumber())
       setUsableBalance(bgFree.sub(new BN(pcxFree.feeFrozen)).toNumber())
-      setFreeFrozen((new BN(pcxFree.feeFrozen)).toNumber())
+      setFeeFrozen((new BN(pcxFree.feeFrozen)).toNumber())
     }else{
       const bgFree = new BN(defaultValue.free )
       setAllBalance(bgFree.add(new BN(defaultValue.reserved)).toNumber() )
       setUsableBalance(bgFree.sub(new BN(defaultValue.feeFrozen)).toNumber())
-      setFreeFrozen(new BN(defaultValue.feeFrozen).toNumber())
+      setFeeFrozen(new BN(defaultValue.feeFrozen).toNumber())
     }
 
   }, [defaultValue, isApiReady, pcxFree])
@@ -163,7 +171,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
               <AssetView
                 key={Math.random()}
                 title={t('frozen voting')}
-                value={freeFrozen}
+                value={feeFrozen}
               />
               {/* <AssetView
                 title="交易冻结"
