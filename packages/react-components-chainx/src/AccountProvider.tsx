@@ -3,25 +3,40 @@ import React, { createContext, FC, useState } from 'react';
 
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
 
-export interface AcccountContextData {
-  currentAccount: string,
-  changeAccount: (account: string) => void;
+interface AccountAssetInfo {
+  usableBalance: number;
+  allBalance: number;
+  freeFrozen: number;
 }
 
-export const AccountContext = createContext<AcccountContextData>({} as AcccountContextData);
+export interface AccountContextData {
+  currentAccount: string,
+  changeAccount: (account: string) => void;
+  currentAccountAsset: AccountAssetInfo;
+  changeAccountAsset: (accountAsset: string) => void
+}
+
+export const AccountContext = createContext<AccountContextData>({} as AccountContextData);
 
 export const AccountProvider: FC = ({ children }) => {
   const [storedValue] = useLocalStorage<string>('currentAccount', '');
+  // const [storedAsset] = useLocalStorage<string>('accountAsset', '')
   const [currentAccount, setAccount] = useState<string>(storedValue);
-
+  // const [currentAccountAsset, setCurrentAccountAsset] = useState<string>(storedAsset)
   function changeAccount(account: string) {
     setAccount(account);
   }
 
+  // function changeAccountAsset(accountAsset: string){
+  //   setCurrentAccountAsset(accountAsset)
+  // }
+
   return (
     <AccountContext.Provider value={{
       currentAccount,
-      changeAccount
+      changeAccount,
+      // currentAccountAsset,
+      // changeAccountAsset
     }} >
       {children}
     </AccountContext.Provider>

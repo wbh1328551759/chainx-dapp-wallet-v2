@@ -7,7 +7,7 @@ import type { Balance, EraIndex, SlashingSpans, ValidatorPrefs } from '@polkadot
 import type { ValidatorInfo } from '../../types';
 
 import BN from 'bn.js';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import { ApiPromise } from '@polkadot/api';
 import { Icon, LinkExternal, Badge, Button } from '@polkadot/react-components';
 import { AddressSmall } from '@polkadot/react-components-chainx';
@@ -22,6 +22,8 @@ import PopMenu from '../../models'
 import NominatedBy from './NominatedBy';
 import Status from './Status';
 import StakeOther from './StakeOther';
+import BigNumber from 'bignumber.js';
+import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 
 interface Props {
   address: string;
@@ -67,6 +69,24 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
   const { accountInfo } = useAddressCalls(api, address, isMain);
   const [isToggleVote, toggleVote] = useToggle();
   const { t } = useTranslation();
+  const [remainingVotesData, setRemainingVotesData] = useState<string>('')
+
+  useEffect(() => {
+    async function getxxx(){
+      const upperVotes = await api.query.xStaking.upperBoundFactorOfAcceptableVotes()
+      const upperVotesData = JSON.parse(upperVotes)
+
+      if(validatorInfo){
+        const ownVotes: BigNumber = new BigNumber(validatorInfo.selfBonded)
+        const totalVotes: BigNumber = new BigNumber(validatorInfo.totalNomination)
+        const bgResult: BigNumber = new BigNumber(toPrecision(ownVotes.toNumber() * upperVotesData - totalVotes.toNumber(), 8))
+        const result: string = bgResult.toNumber().toFixed(4)
+        setRemainingVotesData(result)
+      }
+    }
+
+    getxxx()
+  }, [validatorInfo])
 
 
   const isVisible = useMemo(
@@ -174,6 +194,7 @@ function Address({ address, className = '', filterName, hasQueries, isElected, i
             onClose={toggleVote}
             validatorId={validatorInfo?.account + ''}
             onSuccess={() => { }}
+            remainingVotesData={remainingVotesData}
           />
         )}
           <Button

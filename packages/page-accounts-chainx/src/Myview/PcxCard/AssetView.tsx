@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormatBalance } from '@polkadot/react-query';
+import { FormatBalance } from '@polkadot/react-components-chainx';
+import {useApi} from '@polkadot/react-hooks';
+import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
+import BigNumber from 'bignumber.js';
 
 const Title = styled.h6`
   margin: 0;
@@ -29,17 +32,45 @@ type Props = {
   value: number
 }
 
+const LoadingValue = styled.div`
+  display: inline-block;
+  vertical-align: baseline;
+  white-space: nowrap;
+  > .ui--FormatBalance-postfix {
+    font-weight: 200;
+    opacity: 0.7;
+    vertical-align: baseline;
+  }
+  >.ui--FormatBalance-unit {
+    font-size: 0.825em;
+    text-align: right;
+  }
+`
+
 export default function ({ bold, title, value }: Props): React.ReactElement<Props> {
+  const {isApiReady} = useApi();
+  const preciseValue: BigNumber = new BigNumber(toPrecision(value, 8))
+  const decimalsValue = preciseValue.toNumber().toFixed(4).slice(-4)
+  const intValue = preciseValue.toNumber().toFixed(8).slice(0,-8)
+
   return (
     <div>
       <Title>{title}</Title>
       <Value className={bold ? 'bold' : ''}>
         {/* {props.value} */}
-
-        <FormatBalance
+        {isApiReady ?<FormatBalance
           className='result'
           value={value}
-        />
+          />:
+          <>
+          {/*<div>{preciseValue.toNumber().toFixed(4)}</div>*/}
+          <LoadingValue>
+            <span className='ui--FormatBalance-value"'>{intValue}</span>
+            <span className='ui--FormatBalance-postfix'>{decimalsValue}</span>
+            <span className='ui--FormatBalance-unit'>{'  PCX'}</span>
+          </LoadingValue>
+        </>
+          }
       </Value>
     </div>
   );

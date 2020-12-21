@@ -13,18 +13,22 @@ import Withdraw from '../../../modals/withdraw';
 import { useTranslation } from '@polkadot/app-accounts/translate';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import Button from '@polkadot/react-components-chainx/Button';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 
 
 
 export default function (): React.ReactElement {
-  const { api } = useApi();
+  const { api, isApiReady } = useApi();
   const { t } = useTranslation();
-  const currentAccount = useContext(AccountContext);
+  const {currentAccount} = useContext(AccountContext);
   const [isTransferOpen, toggleTransfer] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
   const [isWithdraw, toggleWithdraw] = useToggle();
   const [currentAccountInfo, setCurrentAccountInfo] = useState<AssetsInfo>();
   const [n, setN] = useState(0)
+
+  const [, setValue] = useLocalStorage('xbtcInfo')
+
   useEffect((): void => {
     async function getAssets(account: string): Promise<any> {
       const res = await api.rpc.xassets.getAssetsByAccount(account);
@@ -65,10 +69,11 @@ export default function (): React.ReactElement {
         assetName: "X-BTC",
         XbtcInterests: currentDividend
       });
+      setValue(JSON.stringify(current))
       setCurrentAccountInfo(current)
     }
-    // getAssets('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB')
-    getAssets(currentAccount.currentAccount)
+
+    getAssets(currentAccount)
   }, [currentAccount, n])
 
   const buttonGroup = (
@@ -111,7 +116,7 @@ export default function (): React.ReactElement {
       >
         {t('Withdrawals')}
       </Button>
-      {api.tx.balances?.transfer && (
+      {isApiReady && api.tx.balances?.transfer && (
         <Button
           className="btnLists defaultBtn"
           onClick={toggleTransfer}

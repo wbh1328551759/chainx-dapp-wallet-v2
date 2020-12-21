@@ -9,12 +9,13 @@ import backgroundImg from './background.svg';
 // import {WhiteButton} from '@chainx/ui';
 import {useApi, useToggle} from '@polkadot/react-hooks';
 import Transfer from '@polkadot/app-accounts-chainx/modals/Transfer';
-import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
+import usePcxFree, {PcxFreeInfo} from '@polkadot/react-hooks-chainx/usePcxFree';
 import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import BN from 'bn.js';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import Button from '@polkadot/react-components-chainx/Button';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 
 const InnerWrapper = styled.div`
   position: relative;
@@ -74,47 +75,76 @@ const CornerBackground = styled.div`
 `;
 
 
-
 interface PcxCardProps {
   onStatusChange: (status: ActionStatus) => void;
 }
 
+interface accountPcxInfo{
+  usableBalance: number;
+  allBalance: number;
+  freeFrozen: number;
+}
+
 export default function ({onStatusChange}: PcxCardProps): React.ReactElement<PcxCardProps> {
-  const api = useApi();
+  const {isApiReady} = useApi();
   const {t} = useTranslation();
   const [isTransferOpen, toggleTransfer] = useToggle();
   const [n, setN] = useState(0);
-
   const {currentAccount} = useContext(AccountContext);
-  const pcxFree = usePcxFree(currentAccount, n);
+  const pcxFree: PcxFreeInfo = usePcxFree(currentAccount, n);
   const freeBalance = new BN(pcxFree.free);
   const allBalance = freeBalance.add(new BN(pcxFree.reserved)).toNumber();
   const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
-  const bgFeeFrozen = new BN(pcxFree.feeFrozen);
+  const bgFreeFrozen = new BN(pcxFree.feeFrozen);
+
+  const [defaultValue, setDefaultValue] = useState<accountPcxInfo>({
+    usableBalance: 0,
+    allBalance: 0,
+    freeFrozen: 0
+  })
+
+  useEffect(() => {
+    if(!window.localStorage.getItem('pcxFreeInfo')){
+      window.localStorage.setItem('pcxFreeInfo',JSON.stringify(defaultValue))
+    }else{
+      setDefaultValue(JSON.parse(window.localStorage.getItem('pcxFreeInfo')) )
+      //由于每次刷新获取到的 PCXfree 的值都是0，因此会让 localStorage 会出现一瞬间的清 0
+      if(pcxFree){
+        window.localStorage.setItem('pcxFreeInfo', JSON.stringify({
+          usableBalance: bgUsableBalance.toNumber(),
+          allBalance,
+          freeFrozen: bgFreeFrozen.toNumber()
+        }))
+      }
+    }
+
+  },[currentAccount, pcxFree, isApiReady])
+
   return (
     <Card>
       <InnerWrapper>
         <header>
           <Logo/>
-          <AccountInfo/>
+          {isApiReady? <AccountInfo/>: <div>{currentAccount}</div>}
         </header>
         <section className='free' key='free'>
           <AssetView
             bold
             title={t('free balance')}
-            value={bgUsableBalance.toNumber()}
+            value={isApiReady  ? bgUsableBalance.toNumber() : defaultValue?.usableBalance}
           />
 
-          {api.api.tx.balances?.transfer && currentAccount && (
+          {/*{api.api.tx.balances?.transfer && currentAccount && (*/}
             <Button
               className="whiteBtn"
               onClick={toggleTransfer}
               // style={{marginLeft: 32, height: 28, marginBottom: 4}}
               isBasic={true}
+              isDisabled={!isApiReady && currentAccount}
             >
               {t('Transfer')}
             </Button>
-          )}
+          {/*)}*/}
         </section>
         <section className='details' key="details">
           {(
@@ -122,12 +152,12 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
               <AssetView
                 key={Math.random()}
                 title={t('total balance')}
-                value={allBalance}
+                value={isApiReady ? allBalance : defaultValue.allBalance}
               />
               <AssetView
                 key={Math.random()}
                 title={t('frozen voting')}
-                value={bgFeeFrozen.toNumber()}
+                value={isApiReady ? bgFreeFrozen.toNumber() : defaultValue.freeFrozen}
               />
               {/* <AssetView
                 title="交易冻结"

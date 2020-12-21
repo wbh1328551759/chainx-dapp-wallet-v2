@@ -4,6 +4,7 @@ import {useAccountInfo, useAccounts, useApi} from '@polkadot/react-hooks';
 import {useTranslation} from '@polkadot/app-accounts/translate';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import {AssetsInfo} from '@polkadot/react-hooks-chainx/types';
+import {useReadChainStorage} from '@polkadot/react-hooks-chainx';
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,39 +34,41 @@ const Address = styled(BaseRow)`
 `;
 
 export default function (): React.ReactElement {
-  const { api } = useApi();
-
+  const { api, isApiReady } = useApi();
   const {t} = useTranslation();
   const {currentAccount} = useContext(AccountContext);
   const {name} = useAccountInfo(currentAccount);
-  const {allAccounts} = useAccounts();
   const [identify, setIdentify] = useState<string>('')
-  useEffect(() => {
-    async function getIdentity(account: string): Promise<any> {
-      const getStakingNode = await api.rpc.xstaking.getValidators();
-      const getTrustNode = await api.rpc.xgatewaycommon.bitcoinTrusteeSessionInfo()
-      const stakingNodeList = JSON.parse(getStakingNode);
-      const trusteeList = JSON.parse(getTrustNode)
-      const trustNodeList = trusteeList.trusteeList
-      const validateNode = stakingNodeList.filter((node: any) => account === node.account )
-      const trustNode = trustNodeList.filter((node: string) => account === node)
-      if(validateNode.length > 0 && trustNode.length > 0){
-        setIdentify(t('the node of validate and trust'))
-      }else if(validateNode.length > 0){
-        setIdentify(t('the node of validate'))
-      }else if(trustNode.length > 0){
-        setIdentify(t('the node of trust'))
-      } else {
-        setIdentify('')
-      }
+
+  console.log(name)
+  async function getIdentity(account: string): Promise<any> {
+    const getStakingNode = await api.rpc.xstaking.getValidators();
+    const getTrustNode = await api.rpc.xgatewaycommon.bitcoinTrusteeSessionInfo()
+    const stakingNodeList = JSON.parse(getStakingNode);
+    const trusteeList = JSON.parse(getTrustNode)
+    const trustNodeList = trusteeList.trusteeList
+    const validateNode = stakingNodeList.filter((node: any) => account === node.account )
+    const trustNode = trustNodeList.filter((node: string) => account === node)
+    if(validateNode.length > 0 && trustNode.length > 0){
+      setIdentify(t('the node of validate and trust'))
+    }else if(validateNode.length > 0){
+      setIdentify(t('the node of validate'))
+    }else if(trustNode.length > 0){
+      setIdentify(t('the node of trust'))
+    } else {
+      setIdentify('')
     }
+  }
+
+  useEffect(() => {
     getIdentity(currentAccount)
-  }, [currentAccount]);
+  }, [currentAccount, isApiReady]);
+
   return (
     <Wrapper>
-      <Title>{name || '-'}</Title>
-      <Address>{allAccounts && currentAccount || '-'}</Address>
-      <div>{identify}</div>
+      <Title>{ isApiReady? name: '-'}</Title>
+      <Address>{currentAccount? currentAccount : '-'}</Address>
+      <div>{identify || ''}</div>
     </Wrapper>
   );
 }

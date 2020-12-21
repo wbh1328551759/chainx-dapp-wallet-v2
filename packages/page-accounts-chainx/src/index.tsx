@@ -3,14 +3,16 @@
 
 import { AppProps as Props } from '@polkadot/react-components/types';
 
-import React, { useRef } from 'react';
+import React, {useContext, useRef} from 'react';
 import { Route, Switch } from 'react-router';
-import { useIpfs } from '@polkadot/react-hooks';
+import {useAccounts, useApi, useIpfs} from '@polkadot/react-hooks';
 import { Tabs } from '@polkadot/react-components';
 import { useTranslation } from './translate';
 import useCounter from './useCounter';
 import Myview from './Myview';
 import styled from 'styled-components';
+import NoAccount from './Myview/NoAccount';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 export { useCounter };
 
@@ -30,6 +32,8 @@ const Main = styled.main`
 function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { isIpfs } = useIpfs();
+  const {currentAccount} = useContext(AccountContext)
+  const {isApiReady} = useApi();
 
   const itemsRef = useRef([
     {
@@ -51,10 +55,10 @@ function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Pr
       </header>
       <Switch>
         <Route>
-          <Myview
+          {currentAccount ? <Myview
             basePath={basePath}
             onStatusChange={onStatusChange}
-          />
+          />: <NoAccount onStatusChange={onStatusChange}/>}
         </Route>
       </Switch>
     </Main>

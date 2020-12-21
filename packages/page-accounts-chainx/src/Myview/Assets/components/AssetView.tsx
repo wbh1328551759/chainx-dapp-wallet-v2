@@ -1,11 +1,14 @@
-import { AssetsInfo } from '@polkadot/react-hooks-chainx/types';
-import React from 'react';
+import {AssetsInfo} from '@polkadot/react-hooks-chainx/types';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Free from './Free';
 import Frees from './Frees';
 import InfoView from './InfoView';
-import { useTranslation } from '@polkadot/app-accounts/translate';
+import {useTranslation} from '@polkadot/app-accounts/translate';
 import BN from 'bn.js';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {useApi} from '@polkadot/react-hooks';
+import {isPaste} from '@polkadot/react-components/Input';
 
 
 export const AssetDetail = styled.div`
@@ -38,19 +41,47 @@ type Props = {
   assetsInfo: AssetsInfo | undefined;
 }
 
-export default function ({ assetsInfo }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const usable = new BN(assetsInfo?.Usable)
-  const reservedDexSpot = new BN(assetsInfo?.ReservedDexSpot)
-  const reservedWithdrawal = new BN(assetsInfo?.ReservedWithdrawal)
+interface XbtcFreeInfo {
+  usableBalance: number,
+  reservedDexSpotBalance: number,
+  reservedWithdrawalBalance: number,
+  allBalance: number
+}
 
-  const allBalance = usable.add(reservedDexSpot).add(reservedWithdrawal)
+export default function ({assetsInfo}: Props): React.ReactElement<Props> {
+  const {isApiReady} = useApi();
+
+  const {t} = useTranslation();
+  const currentAccount = useContext(AccountContext);
+
+  const usable = new BN(assetsInfo?.Usable);
+  const reservedDexSpot = new BN(assetsInfo?.ReservedDexSpot);
+  const reservedWithdrawal = new BN(assetsInfo?.ReservedWithdrawal);
+  const allBalance = usable.add(reservedDexSpot).add(reservedWithdrawal);
+
+  const [defaultXbtcValue, setDefaultXbtcValue] = useState<XbtcFreeInfo>();
+  const [defaultXbtc, setDefaultXbtc] = useState<AssetsInfo>()
+
+  useEffect(() => {
+    setDefaultXbtc(JSON.parse(window.localStorage.getItem('xbtcInfo')));
+    if (defaultXbtc) {
+      setDefaultXbtcValue({
+        usableBalance: defaultXbtc.Usable,
+        reservedDexSpotBalance: defaultXbtc.ReservedDexSpot,
+        reservedWithdrawalBalance: defaultXbtc.ReservedWithdrawal,
+        allBalance: new BN(defaultXbtc.ReservedDexSpot).add(new BN(defaultXbtc.ReservedWithdrawal)).add(new BN(defaultXbtc.Usable))
+      });
+    }
+
+
+  }, [currentAccount, isApiReady, assetsInfo]);
+
   return (
     <div>
       <AssetLine>
         <Frees
           asset='Balance'
-          free={assetsInfo?.Usable ? usable : ''}
+          free={isApiReady ? (assetsInfo?.Usable ? usable.toNumber() : '') : defaultXbtcValue?.usableBalance}
           precision={8}
         />
       </AssetLine>
@@ -58,12 +89,12 @@ export default function ({ assetsInfo }: Props): React.ReactElement<Props> {
         <div>
           <AssetLine>
             <InfoView info='Bitcoin'
-              title={t('Chain')} />
+                      title={t('Chain')}/>
           </AssetLine>
           <AssetLine>
             <Free
               asset={t('DEX Reserved')}
-              free={assetsInfo ? reservedDexSpot : ''}
+              free={isApiReady ? (assetsInfo ? reservedDexSpot : '') : defaultXbtcValue?.reservedDexSpotBalance}
               precision={8}
             />
           </AssetLine>
@@ -72,14 +103,14 @@ export default function ({ assetsInfo }: Props): React.ReactElement<Props> {
           <AssetLine>
             <Free
               asset={t('Withdrawal Reserved')}
-              free={assetsInfo ? reservedWithdrawal : ''}
+              free={isApiReady ? (assetsInfo ? reservedWithdrawal : '') : defaultXbtcValue?.reservedWithdrawalBalance}
               precision={8}
             />
           </AssetLine>
           <AssetLine>
             <Free
               asset={t('Total')}
-              free={assetsInfo ? allBalance : ''}
+              free={isApiReady ? (assetsInfo ? allBalance : '') : defaultXbtcValue?.allBalance}
               precision={8}
             />
           </AssetLine>
