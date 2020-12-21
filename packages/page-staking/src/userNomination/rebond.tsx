@@ -10,6 +10,7 @@ import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import { ValidatorInfo } from '../types';
 import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
+import styled from 'styled-components';
 
 interface Props {
   account?: string;
@@ -18,13 +19,29 @@ interface Props {
   onClose: () => void;
   onSuccess?: TxCallback;
   validatorInfoList: ValidatorInfo[];
+  rebond: boolean;
 }
 
-function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const [validatorTo, setValidatorTo] = useState<string | null | undefined>();
+const Wrapper = styled(Modal)`
+  .content {
+    div:nth-child(3) {
+      .msg {
+        display: flex;
+        span {
+          margin-left: 2rem;
+          color: red;
+        }
+      }
+    }
+  }
+`;
 
+function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList, rebond }: Props): React.ReactElement<Props> {
+  const { t } = useTranslation();
+
+  const [validatorTo, setValidatorTo] = useState<string | null | undefined>();
   const [amount, setAmount] = useState<BN | undefined>();
+  const [rebondErrMsg, setrebondErrMsg] = useState('');
   let validatorOptionsArray: KeyringSectionOption[] = [];
 
   validatorInfoList.forEach((item: any) => {
@@ -36,12 +53,19 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
     })
   });
 
-
+  useEffect(() => {
+    if (rebond) {
+      setrebondErrMsg('当前高度小于限制高度，不能切换');
+    }
+    else {
+      setrebondErrMsg('');
+    }
+  }, [rebond]);
 
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
 
   return (
-    <Modal
+    <Wrapper
       header={t<string>('Rebond')}
       size='large'
     >
@@ -109,8 +133,9 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
               type='allPlus'
             />
           </Modal.Column>
-          <Modal.Column>
+          <Modal.Column className="msg">
             <p>{t<string>('to validator')}</p>
+            <span>{rebondErrMsg}</span>
           </Modal.Column>
         </Modal.Columns>
 
@@ -131,6 +156,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
 
       <Modal.Actions onCancel={onClose}>
         <TxButton
+          isDisabled={rebond}
           accountId={account}
           icon='sign-in-alt'
           label={t<string>('Rebond vote validator')}
@@ -140,7 +166,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
           tx='xStaking.rebond'
         />
       </Modal.Actions>
-    </Modal>
+    </Wrapper>
   );
 }
 
