@@ -29,7 +29,7 @@ function NodeInfo({className = ''}: Props): React.ReactElement<Props> {
   const {isIpfs} = useIpfs();
 
   return (
-    <div className={`${className} media--1400 highlight--color-contrast`}>
+    <div id='media--1400' className={`${className} media--1400 highlight--color-contrast`}>
       {isCreateOpen && (
         <CreateModal
           onClose={toggleCreate}
@@ -61,6 +61,12 @@ export default React.memo(styled(NodeInfo)`
   line-height: 1.2;
   padding: 0 1.5rem 0 1rem;
   text-align: right;
+
+  &.media--1400 {
+    @media only screen and (max-width: 1400px) {
+      display: block !important;
+    }
+  }
 
   > div {
     margin-bottom: -0.125em;
