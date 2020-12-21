@@ -91,7 +91,7 @@ export default function ({tradingPairsInfo}: Props): React.ReactElement<Props> {
     <Wrapper>
       <div className='info'>
         <Free asset={'PCX'}
-              free={hasAccounts ? bgUsableBalance.toNumber() : Number(toPrecision(0, 7)).toString()}
+              free={hasAccounts ? bgUsableBalance.toNumber().toString() : Number(toPrecision(0, 7)).toString()}
               precision={8}/>
 
         {errDisplay ? <div className={`tip ${errDisplay}`}>{t('The selling price should be higher than')}{ ` ${minValidAskData.toFixed(7)}`}</div>: ''}
