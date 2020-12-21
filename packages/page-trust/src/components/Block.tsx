@@ -61,7 +61,7 @@ export default function (): React.ReactElement {
       ...value
     });
   });
-  console.log(withdrawList)
+
   return (
     <Block>
       <p>{t('Withdrawal list')}</p>
