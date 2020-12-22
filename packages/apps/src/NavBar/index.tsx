@@ -1,8 +1,8 @@
 import React from 'react';
-import chainxLogo from './ChainX_logo.svg';
-import linkOut from './Link out.svg';
-import helpIcon from './Help center.svg';
-import setting from './Set up.svg'
+import chainxLogo from './icons/ChainX_logo.svg';
+import linkOut from './icons/Link out.svg';
+import helpIcon from './icons/Help center.svg';
+import setting from './icons/Set up.svg'
 import {Icon} from '@polkadot/react-components';
 import AccountSelect from '../Menu/NodeInfo';
 import {useToggle} from '@polkadot/react-hooks';
