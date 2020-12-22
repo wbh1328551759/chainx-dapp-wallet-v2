@@ -35,10 +35,9 @@ const Wrapper = styled.div`
     transform: translate(-50%, -50%);
     > .gif{
       position: relative;
-      border: 2px solid red;
       > img{
         position: fixed;
-         left: 50%;
+        left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
         z-index: 100;

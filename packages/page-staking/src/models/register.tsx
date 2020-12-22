@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import BN from 'bn.js';
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import { Input, InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
 import { Available } from '@polkadot/react-query';
@@ -15,9 +15,10 @@ interface Props {
   onClose: () => void;
   onSuccess?: TxCallback;
   account: string;
+  setN: Dispatch<number>;
 }
 
-function RegisterNewNode({ nodeslist, onClose, onSuccess, account }: Props): React.ReactElement<Props> {
+function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [nodeName, setNodeName] = useState<string | null | undefined>();
   const [amount, setAmount] = useState<BN | undefined>();
@@ -100,7 +101,10 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account }: Props): Rea
           icon='sign-in-alt'
           label={t<string>('Register New Node')}
           onStart={onClose}
-          onSuccess={onSuccess}
+          onSuccess={() => {
+            setN(Math.random()),
+            onSuccess
+          }}
           params={[nodeName, amount]}
           tx='xStaking.register'
         />
