@@ -37,7 +37,7 @@ const Wrapper = styled.div`
       position: relative;
       > img{
         position: fixed;
-         left: 50%;
+        left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
         z-index: 100;
