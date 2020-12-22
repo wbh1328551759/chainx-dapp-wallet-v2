@@ -16,6 +16,7 @@ import { useTranslation } from '../translate';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import { ValidatorInfo } from '../types';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import BN from 'bn.js';
 
 interface Props {
   accountId?: string;
@@ -30,6 +31,7 @@ interface Props {
 function UserTable({ accountId, nomination, userInterest, onStausChange, validatorInfoList }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [rebonds, setReBonds] = useState(true);
+  const [hoursafter, sethoursafter] = useState<BN>();
   const {currentAccount} = useContext(AccountContext);
   const { lastBlockNumber } = useContext(BlockAuthorsContext);
   const {api} = useApi();
@@ -64,12 +66,16 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
       const lastBlocks = lastBlockNumber?.replace(',','')
       if(finalHeight>parseInt(lastBlocks)){
         setReBonds(true)
+        const lasthour = finalHeight - parseInt(lastBlocks)
+        const hourafter = lasthour
+        const hoursafters = new BN(hourafter)
+        sethoursafter(hoursafters)
       }else {
         setReBonds(false)
       }
     }
     getNowHeighted()
-  }, [currentAccount]);
+  }, [currentAccount,lastBlockNumber]);
 
   return (
     <tr>
@@ -148,6 +154,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
               value={nomination?.validatorId}
               onSuccess={onStausChange}
               rebond={rebonds}
+              hoursafter={hoursafter}
             />
           )
         }

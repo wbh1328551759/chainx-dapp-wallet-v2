@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
-import { Available } from '@polkadot/react-query';
+import { Available, BlockToTime } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import { ValidatorInfo } from '../types';
 import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
@@ -20,28 +20,33 @@ interface Props {
   onSuccess?: TxCallback;
   validatorInfoList: ValidatorInfo[];
   rebond: boolean;
+  hoursafter: BN;
 }
 
 const Wrapper = styled(Modal)`
   .content {
     div:nth-child(3) {
       .msg {
-        display: flex;
-        span {
-          margin-left: 2rem;
+        .msgError {
           color: red;
+          margin-top: 10px;
+          p {
+            display: inline-block;
+          }
+          div {
+            display: inline-block;
+          }
         }
       }
     }
   }
 `;
 
-function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList, rebond }: Props): React.ReactElement<Props> {
+function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList, rebond, hoursafter }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const [validatorTo, setValidatorTo] = useState<string | null | undefined>();
   const [amount, setAmount] = useState<BN | undefined>();
-  const [rebondErrMsg, setrebondErrMsg] = useState('');
   let validatorOptionsArray: KeyringSectionOption[] = [];
 
   validatorInfoList.forEach((item: any) => {
@@ -53,14 +58,6 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
     })
   });
 
-  useEffect(() => {
-    if (rebond) {
-      setrebondErrMsg('当前高度小于限制高度，不能切换');
-    }
-    else {
-      setrebondErrMsg('');
-    }
-  }, [rebond]);
 
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
 
@@ -135,7 +132,11 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
           </Modal.Column>
           <Modal.Column className="msg">
             <p>{t<string>('to validator')}</p>
-            <span>{rebondErrMsg}</span>
+            <div className="msgError" style={{display: (rebond === true) ? "block" : "none"}}>
+              <p>{t<string>('Switch interval less than 3 days, please in')}</p>  
+              <BlockToTime blocks={hoursafter} />
+              <p>{t<string>('Retry after')}</p>
+            </div>
           </Modal.Column>
         </Modal.Columns>
 
