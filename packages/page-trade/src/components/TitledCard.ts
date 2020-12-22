@@ -15,6 +15,9 @@ const TitledCard = styled(SideCard)`
     letter-spacing: 0.12px;
     line-height: 20px;
   }
+  .marbot {
+    margin-bottom: 0;
+  }
 `;
 
 export default TitledCard;

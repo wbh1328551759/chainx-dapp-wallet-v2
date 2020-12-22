@@ -1,39 +1,41 @@
 
 import React from 'react';
-import { Table, TableHead, TableRow } from '@chainx/ui';
-import { HeadCell } from '../Wrapper';
+// import { Table, TableHead, TableRow } from '@chainx/ui';
+// import { HeadCell } from '../Wrapper';
 import { useTranslation } from '../../translate';
+import { Table } from '@polkadot/react-components';
+import { HeadTitles } from '../../Module/components/HeadCell';
 
 export default function () {
   const { t } = useTranslation();
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <HeadCell style={{ width: '12%' }}>{t('Date')}</HeadCell>
-          <HeadCell style={{ width: '5%' }}>{t('Number')}</HeadCell>
-          <HeadCell style={{ width: '8%' }}>{t('Pair')}</HeadCell>
-          <HeadCell style={{ width: '11%' }}>
+    <Table className="marbot">
+      {/* <TableHead> */}
+      <tr>
+          <HeadTitles style={{width: '19%'}}>{t('Date')}</HeadTitles>
+          <HeadTitles style={{width: '12%'}}>{t('Number')}</HeadTitles>
+          <HeadTitles style={{width: '15%'}}>{t('Pair')}</HeadTitles>
+          <HeadTitles style={{width: '18%'}}>
             {t('Order Price')}
-          </HeadCell>
-          <HeadCell style={{ width: '14%' }}>
+          </HeadTitles>
+          <HeadTitles style={{width: '21%'}}>
             {t('Order Amount')}
-          </HeadCell>
-          <HeadCell style={{ width: '15%' }}>
-            {t('Filled / Percentage %')}
-          </HeadCell>
-          <HeadCell style={{ width: '11%' }}>
-            {t('Avg Price')}
-          </HeadCell>
-          <HeadCell style={{ width: '15%' }}>
-            {t('All Volume')}
-          </HeadCell>
-          <HeadCell style={{ textAlign: 'right' }}>
+          </HeadTitles>
+          {/*<HeadTitles style={{ width: '15%' }}>*/}
+          {/*  {t('Filled / Percentage %')}*/}
+          {/*</HeadTitles>*/}
+          {/*<HeadTitles style={{ width: '11%' }}>*/}
+          {/*  {t('Avg Price')}*/}
+          {/*</HeadTitles>*/}
+          {/*<HeadTitles style={{ width: '15%' }}>*/}
+          {/*  {t('All Volume')}*/}
+          {/*</HeadTitles>*/}
+          <HeadTitles style={{textAlign: 'right'}}>
             {t('Status')}
-          </HeadCell>
-        </TableRow>
-      </TableHead>
+          </HeadTitles>
+        </tr>
+      {/* </TableHead> */}
     </Table>
   );
 }

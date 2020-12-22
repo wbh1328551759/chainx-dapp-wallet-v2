@@ -1,26 +1,35 @@
-import React, {useEffect, useState} from 'react';
-import {Dialog} from '@chainx/ui';
-import styled from 'styled-components';
+// Copyright 2017-2020 @polkadot/app-society authors & contributors
+// SPDX-License-Identifier: Apache-2.0
 
+
+
+import React, {Dispatch, useEffect, useState} from 'react';
+import { Modal } from '@polkadot/react-components';
+import {useTranslation} from '../../translate';
+import styled from 'styled-components';
 import {u8aToHex} from '@polkadot/util';
 import ClipBoard from './ClipBoard';
 import infoIcon from './explan.svg';
-import {useTranslation} from '../../translate';
 import {useApi} from '@polkadot/react-hooks';
-import CheckBox from '@polkadot/app-accounts-chainx/modals/deposite/components/CheckBox';
-import IntentionSelect from '@polkadot/app-accounts-chainx/modals/deposite/components/IntentionSelect';
 
-const StyledDialog = styled(Dialog)`
+interface Props {
+  onClose: () => void;
+  address: string
+  btc: string | undefined | null;
+  account: string | undefined,
+  setN: Dispatch<number>
+}
+
+const Wrapper = styled(Modal)`
+  min-width: 500px;
+  max-width: 600px;
   main.content {
-    padding: 16px;
-
     section.show-code {
       margin-top: 12px;
       background: #f2f3f4;
       border: 1px solid #dce0e2;
       border-radius: 6px;
       padding: 14px 12px;
-
       h3 {
         display: flex;
         justify-content: space-between;
@@ -33,7 +42,6 @@ const StyledDialog = styled(Dialog)`
         span.title {
           font-weight: 500;
         }
-
         span.addr {
           opacity: 0.32;
           font-size: 13px;
@@ -43,7 +51,6 @@ const StyledDialog = styled(Dialog)`
           text-align: right;
           line-height: 18px;
         }
-
         .channel span {
           opacity: 0.56;
           font-size: 13px;
@@ -53,7 +60,6 @@ const StyledDialog = styled(Dialog)`
           line-height: 18px;
         }
       }
-
       .hex {
         margin-top: 8px;
         opacity: 0.32;
@@ -63,7 +69,6 @@ const StyledDialog = styled(Dialog)`
         line-height: 18px;
       }
     }
-
     ul.info {
       margin-top: 12px;
       li {
@@ -73,11 +78,9 @@ const StyledDialog = styled(Dialog)`
           width: 16px;
           margin-right: 6px;
         }
-
         &:not(:first-of-type) {
           margin-top: 6px;
         }
-
         opacity: 0.56;
         font-size: 12px;
         color: #000000;
@@ -86,7 +89,6 @@ const StyledDialog = styled(Dialog)`
       }
     }
   }
-
   h1 {
     margin: 0;
     opacity: 0.72;
@@ -102,7 +104,6 @@ const StyledDialog = styled(Dialog)`
       margin-top: 16px;
     }
   }
-
   p {
     opacity: 0.56;
     font-size: 14px;
@@ -116,35 +117,29 @@ const StyledDialog = styled(Dialog)`
   }
 `;
 
-interface Props {
-  onClose: () => void;
-  address: string
-}
-
 export default function ({address, onClose}: Props) {
-  // const [checked, setChecked] = useState(false);
-  const {t} = useTranslation();
-  const [channel, setChannel] = useState('');
-  const {api} = useApi();
-  const [hotAddress, setHotAddress] = useState<string>('');
-  const addressHex = u8aToHex(
-    new TextEncoder('utf-8').encode(`${address}${channel ? '@' + channel : ''}`)
-  ).replace(/^0x/, '');
+    const {t} = useTranslation();
+    const [channel, setChannel] = useState('');
+    const {api} = useApi();
+    const [hotAddress, setHotAddress] = useState<string>('');
+    const addressHex = u8aToHex(
+      new TextEncoder('utf-8').encode(`${address}${channel ? '@' + channel : ''}`)
+    ).replace(/^0x/, '');
+  
+    useEffect((): void => {
+      async function getHotAddress() {
+        const dividendRes = await api.rpc.xgatewaycommon.bitcoinTrusteeSessionInfo();
+        setHotAddress(dividendRes.hotAddress.addr);
+      }
+  
+      getHotAddress();
+    }, []);
 
-  useEffect((): void => {
-    async function getHotAddress() {
-      const dividendRes = await api.rpc.xgatewaycommon.bitcoinTrusteeSessionInfo();
-      setHotAddress(dividendRes.hotAddress.addr);
-    }
-
-    getHotAddress();
-  }, []);
   return (
-    <StyledDialog
-      handleClose={onClose}
-      open
-      title={t('Recharge')}
-    >
+    <Wrapper
+        header={t('Recharge')}
+      >
+      <Modal.Content>
       <main className='content'>
         <h1>
           <span className='step'>{t('the first step')}</span>
@@ -154,50 +149,34 @@ export default function ({address, onClose}: Props) {
         <section className='show-code'>
           <h3>
             <span className="title">OP_RETURN</span>
-            {/*<CheckBox*/}
-            {/*  checked={checked}*/}
-            {/*  onClick={() => setChecked(!checked)}*/}
-            {/*  className="channel"*/}
-            {/*>*/}
-            {/*  {t('Add a referrer (optional)')}*/}
-            {/*</CheckBox>*/}
           </h3>
-          {/*{checked ? (*/}
-          {/*  <IntentionSelect*/}
-          {/*    value={channel}*/}
-          {/*    onChange={setChannel}*/}
-          {/*    style={{marginBottom: 8}}*/}
-          {/*  />*/}
-          {/*) : null}*/}
           <ClipBoard className='hex' id=''>{addressHex}</ClipBoard>
         </section>
         <h1 className='step-2'>
           <span className='step'>{t('the second step')}</span>
           <span className='text'>{t('start a cross-chain top-up withdrawal')}</span>
         </h1>
-        <p
-          className='input'>{t('recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
+        <p className='input'>{t('recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
         <ul className={'info'}>
           <li>
-            <img alt='info'
-                 src={infoIcon}/>
+            <img alt='info' src={infoIcon}/>
             <span>{t('the top-up amount must be greater than 0.001 BTC')}</span>
           </li>
           <li>
-            <img alt='info'
-                 src={infoIcon}/>
+            <img alt='info' src={infoIcon}/>
             <span>{t('currently, only cross-chain top-up initiated by BTC addresses starting with 1 and 3 is supported')}</span>
           </li>
         </ul>
         <section className='show-code'>
           <h3 style={{marginBottom: 0}}>
             <span className='title'>{t('Trust hot multi-signature address')}</span>
-            <ClipBoard className={'addr'}
-                       id=''>{hotAddress}</ClipBoard>
+            <ClipBoard className={'addr'} id=''>{hotAddress}</ClipBoard>
           </h3>
         </section>
-
       </main>
-    </StyledDialog>
+      </Modal.Content>
+      <Modal.Actions onCancel={onClose}></Modal.Actions>
+    </Wrapper>
   );
 }
+

@@ -54,6 +54,8 @@ import useProxies from './useProxies';
 import Deposite from '../modals/deposite';
 import Withdraw from '../modals/withdraw';
 import XbtcTransfer from '../modals/XBTCTransfer';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 
 interface Props {
   account: KeyringAddress;
@@ -127,6 +129,8 @@ function Account({account: {address, meta}, assetsInfo, className = '', delegati
   const [isUndelegateOpen, toggleUndelegate] = useToggle();
   const [isWithdraw, toggleWithdraw] = useToggle();
   const [isXbtcTransfer, toggleXbtcTransfer] = useToggle();
+  const [,setValue] = useLocalStorage('currentAccount')
+  const {changeAccount} = useContext(AccountContext)
 
   useEffect((): void => {
     if (balancesAll) {
@@ -182,6 +186,8 @@ function Account({account: {address, meta}, assetsInfo, className = '', delegati
 
       try {
         keyring.forgetAccount(address);
+        setValue('')
+        changeAccount('')
         status.status = 'success';
         status.message = t<string>('account forgotten');
       } catch (error) {

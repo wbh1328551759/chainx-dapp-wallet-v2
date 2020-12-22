@@ -6,10 +6,11 @@ import React, { useEffect, useState } from 'react';
 import { InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
-import { Available } from '@polkadot/react-query';
+import { Available, BlockToTime } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import { ValidatorInfo } from '../types';
 import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
+import styled from 'styled-components';
 
 interface Props {
   account?: string;
@@ -18,12 +19,33 @@ interface Props {
   onClose: () => void;
   onSuccess?: TxCallback;
   validatorInfoList: ValidatorInfo[];
+  rebond: boolean;
+  hoursafter: BN;
 }
 
-function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const [validatorTo, setValidatorTo] = useState<string | null | undefined>();
+const Wrapper = styled(Modal)`
+  .content {
+    div:nth-child(3) {
+      .msg {
+        .msgError {
+          color: red;
+          margin-top: 10px;
+          p {
+            display: inline-block;
+          }
+          div {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+`;
 
+function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList, rebond, hoursafter }: Props): React.ReactElement<Props> {
+  const { t } = useTranslation();
+
+  const [validatorTo, setValidatorTo] = useState<string | null | undefined>();
   const [amount, setAmount] = useState<BN | undefined>();
   let validatorOptionsArray: KeyringSectionOption[] = [];
 
@@ -37,11 +59,10 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
   });
 
 
-
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
 
   return (
-    <Modal
+    <Wrapper
       header={t<string>('Rebond')}
       size='large'
     >
@@ -109,8 +130,13 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
               type='allPlus'
             />
           </Modal.Column>
-          <Modal.Column>
+          <Modal.Column className="msg">
             <p>{t<string>('to validator')}</p>
+            <div className="msgError" style={{display: (rebond === true) ? "block" : "none"}}>
+              <p>{t<string>('Switch interval less than 3 days, please in')}</p>  
+              <BlockToTime blocks={hoursafter} />
+              <p>{t<string>('Retry after')}</p>
+            </div>
           </Modal.Column>
         </Modal.Columns>
 
@@ -131,6 +157,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
 
       <Modal.Actions onCancel={onClose}>
         <TxButton
+          isDisabled={rebond}
           accountId={account}
           icon='sign-in-alt'
           label={t<string>('Rebond vote validator')}
@@ -140,7 +167,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
           tx='xStaking.rebond'
         />
       </Modal.Actions>
-    </Modal>
+    </Wrapper>
   );
 }
 

@@ -25,7 +25,7 @@ export default function ({ asset, free, precision }: Props): React.ReactElement<
   return (
     <Wrapper>
       <span>{asset}: </span>
-      <span>{validFree && validPrecision && toPrecision(bgFree, precision)}</span>
+      <span>{validFree && validPrecision && toPrecision(bgFree.toNumber(), precision)}</span>
     </Wrapper>
   );
 }

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Wrapper from './Wrapper';
 import Free from '../components/Free';
-import {AmountInput, Slider} from '@chainx/ui';
+// import {AmountInput, Slider} from '@chainx/ui';
 import Label from '../components/Label';
 import {marks} from '../constants';
 import {TxButton} from '@polkadot/react-components';
@@ -12,6 +12,9 @@ import BigNumber from 'bignumber.js';
 import {api} from '@polkadot/react-api';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import valueToText from '@polkadot/react-params/valueToText';
+import InputDex from '@polkadot/react-components-chainx/InputDex';
+// import Input from '@polkadot/react-components-chainx/Input';
 
 type Props = {
   assetsInfo: AssetsInfo | undefined;
@@ -98,39 +101,38 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
         {/*<img alt='info' src={infoIcon} />*/}
         {/* </PriceWrapper> */}
         <div>
-          <AmountInput
+          <InputDex
             id='buy-price'
-            onChange={(value) => {
+            onChange={(value: string | number) => {
               setPrice(() => value);
             }}
-            precision={7}
-            style={{width: 216}}
             tokenName={'BTC'}
             value={price}
+            maxLength={13}
           />
         </div>
       </div>
       <div className='amount input'>
         <Label>{t('Quantity')}</Label>
-        <AmountInput
+        <InputDex
           id='buy-amount'
-          onChange={(value) => {
+          onChange={(value: number) => {
             if (value > max) {
               setAmount(max.toFixed(7));
-              setPercentage(100);
+              // setPercentage(100);
             } else {
               setAmount(value);
-              setPercentage((value / max) * 100);
+              // setPercentage((value / max) * 100);
             }
           }}
-          precision={7}
-          style={{maxWidth: 216}}
+          autoFocus   
+          isZeroable
+          maxLength={13}
           tokenName={'PCX'}
           value={amount}
         />
       </div>
-
-      <Slider
+      {/* <Slider
         className='percentage'
         marks={marks}
         max={100}
@@ -142,7 +144,7 @@ export default function ({assetsInfo, tradingPairsInfo}: Props): React.ReactElem
         }}
         value={percentage}
         valueLabelDisplay='off'
-      />
+      /> */}
       <div className='volume'>
         <span>{t('Volume')} </span>
         <span>

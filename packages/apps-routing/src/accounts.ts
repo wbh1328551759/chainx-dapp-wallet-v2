@@ -9,9 +9,7 @@ import Component, { useCounter } from '@polkadot/app-accounts-chainx';
 export default function create(t: TFunction): Route {
   return {
     Component,
-    display: {
-      needsApi: []
-    },
+    display: {},
     group: 'accounts',
     icon: 'users',
     name: 'accounts',

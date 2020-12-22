@@ -1,12 +1,12 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AddressMini, Button } from '@polkadot/react-components';
 import { AddressSmall } from '@polkadot/react-components-chainx';
 import Vote from './vote';
-import { useToggle } from '@polkadot/react-hooks';
+import { useApi, useToggle } from '@polkadot/react-hooks';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { Nomination, UserInterest } from '@polkadot/react-hooks-chainx/types';
-import { FormatBalance } from '@polkadot/react-query';
+import { BlockAuthorsContext, FormatBalance } from '@polkadot/react-query';
 import Reback from './reback';
 import UnBound from './unbond';
 import ReBond from './rebond'
@@ -15,6 +15,8 @@ import Claim from './claim';
 import { useTranslation } from '../translate';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import { ValidatorInfo } from '../types';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import BN from 'bn.js';
 
 interface Props {
   accountId?: string;
@@ -28,9 +30,12 @@ interface Props {
 
 function UserTable({ accountId, nomination, userInterest, onStausChange, validatorInfoList }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-
+  const [rebonds, setReBonds] = useState(true);
+  const [hoursafter, sethoursafter] = useState<BN>();
+  const {currentAccount} = useContext(AccountContext);
+  const { lastBlockNumber } = useContext(BlockAuthorsContext);
+  const {api} = useApi();
   const [isVoteOpen, toggleVote] = useToggle();
-
   const [isRebackOpen, toggleReback] = useToggle();
   const [isBoundOpen, toggleUnbound] = useToggle();
   const [isReBoundOpen, toggleRebound] = useToggle();
@@ -50,7 +55,27 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
       value: index + ''
     });
   }) : {};
-
+  
+  useEffect((): void => {
+    async function getNowHeighted() {
+      const lastHeight = await api.query.xStaking.lastRebondOf(currentAccount)
+      const lastHeights = JSON.parse(JSON.stringify(lastHeight))
+      const hisHeight = await api.query.xStaking.bondingDuration()
+      const hisHeights = JSON.parse(JSON.stringify(hisHeight))
+      const finalHeight = Number(lastHeights)+Number(hisHeights)
+      const lastBlocks = lastBlockNumber?.replace(',','')
+      if(finalHeight>parseInt(lastBlocks)){
+        setReBonds(true)
+        const lasthour = finalHeight - parseInt(lastBlocks)
+        const hourafter = lasthour
+        const hoursafters = new BN(hourafter)
+        sethoursafter(hoursafters)
+      }else {
+        setReBonds(false)
+      }
+    }
+    getNowHeighted()
+  }, [currentAccount,lastBlockNumber]);
 
   return (
     <tr>
@@ -61,7 +86,6 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
           withLockedVote
         />
       </td>
-
       <td>
         <FormatBalance value={nomination?.nomination}></FormatBalance>
       </td>
@@ -129,6 +153,8 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
               validatorInfoList={validatorInfoList}
               value={nomination?.validatorId}
               onSuccess={onStausChange}
+              rebond={rebonds}
+              hoursafter={hoursafter}
             />
           )
         }

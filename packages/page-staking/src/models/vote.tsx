@@ -8,19 +8,33 @@ import { useTranslation } from '../translate';
 import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
+import styled from 'styled-components';
 
 interface Props {
   validatorId: string | null | undefined;
   onClose: () => void;
-  onSuccess?: TxCallback
+  onSuccess?: TxCallback;
+  remainingVotesData: string | undefined;
 }
 
-function VoteNode({ onClose, validatorId, onSuccess }: Props): React.ReactElement<Props> {
+const VoteData = styled.span`
+  > span.warning{
+    color: red;
+  }
+`
+
+function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [amount, setAmount] = useState<BN | undefined>();
   const [accountId, setAccount] = useState<string | null | undefined>();
 
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
+  const remainingVotes = (<VoteData className='label'>
+    {t<string>('remaining votes')}
+    {'： '}
+    {remainingVotesData && Number(remainingVotesData) > 0 ? <span> {remainingVotesData}</span> :<span className='warning'>0</span>}
+    {'  PCX'}
+  </VoteData>)
 
   return (
     <Modal
@@ -55,12 +69,7 @@ function VoteNode({ onClose, validatorId, onSuccess }: Props): React.ReactElemen
               help={t<string>('Vote for Validator')}
               isDisabled={!!validatorId}
               label={t<string>('Vote for Validator')}
-              labelExtra={
-                <Available
-                  label={transferrable}
-                  params={validatorId}
-                />
-              }
+              labelExtra={remainingVotes}
               type='allPlus'
             />
           </Modal.Column>
@@ -93,6 +102,7 @@ function VoteNode({ onClose, validatorId, onSuccess }: Props): React.ReactElemen
           params={[validatorId, amount]}
           tx='xStaking.bond'
           onSuccess={onSuccess}
+          isDisabled={Number(remainingVotesData) <= 0}
         />
       </Modal.Actions>
     </Modal>

@@ -1,8 +1,8 @@
 
 import styled from 'styled-components';
-import { TableCell } from '@chainx/ui';
+// import { TableCell } from '@chainx/ui';
 
-export const BaseCell = styled(TableCell)`
+export const BaseCell = styled.td`
   font-size: 12px !important;
   letter-spacing: 0.2px;
   line-height: 16px !important;
@@ -81,7 +81,7 @@ export const FillCell = styled(BaseCell)`
   }
 `;
 
-export const ActionCell = styled(TableCell)`
+export const ActionCell = styled.td`
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   text-align: right !important;

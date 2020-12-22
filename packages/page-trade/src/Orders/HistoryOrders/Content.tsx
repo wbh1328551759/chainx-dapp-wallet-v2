@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Table, TableBody, TableHead, TableRow} from '@chainx/ui';
+// import { TableBody, TableHead, TableRow} from '@chainx/ui';
 import {toPrecision} from '../../components/toPrecision';
 import {
   FillCell,
@@ -9,44 +9,21 @@ import {
   TimeCell
 } from '../UserOrders/Wrapper';
 import moment from 'moment';
-import {HeadCell, StatCell} from '../Wrapper';
+import { StatCell} from '../Wrapper';
 import {useTranslation} from '../../translate';
 import BigNumber from 'bignumber.js';
 import {DexContext} from '@polkadot/react-components-chainx/DexProvider';
+import { Table } from '@polkadot/react-components';
+
 
 export default function (): React.ReactElement {
   const {HistoryOrders} = useContext(DexContext);
   const {t} = useTranslation();
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <HeadCell style={{width: '19%'}}>{t('Date')}</HeadCell>
-          <HeadCell style={{width: '12%'}}>{t('Number')}</HeadCell>
-          <HeadCell style={{width: '15%'}}>{t('Pair')}</HeadCell>
-          <HeadCell style={{width: '18%'}}>
-            {t('Order Price')}
-          </HeadCell>
-          <HeadCell style={{width: '21%'}}>
-            {t('Order Amount')}
-          </HeadCell>
-          {/*<HeadCell style={{ width: '15%' }}>*/}
-          {/*  {t('Filled / Percentage %')}*/}
-          {/*</HeadCell>*/}
-          {/*<HeadCell style={{ width: '11%' }}>*/}
-          {/*  {t('Avg Price')}*/}
-          {/*</HeadCell>*/}
-          {/*<HeadCell style={{ width: '15%' }}>*/}
-          {/*  {t('All Volume')}*/}
-          {/*</HeadCell>*/}
-          <HeadCell style={{textAlign: 'right'}}>
-            {t('Status')}
-          </HeadCell>
-        </TableRow>
-      </TableHead>
+    <Table className="marbot">
 
-      <TableBody>
+      {/* <TableBody> */}
         {HistoryOrders.map((order, index) => {
           const currencyPair = [['PCX', 'BTC']];
           const bgAmount = new BigNumber(toPrecision(Number(order.turnover), 8));
@@ -75,7 +52,7 @@ export default function (): React.ReactElement {
           // ).toFixed(8);
 
           return (
-            <TableRow key={index}>
+            <tr key={index}>
               <TimeCell style={{width: '19%'}}>
                 <div>
                   <span className={order.blockTime.toString()}/>
@@ -113,10 +90,10 @@ export default function (): React.ReactElement {
               <StatCell>
                 {t('Completed')}
               </StatCell>
-            </TableRow>
+            </tr>
           );
         })}
-      </TableBody>
+      {/* </TableBody> */}
     </Table>
   );
 }

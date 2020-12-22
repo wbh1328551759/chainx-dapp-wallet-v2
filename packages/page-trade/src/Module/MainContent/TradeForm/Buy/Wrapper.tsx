@@ -63,6 +63,7 @@ const Wrapper = styled.div`
     font-size: 13px;
     color: #3f3f3f;
     line-height: 18px;
+    margin: 20px 0 10px;
   }
 
   & > div.button {

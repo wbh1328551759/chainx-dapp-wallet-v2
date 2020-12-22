@@ -4,25 +4,27 @@
 import type {DeriveSessionProgress} from '@polkadot/api-derive/types';
 import type {Forcing} from '@polkadot/types/interfaces';
 
-import React from 'react';
+import React, { Dispatch, useContext } from 'react';
 import {Button, CardSummary} from '@polkadot/react-components';
 import {useApi, useCall, useToggle} from '@polkadot/react-hooks';
 import {formatNumber} from '@polkadot/util';
 
 import {useTranslation} from './translate';
 import RegisterNewNode from '@polkadot/app-staking/models/register';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 interface Props {
   withEra?: boolean;
   withSession?: boolean;
+  setN: Dispatch<number>;
 }
 
-function SummarySession({withEra = true, withSession = true}: Props): React.ReactElement<Props> {
+function SummarySession({withEra = true, withSession = true, setN }: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const {api} = useApi();
   const sessionInfo = useCall<DeriveSessionProgress>(api.query.staking && api.derive.session?.progress);
   const [isRegister, toggleRegister] = useToggle();
-
+  const { currentAccount } = useContext(AccountContext);
   const forcing = useCall<Forcing>(api.query.staking?.forceEra);
 
   const eraLabel = t<string>('era');
@@ -32,7 +34,7 @@ function SummarySession({withEra = true, withSession = true}: Props): React.Reac
 
   return (
     <>
-      {isRegister && (<RegisterNewNode onClose={toggleRegister}/>)}
+      {isRegister && (<RegisterNewNode account={currentAccount} onClose={toggleRegister} setN={setN}/>)}
 
       <Button
         icon='plus'

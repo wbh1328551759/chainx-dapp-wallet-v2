@@ -12,13 +12,13 @@ export default function (): React.ReactElement {
 
   return (
     <>
+      <TableHead />
       {HistoryOrders.length > 0 ? (
         <>
           <Content />
         </>
       ) : (
           <>
-            <TableHead />
             <Empty
               style={{ marginTop: 30, marginBottom: 30 }}
               text={t('No History Order')}

@@ -11,6 +11,9 @@ export const TableWrapper = styled.div`
   height: 242px;
   overflow-y: auto;
   display: flex;
+  .marbot {
+    margin-bottom: 0;
+  }
 `;
 
 export const SumCell = styled(BaseCell)`

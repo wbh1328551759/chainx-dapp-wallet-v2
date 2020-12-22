@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/app-society authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import { InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
 import { Available } from '@polkadot/react-query';
@@ -12,9 +12,11 @@ interface Props {
   onClose: () => void;
   validatorId: string | undefined;
   onSuccess?: TxCallback;
+  account: string;
+  setN: Dispatch<number>;
 }
 
-function Chill({ onClose, validatorId, onSuccess }: Props): React.ReactElement<Props> {
+function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [accountId, setAccount] = useState<string | null | undefined>();
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
@@ -28,12 +30,14 @@ function Chill({ onClose, validatorId, onSuccess }: Props): React.ReactElement<P
         <Modal.Columns>
           <Modal.Column>
             <InputAddress
+              defaultValue={account}
               help='The actual account you wish to Droup'
+              isDisabled={!!account}
               label='Droup account'
               labelExtra={
                 <Available
                   label={transferrable}
-                  params={accountId}
+                  params={account}
                 />
               }
               onChange={setAccount}
@@ -74,7 +78,10 @@ function Chill({ onClose, validatorId, onSuccess }: Props): React.ReactElement<P
           onStart={onClose}
           params={[]}
           tx='xStaking.chill'
-          onSuccess={onSuccess}
+          onSuccess={() => {
+            setN(Math.random()),
+            onSuccess
+          }}
         />
       </Modal.Actions>
     </Modal>

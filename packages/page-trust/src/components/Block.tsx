@@ -27,7 +27,7 @@ const Content = styled.div`
     margin-right: -16px;
 `;
 
-type withdraw = {
+interface withdraw {
   id: number,
   assetId: number,
   applicant: string,
