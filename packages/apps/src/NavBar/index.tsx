@@ -6,8 +6,9 @@ import helpIcon from './Help center.svg';
 import setting from './Set up.svg'
 import {Icon} from '@polkadot/react-components';
 import AccountSelect from '../Menu/NodeInfo';
+import {useToggle} from '@polkadot/react-hooks';
 
-const Wrapper = styled.div`
+const NavWrapper = styled.div`
   background: rgba(255, 255, 255);
   display: flex;
   justify-content: space-between;
@@ -17,23 +18,56 @@ const Wrapper = styled.div`
   font-size: 15px;
   font-weight: 600;
   color: rgba(0,0,0,0.4);
+  z-index: 220;
+  border-bottom: 1px solid #EFEFEF;
 
   > .left{
     display: flex;
+
     > ul{
       display: flex;
+
       > li{
         padding: 1.4em 1em 1.4em 1em;
+        position: relative;
+
         &:first-child{
           margin-left: 1.7em;
         }
+
         > svg, img{
           margin-left: 0.3em;
         }
+
+        > .selector{
+          font-size: 14px;
+          position: absolute;
+          width: 11.5em;
+          left: -0.7em;
+          top: 4.7em;
+          display: flex;
+          flex-direction: column;
+          background: rgba(255,255,255,0.90);
+          border: 1px solid #EFEFEF;
+          box-shadow: 0 4px 12px 0 rgba(63,63,63,0.12);
+          border-radius: 8px;
+
+          > span{
+            padding: 1em 4.7em 1em 1.6em;
+            color: rgba(0,0,0,0.4);
+
+            &:hover, &:focus{
+              color: rgba(0,0,0,0.8);
+              cursor: pointer;
+            }
+          }
+        }
+
         &.linkOutBrowser{
           display: flex;
           align-items: start;
         }
+
         &.divideLine{
           height: 1.5em;
           margin: auto 1em;
@@ -53,8 +87,10 @@ const Wrapper = styled.div`
   > .right{
     display: flex;
     align-items: center;
+
     > li{
       margin: 1.4em 1em 1.4em 1em;
+
       &.switchNode{
         display: flex;
         align-items: center;
@@ -63,8 +99,10 @@ const Wrapper = styled.div`
         background: rgba(249, 249, 249);
         border: 1px solid #EFEFEF;
         border-radius: 18px;
+
         > div {
           margin-right: 0.5em;
+
           &.circle{
             height: 0.5em;
             width: 0.5em;
@@ -78,14 +116,17 @@ const Wrapper = styled.div`
           cursor: pointer;
         }
       }
+
       &.icon{
         margin: 1.1em 0.6em 1.1em 0.6em;
         display: flex;
         align-items: center;
+
         &:hover, &:focus{
           cursor: pointer;
         }
       }
+
       &.accountSelector{
         margin: 0;
       }
@@ -94,17 +135,33 @@ const Wrapper = styled.div`
 `;
 
 function NavBar() {
+  const [isStakingOpen, toggleStaking] = useToggle()
+  const [isGovernanceOpen, toggleGovernance] = useToggle()
   return (
-    <Wrapper>
+    <NavWrapper>
       <div className="left">
         <img src={chainxLogo} alt=""/>
         <ul>
           <li>资产</li>
-          <li>
+          <li className='staking' onClick={toggleStaking}>
             投票抵押
             <Icon icon='angle-down' size='1x'/>
+            {isStakingOpen && <div className='selector' >
+              <span>质押概览</span>
+              <span>我的质押</span>
+            </div>}
           </li>
-          <li>治理<Icon icon='angle-down'/></li>
+          <li onClick={toggleGovernance}>
+            治理
+            <Icon icon='angle-down'/>
+            {isGovernanceOpen && <div className='selector'>
+              <span>民主权利</span>
+              <span>议会</span>
+              <span>财政</span>
+              <span>技术委员会</span>
+              <span>资产信托</span>
+            </div>}
+          </li>
           <li>交易</li>
           <li className='linkOutBrowser'>
             区块浏览器
@@ -132,7 +189,7 @@ function NavBar() {
         </li>
       </ul>
 
-    </Wrapper>
+    </NavWrapper>
   );
 }
 
