@@ -58,12 +58,12 @@ function AccountStatus ({ storedValue, onStatusChange, setStoredValue, className
 }
 
 const StyledWrapper = styled.div`
-  background: rgb(63, 63, 63);
   padding: 4px 0 0 2rem;
   min-height: 61px;
   margin: 0 -2rem;
   display: flex !important;
   align-items: center;
+  color: rgba(0,0,0,0.8);
   .ui--AccountStatus-Convert {
     margin-right: 10px;
   }
@@ -102,9 +102,12 @@ const StyledWrapper = styled.div`
       }
     }
     > button{
-      background: rgba(63, 63, 63);
+      background: rgba(246, 201, 74);
       border-radius: 0.15rem;
-      padding: 0.7em 0.1em 0.7em 0.1em;
+      padding: 1em 0.1em 1em 0.1em;
+      > svg{
+        color: rgba(255, 255, 255) !important;
+      }
     }
   }
 

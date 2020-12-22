@@ -36,10 +36,15 @@ const Wrapper = styled.div`
         }
         &.divideLine{
           height: 1.5em;
-          margin: auto;
+          margin: auto 1em;
           padding: 0;
           background: rgba(0,0,0,0.3);
           width: 1px;
+        }
+
+        &:hover, &:focus{
+          color: rgba(0,0,0,0.8);
+          cursor: pointer;
         }
       }
     }
@@ -50,7 +55,6 @@ const Wrapper = styled.div`
     align-items: center;
     > li{
       margin: 1.4em 1em 1.4em 1em;
-      border:1px solid red;
       &.switchNode{
         display: flex;
         align-items: center;
@@ -68,11 +72,22 @@ const Wrapper = styled.div`
             background: rgba(52, 198, 154);
           }
         }
+
+        &:hover, &:focus{
+          color: rgba(0,0,0,0.8);
+          cursor: pointer;
+        }
       }
       &.icon{
         margin: 1.1em 0.6em 1.1em 0.6em;
         display: flex;
         align-items: center;
+        &:hover, &:focus{
+          cursor: pointer;
+        }
+      }
+      &.accountSelector{
+        margin: 0;
       }
     }
   }
@@ -112,7 +127,7 @@ function NavBar() {
         <li className='icon'>
           <img src={setting} alt=""/>
         </li>
-        <li>
+        <li className='accountSelector'>
           <AccountSelect/>
         </li>
       </ul>
