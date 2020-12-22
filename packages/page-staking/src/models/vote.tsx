@@ -18,7 +18,7 @@ interface Props {
 }
 
 const VoteData = styled.span`
-  > span{
+  > span.warning{
     color: red;
   }
 `
@@ -29,12 +29,12 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
   const [accountId, setAccount] = useState<string | null | undefined>();
 
   const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
-  const remainingVotes = <VoteData className='label'>
+  const remainingVotes = (<VoteData className='label'>
     {t<string>('remaining votes')}
     {'： '}
-    <span>{remainingVotesData ?  remainingVotesData: 0}</span>
+    {remainingVotesData && Number(remainingVotesData) > 0 ? <span> {remainingVotesData}</span> :<span className='warning'>0</span>}
     {'  PCX'}
-  </VoteData>
+  </VoteData>)
 
   return (
     <Modal
@@ -69,7 +69,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
               help={t<string>('Vote for Validator')}
               isDisabled={!!validatorId}
               label={t<string>('Vote for Validator')}
-              labelExtra={remainingVotesData && Number(remainingVotesData) > 0? remainingVotes: ''}
+              labelExtra={remainingVotes}
               type='allPlus'
             />
           </Modal.Column>
@@ -102,6 +102,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
           params={[validatorId, amount]}
           tx='xStaking.bond'
           onSuccess={onSuccess}
+          isDisabled={Number(remainingVotesData) <= 0}
         />
       </Modal.Actions>
     </Modal>
