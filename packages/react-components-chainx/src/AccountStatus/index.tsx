@@ -105,6 +105,9 @@ const StyledWrapper = styled.div`
       background: rgba(246, 201, 74);
       border-radius: 0.15rem;
       padding: 1em 0.1em 1em 0.1em;
+      &:hover{
+        background: rgba(246, 201, 74) !important;
+      }
       > svg{
         color: rgba(255, 255, 255) !important;
       }
