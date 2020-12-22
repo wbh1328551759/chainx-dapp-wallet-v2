@@ -2,13 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import chainxLogo from './ChainX_logo.svg';
 import linkOut from './Link out.svg';
+import helpIcon from './Help center.svg';
+import setting from './Set up.svg'
 import {Icon} from '@polkadot/react-components';
+import AccountSelect from '../Menu/NodeInfo';
 
 const Wrapper = styled.div`
   background: rgba(255, 255, 255);
   display: flex;
   justify-content: space-between;
-  border:1px solid orange;
   padding-left: 1em;
   padding-right: 1em;
   align-items: center;
@@ -21,8 +23,6 @@ const Wrapper = styled.div`
     > ul{
       display: flex;
       > li{
-        //border: 1px solid red;
-        //margin:0 1.7em 0 0;
         padding: 1.4em 1em 1.4em 1em;
         &:first-child{
           margin-left: 1.7em;
@@ -41,6 +41,38 @@ const Wrapper = styled.div`
           background: rgba(0,0,0,0.3);
           width: 1px;
         }
+      }
+    }
+  }
+
+  > .right{
+    display: flex;
+    align-items: center;
+    > li{
+      margin: 1.4em 1em 1.4em 1em;
+      border:1px solid red;
+      &.switchNode{
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        padding: 0.5em 1.3em 0.5em 1.3em;
+        background: rgba(249, 249, 249);
+        border: 1px solid #EFEFEF;
+        border-radius: 18px;
+        > div {
+          margin-right: 0.5em;
+          &.circle{
+            height: 0.5em;
+            width: 0.5em;
+            border-radius: 50%;
+            background: rgba(52, 198, 154);
+          }
+        }
+      }
+      &.icon{
+        margin: 1.1em 0.6em 1.1em 0.6em;
+        display: flex;
+        align-items: center;
       }
     }
   }
@@ -67,9 +99,24 @@ function NavBar() {
           <li>开发者<Icon icon='angle-down'/></li>
         </ul>
       </div>
-      <div className="right">
-        <div className='right'></div>
-      </div>
+
+      <ul className="right">
+        <li className='switchNode'>
+          <div className='circle'/>
+          <div>Main Newwork</div>
+          <Icon icon='angle-down' size='1x'/>
+        </li>
+        <li className='icon'>
+          <img src={helpIcon} alt=""/>
+        </li>
+        <li className='icon'>
+          <img src={setting} alt=""/>
+        </li>
+        <li>
+          <AccountSelect/>
+        </li>
+      </ul>
+
     </Wrapper>
   );
 }
