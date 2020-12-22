@@ -23,6 +23,15 @@ const NavWrapper = styled.div`
         padding: 1.4em 1em 1.4em 1em;
         position: relative;
 
+        a{
+          color: rgba(0,0,0,0.4);
+
+          &:hover, &:focus{
+            color: rgba(0,0,0,0.8);
+            cursor: pointer;
+          }
+        }
+
         &:first-child{
           margin-left: 1.7em;
         }
@@ -39,19 +48,22 @@ const NavWrapper = styled.div`
           top: 4.7em;
           display: flex;
           flex-direction: column;
-          background: rgba(255,255,255,0.90);
+          background: rgba(255,255,255);
           border: 1px solid #EFEFEF;
           box-shadow: 0 4px 12px 0 rgba(63,63,63,0.12);
           border-radius: 8px;
 
-          > span{
+          > a{
             padding: 1em 4.7em 1em 1.6em;
+
+          > span{
             color: rgba(0,0,0,0.4);
 
             &:hover, &:focus{
               color: rgba(0,0,0,0.8);
               cursor: pointer;
             }
+          }
           }
         }
 

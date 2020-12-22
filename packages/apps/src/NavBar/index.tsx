@@ -32,17 +32,21 @@ function NavBar() {
             治理
             <Icon icon='angle-down'/>
             {isGovernanceOpen && <div className='selector'>
-              <span>民主权利</span>
-              <span>议会</span>
-              <span>财政</span>
-              <span>技术委员会</span>
-              <span>资产信托</span>
+              <Link to='/democracy'><span>民主权利</span></Link>
+              <Link to='/council'><span>议会</span></Link>
+              <Link to='/treasury'><span>财政</span></Link>
+              <Link to='/techcomm'><span>技术委员会</span></Link>
+              <Link to='/trustee'><span>资产信托</span></Link>
             </div>}
           </li>
-          <li>交易</li>
+          <li>
+            <Link to='/DEX'>交易</Link>
+          </li>
           <li className='linkOutBrowser'>
-            区块浏览器
-            <img src={linkOut} alt=""/>
+            <a href="https://scan-v2.chainx.org/" target='_blank'>
+              区块浏览器
+              <img src={linkOut} alt=""/>
+            </a>
           </li>
           <li className='divideLine'/>
           <li>开发者<Icon icon='angle-down'/></li>
