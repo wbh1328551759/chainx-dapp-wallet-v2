@@ -35,7 +35,6 @@ const Wrapper = styled.div`
     transform: translate(-50%, -50%);
     > .gif{
       position: relative;
-      border: 2px solid red;
       > img{
         position: fixed;
          left: 50%;
