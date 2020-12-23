@@ -20,11 +20,13 @@ const NavWrapper = styled.div`
       display: flex;
 
       > li{
-        padding: 1.4em 1em 1.4em 1em;
+
         position: relative;
 
         a{
+          display: block;
           color: rgba(0,0,0,0.4);
+          padding: 1.4em 1em 1.4em 1em;
 
           &:hover, &:focus{
             color: rgba(0,0,0,0.8);
@@ -34,6 +36,10 @@ const NavWrapper = styled.div`
 
         &:first-child{
           margin-left: 1.7em;
+        }
+
+        &.staking, &.developer, &.governance{
+          padding: 1.4em 1em 1.4em 1em;
         }
 
         > svg, img{
@@ -55,21 +61,19 @@ const NavWrapper = styled.div`
 
           > a{
             padding: 1em 4.7em 1em 1.6em;
-
-          > span{
             color: rgba(0,0,0,0.4);
-
             &:hover, &:focus{
               color: rgba(0,0,0,0.8);
               cursor: pointer;
             }
           }
-          }
         }
 
         &.linkOutBrowser{
-          display: flex;
-          align-items: start;
+          > a{
+            display: flex;
+            align-items: flex-start;
+          }
         }
 
         &.divideLine{
