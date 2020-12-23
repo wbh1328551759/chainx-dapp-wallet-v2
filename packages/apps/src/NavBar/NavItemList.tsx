@@ -17,8 +17,8 @@ function NavItemList() {
   const governanceList = useRef([
     {nodeName: '民主权利', link: '/democracy'},
     {nodeName: '议会', link: '/democracy/council'},
-    {nodeName: '财政', link: '/treasury'},
-    {nodeName: '技术委员会', link: '/techcomm'},
+    {nodeName: '财政', link: '/democracy/treasury'},
+    {nodeName: '技术委员会', link: '/democracy/techcomm'},
     {nodeName: '资产信托', link: '/democracy/trustee'}
   ]);
   const developerList = useRef([

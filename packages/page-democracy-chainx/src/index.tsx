@@ -9,12 +9,14 @@ import basicMd from './md/basic.md';
 import Execute from './Execute';
 import useDispatchCounter from './Execute/useCounter';
 import Council from '@polkadot/app-council/Overview';
+import Treasury from '@polkadot/app-treasury/Overview';
+import Techcomm from './Techcomm'
 import Overview from './Overview';
 import {useTranslation} from './translate';
 import Trustee from '../../page-trust/src/components/Block';
 import {useLocation} from 'react-router-dom';
-import {useApi, useCall} from '@polkadot/react-hooks';
-import {AccountId} from '@polkadot/types/interfaces';
+import {useApi, useCall, useMembers} from '@polkadot/react-hooks';
+import {AccountId, Hash} from '@polkadot/types/interfaces';
 import {Option} from '@polkadot/types';
 
 export {default as useCounter} from './useCounter';
@@ -30,10 +32,10 @@ const transformPrime = {
 function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const { api } = useApi();
-
   const dispatchCount = useDispatchCounter();
   const { pathname } = useLocation();
   const prime = useCall<AccountId | null>(api.query.council.prime, undefined, transformPrime) || null;
+  const { isMember, members } = useMembers();
 
   const items = useMemo(() => [
     {
@@ -50,7 +52,7 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
       text: t<string>('Treasury')
     },
     {
-      name: 'technicalCommittee',
+      name: 'techcomm',
       text: t<string>('Technical Committee')
     },
     {
@@ -78,7 +80,15 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
         <Route path={`${basePath}/trustee`}>
           <Trustee/>
         </Route>
-
+        <Route path={`${basePath}/treasury`}>
+          <Treasury
+            isMember={isMember}
+            members={members}
+          />
+        </Route>
+        <Route path={`${basePath}/techcomm`}>
+          <Techcomm/>
+        </Route>
         <Route><Overview/></Route>
       </Switch>
     </main>
