@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { HelpOverlay } from '@polkadot/react-components';
-import Tabs from '@polkadot/react-components/Tabs';
+import { Tabs } from '@polkadot/react-components-chainx';
 import { useAccounts, useApi, useFavorites, useCall } from '@polkadot/react-hooks';
 import { ValidatorInfo } from './types'
 import { isJSON } from './utils'
@@ -78,12 +78,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
     {
       name: 'nomination',
       text: t<string>('My Staking')
-    },
-    {
-      hasParams: true,
-      name: 'query',
-      text: t<string>('Validator stats')
-    },
+    }
   ], []);
 
   return (
