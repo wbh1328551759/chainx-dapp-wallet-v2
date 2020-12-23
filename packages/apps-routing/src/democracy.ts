@@ -4,7 +4,7 @@
 import type { TFunction } from 'i18next';
 import type { Route } from './types';
 
-import Component, { useCounter } from '@polkadot/app-democracy';
+import Component, { useCounter } from '../../page-democracy-chainx/src/index';
 
 export default function create (t: TFunction): Route {
   return {

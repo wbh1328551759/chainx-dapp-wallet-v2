@@ -1,5 +1,5 @@
 {
-  "name": "@polkadot/app-democracy",
+  "name": "@polkadot/app-democracy-chainx",
   "private": true,
   "version": "0.68.2-19",
   "description": "A referendum & proposal app",
@@ -11,6 +11,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@polkadot/react-components": "^0.68.2-19",
+    "@polkadot/react-components-chainx": "^0.68.2-19",
     "@polkadot/react-query": "^0.68.2-19"
   }
 }
