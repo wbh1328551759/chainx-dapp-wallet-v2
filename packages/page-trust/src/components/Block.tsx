@@ -11,8 +11,8 @@ const Wrapper = styled.div`
   padding-top: 16px;
   min-width: 1280px;
   max-width: 1440px;
-  margin-left: 80px;
-  margin-right: 80px;
+  margin-left: 60px;
+  margin-right: 60px;
 `;
 
 const Block = styled.div`

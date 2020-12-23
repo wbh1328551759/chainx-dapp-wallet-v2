@@ -7,12 +7,11 @@ import {HelpOverlay} from '@polkadot/react-components';
 import {Tabs} from '@polkadot/react-components-chainx';
 import basicMd from './md/basic.md';
 import Execute from './Execute';
-// import Council from '@polkadot/app-council';
+import Council from '@polkadot/app-council';
 import useDispatchCounter from './Execute/useCounter';
 import Overview from './Overview';
 import {useTranslation} from './translate';
 import Trustee from '../../page-trust/src/components/Block';
-import styled from 'styled-components';
 
 export {default as useCounter} from './useCounter';
 
@@ -33,9 +32,20 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
       text: t<string>('Democracy overview')
     },
     {
-      // isRoot: true,
+      name: 'council',
+      text: t<string>('Council')
+    },
+    {
+      name: 'treasury',
+      text: t<string>('Treasury')
+    },
+    {
+      name: 'technicalCommittee',
+      text: t<string>('Technical Committee')
+    },
+    {
       name: 'trustee',
-      text: t<string>('资产信托')
+      text: t<string>('Trustee')
     }
   ], [dispatchCount, t]);
 
@@ -49,13 +59,13 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
         />
       </header>
       <Switch>
-        <Route path={`${basePath}/trustee`}>
-          {/*<Execute />*/}
-          {/*<Council/>*/}
-
-            <Trustee/>
-
+        <Route>
+          <Council path={`${basePath}/council`}/>
         </Route>
+        <Route path={`${basePath}/trustee`}>
+          <Trustee/>
+        </Route>
+
         <Route><Overview/></Route>
       </Switch>
     </main>

@@ -1546,6 +1546,8 @@
   "remaining votes": "剩余可投票数",
   "Council": "议会",
   "Trustee": "资产信托",
+  "Treasury": "财政",
+  "Technical Committee": "技术委员会",
   "{{balance}} voted": "{{balance}} 投票",
   "{{blocks}} blocks": "{{blocks}} 区块",
   "{{count}} key/value pairs encoded for submission": "{{count}}为提交而编码的密钥/值对",
