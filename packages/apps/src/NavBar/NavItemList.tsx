@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useRef } from 'react';
 import chainxLogo from '@polkadot/apps/NavBar/icons/ChainX_logo.svg';
 import {Link} from 'react-router-dom';
 import {Icon} from '@polkadot/react-components';
@@ -27,7 +27,6 @@ function NavItemList() {
     {nodeName: 'RPC calls', link: '/rpc'},
     {nodeName: 'Sign and verify', link: '/signing'}
   ])
-
 
   return (
     <div className="left">
