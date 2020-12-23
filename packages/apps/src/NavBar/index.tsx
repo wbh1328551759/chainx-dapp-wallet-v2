@@ -63,7 +63,7 @@ function NavBar() {
           <img src={helpIcon} alt=""/>
         </li>
         <li className='icon'>
-          <img src={setting} alt=""/>
+          <Link to='/settings'><img src={setting} alt=""/></Link>
         </li>
         <li className='accountSelector'>
           <AccountSelect/>

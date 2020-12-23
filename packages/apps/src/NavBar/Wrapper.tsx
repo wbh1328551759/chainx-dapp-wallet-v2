@@ -126,6 +126,11 @@ const NavWrapper = styled.div`
         display: flex;
         align-items: center;
 
+        a{
+          display: flex;
+          align-items: center;
+        }
+
         &:hover, &:focus{
           cursor: pointer;
         }

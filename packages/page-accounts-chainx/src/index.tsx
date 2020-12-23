@@ -46,11 +46,11 @@ function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Pr
     <Main className='accounts--App'>
 
       <header>
-        <Tabs
-          basePath={basePath}
-          hidden={(!isIpfs) ? undefined : HIDDEN_ACC}
-          items={itemsRef.current}
-        />
+        {/*<Tabs*/}
+        {/*  basePath={basePath}*/}
+        {/*  hidden={(!isIpfs) ? undefined : HIDDEN_ACC}*/}
+        {/*  items={itemsRef.current}*/}
+        {/*/>*/}
       </header>
       <Switch>
         <Route>
