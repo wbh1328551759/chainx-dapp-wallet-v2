@@ -9,12 +9,13 @@ type NodeInfo = {
 interface Props{
   nodeList: NodeInfo[];
 }
+
 function Selector({nodeList}: Props): React.ReactElement<Props>{
   return (
     <div className='selector'>
       {
-        nodeList.map(node =>
-          <Link to={node.link}><span>{node.nodeName}</span></Link>
+        nodeList.map((node: NodeInfo, index: number) =>
+          <Link to={node.link} key={index}><span>{node.nodeName}</span></Link>
         )
       }
     </div>

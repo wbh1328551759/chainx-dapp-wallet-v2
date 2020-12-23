@@ -60,7 +60,7 @@ const NavWrapper = styled.div`
           border-radius: 8px;
 
           > a{
-            padding: 1em 4.7em 1em 1.6em;
+            padding: 1em 2.2em 1em 1.6em;
             color: rgba(0,0,0,0.4);
             &:hover, &:focus{
               color: rgba(0,0,0,0.8);
