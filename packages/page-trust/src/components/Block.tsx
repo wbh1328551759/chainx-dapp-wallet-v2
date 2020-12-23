@@ -1,10 +1,19 @@
-
-import { Table } from '@polkadot/react-components';
-import React, { useRef } from 'react';
+import {Table} from '@polkadot/react-components';
+import React, {useRef} from 'react';
 import WithdrawList from './WithdrawList';
 import styled from 'styled-components';
-import { useApi, useCall, useLoadingDelay } from '@polkadot/react-hooks';
-import { useTranslation } from '@polkadot/app-accounts/translate';
+import {useApi, useCall, useLoadingDelay} from '@polkadot/react-hooks';
+import {useTranslation} from '@polkadot/app-accounts/translate';
+
+const Wrapper = styled.div`
+  height: 100%;
+  flex: 1 1 0;
+  padding-top: 16px;
+  min-width: 1280px;
+  max-width: 1440px;
+  margin-left: 80px;
+  margin-right: 80px;
+`;
 
 const Block = styled.div`
     border: 1px solid rgb(220, 224, 226);
@@ -40,7 +49,7 @@ interface withdraw {
 
 export default function (): React.ReactElement {
   const isLoading = useLoadingDelay();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const api = useApi();
   const headerRef = useRef([
     [t('BlockHeight'), 'start', 1],
@@ -61,19 +70,20 @@ export default function (): React.ReactElement {
       ...value
     });
   });
-  console.log(withdrawList)
+  console.log(withdrawList);
   return (
-    <Block>
-      <p>{t('Withdrawal list')}</p>
-      <Content>
-        <Table
-          empty={t<string>('No matches found')}
-          header={headerRef.current}
-        >
-          {
-            isLoading ? undefined : withdrawList?.map((
-              { addr, applicant, assetId, balance, ext, height, id, state },
-              index): React.ReactNode => (
+    <Wrapper>
+      <Block>
+        <p>{t('Withdrawal list')}</p>
+        <Content>
+          <Table
+            empty={t<string>('No matches found')}
+            header={headerRef.current}
+          >
+            {
+              isLoading ? undefined : withdrawList?.map((
+                {addr, applicant, assetId, balance, ext, height, id, state},
+                index): React.ReactNode => (
                 <WithdrawList
                   addr={addr}
                   applicant={applicant}
@@ -83,11 +93,12 @@ export default function (): React.ReactElement {
                   height={height}
                   id={id}
                   key={id}
-                  state={state} />
+                  state={state}/>
               ))
-          }
-        </Table>
-      </Content>
-    </Block>
+            }
+          </Table>
+        </Content>
+      </Block>
+    </Wrapper>
   );
 }

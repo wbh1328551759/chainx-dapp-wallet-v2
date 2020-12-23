@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import chainxLogo from '@polkadot/apps/NavBar/icons/ChainX_logo.svg';
 import {Link} from 'react-router-dom';
 import {Icon} from '@polkadot/react-components';
@@ -10,23 +10,23 @@ function NavItemList() {
   const [isStakingOpen, toggleStaking] = useToggle();
   const [isGovernanceOpen, toggleGovernance] = useToggle();
   const [isDeveloperOpen, toggleDeveloper] = useToggle();
-  const stakingList = [
+  const stakingList = useRef([
     {nodeName: '质押概览', link: '/staking'},
     {nodeName: '我的质押', link: '/staking/nomination'},
-  ];
-  const governanceList = [
+  ]);
+  const governanceList = useRef([
     {nodeName: '民主权利', link: '/democracy'},
     {nodeName: '议会', link: '/council'},
     {nodeName: '财政', link: '/treasury'},
     {nodeName: '技术委员会', link: '/techcomm'},
-    {nodeName: '资产信托', link: '/trustee'}
-  ];
-  const developerList = [
+    {nodeName: '资产信托', link: '/democracy/trustee'}
+  ]);
+  const developerList = useRef([
     {nodeName: 'Chain state', link: '/chainstate'},
     {nodeName: 'Extrinsics', link: '/extrinsics'},
     {nodeName: 'RPC calls', link: '/rpc'},
     {nodeName: 'Sign and verify', link: '/signing'}
-  ]
+  ])
 
 
   return (
@@ -39,12 +39,12 @@ function NavItemList() {
         <li className='staking' onClick={toggleStaking}>
           投票抵押
           <Icon icon='angle-down' size='1x'/>
-          {isStakingOpen && <Selector nodeList={stakingList}/>}
+          {isStakingOpen && <Selector nodeList={stakingList.current}/>}
         </li>
         <li className='governance' onClick={toggleGovernance}>
           治理
           <Icon icon='angle-down'/>
-          {isGovernanceOpen && <Selector nodeList={governanceList}/>}
+          {isGovernanceOpen && <Selector nodeList={governanceList.current}/>}
         </li>
         <li>
           <Link to='/DEX'>交易</Link>
@@ -59,7 +59,7 @@ function NavItemList() {
         <li className='developer' onClick={toggleDeveloper}>
           开发者
           <Icon icon='angle-down'/>
-          {isDeveloperOpen && <Selector nodeList={developerList}/>}
+          {isDeveloperOpen && <Selector nodeList={developerList.current}/>}
         </li>
       </ul>
     </div>

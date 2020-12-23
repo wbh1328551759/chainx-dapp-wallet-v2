@@ -1544,6 +1544,8 @@
   "The selling price should be higher than": "卖出价格应高于",
   "The purchase price needs to be lower than": "买入价格需低于",
   "remaining votes": "剩余可投票数",
+  "Council": "议会",
+  "Trustee": "资产信托",
   "{{balance}} voted": "{{balance}} 投票",
   "{{blocks}} blocks": "{{blocks}} 区块",
   "{{count}} key/value pairs encoded for submission": "{{count}}为提交而编码的密钥/值对",
