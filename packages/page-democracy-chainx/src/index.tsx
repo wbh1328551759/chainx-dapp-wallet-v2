@@ -168,7 +168,7 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
         <Route path={`${basePath}/democracy/dispatch`}>
           <Execute/>
         </Route>
-        <Route path={`${basePath}/democracy/`}>
+        <Route>
           <Overview/>
         </Route>
       </Switch>
