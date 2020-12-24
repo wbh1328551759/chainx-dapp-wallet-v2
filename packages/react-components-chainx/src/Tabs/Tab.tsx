@@ -19,16 +19,17 @@ interface Props extends TabItem {
   isSequence?: boolean;
   num: number;
 }
+
 const Wrapper = styled.div`
   display: flex;
-`
+`;
 
 function Tab({subItems, basePath, className = '', count, hasParams, index, isExact, isRoot, isSequence, name, num, text}: Props): React.ReactElement<Props> {
   const to = isRoot
     ? basePath
     : `${basePath}/${name}`;
 
-  const location = useLocation()
+  const location = useLocation();
   // only do exact matching when not the fallback (first position tab),
   // params are problematic for dynamic hidden such as app-accounts
   const tabIsExact = isExact || !hasParams || (!isSequence && index === 0);
@@ -56,8 +57,11 @@ function Tab({subItems, basePath, className = '', count, hasParams, index, isExa
           />
         )}
       </NavLink>
-      {subItems && subItems.length > 0 && location.pathname.includes(to)   &&
-      <SubTabs name={name} subItems={subItems} basePath={basePath}/>
+      {
+        subItems &&
+        subItems.length > 0 &&
+        location.pathname.includes(to) &&
+        <SubTabs name={name} subItems={subItems} basePath={basePath}/>
       }
     </Wrapper>
   );
