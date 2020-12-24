@@ -70,7 +70,6 @@ export default function (): React.ReactElement {
       ...value
     });
   });
-  console.log(withdrawList);
   return (
     <Wrapper>
       <Block>

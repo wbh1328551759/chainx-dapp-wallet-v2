@@ -3,6 +3,12 @@
 
 import React from 'react';
 
+export interface subItem {
+  isSubRoot?: boolean;
+  subName: string;
+  subText: string
+}
+
 export interface TabItem {
   alias?: string;
   count?: number;
@@ -11,4 +17,5 @@ export interface TabItem {
   isRoot?: boolean;
   name: string;
   text: React.ReactNode;
+  subItems: subItem[];
 }

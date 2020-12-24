@@ -15,7 +15,7 @@ function NavItemList() {
     {nodeName: '我的质押', link: '/staking/nomination'},
   ]);
   const governanceList = useRef([
-    {nodeName: '民主权利', link: '/democracy'},
+    {nodeName: '民主权利', link: '/democracy/democracy'},
     {nodeName: '议会', link: '/democracy/council'},
     {nodeName: '财政', link: '/democracy/treasury'},
     {nodeName: '技术委员会', link: '/democracy/techcomm'},
@@ -49,7 +49,7 @@ function NavItemList() {
           <Link to='/DEX'>交易</Link>
         </li>
         <li className='linkOutBrowser'>
-          <a href="https://scan-v2.chainx.org/" target='_blank'>
+          <a href="https://scan.chainx.org/" target='_blank'>
             区块浏览器
             <img src={linkOut} alt=""/>
           </a>

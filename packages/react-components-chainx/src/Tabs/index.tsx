@@ -1,13 +1,11 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ThemeProps } from '../types';
-import type { TabItem } from './types';
-
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import type {ThemeProps} from '../types';
+import type {TabItem} from './types';
+import React, {useEffect} from 'react';
+import {useLocation} from 'react-router-dom';
 import styled from 'styled-components';
-
 import Tab from './Tab';
 
 interface Props {
@@ -18,28 +16,28 @@ interface Props {
   isSequence?: boolean;
 }
 
-function Tabs ({ basePath, className = '', hidden, isSequence, items }: Props): React.ReactElement<Props> {
+function Tabs({basePath, className = '', hidden, isSequence, items}: Props): React.ReactElement<Props> {
   const location = useLocation();
 
   // redirect on invalid tabs
   useEffect((): void => {
     if (location.pathname !== basePath) {
       // Has the form /staking/query/<something>
-      const [,, section] = location.pathname.split('/');
-      const alias = items.find(({ alias }) => alias === section);
+      const [, , section] = location.pathname.split('/');
+      const alias = items.find(({alias}) => alias === section);
 
       if (alias) {
         window.location.hash = alias.isRoot
           ? basePath
           : `${basePath}/${alias.name}`;
-      } else if (hidden && (hidden.includes(section) || !items.some(({ isRoot, name }) => !isRoot && name === section))) {
+      } else if (hidden && (hidden.includes(section) || !items.some(({isRoot, name}) => !isRoot && name === section))) {
         window.location.hash = basePath;
       }
     }
   }, [basePath, hidden, items, location]);
 
   const filtered = hidden
-    ? items.filter(({ name }) => !hidden.includes(name))
+    ? items.filter(({name}) => !hidden.includes(name))
     : items;
 
   return (

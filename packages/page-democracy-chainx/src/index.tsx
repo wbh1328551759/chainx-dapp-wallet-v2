@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/app-democracy authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {Route, Switch} from 'react-router';
 import {HelpOverlay} from '@polkadot/react-components';
 import {Tabs} from '@polkadot/react-components-chainx';
@@ -39,9 +39,19 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
 
   const items = useMemo(() => [
     {
-      isRoot: true,
-      name: 'overview',
-      text: t<string>('Democracy overview')
+      name: 'democracy',
+      text: t<string>('Democracy'),
+      subItems: [
+        {
+          isSubRoot: true,
+          subName: 'democracy',
+          subText: t<string>('Democracy overview')
+        },
+        {
+          subName: 'dispatch',
+          subText: t<string>('Dispatch')
+        }
+      ]
     },
     {
       name: 'council',
@@ -89,7 +99,12 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
         <Route path={`${basePath}/techcomm`}>
           <Techcomm/>
         </Route>
-        <Route><Overview/></Route>
+        <Route path={`${basePath}/democracy/dispatch`}>
+          <Execute/>
+        </Route>
+        <Route path={`${basePath}/democracy/`}>
+          <Overview/>
+        </Route>
       </Switch>
     </main>
   );
