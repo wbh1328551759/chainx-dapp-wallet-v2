@@ -7,9 +7,9 @@ import {useToggle} from '@polkadot/react-hooks';
 import Selector from '@polkadot/apps/NavBar/Selector';
 
 function NavItemList() {
-  const [isStakingOpen, toggleStaking] = useToggle();
-  const [isGovernanceOpen, toggleGovernance] = useToggle();
-  const [isDeveloperOpen, toggleDeveloper] = useToggle();
+  const [isStakingOpen, toggleStaking, setToggleStaking] = useToggle();
+  const [isGovernanceOpen, toggleGovernance, setToggleGovernance] = useToggle();
+  const [isDeveloperOpen, toggleDeveloper, setToggleDeveloper] = useToggle();
   const stakingList = useRef([
     {nodeName: '质押概览', link: '/staking'},
     {nodeName: '我的质押', link: '/staking/nomination'},
@@ -35,15 +35,15 @@ function NavItemList() {
         <li>
           <Link to={'/accounts'}>资产</Link>
         </li>
-        <li className='staking' onClick={toggleStaking}>
+        <li className='staking' onClick={toggleStaking} >
           投票抵押
           <Icon icon='angle-down' size='1x'/>
-          {isStakingOpen && <Selector nodeList={stakingList.current}/>}
+          {isStakingOpen && <Selector nodeList={stakingList.current} onMouseLeave={() => setToggleStaking(false)}/>}
         </li>
         <li className='governance' onClick={toggleGovernance}>
           治理
           <Icon icon='angle-down'/>
-          {isGovernanceOpen && <Selector nodeList={governanceList.current}/>}
+          {isGovernanceOpen && <Selector nodeList={governanceList.current}  onMouseLeave={() => setToggleGovernance(false)}/>}
         </li>
         <li>
           <Link to='/DEX'>交易</Link>
@@ -58,7 +58,7 @@ function NavItemList() {
         <li className='developer' onClick={toggleDeveloper}>
           开发者
           <Icon icon='angle-down'/>
-          {isDeveloperOpen && <Selector nodeList={developerList.current}/>}
+          {isDeveloperOpen && <Selector nodeList={developerList.current} onMouseLeave={() => setToggleDeveloper(false)}/>}
         </li>
       </ul>
     </div>

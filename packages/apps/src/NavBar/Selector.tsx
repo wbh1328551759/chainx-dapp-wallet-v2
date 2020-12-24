@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 import {Link} from 'react-router-dom';
 
 type NodeInfo = {
@@ -6,13 +6,13 @@ type NodeInfo = {
   link: string;
 }
 
-interface Props{
+interface Props extends React.DOMAttributes<any>{
   nodeList: NodeInfo[];
 }
 
-function Selector({nodeList}: Props): React.ReactElement<Props>{
+function Selector({nodeList, onMouseLeave}: Props): React.ReactElement<Props>{
   return (
-    <div className='selector'>
+    <div className='selector' onMouseLeave={onMouseLeave}>
       {
         nodeList.map((node: NodeInfo, index: number) =>
           <Link to={node.link} key={index}><span>{node.nodeName}</span></Link>
