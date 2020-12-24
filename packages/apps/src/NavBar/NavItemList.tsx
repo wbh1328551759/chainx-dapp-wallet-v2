@@ -11,7 +11,7 @@ function NavItemList() {
   const [isGovernanceOpen, toggleGovernance, setToggleGovernance] = useToggle();
   const [isDeveloperOpen, toggleDeveloper, setToggleDeveloper] = useToggle();
   const stakingList = useRef([
-    {nodeName: '质押概览', link: '/staking'},
+    {nodeName: '质押概览', link: '/staking/staking'},
     {nodeName: '我的质押', link: '/staking/nomination'},
   ]);
   const governanceList = useRef([

@@ -71,8 +71,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
 
   const items = useMemo(() => [
     {
-      isRoot: true,
-      name: 'overview',
+      name: 'staking',
       text: t<string>('Staking overview')
     },
     {
@@ -114,17 +113,18 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
         <Route path={[`${basePath}/query/:value`, `${basePath}/query`]}>
           <Query />
         </Route>
+        <Route>
+          <Overview
+            favorites={favorites}
+            hasQueries={false}
+            next={[]}
+            stakingOverview={stakingOverview}
+            targets={targets}
+            toggleFavorite={toggleFavorite}
+          />
+        </Route>
       </Switch>
 
-      <Overview
-        className={basePath === pathname ? '' : 'staking--hidden'}
-        favorites={favorites}
-        hasQueries={false}
-        next={[]}
-        stakingOverview={stakingOverview}
-        targets={targets}
-        toggleFavorite={toggleFavorite}
-      />
     </main>
   );
 }
