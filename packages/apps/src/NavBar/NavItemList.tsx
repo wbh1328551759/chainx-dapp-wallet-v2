@@ -1,31 +1,34 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import chainxLogo from '@polkadot/apps/NavBar/icons/ChainX_logo.svg';
 import {Link} from 'react-router-dom';
 import {Icon} from '@polkadot/react-components';
 import linkOut from '@polkadot/apps/NavBar/icons/Link out.svg';
 import {useToggle} from '@polkadot/react-hooks';
 import Selector from '@polkadot/apps/NavBar/Selector';
+import {useTranslation} from '@polkadot/apps/translate';
+
 
 function NavItemList() {
+  const { t } = useTranslation();
   const [isStakingOpen, toggleStaking, setToggleStaking] = useToggle();
   const [isGovernanceOpen, toggleGovernance, setToggleGovernance] = useToggle();
   const [isDeveloperOpen, toggleDeveloper, setToggleDeveloper] = useToggle();
-  const stakingList = useRef([
-    {nodeName: '质押概览', link: '/staking/staking'},
-    {nodeName: '我的质押', link: '/staking/nomination'},
+  const stakingList = ([
+    {nodeName: t<string>('Stak. over.'), link: '/staking/staking'},
+    {nodeName: t<string>('My Staking'), link: '/staking/nomination'},
   ]);
-  const governanceList = useRef([
-    {nodeName: '民主权利', link: '/democracy/democracy'},
-    {nodeName: '议会', link: '/democracy/council'},
-    {nodeName: '财政', link: '/democracy/treasury'},
-    {nodeName: '技术委员会', link: '/democracy/techcomm'},
-    {nodeName: '资产信托', link: '/democracy/trustee'}
+  const governanceList = ([
+    {nodeName: t<string>('Democracy'), link: '/democracy/democracy'},
+    {nodeName: t<string>('Council'), link: '/democracy/council'},
+    {nodeName: t<string>('Treasury'), link: '/democracy/treasury'},
+    {nodeName: t<string>('Tech. comm.'), link: '/democracy/techcomm'},
+    {nodeName: t<string>('Trustee'), link: '/democracy/trustee'}
   ]);
-  const developerList = useRef([
-    {nodeName: 'Chain state', link: '/chainstate/chainstate'},
-    {nodeName: 'Extrinsics', link: '/chainstate/extrinsics'},
-    {nodeName: 'RPC calls', link: '/chainstate/rpc'},
-    {nodeName: 'Sign and verify', link: '/chainstate/signing'}
+  const developerList = ([
+    {nodeName: t<string>('Chain state'), link: '/chainstate/chainstate'},
+    {nodeName: t<string>('Extrinsics'), link: '/chainstate/extrinsics'},
+    {nodeName: t<string>('RPC calls'), link: '/chainstate/rpc'},
+    {nodeName: t<string>('Sign and verify'), link: '/chainstate/signing'}
   ])
 
   return (
@@ -33,32 +36,32 @@ function NavItemList() {
       <img src={chainxLogo} alt=""/>
       <ul>
         <li>
-          <Link to={'/accounts'}>资产</Link>
+          <Link to={'/accounts'}>{t('Assets')}</Link>
         </li>
         <li className='staking' onClick={toggleStaking} >
-          投票抵押
+          {t('Staking')}
           <Icon icon='angle-down' size='1x'/>
-          {isStakingOpen && <Selector nodeList={stakingList.current} onMouseLeave={() => setToggleStaking(false)}/>}
+          {isStakingOpen && <Selector nodeList={stakingList} onMouseLeave={() => setToggleStaking(false)}/>}
         </li>
         <li className='governance' onClick={toggleGovernance}>
-          治理
+          {t('Manage')}
           <Icon icon='angle-down'/>
-          {isGovernanceOpen && <Selector nodeList={governanceList.current}  onMouseLeave={() => setToggleGovernance(false)}/>}
+          {isGovernanceOpen && <Selector nodeList={governanceList}  onMouseLeave={() => setToggleGovernance(false)}/>}
         </li>
         <li>
-          <Link to='/DEX'>交易</Link>
+          <Link to='/DEX'>{t('DEX')}</Link>
         </li>
         <li className='linkOutBrowser'>
           <a href="https://scan.chainx.org/" target='_blank'>
-            区块浏览器
+            {t('ChainScan')}
             <img src={linkOut} alt=""/>
           </a>
         </li>
         <li className='divideLine'/>
         <li className='developer' onClick={toggleDeveloper}>
-          开发者
+          {t('Developer')}
           <Icon icon='angle-down'/>
-          {isDeveloperOpen && <Selector nodeList={developerList.current} onMouseLeave={() => setToggleDeveloper(false)}/>}
+          {isDeveloperOpen && <Selector nodeList={developerList} onMouseLeave={() => setToggleDeveloper(false)}/>}
         </li>
       </ul>
     </div>
