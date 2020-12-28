@@ -22,18 +22,24 @@ const Wrapper = styled.div`
       justify-content: space-around;
 
       li {
-        opacity: 0.32;
         font-size: 13px;
         color: #000000;
         letter-spacing: 0.2px;
         line-height: 18px;
         cursor: pointer;
+        color: rgba(0,0,0,0.4);
+        font-weight: 600;
+
         &:not(:first-of-type) {
           margin-left: 24px;
         }
+
+        &:hover, &.active{
+          color: rgba(0,0,0,0.8);
+        }
+
         &.active {
-          opacity: 0.72;
-          font-weight: 500;
+          border-bottom: 3px solid #f6c94a;
         }
       }
     }
