@@ -24,17 +24,50 @@ function Selection ({ basePath, onAdd }: Props): React.ReactElement<Props> {
 
   const itemsRef = useRef([
     {
-      isRoot: true,
-      name: 'modules',
-      text: t<string>('Storage')
+      name: 'chainstate',
+      text: t<string>('Chain state'),
+      subItems: [
+        {
+          isSubRoot: true,
+          subName: 'chainstate',
+          subText: t<string>('Storage')
+        },
+        {
+          subName: 'constants',
+          subText: t<string>('Constants')
+        },
+        {
+          subName: 'raw',
+          subText: t<string>('Raw storage')
+        },
+      ]
     },
     {
-      name: 'constants',
-      text: t<string>('Constants')
+      name: 'extrinsics',
+      text: t<string>('Extrinsics'),
     },
     {
-      name: 'raw',
-      text: t<string>('Raw storage')
+      name: 'rpc',
+      text: t<string>('RPC calls')
+    },
+    {
+      name: 'signing',
+      text: t<string>('Sign and verify'),
+      subItems: [
+        {
+          isSubRoot: true,
+          subName: 'signing',
+          subText: t<string>('Sign message')
+        },
+        {
+          subName: 'constants',
+          subText: t<string>('Verify signature')
+        },
+        {
+          subName: 'raw',
+          subText: t<string>('Hash data')
+        },
+      ]
     }
   ]);
 

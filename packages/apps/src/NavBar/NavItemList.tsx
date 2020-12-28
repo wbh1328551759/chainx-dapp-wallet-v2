@@ -22,10 +22,10 @@ function NavItemList() {
     {nodeName: '资产信托', link: '/democracy/trustee'}
   ]);
   const developerList = useRef([
-    {nodeName: 'Chain state', link: '/chainstate'},
-    {nodeName: 'Extrinsics', link: '/extrinsics'},
-    {nodeName: 'RPC calls', link: '/rpc'},
-    {nodeName: 'Sign and verify', link: '/signing'}
+    {nodeName: 'Chain state', link: '/chainstate/chainstate'},
+    {nodeName: 'Extrinsics', link: '/chainstate/extrinsics'},
+    {nodeName: 'RPC calls', link: '/chainstate/rpc'},
+    {nodeName: 'Sign and verify', link: '/chainstate/signing'}
   ])
 
   return (
