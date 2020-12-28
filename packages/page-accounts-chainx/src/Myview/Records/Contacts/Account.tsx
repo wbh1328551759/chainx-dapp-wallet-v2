@@ -7,19 +7,9 @@ import IdentityIcon from '@polkadot/react-components/IdentityIcon';
 import BaseIdentityIcon from '@polkadot/react-identicon';
 import styled from 'styled-components';
 import { Icon } from '@polkadot/react-components'
+import {AccountWrapper} from './Wrapper'
 
 const ICON_SIZE = 36;
-
-const AccountWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  > svg{
-    margin-right: 2em;
-    cursor: pointer;
-  }
-`
 
 function Account({buttons, children, className, defaultName, fullLength = false, isContract = false, isDisabled, isEditableName, isInline, isValid: propsIsValid, overlay, value, withTags = false}: Props): React.ReactElement<Props> | null {
   const {accountIndex, isNull, name, onSaveName, onSaveTags, setName, setTags, tags} = useAccountInfo(value ? value.toString() : null, isContract);
