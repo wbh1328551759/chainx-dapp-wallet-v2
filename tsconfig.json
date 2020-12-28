@@ -80,6 +80,12 @@
       "@polkadot/app-democracy/*": [
         "packages/page-democracy/src/*"
       ],
+      "@polkadot/app-democracy-chainx": [
+        "packages/page-democracy-chainx/src"
+      ],
+      "@polkadot/app-democracy-chainx/*": [
+        "packages/page-democracy-chainx/src/*"
+      ],
       "@polkadot/app-extrinsics": [
         "packages/page-extrinsics/src"
       ],
@@ -157,6 +163,12 @@
       ],
       "@polkadot/app-storage/*": [
         "packages/page-storage/src/*"
+      ],
+      "@polkadot/app-storage-chainx": [
+        "packages/page-storage-chainx/src"
+      ],
+      "@polkadot/app-storage-chainx/*": [
+        "packages/page-storage-chainx/src/*"
       ],
       "@polkadot/app-sudo": [
         "packages/page-sudo/src"
