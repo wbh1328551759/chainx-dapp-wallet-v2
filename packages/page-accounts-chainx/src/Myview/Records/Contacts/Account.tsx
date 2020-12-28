@@ -5,43 +5,60 @@ import {DEFAULT_ADDR, Props} from '@polkadot/react-components/AddressRow';
 import {useAccountInfo} from '@polkadot/react-hooks';
 import IdentityIcon from '@polkadot/react-components/IdentityIcon';
 import BaseIdentityIcon from '@polkadot/react-identicon';
+import styled from 'styled-components';
+import { Icon } from '@polkadot/react-components'
 
-const ICON_SIZE = 32
+const ICON_SIZE = 36;
 
-function Account ({ buttons, children, className, defaultName, fullLength = false, isContract = false, isDisabled, isEditableName, isInline, isValid: propsIsValid, overlay, value, withTags = false }: Props): React.ReactElement<Props> | null {
-  const { accountIndex, isNull, name, onSaveName, onSaveTags, setName, setTags, tags } = useAccountInfo(value ? value.toString() : null, isContract);
+const AccountWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > svg{
+    margin-right: 2em;
+    cursor: pointer;
+  }
+`
+
+function Account({buttons, children, className, defaultName, fullLength = false, isContract = false, isDisabled, isEditableName, isInline, isValid: propsIsValid, overlay, value, withTags = false}: Props): React.ReactElement<Props> | null {
+  const {accountIndex, isNull, name, onSaveName, onSaveTags, setName, setTags, tags} = useAccountInfo(value ? value.toString() : null, isContract);
   const isValid = !isNull && (propsIsValid || value || accountIndex);
-  const Icon = value ? IdentityIcon : BaseIdentityIcon;
+  const InfoIcon = value ? IdentityIcon : BaseIdentityIcon;
   const address = value && isValid ? value : DEFAULT_ADDR;
 
 
   return (
-    <Row
-      address={fullLength ? address : toShortAddress(address)}
-      buttons={buttons}
-      className={className}
-      defaultName={defaultName}
-      icon={
-        <Icon
-          size={ICON_SIZE}
-          value={value ? value.toString() : null}
-        />
-      }
-      isDisabled={isDisabled}
-      isEditableName={isEditableName}
-      isEditableTags
-      isInline={isInline}
-      name={name}
-      onChangeName={setName}
-      onChangeTags={setTags}
-      onSaveName={onSaveName}
-      onSaveTags={onSaveTags}
-      tags={withTags && tags}
-    >
-      {children}
-      {overlay}
-    </Row>
-  )
+    <AccountWrapper>
+      <Row
+        address={fullLength ? address : toShortAddress(address)}
+        buttons={buttons}
+        className={className}
+        defaultName={defaultName}
+        icon={
+          <InfoIcon
+            size={ICON_SIZE}
+            value={value ? value.toString() : null}
+          />
+        }
+        isDisabled={isDisabled}
+        isEditableName={isEditableName}
+        isEditableTags
+        isInline={isInline}
+        name={name}
+        onChangeName={setName}
+        onChangeTags={setTags}
+        onSaveName={onSaveName}
+        onSaveTags={onSaveTags}
+        tags={withTags && tags}
+      >
+        {children}
+        {overlay}
+      </Row>
+
+      <Icon icon='ellipsis-h'/>
+    </AccountWrapper>
+  );
 }
 
-export default Account
+export default Account;
