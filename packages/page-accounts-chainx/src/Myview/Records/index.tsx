@@ -1,10 +1,10 @@
-
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import TransferRecords from './TransferRecords';
 import { useTranslation } from '@polkadot/app-accounts/translate';
-import WithdrawalList from '@polkadot/app-accounts-chainx/Myview/Records/CrossChainRecord/WithdrawalList';
 import Records from './CrossChainRecord'
+import Contacts from './Contacts';
+
 const Wrapper = styled.section`
   border: 1px solid #dce0e2;
   border-radius: 10px;
