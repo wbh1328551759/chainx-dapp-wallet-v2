@@ -2235,6 +2235,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@polkadot/app-settings-chainx@workspace:packages/page-settings-chainx":
+  version: 0.0.0-use.local
+  resolution: "@polkadot/app-settings-chainx@workspace:packages/page-settings-chainx"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    "@polkadot/apps-config": ^0.68.2-19
+    "@polkadot/react-components": ^0.68.2-19
+    "@polkadot/react-components-chainx": ^0.68.2-19
+    "@polkadot/react-query": ^0.68.2-19
+    query-string: ^6.13.7
+  languageName: unknown
+  linkType: soft
+
 "@polkadot/app-settings@workspace:packages/page-settings":
   version: 0.0.0-use.local
   resolution: "@polkadot/app-settings@workspace:packages/page-settings"

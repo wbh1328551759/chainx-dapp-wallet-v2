@@ -140,6 +140,12 @@
       "@polkadot/app-settings/*": [
         "packages/page-settings/src/*"
       ],
+      "@polkadot/app-settings-chainx": [
+        "packages/page-settings-chainx/src"
+      ],
+      "@polkadot/app-settings-chainx/*": [
+        "packages/page-settings-chainx/src/*"
+      ],
       "@polkadot/app-signing": [
         "packages/page-signing/src"
       ],

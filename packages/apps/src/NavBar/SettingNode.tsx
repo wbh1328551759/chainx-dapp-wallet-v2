@@ -24,7 +24,7 @@ function SettingNode() {
           </a>
         </li>
         <li className='icon'>
-          <Link to='/settings'><img src={setting} alt=""/></Link>
+          <Link to='/settings/settings'><img src={setting} alt=""/></Link>
         </li>
         <li className='accountSelector'>
           <AccountSelect/>
