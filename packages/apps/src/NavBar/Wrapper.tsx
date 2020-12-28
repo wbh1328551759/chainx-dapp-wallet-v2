@@ -108,6 +108,11 @@ const NavWrapper = styled.div`
         border: 1px solid #EFEFEF;
         border-radius: 18px;
 
+        .netInfo{
+          text-transform: capitalize;
+          min-width: 5.5rem;
+        }
+
         > div {
           margin-right: 0.5em;
 
