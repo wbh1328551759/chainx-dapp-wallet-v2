@@ -1,18 +1,17 @@
-import React, { useContext } from 'react';
-
+import React  from 'react';
 import Empty from '../../Empty';
 import Wrapper from './Wrapper';
 import Line from './Line';
 import { useTranslation } from '@polkadot/app-accounts/translate';
-import useDeposit from '@polkadot/app-accounts-chainx/useDeposit';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import {Deposit} from '@polkadot/app-accounts-chainx/useRecords';
 
+interface Props{
+  deposits: Deposit[];
+}
 
-export default function (): React.ReactElement {
+export default function ({deposits}: Props): React.ReactElement<Props> {
 
   const { t } = useTranslation();
-  const { currentAccount } = useContext(AccountContext);
-  const deposits = useDeposit(currentAccount);
 
   const depositsElement = (
     <ul>

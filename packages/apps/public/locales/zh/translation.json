@@ -1558,6 +1558,8 @@
   "ChainScan": "区块浏览器",
   "Tech. comm.": "技术委员会",
   "Stak. over.": "质押概览",
+  "Records": "跨链记录",
+  "Contacts": "联系人",
   "{{balance}} voted": "{{balance}} 投票",
   "{{blocks}} blocks": "{{blocks}} 区块",
   "{{count}} key/value pairs encoded for submission": "{{count}}为提交而编码的密钥/值对",

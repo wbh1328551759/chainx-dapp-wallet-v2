@@ -1,11 +1,10 @@
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import TransferRecords from './TransferRecords';
 import { useTranslation } from '@polkadot/app-accounts/translate';
-import DepositList from '@polkadot/app-accounts-chainx/Myview/Records/CrossChainRecord/DepositList';
 import WithdrawalList from '@polkadot/app-accounts-chainx/Myview/Records/CrossChainRecord/WithdrawalList';
-
+import Records from './CrossChainRecord'
 const Wrapper = styled.section`
   border: 1px solid #dce0e2;
   border-radius: 10px;
@@ -53,6 +52,7 @@ export default function (): React.ReactElement {
   const [recordType, setRecordType] = useState(1);
   const { t } = useTranslation();
 
+
   return (
     <Wrapper>
       <Wrappers>
@@ -67,19 +67,19 @@ export default function (): React.ReactElement {
             className={recordType === 2 ? 'active' : ''}
             onClick={() => setRecordType(2)}
           >
-            {t('Recharge')}
+            {t('Records')}
           </li>
           <li
             className={recordType === 3 ? 'active' : ''}
             onClick={() => setRecordType(3)}
           >
-            {t('Withdrawal')}
+            {t('Contacts')}
           </li>
         </ul>
         <main>
           {recordType === 1 ? <TransferRecords /> : null}
-          {recordType === 2 ? <DepositList /> : null}
-          {recordType === 3 ? <WithdrawalList /> : null}
+          {recordType === 2 ? <Records /> : null}
+          {recordType === 3 ? <Contacts /> : null}
         </main>
       </Wrappers>
     </Wrapper>

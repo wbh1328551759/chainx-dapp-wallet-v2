@@ -1,9 +1,11 @@
 
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
 import DepositList from './DepositList';
 import WithdrawalList from './WithdrawalList';
 import { useTranslation } from '@polkadot/app-accounts/translate';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import useRecords from '@polkadot/app-accounts-chainx/useRecords';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -11,10 +13,13 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   & > header {
-    padding: 12px 16px 0;
+    padding: 12px 16px;
     border-bottom: 1px solid #eee;
+    margin-bottom: 0;
+
     ul {
       display: flex;
+      justify-content: space-around;
 
       li {
         opacity: 0.32;
@@ -40,9 +45,11 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNameProps> {
+export default function (): React.ReactElement {
   const [option, setOption] = useState<'deposit' | 'withdraw'>('deposit');
   const { t } = useTranslation();
+  const { currentAccount } = useContext(AccountContext);
+  const records = useRecords(currentAccount);
 
   return (
     <Wrapper>
@@ -70,8 +77,8 @@ export default function ({ nodeName }: NodeNameProps): React.ReactElement<NodeNa
       </header>
       <main>
 
-        {option === 'deposit' ? <DepositList /> : null}
-        {option === 'withdraw' ? <WithdrawalList /> : null}
+        {option === 'deposit' ? <DepositList deposits={records.Deposits}/> : null}
+        {option === 'withdraw' ? <WithdrawalList withdrawals={records.Withdrawals}/> : null}
 
       </main>
     </Wrapper>
