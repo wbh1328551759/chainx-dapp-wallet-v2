@@ -3,13 +3,10 @@ import {Forget, Icon, Menu, Popup, StatusContext} from '@polkadot/react-componen
 import {createMenuGroup} from '@polkadot/app-accounts-chainx/util';
 import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
 import {useAccountInfo, useAccounts, useApi, useCall, useToggle} from '@polkadot/react-hooks';
-import IdentityIcon from '@polkadot/react-components/IdentityIcon';
-import BaseIdentityIcon from '@polkadot/react-identicon';
-import {DEFAULT_ADDR} from '@polkadot/react-components/AddressRow';
 import {ThemeDef} from '@polkadot/react-components/types';
 import {ThemeContext} from 'styled-components';
 import {SubmittableExtrinsic} from '@polkadot/api/types';
-import {RecoveryConfig} from '@polkadot/types/interfaces';
+import {ProxyDefinition, RecoveryConfig} from '@polkadot/types/interfaces';
 import useMultisigApprovals from '@polkadot/app-accounts-chainx/Accounts/useMultisigApprovals';
 import useXbtcAssets from '@polkadot/app-accounts-chainx/Myview/useXbtcAssets';
 import {useLocalStorage} from '@polkadot/react-hooks-chainx';
@@ -32,21 +29,32 @@ import MultisigApprove from '@polkadot/app-accounts-chainx/modals/MultisigApprov
 import RecoverAccount from '@polkadot/app-accounts-chainx/modals/RecoverAccount';
 import RecoverSetup from '@polkadot/app-accounts-chainx/modals/RecoverSetup';
 import UndelegateModal from '@polkadot/app-accounts-chainx/modals/Undelegate';
-import {AccountWrapper} from '@polkadot/app-accounts-chainx/Myview/Records/Contacts/Wrapper';
+import BN from 'bn.js';
+import {KeyringAddress} from '@polkadot/ui-keyring/types'
+import {Delegation} from '@polkadot/app-accounts-chainx/types';
 
+interface DemocracyUnlockable {
+  democracyUnlockTx: SubmittableExtrinsic<'promise'> | null;
+  ids: BN[];
+}
+
+interface Props{
+  account: KeyringAddress;
+  propsIsValid?: boolean;
+  isContract?: boolean;
+  delegation?: Delegation;
+  proxy?: [ProxyDefinition[], BN];
+}
 
 const transformRecovery = {
   transform: (opt: Option<RecoveryConfig>) => opt.unwrapOr(null)
 };
 
-function Popup() {
+function AccountActions({account: {address, meta}, isContract, delegation, proxy}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const api = useApi();
   const {isApiReady} = useApi()
-  const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig, isProxied}, accountIndex, isNull, name, onSaveName, onSaveTags, setName, setTags, identity, tags} = useAccountInfo(address ? address.toString() : null, isContract);
-  const isValid = !isNull && (propsIsValid || address || accountIndex);
-  const InfoIcon = address ? IdentityIcon : BaseIdentityIcon;
-  const newAddress = address && isValid ? address : DEFAULT_ADDR;
+  const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig },identity} = useAccountInfo(address ? address.toString() : null, isContract);
   const {theme} = useContext<ThemeDef>(ThemeContext);
   const [isSettingsOpen, toggleSettings] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
@@ -462,4 +470,5 @@ function Popup() {
   );
 }
 
-export default Popup;
+
+export default AccountActions;
