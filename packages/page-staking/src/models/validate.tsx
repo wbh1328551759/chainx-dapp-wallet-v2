@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/app-society authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import { InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
 import { Available } from '@polkadot/react-query';
@@ -11,10 +11,11 @@ interface Props {
   onClose: () => void;
   validatorId: string | undefined;
   onSuccess?: TxCallback;
-  account: string
+  account: string;
+  setN: Dispatch<number>;
 }
 
-function Validate({ onClose, validatorId, onSuccess, account}: Props): React.ReactElement<Props> {
+function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const [accountId, setAccount] = useState<string | null | undefined>();
@@ -77,7 +78,10 @@ function Validate({ onClose, validatorId, onSuccess, account}: Props): React.Rea
           onStart={onClose}
           params={[]}
           tx='xStaking.validate'
-          onSuccess={onSuccess}
+          onSuccess={() => {
+            setN(Math.random()),
+            onSuccess
+          }}
         />
       </Modal.Actions>
     </Modal>

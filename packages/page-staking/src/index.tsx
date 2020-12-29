@@ -3,7 +3,7 @@
 
 import type { AppProps as Props, ThemeProps } from '@polkadot/react-components/types';
 
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Route, Switch } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -56,10 +56,20 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
   const { pathname } = useLocation();
   const [favorites, toggleFavorite] = useFavorites(STORE_FAVS_BASE);
   const { currentAccount } = useContext(AccountContext);
-  const validators = useCall<string>(api.rpc.xstaking.getValidators);
+  const [n, setN] = useState<number>(0);
+  const [validators, setvalidators] = useState<string>();
+  // const validators = useCall<string>(api.rpc.xstaking.getValidators);
+  useEffect(()=>{
+    async function getNowHeighted() {
+      const val = await api.rpc.xstaking.getValidators()
+      const validator = JSON.stringify(val)
+      setvalidators(validator)
+    }
+    getNowHeighted()
+  },[n])
+
   let validatorInfoList: ValidatorInfo[] = JSON.parse(isJSON(validators) ? validators : '[]');
   validatorInfoList = getSortList(validatorInfoList)
-
   const targets = validatorInfoList;
 
   const stakingOverview = {
@@ -101,6 +111,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
         targets={targets}
         nominators={targets.nominators}
         stakingOverview={stakingOverview}
+        setN={setN}
       />
       <Switch>
         <Route path={`${basePath}/nomination`}>
