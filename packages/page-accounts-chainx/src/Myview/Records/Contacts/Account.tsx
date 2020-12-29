@@ -1,11 +1,11 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, { useCallback, useContext, useState} from 'react';
 import Row from '@polkadot/react-components/Row';
 import {toShortAddress} from '@polkadot/react-components/util';
 import {DEFAULT_ADDR, Props} from '@polkadot/react-components/AddressRow';
 import {useAccountInfo, useApi, useCall, useToggle} from '@polkadot/react-hooks';
 import IdentityIcon from '@polkadot/react-components/IdentityIcon';
 import BaseIdentityIcon from '@polkadot/react-identicon';
-import {Button, ChainLock, Forget, Icon, Menu, Popup, StatusContext} from '@polkadot/react-components';
+import {Forget, Icon, Menu, Popup, StatusContext} from '@polkadot/react-components';
 import {AccountWrapper} from './Wrapper'
 import {createMenuGroup} from '@polkadot/app-accounts-chainx/util';
 import {ThemeDef} from '@polkadot/react-components/types';
@@ -15,7 +15,6 @@ import {SubmittableExtrinsic} from '@polkadot/api/types';
 import BN from 'bn.js';
 import {getLedger} from '@polkadot/react-api';
 import {KeyringAddress} from '@polkadot/ui-keyring/types';
-import {AssetsInfo} from '@polkadot/react-hooks/types';
 import {Delegation} from '@polkadot/app-accounts-chainx/types';
 import {ProxyDefinition, RecoveryConfig} from '@polkadot/types/interfaces';
 import useMultisigApprovals from '@polkadot/app-accounts-chainx/Accounts/useMultisigApprovals';
@@ -29,12 +28,17 @@ import IdentityMain from '@polkadot/app-accounts-chainx/modals/IdentityMain';
 import IdentitySub from '@polkadot/app-accounts-chainx/modals/IdentitySub';
 import ChangePass from '@polkadot/app-accounts-chainx/modals/ChangePass';
 import Transfer from '@polkadot/app-accounts-chainx/modals/Transfer';
-import Deposite from '@polkadot/app-accounts-chainx/modals/deposite';
+import Deposite from '../../../modals/deposite/deposite';
 import ProxyOverview from '@polkadot/app-accounts-chainx/modals/ProxyOverview';
 import MultisigApprove from '@polkadot/app-accounts-chainx/modals/MultisigApprove';
 import RecoverAccount from '@polkadot/app-accounts-chainx/modals/RecoverAccount';
 import RecoverSetup from '@polkadot/app-accounts-chainx/modals/RecoverSetup';
 import UndelegateModal from '@polkadot/app-accounts-chainx/modals/Undelegate';
+import useXbtcAssets from '@polkadot/app-accounts-chainx/Myview/useXbtcAssets';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
+import keyring from '@polkadot/ui-keyring';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 const ICON_SIZE = 36;
 
@@ -45,11 +49,9 @@ interface DemocracyUnlockable {
 
 interface AccountProps extends Props{
   account: KeyringAddress;
-  assetsInfo: AssetsInfo;
   className?: string;
   delegation?: Delegation;
   proxy?: [ProxyDefinition[], BN];
-
 }
 
 const transformRecovery = {
@@ -83,10 +85,13 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
   const [isDelegateOpen, toggleDelegate] = useToggle();
   const [isUndelegateOpen, toggleUndelegate] = useToggle();
   const [isProxyOverviewOpen, toggleProxyOverview] = useToggle();
-  const [n, setN] = useState<number>(0)
-
   const recoveryInfo = useCall<RecoveryConfig | null>(api.api.query.recovery?.recoverable, [address], transformRecovery);
   const multiInfos = useMultisigApprovals(address);
+  const [n, setN] = useState<number>(0)
+  const assetInfo = useXbtcAssets(address, n)
+  const [,setValue] = useLocalStorage('currentAccount')
+  const {changeAccount} = useContext(AccountContext)
+
 
   const _clearDemocracyLocks = useCallback(
     () => democracyUnlockTx && queueExtrinsic({
@@ -115,6 +120,31 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
         });
     },
     [meta]
+  );
+
+  const _onForget = useCallback(
+    (): void => {
+      if (!address) {
+        return;
+      }
+
+      const status: Partial<ActionStatus> = {
+        account: address,
+        action: 'forget'
+      };
+
+      try {
+        keyring.forgetAccount(address);
+        setValue('')
+        changeAccount('')
+        status.status = 'success';
+        status.message = t<string>('account forgotten');
+      } catch (error) {
+        status.status = 'error';
+        status.message = (error as Error).message;
+      }
+    },
+    [address, t]
   );
   return (
     <AccountWrapper>
@@ -167,33 +197,33 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
           onClose={toggleDerive}
         />
       )}
-      {/*{*/}
-      {/*  isWithdraw && (*/}
-      {/*    <Withdraw*/}
-      {/*      account={address}*/}
-      {/*      btc={assetsInfo.Usable}*/}
-      {/*      onClose={toggleWithdraw}*/}
-      {/*      setN={setN}*/}
-      {/*    />*/}
-
-      {/*  )*/}
-      {/*}*/}
+      {
+        isWithdraw && (
+          <Withdraw
+            account={address}
+            btc={assetInfo.Usable}
+            onClose={toggleWithdraw}
+            setN={setN}
+          />
+        )
+      }
       {
         isXbtcTransfer && (
           <XbtcTransfer
             onClose={toggleXbtcTransfer}
+            senderId={address}
+            setN={setN}
           />
         )
-
       }
-      {/*{isForgetOpen && (*/}
-      {/*  <Forget*/}
-      {/*    address={address}*/}
-      {/*    key='modal-forget-account'*/}
-      {/*    onClose={toggleForget}*/}
-      {/*    onForget={_onForget}*/}
-      {/*  />*/}
-      {/*)}*/}
+      {isForgetOpen && (
+        <Forget
+          address={address}
+          key='modal-forget-account'
+          onClose={toggleForget}
+          onForget={_onForget}
+        />
+      )}
       {isIdentityMainOpen && (
         <IdentityMain
           address={address}
@@ -216,16 +246,15 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
         />
       )}
 
-      {/*{*/}
-      {/*  isDepositeOpen && (*/}
-      {/*    <*/}
-      {/*      Deposite*/}
-      {/*      address={address}*/}
-      {/*      onClose={toggleDeposite}*/}
-      {/*    />*/}
-      {/*  )*/}
+      {
+        isDepositeOpen && (
+          <Deposite
+            address={address}
+            onClose={toggleDeposite}
+          />
+        )
 
-      {/*}*/}
+      }
       {isProxyOverviewOpen && (
         <ProxyOverview
           key='modal-proxy-overview'

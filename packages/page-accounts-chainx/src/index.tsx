@@ -33,7 +33,7 @@ function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Pr
   const { t } = useTranslation();
   const { isIpfs } = useIpfs();
   const {currentAccount} = useContext(AccountContext)
-
+  const {hasAccounts} = useAccounts()
   const itemsRef = useRef([
     {
       isRoot: true,
@@ -54,7 +54,7 @@ function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Pr
       </header>
       <Switch>
         <Route>
-          {currentAccount ? <Myview
+          {currentAccount || hasAccounts ? <Myview
             basePath={basePath}
             onStatusChange={onStatusChange}
           />: <NoAccount onStatusChange={onStatusChange}/>}
