@@ -106,7 +106,8 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
         />
       </header>
       <Summary
-        isVisible={pathname === basePath}
+        // isVisible={pathname === `${basePath}/${basePath}`}
+        isVisible
         next={[]}
         targets={targets}
         nominators={targets.nominators}
