@@ -13,7 +13,6 @@ import Withdraw from '../../../modals/withdraw';
 import {useTranslation} from '@polkadot/app-accounts/translate';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import Button from '@polkadot/react-components-chainx/Button';
-import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 import useXbtcAssets from '@polkadot/app-accounts-chainx/Myview/useXbtcAssets';
 
 
