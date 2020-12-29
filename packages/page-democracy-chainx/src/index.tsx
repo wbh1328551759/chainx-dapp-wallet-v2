@@ -102,7 +102,7 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
     },
     {
       name: 'techcomm',
-      text: t<string>('Technical Committee'),
+      text: t<string>('Technical committee'),
       subItems: [
         {
           isSubRoot: true,
