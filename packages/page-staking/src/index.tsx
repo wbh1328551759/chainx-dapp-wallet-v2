@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { HelpOverlay } from '@polkadot/react-components';
-import Tabs from '@polkadot/react-components/Tabs';
+import { Tabs } from '@polkadot/react-components-chainx';
 import { useAccounts, useApi, useFavorites, useCall } from '@polkadot/react-hooks';
 import { ValidatorInfo } from './types'
 import { isJSON } from './utils'
@@ -81,19 +81,13 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
 
   const items = useMemo(() => [
     {
-      isRoot: true,
-      name: 'overview',
+      name: 'staking',
       text: t<string>('Staking overview')
     },
     {
       name: 'nomination',
       text: t<string>('My Staking')
-    },
-    {
-      hasParams: true,
-      name: 'query',
-      text: t<string>('Validator stats')
-    },
+    }
   ], []);
 
   return (
@@ -130,17 +124,18 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
         <Route path={[`${basePath}/query/:value`, `${basePath}/query`]}>
           <Query />
         </Route>
+        <Route>
+          <Overview
+            favorites={favorites}
+            hasQueries={false}
+            next={[]}
+            stakingOverview={stakingOverview}
+            targets={targets}
+            toggleFavorite={toggleFavorite}
+          />
+        </Route>
       </Switch>
 
-      <Overview
-        className={basePath === pathname ? '' : 'staking--hidden'}
-        favorites={favorites}
-        hasQueries={false}
-        next={[]}
-        stakingOverview={stakingOverview}
-        targets={targets}
-        toggleFavorite={toggleFavorite}
-      />
     </main>
   );
 }

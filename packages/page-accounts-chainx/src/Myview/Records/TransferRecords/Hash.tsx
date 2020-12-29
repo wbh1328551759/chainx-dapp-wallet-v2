@@ -9,7 +9,7 @@ export default function ({ hash = '', length = 5 }) {
   if (hash.length > 2 * length) {
     result = hash.substring(0, 5) + '...' + hash.substring(hash.length - 5)
   }
-  const url = `https://scan-v2.chainx.org/extrinsics/${hash}`
+  const url = `https://scan.chainx.org/extrinsics/${hash}`
 
   return (
     <LinkWrapper href={url} target="_blank">

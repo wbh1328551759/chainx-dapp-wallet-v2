@@ -87,9 +87,9 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       const bgInsufficientStake = new BigNumber(toPrecision(currentDividend.insufficientStake, 8))
       const bgAllInterests = bgOwnInterests.toNumber() + bgOtherInterests.toNumber();
 
-      setAllInterests(+bgAllInterests.toFixed(4));
-      setUsableInterests(+bgOwnInterests.toNumber().toFixed(4));
-      setInsufficientStake(+bgInsufficientStake.toNumber().toFixed(4))
+      setAllInterests(+bgAllInterests.toFixed(8));
+      setUsableInterests(+bgOwnInterests.toNumber().toFixed(8));
+      setInsufficientStake(+bgInsufficientStake.toNumber().toFixed(8))
     }
 
     // getDividend('5TqDq71XesuCt8YFrXz2MqF1QqpJKYrg5LtCte3KWB7oyEBB');
@@ -113,7 +113,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       <Footer>
         <div>
           <span>{t('Mining interest')}</span>
-          <span>  {allInterests ? allInterests : 0} PCX</span>
+          <span>  {usableInterests ? usableInterests : 0} PCX</span>
         </div>
         <div>
           <FooterWithdrawal allInterests={allInterests} usableInterests={usableInterests} insufficientStake={insufficientStake} setN={setN}/>

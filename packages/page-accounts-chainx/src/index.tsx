@@ -3,20 +3,17 @@
 
 import { AppProps as Props } from '@polkadot/react-components/types';
 
-import React, {useContext, useRef} from 'react';
+import React, {useContext} from 'react';
 import { Route, Switch } from 'react-router';
-import {useAccounts, useApi, useIpfs} from '@polkadot/react-hooks';
-import { Tabs } from '@polkadot/react-components';
-import { useTranslation } from './translate';
+import {useAccounts, useApi} from '@polkadot/react-hooks';
 import useCounter from './useCounter';
 import Myview from './Myview';
 import styled from 'styled-components';
 import NoAccount from './Myview/NoAccount';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 
 export { useCounter };
-
-const HIDDEN_ACC = ['vanity'];
 
 const Main = styled.main`
   > header{
@@ -30,31 +27,23 @@ const Main = styled.main`
 `;
 
 function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const { isIpfs } = useIpfs();
   const {currentAccount} = useContext(AccountContext)
-
-  const itemsRef = useRef([
-    {
-      isRoot: true,
-      name: 'overview',
-      text: t('My accounts')
-    }
-  ]);
+  const {hasAccounts} = useAccounts()
+  const {isApiReady} = useApi()
 
   return (
     <Main className='accounts--App'>
 
       <header>
-        <Tabs
-          basePath={basePath}
-          hidden={(!isIpfs) ? undefined : HIDDEN_ACC}
-          items={itemsRef.current}
-        />
+        {/*<Tabs*/}
+        {/*  basePath={basePath}*/}
+        {/*  hidden={(!isIpfs) ? undefined : HIDDEN_ACC}*/}
+        {/*  items={itemsRef.current}*/}
+        {/*/>*/}
       </header>
       <Switch>
         <Route>
-          {currentAccount ? <Myview
+          {currentAccount || hasAccounts ? <Myview
             basePath={basePath}
             onStatusChange={onStatusChange}
           />: <NoAccount onStatusChange={onStatusChange}/>}
