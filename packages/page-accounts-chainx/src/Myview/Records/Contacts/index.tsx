@@ -12,7 +12,6 @@ function Contacts(){
   const [isCreateOpen, toggleCreate] = useToggle();
   const {queueAction} = useContext(StatusContext);
   const sortedAccounts = sortAccounts(allAccounts, []);
-
   return (
     <Wrapper>
       {isCreateOpen && (

@@ -1,12 +1,12 @@
-import React, { useCallback, useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Row from '@polkadot/react-components/Row';
 import {toShortAddress} from '@polkadot/react-components/util';
 import {DEFAULT_ADDR, Props} from '@polkadot/react-components/AddressRow';
-import {useAccountInfo, useApi, useCall, useToggle} from '@polkadot/react-hooks';
+import {useAccountInfo, useAccounts, useApi, useCall, useToggle} from '@polkadot/react-hooks';
 import IdentityIcon from '@polkadot/react-components/IdentityIcon';
 import BaseIdentityIcon from '@polkadot/react-identicon';
 import {Forget, Icon, Menu, Popup, StatusContext} from '@polkadot/react-components';
-import {AccountWrapper} from './Wrapper'
+import {AccountWrapper} from './Wrapper';
 import {createMenuGroup} from '@polkadot/app-accounts-chainx/util';
 import {ThemeDef} from '@polkadot/react-components/types';
 import {ThemeContext} from 'styled-components';
@@ -39,6 +39,7 @@ import {ActionStatus} from '@polkadot/react-components/Status/types';
 import keyring from '@polkadot/ui-keyring';
 import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import all from '@polkadot/react-components/InputRpc/rpcs';
 
 const ICON_SIZE = 36;
 
@@ -47,7 +48,7 @@ interface DemocracyUnlockable {
   ids: BN[];
 }
 
-interface AccountProps extends Props{
+interface AccountProps extends Props {
   account: KeyringAddress;
   className?: string;
   delegation?: Delegation;
@@ -61,6 +62,7 @@ const transformRecovery = {
 function Account({account: {address, meta}, proxy, delegation, buttons, children, className, defaultName, fullLength = false, isContract = false, isDisabled, isEditableName, isInline, isValid: propsIsValid, overlay, withTags = false}: AccountProps): React.ReactElement<AccountProps> | null {
   const {t} = useTranslation();
   const api = useApi();
+  const {isApiReady} = useApi()
   const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig, isProxied}, accountIndex, isNull, name, onSaveName, onSaveTags, setName, setTags, identity, tags} = useAccountInfo(address ? address.toString() : null, isContract);
   const isValid = !isNull && (propsIsValid || address || accountIndex);
   const InfoIcon = address ? IdentityIcon : BaseIdentityIcon;
@@ -87,11 +89,12 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
   const [isProxyOverviewOpen, toggleProxyOverview] = useToggle();
   const recoveryInfo = useCall<RecoveryConfig | null>(api.api.query.recovery?.recoverable, [address], transformRecovery);
   const multiInfos = useMultisigApprovals(address);
-  const [n, setN] = useState<number>(0)
-  const assetInfo = useXbtcAssets(address, n)
-  const [,setValue] = useLocalStorage('currentAccount')
-  const {changeAccount} = useContext(AccountContext)
-
+  const [n, setN] = useState<number>(0);
+  const assetInfo = useXbtcAssets(address, n);
+  const [, setValue] = useLocalStorage('currentAccount');
+  const {changeAccount} = useContext(AccountContext);
+  const {allAccounts, hasAccounts} = useAccounts();
+  const {currentAccount} = useContext(AccountContext)
 
   const _clearDemocracyLocks = useCallback(
     () => democracyUnlockTx && queueExtrinsic({
@@ -122,30 +125,82 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
     [meta]
   );
 
-  const _onForget = useCallback(
-    (): void => {
-      if (!address) {
-        return;
-      }
+  // const _onForget = useCallback(
+  //   (): void => {
+  //     if (!address) {
+  //       return;
+  //     }
+  //
+  //     const status: Partial<ActionStatus> = {
+  //       account: address,
+  //       action: 'forget'
+  //     };
+  //
+  //     try {
+  //       keyring.forgetAccount(address);
+  //       if(hasAccounts){
+  //         const lastAccount = allAccounts[allAccounts.length - 1]
+  //         setValue(lastAccount)
+  //         changeAccount(lastAccount)
+  //         console.log(11111)
+  //       }else{
+  //         setValue('')
+  //         changeAccount('')
+  //       }
+  //       status.status = 'success';
+  //       status.message = t<string>('account forgotten');
+  //     } catch (error) {
+  //       status.status = 'error';
+  //       status.message = (error as Error).message;
+  //     }
+  //   },
+  //   [address, t]
+  // );
+  const _onForget = function () {
+    if (!address) {
+      return;
+    }
 
-      const status: Partial<ActionStatus> = {
-        account: address,
-        action: 'forget'
-      };
+    const status: Partial<ActionStatus> = {
+      account: address,
+      action: 'forget'
+    };
 
-      try {
-        keyring.forgetAccount(address);
+    try {
+      keyring.forgetAccount(address);
+      status.status = 'success';
+      status.message = t<string>('account forgotten');
+      const lastAccount = allAccounts[allAccounts.length - 1];
+
+      if(lastAccount === address){
         setValue('')
         changeAccount('')
-        status.status = 'success';
-        status.message = t<string>('account forgotten');
-      } catch (error) {
-        status.status = 'error';
-        status.message = (error as Error).message;
+      }else{
+        setValue(lastAccount);
+        changeAccount(lastAccount);
       }
-    },
-    [address, t]
-  );
+      toggleForget()
+    } catch (error) {
+      status.status = 'error';
+      status.message = (error as Error).message;
+    }
+  };
+
+  useEffect(() => {
+    if(hasAccounts && !currentAccount){
+      const lastAccount = allAccounts[allAccounts.length - 1];
+      setValue(lastAccount);
+      changeAccount(lastAccount);
+    }
+  },[currentAccount, allAccounts])
+
+  useEffect(() => {
+    if(isApiReady && !hasAccounts){
+      setValue('')
+      changeAccount('')
+    }
+  },[hasAccounts])
+
   return (
     <AccountWrapper>
       <Row
