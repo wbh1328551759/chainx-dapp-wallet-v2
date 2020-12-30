@@ -6,7 +6,7 @@ import {Wrapper} from './Wrapper'
 import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
 import {sortAccounts} from '@polkadot/app-accounts-chainx/util';
 
-function Contacts(){
+function AllAccounts(){
   const isLoading = useLoadingDelay();
   const { allAccounts, hasAccounts } = useAccounts();
   const [isCreateOpen, toggleCreate] = useToggle();
@@ -35,4 +35,4 @@ function Contacts(){
   )
 }
 
-export default Contacts
+export default AllAccounts

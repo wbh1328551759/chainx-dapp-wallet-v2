@@ -24,6 +24,9 @@ const ChainStatus = styled.div`
 
   > .canvas{
     margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   > .details{
     display: flex;
