@@ -75,17 +75,17 @@ export default function (): React.ReactElement {
           >
             {t('Records')}
           </li>
-          <li
-            className={recordType === 3 ? 'active' : ''}
-            onClick={() => setRecordType(3)}
-          >
-            {t('Accounts')}
-          </li>
+          {/*<li*/}
+          {/*  className={recordType === 3 ? 'active' : ''}*/}
+          {/*  onClick={() => setRecordType(3)}*/}
+          {/*>*/}
+          {/*  {t('Accounts')}*/}
+          {/*</li>*/}
         </ul>
         <main>
           {recordType === 1 ? <TransferRecords /> : null}
           {recordType === 2 ? <Records /> : null}
-          {recordType === 3 ? <AllAccounts /> : null}
+          {/*{recordType === 3 ? <AllAccounts /> : null}*/}
         </main>
       </Wrappers>
     </Wrapper>
