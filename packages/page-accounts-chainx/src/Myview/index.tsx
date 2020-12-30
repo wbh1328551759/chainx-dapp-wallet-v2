@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   position: relative;
   div.left {
     flex: 1;
+    width: 70%;
   }
 
   div.right {

@@ -35,7 +35,7 @@ function NavItemList() {
     <div className="left">
       <img src={chainxLogo} alt=""/>
       <ul>
-        <li>
+        <li className='assets'>
           <Link to={'/accounts'}>{t('Assets')}</Link>
         </li>
         <li className='staking' onClick={toggleStaking} >
@@ -48,7 +48,7 @@ function NavItemList() {
           <Icon icon='angle-down'/>
           {isGovernanceOpen && <Selector nodeList={governanceList}  onMouseLeave={() => setToggleGovernance(false)}/>}
         </li>
-        <li>
+        <li className='dex'>
           <Link to='/DEX'>{t('DEX')}</Link>
         </li>
         <li className='linkOutBrowser'>
