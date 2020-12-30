@@ -113,7 +113,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       <Footer>
         <div>
           <span>{t('Mining interest')}</span>
-          <span>  {usableInterests ? usableInterests : 0} PCX</span>
+          <span>  {usableInterests ? usableInterests.toFixed(8) : 0} PCX</span>
         </div>
         <div>
           <FooterWithdrawal allInterests={allInterests} usableInterests={usableInterests} insufficientStake={insufficientStake} setN={setN}/>
