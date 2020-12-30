@@ -296,75 +296,76 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           text
           vertical
         >
-          {createMenuGroup([
+          {/*{createMenuGroup([*/}
 
-            (
-              <Menu.Item
-                key='xbtc recharge'
-                onClick={toggleDeposite}
-              >
-                {t('XBTC recharge')}
-              </Menu.Item>
+          {/*  (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='xbtc recharge'*/}
+          {/*      onClick={toggleDeposite}*/}
+          {/*    >*/}
+          {/*      {t('XBTC recharge')}*/}
+          {/*    </Menu.Item>*/}
 
-            ),
-            (
-              <Menu.Item
-                key='xbtc withdraw'
-                onClick={toggleWithdraw}
-              >
-                {t('XBTC withdrawals')}
-              </Menu.Item>
-            ),
-            (
-              <Menu.Item
-                key='xbtc transfer'
-                onClick={toggleXbtcTransfer}
-              >
-                {t('XBTC Transfer')}
-              </Menu.Item>
-            ),
-            api.api.tx.identity?.setIdentity && (
-              <Menu.Item
-                key='identityMain'
-                onClick={toggleIdentityMain}
-              >
-                {t('Set on-chain identity')}
-              </Menu.Item>
-            ),
-            api.api.tx.identity?.setSubs && identity?.display && (
-              <Menu.Item
-                key='identitySub'
-                onClick={toggleIdentitySub}
-              >
-                {t('Set on-chain sub-identities')}
-              </Menu.Item>
-            ),
-            api.api.tx.democracy?.unlock && democracyUnlockTx && (
-              <Menu.Item
-                key='clearDemocracy'
-                onClick={_clearDemocracyLocks}
-              >
-                {t('Clear expired democracy locks')}
-              </Menu.Item>
-            ),
-            api.api.tx.vesting?.vest && vestingVestTx && (
-              <Menu.Item
-                key='vestingVest'
-                onClick={_vestingVest}
-              >
-                {t('Unlock vested amount')}
-              </Menu.Item>
-            )
-          ])}
+          {/*  ),*/}
+          {/*  (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='xbtc withdraw'*/}
+          {/*      onClick={toggleWithdraw}*/}
+          {/*    >*/}
+          {/*      {t('XBTC withdrawals')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='xbtc transfer'*/}
+          {/*      onClick={toggleXbtcTransfer}*/}
+          {/*    >*/}
+          {/*      {t('XBTC Transfer')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  api.api.tx.identity?.setIdentity && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='identityMain'*/}
+          {/*      onClick={toggleIdentityMain}*/}
+          {/*    >*/}
+          {/*      {t('Set on-chain identity')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  api.api.tx.identity?.setSubs && identity?.display && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='identitySub'*/}
+          {/*      onClick={toggleIdentitySub}*/}
+          {/*    >*/}
+          {/*      {t('Set on-chain sub-identities')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  api.api.tx.democracy?.unlock && democracyUnlockTx && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='clearDemocracy'*/}
+          {/*      onClick={_clearDemocracyLocks}*/}
+          {/*    >*/}
+          {/*      {t('Clear expired democracy locks')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  api.api.tx.vesting?.vest && vestingVestTx && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='vestingVest'*/}
+          {/*      onClick={_vestingVest}*/}
+          {/*    >*/}
+          {/*      {t('Unlock vested amount')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  )*/}
+          {/*])}*/}
           {createMenuGroup([
-            !(isExternal || isHardware || isInjected || isMultisig) && (
-              <Menu.Item
-                key='deriveAccount'
-                onClick={toggleDerive}
-              >
-                {t('Derive account via derivation path')}
-              </Menu.Item>
-            ),
+            //通过链上账户派生路径
+            // !(isExternal || isHardware || isInjected || isMultisig) && (
+            //   <Menu.Item
+            //     key='deriveAccount'
+            //     onClick={toggleDerive}
+            //   >
+            //     {t('Derive account via derivation path')}
+            //   </Menu.Item>
+            // ),
             isHardware && (
               <Menu.Item
                 key='showHwAddress'
@@ -398,66 +399,75 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
               >
                 {t('Forget this account')}
               </Menu.Item>
-            )
-          ])}
-          {api.api.tx.recovery?.createRecovery && createMenuGroup([
-            !recoveryInfo && (
-              <Menu.Item
-                key='makeRecoverable'
-                onClick={toggleRecoverSetup}
-              >
-                {t('Make recoverable')}
-              </Menu.Item>
             ),
-            <Menu.Item
-              key='initRecovery'
-              onClick={toggleRecoverAccount}
-            >
-              {t('Initiate recovery for another')}
-            </Menu.Item>
+            (api.api.query.democracy?.votingOf && !delegation?.accountDelegated && (
+              <Menu.Item
+                key='delegate'
+                onClick={toggleDelegate}
+              >
+                {t('Delegate democracy votes')}
+              </Menu.Item>
+            ))
           ])}
-          {api.api.tx.multisig?.asMulti && isMultisig && createMenuGroup([
-            <Menu.Item
-              disabled={!multiInfos || !multiInfos.length}
-              key='multisigApprovals'
-              onClick={toggleMultisig}
-            >
-              {t('Multisig approvals')}
-            </Menu.Item>
-          ])}
-          {api.api.query.democracy?.votingOf && delegation?.accountDelegated && createMenuGroup([
-            <Menu.Item
-              key='changeDelegate'
-              onClick={toggleDelegate}
-            >
-              {t('Change democracy delegation')}
-            </Menu.Item>,
-            <Menu.Item
-              key='undelegate'
-              onClick={toggleUndelegate}
-            >
-              {t('Undelegate')}
-            </Menu.Item>
-          ])}
-          {api.api.query.democracy?.votingOf && !delegation?.accountDelegated && createMenuGroup([
-            <Menu.Item
-              key='delegate'
-              onClick={toggleDelegate}
-            >
-              {t('Delegate democracy votes')}
-            </Menu.Item>
-          ])}
-          {api.api.query.proxy?.proxies && createMenuGroup([
-            <Menu.Item
-              key='proxy-overview'
-              onClick={toggleProxyOverview}
-            >
-              {proxy?.[0].length
-                ? t('Manage proxies')
-                : t('Add proxy')
-              }
-            </Menu.Item>
-          ])}
+
+          {/*{api.api.tx.recovery?.createRecovery && createMenuGroup([*/}
+          {/*  !recoveryInfo && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='makeRecoverable'*/}
+          {/*      onClick={toggleRecoverSetup}*/}
+          {/*    >*/}
+          {/*      {t('Make recoverable')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  <Menu.Item*/}
+          {/*    key='initRecovery'*/}
+          {/*    onClick={toggleRecoverAccount}*/}
+          {/*  >*/}
+          {/*    {t('Initiate recovery for another')}*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
+          {/*{api.api.tx.multisig?.asMulti && isMultisig && createMenuGroup([*/}
+          {/*  <Menu.Item*/}
+          {/*    disabled={!multiInfos || !multiInfos.length}*/}
+          {/*    key='multisigApprovals'*/}
+          {/*    onClick={toggleMultisig}*/}
+          {/*  >*/}
+          {/*    {t('Multisig approvals')}*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
+          {/*{api.api.query.democracy?.votingOf && delegation?.accountDelegated && createMenuGroup([*/}
+          {/*  <Menu.Item*/}
+          {/*    key='changeDelegate'*/}
+          {/*    onClick={toggleDelegate}*/}
+          {/*  >*/}
+          {/*    {t('Change democracy delegation')}*/}
+          {/*  </Menu.Item>,*/}
+          {/*  <Menu.Item*/}
+          {/*    key='undelegate'*/}
+          {/*    onClick={toggleUndelegate}*/}
+          {/*  >*/}
+          {/*    {t('Undelegate')}*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
+          {/*{api.api.query.democracy?.votingOf && !delegation?.accountDelegated && createMenuGroup([*/}
+          {/*  <Menu.Item*/}
+          {/*    key='delegate'*/}
+          {/*    onClick={toggleDelegate}*/}
+          {/*  >*/}
+          {/*    {t('Delegate democracy votes')}*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
+          {/*{api.api.query.proxy?.proxies && createMenuGroup([*/}
+          {/*  <Menu.Item*/}
+          {/*    key='proxy-overview'*/}
+          {/*    onClick={toggleProxyOverview}*/}
+          {/*  >*/}
+          {/*    {proxy?.[0].length*/}
+          {/*      ? t('Manage proxies')*/}
+          {/*      : t('Add proxy')*/}
+          {/*    }*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
           {/*<ChainLock*/}
           {/*  className='accounts--network-toggle'*/}
           {/*  genesisHash={genesisHash}*/}
