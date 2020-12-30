@@ -76,7 +76,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
                   // onChange={setAccount}
                   labelExtra={
                     <span>
-                      {t('total interests')}： {allInterests ? allInterests : toPrecision(0, 4)}
+                      {t('total interests')}： {allInterests ? allInterests.toFixed(8) : toPrecision(0,8)}
                       {/*<LabelHelp help={'111111'}/>*/}
                     </span>
                   }
@@ -86,9 +86,9 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
               </Modal.Column>
               <Modal.Column>
                 <span>
-                  {t('available interest')} : {usableInterests ? usableInterests : toPrecision(0, 4)}
+                  {t('available interest')} : {usableInterests ? usableInterests.toFixed(8) : toPrecision(0,8)}
                 </span>
-                {insufficientStake ? <Tip>{'需抵押：'}{insufficientStake }</Tip>: ''}
+                {insufficientStake ? <Tip>{'需抵押：'}{insufficientStake.toFixed(8) }</Tip>: ''}
               </Modal.Column>
               <ActionsButton onCancel={toggleWithDrawButton}>
                 <TxButton
@@ -100,6 +100,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
                   tx='xMiningAsset.claim'
                   onSuccess={() => {
                     setN(Math.random());
+                    toggleWithDrawButton()
                   }}
                 />
               </ActionsButton>

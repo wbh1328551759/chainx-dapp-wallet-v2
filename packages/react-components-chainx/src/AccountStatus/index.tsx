@@ -1,4 +1,4 @@
-// Copyright 2017-2020 @polkadot/app-staking authors & contributors
+  // Copyright 2017-2020 @polkadot/app-staking authors & contributors
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
@@ -9,6 +9,7 @@ import { ActionStatus } from '@polkadot/react-components/Status/types';
 import AccountList from './AccountList';
 import { useTranslation } from '../translate';
 import Button from '@polkadot/react-components-chainx/Button';
+import {StyledWrapper} from './StyledWrapper';
 
 interface Props {
   onStatusChange?: (status: ActionStatus) => void;
@@ -57,77 +58,9 @@ function AccountStatus ({ storedValue, onStatusChange, setStoredValue, className
   );
 }
 
-const StyledWrapper = styled.div`
-  background: rgb(63, 63, 63);
-  padding: 4px 0 0 2rem;
-  min-height: 61px;
-  margin: 0 -2rem;
-  display: flex !important;
-  align-items: center;
-  .ui--AccountStatus-Convert {
-    margin-right: 10px;
-  }
-
-  .ui--AccountStatus-ChangeAccount {
-    margin-right: 30px;
-  }
-
-  @media (max-width: 767px) {
-    min-height: 44px;
-    display: flex;
-    padding: 0 0.5rem;
-    margin: 0 0;
-    .ui--AccountStatus-Address{
-      display: none;
-    }
-  }
-
-  .ui--AccountStatus-Box{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    > .ui--Row {
-      display: flex;
-      align-items: center;
-      .ui--Row-icon{
-        display: flex;
-        align-items: center;
-        > .ui--IdentityIcon{
-          background: white;
-        }
-        svg{
-          width: 46px;
-          height: 46px;
-        }
-      }
-    }
-    > button{
-      background: rgba(63, 63, 63);
-      border-radius: 0.15rem;
-      padding: 0.7em 0.1em 0.7em 0.1em;
-    }
-  }
-
-  .ui--AccountStatus-Network{
-    color: #8231D8;
-    font-size: 18px;
-    font-weight: bold;
-    flex: 1;
-    span{
-      margin-right: .5rem;
-    }
-  }
-  .accounts--Account-buttons{
-    padding: 40px;
-  }
-  .switchBtn{
-    margin-left: 16px;
-    cursor: pointer;
-  }
-`;
-
 export default styled(AccountStatus)`
   .filter--tags {
+
     .ui--Dropdown {
       padding-left: 0;
 
@@ -136,6 +69,7 @@ export default styled(AccountStatus)`
       }
     }
   }
+
   .noAccount{
       margin: 200px auto 0 auto;
       width: 630px;
@@ -144,17 +78,21 @@ export default styled(AccountStatus)`
       padding: 80px 100px;
       color: #302b3c;
       background: #fff;
+
       img{
         margin-bottom: 30px;
       }
+
       .h1{
         font-size: 20px;
         font-weight: bold;
       }
+
       p{
         font-size: 14px;
         margin-bottom: 40px;
       }
+
       button+button{
         margin-left: 30px;
       }

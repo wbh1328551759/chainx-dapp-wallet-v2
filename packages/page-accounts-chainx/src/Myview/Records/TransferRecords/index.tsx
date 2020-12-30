@@ -58,9 +58,11 @@ export default function (): React.ReactElement {
   const mounted = useIsMounted();
   const { currentAccount } = useContext(AccountContext);
   const transfers = useTransfer(currentAccount);
+
   useEffect(() => {
     setLoading(true);
   }, [mounted]);
+
   useEffect(() => {
     if (mounted.current) {
       setLoading(false);

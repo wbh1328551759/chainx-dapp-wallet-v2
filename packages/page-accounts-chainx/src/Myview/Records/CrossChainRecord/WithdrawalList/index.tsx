@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React  from 'react';
 import styled from 'styled-components';
 import Empty from '../../Empty';
 import Line from './Line';
 import { useTranslation } from '@polkadot/app-accounts/translate';
-import useWithdrawal from '@polkadot/app-accounts-chainx/useWithdrawal';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import {Withdrawal} from '@polkadot/app-accounts-chainx/useRecords';
 
 const Wrapper = styled.div`
   & > div {
@@ -59,10 +58,12 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function (): React.ReactElement {
+interface Props{
+  withdrawals: Withdrawal[];
+}
+
+export default function ({withdrawals}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const { currentAccount } = useContext(AccountContext);
-  const withdrawals = useWithdrawal(currentAccount);
 
   const withdrawalsElement = (
     <ul>

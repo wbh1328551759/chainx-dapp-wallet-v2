@@ -1,10 +1,9 @@
-
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import TransferRecords from './TransferRecords';
 import { useTranslation } from '@polkadot/app-accounts/translate';
-import DepositList from '@polkadot/app-accounts-chainx/Myview/Records/CrossChainRecord/DepositList';
-import WithdrawalList from '@polkadot/app-accounts-chainx/Myview/Records/CrossChainRecord/WithdrawalList';
+import Records from './CrossChainRecord'
+import AllAccounts from './AllAccounts';
 
 const Wrapper = styled.section`
   border: 1px solid #dce0e2;
@@ -20,20 +19,26 @@ const Wrappers = styled.div`
     display: flex;
     justify-content: space-around;
     & > li {
-      opacity: 0.32;
       font-size: 14px;
-      font-weight: 500;
       letter-spacing: 0.12px;
       line-height: 20px;
       cursor: pointer;
       padding-bottom: 13px;
+      color: rgba(0,0,0,0.4);
+      font-weight: 600;
+
       > a{
         opacity: 1;
       }
+
+      &:hover, &.active{
+        color: rgba(0,0,0,0.8);
+      }
+
       &.active {
         border-bottom: 3px solid #f6c94a;
-        opacity: 0.72;
       }
+
       &:not(:first-of-type) {
         margin-left: 24px;
       }
@@ -53,6 +58,7 @@ export default function (): React.ReactElement {
   const [recordType, setRecordType] = useState(1);
   const { t } = useTranslation();
 
+
   return (
     <Wrapper>
       <Wrappers>
@@ -67,19 +73,19 @@ export default function (): React.ReactElement {
             className={recordType === 2 ? 'active' : ''}
             onClick={() => setRecordType(2)}
           >
-            {t('Recharge')}
+            {t('Records')}
           </li>
-          <li
-            className={recordType === 3 ? 'active' : ''}
-            onClick={() => setRecordType(3)}
-          >
-            {t('Withdrawal')}
-          </li>
+          {/*<li*/}
+          {/*  className={recordType === 3 ? 'active' : ''}*/}
+          {/*  onClick={() => setRecordType(3)}*/}
+          {/*>*/}
+          {/*  {t('Accounts')}*/}
+          {/*</li>*/}
         </ul>
         <main>
           {recordType === 1 ? <TransferRecords /> : null}
-          {recordType === 2 ? <DepositList /> : null}
-          {recordType === 3 ? <WithdrawalList /> : null}
+          {recordType === 2 ? <Records /> : null}
+          {/*{recordType === 3 ? <AllAccounts /> : null}*/}
         </main>
       </Wrappers>
     </Wrapper>

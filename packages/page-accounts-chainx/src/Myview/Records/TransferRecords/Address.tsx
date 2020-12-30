@@ -24,7 +24,7 @@ export default function ({ address = '', length = 5, mainnet = null }) {
     result =
       address.substring(0, 5) + '...' + address.substring(address.length - 5);
   }
-  const url = `https://scan-v2.chainx.org/accounts/${address}`
+  const url = `https://scan.chainx.org/accounts/${address}`
 
 
   return (
