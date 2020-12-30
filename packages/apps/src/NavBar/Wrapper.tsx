@@ -20,6 +20,7 @@ const NavWrapper = styled.div`
       display: flex;
 
       > li{
+
         position: relative;
 
         a{
@@ -39,12 +40,6 @@ const NavWrapper = styled.div`
 
         &.staking, &.developer, &.governance{
           padding: 1.4em 1em 1.4em 1em;
-        }
-
-        &.governance, &.dex, &.linkOutBrowser, &.divideLine, &.developer{
-           @media only screen and (device-width: 375px) and (device-height: 812px) {
-            display: none !important;
-          }
         }
 
         > svg, img{
@@ -103,12 +98,6 @@ const NavWrapper = styled.div`
 
     > li{
       margin: 1.4em 1em 1.4em 1em;
-
-      &.switchNode, &.icon{
-        @media only screen and (device-width: 375px) and (device-height: 812px) {
-          display: none !important;
-        }
-      }
 
       &.switchNode{
         display: flex;
