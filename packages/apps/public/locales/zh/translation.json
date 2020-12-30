@@ -1563,6 +1563,7 @@
   "Contacts": "联系人",
   "Switch interval less than 3 days, please in": "切换间隔小于3天，请于",
   "Retry after": "后重试",
+  "Accounts": "所有账户",
   "{{balance}} voted": "{{balance}} 投票",
   "{{blocks}} blocks": "{{blocks}} 区块",
   "{{count}} key/value pairs encoded for submission": "{{count}}为提交而编码的密钥/值对",
