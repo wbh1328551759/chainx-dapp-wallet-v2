@@ -69,7 +69,6 @@ export const StyledWrapper = styled.div`
         .ui--Row-address{
           font-size: 12px;
           color: #8E8E8E;
-          width: 6.5rem;
           padding-right: 0;
         }
       }
