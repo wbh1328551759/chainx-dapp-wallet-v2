@@ -10,7 +10,7 @@ import BN from 'bn.js';
 import {KeyringAddress} from '@polkadot/ui-keyring/types';
 import {Delegation} from '@polkadot/app-accounts-chainx/types';
 import {ProxyDefinition} from '@polkadot/types/interfaces';
-import AccountActions from './AccountActions';
+import AccountActions from '@polkadot/react-components-chainx/AccountStatus/AccountActions';
 
 const ICON_SIZE = 36;
 

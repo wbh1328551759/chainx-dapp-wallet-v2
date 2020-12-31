@@ -32,6 +32,7 @@ import UndelegateModal from '@polkadot/app-accounts-chainx/modals/Undelegate';
 import BN from 'bn.js';
 import {KeyringAddress} from '@polkadot/ui-keyring/types'
 import {Delegation} from '@polkadot/app-accounts-chainx/types';
+import Multisig from '@polkadot/app-accounts-chainx/modals/MultisigCreate';
 
 interface DemocracyUnlockable {
   democracyUnlockTx: SubmittableExtrinsic<'promise'> | null;
@@ -75,6 +76,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   const [isDelegateOpen, toggleDelegate] = useToggle();
   const [isUndelegateOpen, toggleUndelegate] = useToggle();
   const [isProxyOverviewOpen, toggleProxyOverview] = useToggle();
+  const [isAddMultisigOpen, toggleAddMultisig] = useToggle()
   const recoveryInfo = useCall<RecoveryConfig | null>(api.api.query.recovery?.recoverable, [address], transformRecovery);
   const multiInfos = useMultisigApprovals(address);
   const [n, setN] = useState<number>(0);
@@ -83,6 +85,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   const {changeAccount} = useContext(AccountContext);
   const {allAccounts, hasAccounts} = useAccounts();
   const {currentAccount} = useContext(AccountContext)
+  const {queueAction} = useContext(StatusContext);
 
 
   const _clearDemocracyLocks = useCallback(
@@ -210,6 +213,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           key='modal-forget-account'
           onClose={toggleForget}
           onForget={_onForget}
+          onStatusChange={queueAction}
         />
       )}
       {isIdentityMainOpen && (
@@ -280,6 +284,12 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           accountDelegating={address}
           key='modal-delegate'
           onClose={toggleUndelegate}
+        />
+      )}
+      {isAddMultisigOpen && (
+        <Multisig
+          onClose={toggleAddMultisig}
+          onStatusChange={queueAction}
         />
       )}
 
@@ -407,7 +417,15 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
               >
                 {t('Delegate democracy votes')}
               </Menu.Item>
-            ))
+            )),
+            (
+              <Menu.Item
+                key='addMultisig'
+                onClick={toggleAddMultisig}
+              >
+                {t('Multisig')}
+              </Menu.Item>
+            )
           ])}
 
           {/*{api.api.tx.recovery?.createRecovery && createMenuGroup([*/}

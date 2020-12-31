@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { AddressSmall, Balance, Button} from '@polkadot/react-components';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import { useTranslation } from '../translate';
-import AccountActions from '@polkadot/app-accounts-chainx/Myview/Records/AllAccounts/AccountActions';
+import AccountActions from '@polkadot/react-components-chainx/AccountStatus/AccountActions';
 import { KeyringAddress } from '@polkadot/ui-keyring/types'
 import {Delegation} from '@polkadot/app-accounts-chainx/types';
 import {ProxyDefinition} from '@polkadot/types/interfaces';
