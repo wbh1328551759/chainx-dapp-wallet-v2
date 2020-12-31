@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TransferRecords from './TransferRecords';
 import { useTranslation } from '@polkadot/app-accounts/translate';
 import Records from './CrossChainRecord'
-import AllAccounts from './AllAccounts';
+import AllAccounts from './Contacts';
 
 const Wrapper = styled.section`
   border: 1px solid #dce0e2;
@@ -79,7 +79,7 @@ export default function (): React.ReactElement {
             className={recordType === 3 ? 'active' : ''}
             onClick={() => setRecordType(3)}
           >
-            {t('Accounts')}
+            {t('Contacts')}
           </li>
         </ul>
         <main>
