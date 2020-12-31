@@ -1,17 +1,38 @@
-import React, {useContext} from 'react';
-import {useAccounts, useLoadingDelay, useToggle} from '@polkadot/react-hooks';
-import Account from './Account'
-import {Icon, StatusContext} from '@polkadot/react-components';
-import {Wrapper} from './Wrapper'
-import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
-import {sortAccounts} from '@polkadot/app-accounts-chainx/util';
+import React, { useContext, useEffect, useState } from 'react';
+import { useAddresses, useFavorites, useLoadingDelay, useToggle } from '@polkadot/react-hooks';
+import { Icon, StatusContext } from '@polkadot/react-components';
+import { Wrapper } from './Wrapper'
+import CreateModal from '@polkadot/app-addresses/modals/Create';
+import Address from './Address';
+
+type SortedAddress = { address: string; isFavorite: boolean };
+
+const STORE_FAVS = 'accounts:favorites';
 
 function AllAccounts(){
   const isLoading = useLoadingDelay();
-  const { allAccounts, hasAccounts } = useAccounts();
+  const { allAddresses } = useAddresses();
+  const [sortedAddresses, setSortedAddresses] = useState<SortedAddress[] | undefined>();
+  const [favorites, toggleFavorite] = useFavorites(STORE_FAVS);
+  const [filterOn, setFilter] = useState<string>('');
+
   const [isCreateOpen, toggleCreate] = useToggle();
   const {queueAction} = useContext(StatusContext);
-  const sortedAccounts = sortAccounts(allAccounts, []);
+
+  useEffect((): void => {
+    setSortedAddresses(
+      allAddresses
+        .map((address): SortedAddress => ({ address, isFavorite: favorites.includes(address) }))
+        .sort((a, b): number =>
+          a.isFavorite === b.isFavorite
+            ? 0
+            : b.isFavorite
+            ? 1
+            : -1
+        )
+    );
+  }, [allAddresses]);
+
   return (
     <Wrapper>
       {isCreateOpen && (
@@ -24,13 +45,9 @@ function AllAccounts(){
       <button className='addAccountBtn' onClick={toggleCreate}>
         <Icon icon='plus'/>
       </button>
-      {isLoading ? undefined : (hasAccounts && sortedAccounts?.map(({account}, index): React.ReactNode => (
-        <Account
-          account={account}
-          key={index}
-          value={account.address}
-        />
-      )))}
+      {!isLoading && sortedAddresses && sortedAddresses.length > 0 && sortedAddresses.map(({ address, isFavorite }): React.ReactNode => (
+        <Address key={address} value={address}/>
+      ))}
     </Wrapper>
   )
 }

@@ -8,7 +8,6 @@ export const Wrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 1px solid #EFEFEF;
 
       .ui-Row-icon{
         display: flex;
@@ -53,6 +52,7 @@ export const AccountWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #EFEFEF;
 
   > svg{
     margin-right: 2em;
