@@ -1565,6 +1565,7 @@
   "Retry after": "后重试",
   "Accounts": "所有账户",
   "Recent blocks": "最新区块",
+  "Paste the address you want to send funds to.": "粘贴一个你想要发送资金的地址。",
   "{{balance}} voted": "{{balance}} 投票",
   "{{blocks}} blocks": "{{blocks}} 区块",
   "{{count}} key/value pairs encoded for submission": "{{count}}为提交而编码的密钥/值对",

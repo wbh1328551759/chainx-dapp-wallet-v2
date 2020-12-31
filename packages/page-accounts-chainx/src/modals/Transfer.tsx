@@ -8,7 +8,7 @@ import type {AccountInfo} from '@polkadot/types/interfaces';
 import BN from 'bn.js';
 import React, {Dispatch, useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {InputAddress, Modal, Toggle, TxButton} from '@polkadot/react-components';
+import {Input, InputAddress, Modal, Toggle, TxButton} from '@polkadot/react-components';
 import {useApi, useCall} from '@polkadot/react-hooks';
 import {Available} from '@polkadot/react-query';
 import {BN_ZERO, isFunction} from '@polkadot/util';
@@ -96,19 +96,24 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
           </Modal.Columns>
           <Modal.Columns>
             <Modal.Column>
-              <InputAddress
-                defaultValue={propRecipientId}
-                help={t<string>('Select a contact or paste the address you want to send funds to.')}
-                isDisabled={!!propRecipientId}
+              {/*<InputAddress*/}
+              {/*  defaultValue={propRecipientId}*/}
+              {/*  help={t<string>('Select a contact or paste the address you want to send funds to.')}*/}
+              {/*  isDisabled={!!propRecipientId}*/}
+              {/*  label={t<string>('send to address')}*/}
+              {/*  labelExtra={*/}
+              {/*    <Available*/}
+              {/*      label={t<string>('transferrable')}*/}
+              {/*      params={recipientId}*/}
+              {/*    />*/}
+              {/*  }*/}
+              {/*  onChange={setRecipientId}*/}
+              {/*  type='allPlus'*/}
+              {/*/>*/}
+              <Input
+                help={t<string>('Paste the address you want to send funds to.')}
                 label={t<string>('send to address')}
-                labelExtra={
-                  <Available
-                    label={t<string>('transferrable')}
-                    params={recipientId}
-                  />
-                }
                 onChange={setRecipientId}
-                type='allPlus'
               />
             </Modal.Column>
             <Modal.Column>

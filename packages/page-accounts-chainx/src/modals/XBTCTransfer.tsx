@@ -63,17 +63,22 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
           </Modal.Columns>
           <Modal.Columns>
             <Modal.Column>
-              <InputAddress
-                defaultValue={propRecipientId}
-                help={t<string>('Select a contact or paste the address you want to send funds to.')}
-                isDisabled={!!propRecipientId}
+              {/*<InputAddress*/}
+              {/*  defaultValue={propRecipientId}*/}
+              {/*  help={t<string>('Select a contact or paste the address you want to send funds to.')}*/}
+              {/*  isDisabled={!!propRecipientId}*/}
+              {/*  label={t<string>('send to address')}*/}
+              {/*  labelExtra={*/}
+              {/*    <span>*/}
+              {/*    </span>*/}
+              {/*  }*/}
+              {/*  onChange={setRecipientId}*/}
+              {/*  type='allPlus'*/}
+              {/*/>*/}
+              <Input
+                help={t<string>('Paste the address you want to send funds to.')}
                 label={t<string>('send to address')}
-                labelExtra={
-                  <span>
-                  </span>
-                }
                 onChange={setRecipientId}
-                type='allPlus'
               />
             </Modal.Column>
             <Modal.Column>
