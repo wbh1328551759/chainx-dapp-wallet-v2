@@ -3,7 +3,7 @@ import {Icon} from '@polkadot/react-components';
 import {Link} from 'react-router-dom';
 import AccountSelect from '@polkadot/apps/Menu/NodeInfo';
 import {useToggle} from '@polkadot/react-hooks';
-import Endpoints from '@polkadot/apps/Endpoints';
+import Endpoints from '@polkadot/apps/Endpoints/modals/Network';
 import getApiUrl from '@polkadot/apps/initSettings';
 
 function SettingNode() {
