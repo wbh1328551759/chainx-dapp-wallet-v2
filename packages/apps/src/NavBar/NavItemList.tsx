@@ -39,15 +39,15 @@ function NavItemList() {
         <li className='assets'>
           <Link to={'/accounts'}>{t('Assets')}</Link>
         </li>
-        <li className='staking' onMouseEnter={() => {setToggleStaking(true)}} >
+        <li className='staking' onMouseEnter={() => setToggleStaking(true)} >
           <Link to={'/staking/staking'}>{t('Staking')}</Link>
           <Icon icon='angle-down' size='1x'/>
-          {isStakingOpen && <Selector nodeList={stakingList} onMouseLeave={() => {setToggleStaking(false);console.log('leave')}}/>}
+          {isStakingOpen && <Selector nodeList={stakingList} onMouseLeave={() => setToggleStaking(false)}/>}
         </li>
         <li className='governance' onMouseEnter={() => setToggleGovernance(true)}>
           <Link to={'/democracy/democracy'}>{t('Manage')}</Link>
           <Icon icon='angle-down'/>
-          {isGovernanceOpen && <Selector nodeList={governanceList}  onMouseLeave={() => setToggleGovernance(false)}/>}
+          {isGovernanceOpen && <Selector nodeList={governanceList}  onMouseEnter={() => setToggleGovernance(true)} onMouseLeave={() => setToggleGovernance(false)}/>}
         </li>
         <li className='dex'>
           <Link to='/DEX'>{t('DEX')}</Link>
