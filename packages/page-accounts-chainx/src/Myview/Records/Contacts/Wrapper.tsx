@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .ui--Row{
-
     .ui--Row-base{
       padding: 1em 2em;
       display: flex;
@@ -45,6 +44,10 @@ export const Wrapper = styled.div`
       color: white;
       margin-right: 0;
     }
+  }
+
+  .empty{
+    margin-top: 120px;
   }
 `
 
