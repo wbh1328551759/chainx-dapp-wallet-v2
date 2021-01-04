@@ -38,14 +38,12 @@ const NavWrapper = styled.div`
         }
 
         &.staking, &.developer, &.governance{
-          margin-right: 1em;
-
           a{
-            padding-right: 0;
+            padding-right: 1em;
           }
         }
 
-        > svg, img{
+        svg, img{
           margin-left: 0.3em;
         }
 
