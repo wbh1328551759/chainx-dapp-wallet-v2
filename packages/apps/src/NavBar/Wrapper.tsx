@@ -91,6 +91,12 @@ const NavWrapper = styled.div`
           color: rgba(0,0,0,0.8);
           cursor: pointer;
         }
+
+        &.linkOutBrowser, &.divideLine, &.staking, &.developer, &.governance{
+          @media only screen and (device-width: 375px) and (device-height: 812px) {
+            display: none;
+          }
+        }
       }
     }
   }
@@ -154,6 +160,12 @@ const NavWrapper = styled.div`
           svg{
             color: #282828;
           }
+        }
+      }
+
+      &.icon, &.switchNode{
+        @media only screen and (device-width: 375px) and (device-height: 812px) {
+          display: none;
         }
       }
 

@@ -71,8 +71,8 @@ function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
         <div className='right'>
           <Records/>
         </div>
-        {!isApiReady &&
 
+        {!isApiReady &&
         <div className='accountLoading'>
           <div className='gif'>
             <img src={LoadingGif} alt="" height={40} width={40}/>
