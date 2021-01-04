@@ -10,9 +10,9 @@ import {useTranslation} from '@polkadot/apps/translate';
 
 function NavItemList() {
   const { t } = useTranslation();
-  const [isStakingOpen, toggleStaking, setToggleStaking] = useToggle();
-  const [isGovernanceOpen, toggleGovernance, setToggleGovernance] = useToggle();
-  const [isDeveloperOpen, toggleDeveloper, setToggleDeveloper] = useToggle();
+  const [isStakingOpen,, setToggleStaking] = useToggle();
+  const [isGovernanceOpen,, setToggleGovernance] = useToggle();
+  const [isDeveloperOpen,, setToggleDeveloper] = useToggle();
   const stakingList = ([
     {nodeName: t<string>('Stak. over.'), link: '/staking/staking'},
     {nodeName: t<string>('My Staking'), link: '/staking/nomination'},
@@ -39,15 +39,15 @@ function NavItemList() {
         <li className='assets'>
           <Link to={'/accounts'}>{t('Assets')}</Link>
         </li>
-        <li className='staking' onClick={toggleStaking} >
-          {t('Staking')}
+        <li className='staking' onMouseEnter={() => setToggleStaking(true)} >
+          <Link to={'/staking/staking'}>{t('Staking')}</Link>
           <Icon icon='angle-down' size='1x'/>
           {isStakingOpen && <Selector nodeList={stakingList} onMouseLeave={() => setToggleStaking(false)}/>}
         </li>
-        <li className='governance' onClick={toggleGovernance}>
-          {t('Manage')}
+        <li className='governance' onMouseEnter={() => setToggleGovernance(true)}>
+          <Link to={'/democracy/democracy'}>{t('Manage')}</Link>
           <Icon icon='angle-down'/>
-          {isGovernanceOpen && <Selector nodeList={governanceList}  onMouseLeave={() => setToggleGovernance(false)}/>}
+          {isGovernanceOpen && <Selector nodeList={governanceList}  onMouseEnter={() => setToggleGovernance(true)} onMouseLeave={() => setToggleGovernance(false)}/>}
         </li>
         <li className='dex'>
           <Link to='/DEX'>{t('DEX')}</Link>
@@ -59,8 +59,8 @@ function NavItemList() {
           </a>
         </li>
         <li className='divideLine'/>
-        <li className='developer' onClick={toggleDeveloper}>
-          {t('Developer')}
+        <li className='developer' onMouseEnter={() => setToggleDeveloper(true)}>
+          <Link to={'/chainstate/chainstate'}>{t('Developer')}</Link>
           <Icon icon='angle-down'/>
           {isDeveloperOpen && <Selector nodeList={developerList} onMouseLeave={() => setToggleDeveloper(false)}/>}
         </li>

@@ -32,7 +32,7 @@ export default function useRecords(currentAccount = ''): Records {
     Deposits: [],
     Withdrawals: []
   });
-  let withdrawalTimeId: any = '';
+  let withdrawalTimeId: any = null;
 
   async function fetchWithdrawals(currentAccount: string) {
     const testOrMain = await api.api.rpc.system.properties();
@@ -57,8 +57,13 @@ export default function useRecords(currentAccount = ''): Records {
   }, []);
 
   useEffect(() => {
+    if(withdrawalTimeId){
+      window.clearInterval(withdrawalTimeId);
+    }
+    fetchWithdrawals(currentAccount);
     withdrawalTimeId = setInterval(() => {
       fetchWithdrawals(currentAccount);
+      window.clearInterval(withdrawalTimeId)
     }, 5000);
 
     return () => window.clearInterval(withdrawalTimeId);

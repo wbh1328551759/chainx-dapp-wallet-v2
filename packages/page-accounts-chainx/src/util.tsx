@@ -12,7 +12,7 @@ export function createMenuGroup (items: (React.ReactNode | false | undefined | n
   const filtered = items.filter((item): item is React.ReactNode => !!item);
 
   return filtered.length
-    ? <>{filtered}<Menu.Divider /></>
+    ? <>{filtered}</>
     : null;
 }
 
