@@ -6,9 +6,9 @@ import {useAccountInfo} from '@polkadot/react-hooks';
 import IdentityIcon from '@polkadot/react-components/IdentityIcon';
 import BaseIdentityIcon from '@polkadot/react-identicon';
 import {AccountWrapper} from './Wrapper';
+import AccountActions from './AccountActions';
 
 const ICON_SIZE = 36;
-
 
 interface AccountProps extends Props {
   className?: string;
@@ -49,13 +49,7 @@ function Account({value, buttons, children, className, defaultName, fullLength =
         {children}
         {overlay}
       </Row>
-      {/*<AccountActions*/}
-      {/*  account={account}*/}
-      {/*  propsIsValid={propsIsValid}*/}
-      {/*  isContract={isContract}*/}
-      {/*  delegation={delegation}*/}
-      {/*  proxy={proxy}*/}
-      {/*/>*/}
+      <AccountActions address={value}/>
     </AccountWrapper>
   );
 }
