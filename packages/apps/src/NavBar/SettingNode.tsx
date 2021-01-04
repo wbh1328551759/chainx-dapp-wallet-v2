@@ -1,13 +1,10 @@
 import React from 'react';
 import {Icon} from '@polkadot/react-components';
-import helpIcon from '@polkadot/apps/NavBar/icons/Help center.svg';
 import {Link} from 'react-router-dom';
-import setting from '@polkadot/apps/NavBar/icons/Set up.svg';
 import AccountSelect from '@polkadot/apps/Menu/NodeInfo';
 import {useToggle} from '@polkadot/react-hooks';
 import Endpoints from '@polkadot/apps/Endpoints';
 import getApiUrl from '@polkadot/apps/initSettings';
-
 
 function SettingNode() {
   const [isEndpointsVisible, toggleEndpoints] = useToggle();
@@ -22,13 +19,15 @@ function SettingNode() {
           <div className='netInfo'>{netInfo}</div>
           <Icon icon='angle-down' size='1x'/>
         </li>
+        {/*<li className='icon'>*/}
+        {/*  <a href="https://chainx-doc.gitbook.io/chainx-user-doc/" target='_blank'>*/}
+        {/*    <Icon icon='question-circle' size='lg'/>*/}
+        {/*  </a>*/}
+        {/*</li>*/}
         <li className='icon'>
-          <a href="https://chainx-doc.gitbook.io/chainx-user-doc/" target='_blank'>
-            <img src={helpIcon} alt=""/>
-          </a>
-        </li>
-        <li className='icon'>
-          <Link to='/settings/settings'><img src={setting} alt=""/></Link>
+          <Link to='/settings/settings'>
+            <Icon icon='cog' size='lg'/>
+          </Link>
         </li>
         <li className='accountSelector'>
           <AccountSelect/>

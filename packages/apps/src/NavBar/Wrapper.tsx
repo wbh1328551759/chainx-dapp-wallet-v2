@@ -20,11 +20,10 @@ const NavWrapper = styled.div`
       display: flex;
 
       > li{
-
         position: relative;
 
         a{
-          display: block;
+          display: inline-block;
           color: rgba(0,0,0,0.4);
           padding: 1.4em 1em 1.4em 1em;
 
@@ -39,7 +38,11 @@ const NavWrapper = styled.div`
         }
 
         &.staking, &.developer, &.governance{
-          padding: 1.4em 1em 1.4em 1em;
+          margin-right: 1em;
+
+          a{
+            padding-right: 0;
+          }
         }
 
         > svg, img{
@@ -138,10 +141,19 @@ const NavWrapper = styled.div`
         a{
           display: flex;
           align-items: center;
+
+          svg{
+            color: #8E8E8E;
+
+          }
         }
 
         &:hover, &:focus{
           cursor: pointer;
+
+          svg{
+            color: #282828;
+          }
         }
       }
 
