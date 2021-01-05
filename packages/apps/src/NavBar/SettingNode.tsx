@@ -5,8 +5,10 @@ import AccountSelect from '@polkadot/apps/Menu/NodeInfo';
 import {useToggle} from '@polkadot/react-hooks';
 import Endpoints from '@polkadot/apps/Endpoints/modals/Network';
 import getApiUrl from '@polkadot/apps/initSettings';
+import {useTranslation} from '@polkadot/apps/translate';
 
 function SettingNode() {
+  const {t} = useTranslation();
   const [isEndpointsVisible, toggleEndpoints] = useToggle();
   const apiUrl = getApiUrl()
   const netInfo = apiUrl.slice(6).replace('.chainx.org/ws', '')
@@ -20,7 +22,7 @@ function SettingNode() {
           <Icon icon='angle-down' size='1x'/>
         </li>
         <li className='icon'>
-          <a href="https://chainx-doc.gitbook.io/chainx-user-guide/" target='_blank'>
+          <a href={t('https://chainx-doc.gitbook.io/chainx-user-guide-english/')} target='_blank'>
             <Icon icon='question-circle' size='lg'/>
           </a>
         </li>

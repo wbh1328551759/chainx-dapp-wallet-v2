@@ -82,7 +82,7 @@ function Selection({basePath, onAdd}: Props): React.ReactElement<Props> {
     },
     {
       name: 'explorer',
-      text: t<string>('Recent blocks'),
+      text: t<string>('Explorer'),
       subItems: [
         {
           isSubRoot: true,
