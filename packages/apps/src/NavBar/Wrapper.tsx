@@ -52,7 +52,7 @@ const NavWrapper = styled.div`
           position: absolute;
           width: 11.5em;
           left: -0.7em;
-          top: 4.4em;
+          top: 4.5em;
           display: flex;
           flex-direction: column;
           background: rgba(255,255,255);
