@@ -1,17 +1,26 @@
-import React from 'react';
+import React, {Dispatch} from 'react';
 import chainxLogo from '@polkadot/apps/NavBar/icons/ChainX_logo.svg';
 import { Link } from 'react-router-dom';
 import { Icon } from '@polkadot/react-components';
 import linkOut from '@polkadot/apps/NavBar/icons/Link out.svg';
-import { useToggle } from '@polkadot/react-hooks';
 import Selector from '@polkadot/apps/NavBar/Selector';
 import { useTranslation } from '@polkadot/apps/translate';
 
-function NavItemList() {
+interface IsOpenProps{
+  isStakingOpen: boolean;
+  isGovernanceOpen: boolean;
+  isDeveloperOpen: boolean;
+}
+
+interface Props {
+  isOpen: IsOpenProps;
+  setToggleStaking: Dispatch<any>;
+  setToggleGovernance: Dispatch<any>;
+  setToggleDeveloper: Dispatch<any>;
+}
+
+function NavItemList({isOpen:{isStakingOpen, isGovernanceOpen, isDeveloperOpen}, setToggleStaking, setToggleGovernance,setToggleDeveloper}: Props):React.ReactElement<Props> {
   const {t} = useTranslation();
-  const [isStakingOpen, , setToggleStaking] = useToggle();
-  const [isGovernanceOpen, , setToggleGovernance] = useToggle();
-  const [isDeveloperOpen, , setToggleDeveloper] = useToggle();
   const stakingList = ([
     {nodeName: t<string>('Stak. over.'), link: '/staking/staking'},
     {nodeName: t<string>('My Staking'), link: '/staking/nomination'},
@@ -31,26 +40,9 @@ function NavItemList() {
     {nodeName: t<string>('Recent blocks'), link: '/chainstate/explorer'}
   ]);
 
-  const toggleSelector = (e) => {
-    if (e.clientX >= 212 && e.clientX <= 313) {
-      setToggleStaking(true);
-
-    } else if (e.clientX >= 315 && e.clientX <= 415) {
-      setToggleGovernance(true);
-    } else if (e.clientX >= 599 && e.clientX <= 688) {
-      setToggleDeveloper(true);
-    } else {
-      setToggleStaking(false);
-      setToggleGovernance(false);
-      setToggleDeveloper(false);
-    }
-  };
 
   return (
-    <div className="left"
-         onMouseMove={(e) => {toggleSelector(e);}}
-         onMouseLeave={() => setToggleDeveloper(false)}
-    >
+    <div className="left">
       <img src={chainxLogo} alt=""/>
       <ul>
         <li className='assets'>
@@ -75,7 +67,6 @@ function NavItemList() {
           </Link>
           {isGovernanceOpen &&
           <Selector nodeList={governanceList}
-                    onMouseEnter={() => setToggleGovernance(true)}
                     onMouseLeave={() => setToggleGovernance(false)}
           />}
         </li>
@@ -99,10 +90,8 @@ function NavItemList() {
             <Icon icon='angle-down'/>
           </Link>
           {isDeveloperOpen &&
-          <Selector
-            nodeList={developerList}
-            onMouseLeave={() => setToggleDeveloper(false)}
-          />}
+          <Selector nodeList={developerList}
+                    onMouseLeave={() => setToggleDeveloper(false)}/>}
         </li>
       </ul>
     </div>
