@@ -18,9 +18,9 @@ function NavBar() {
   const toggleSelector = (e) => {
     if (e.clientX >= 212 && e.clientX <= 310) {
       setToggleStaking(true);
-    } else if (e.clientX >= 315 && e.clientX <= 415) {
+    } else if (e.clientX >= 315 && e.clientX <= 390) {
       setToggleGovernance(true);
-    } else if (e.clientX >= 599 && e.clientX <= 685) {
+    } else if (e.clientX >= 599 && e.clientX <= 700) {
       setToggleDeveloper(true);
     } else {
       setToggleStaking(false);
