@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import chainxLogo from '@polkadot/apps/NavBar/icons/ChainX_logo.svg';
 import {Link} from 'react-router-dom';
 import {Icon} from '@polkadot/react-components';
 import linkOut from '@polkadot/apps/NavBar/icons/Link out.svg';
 import Selector from '@polkadot/apps/NavBar/Selector';
 import {useTranslation} from '@polkadot/apps/translate';
-import {useToggle} from '@polkadot/react-hooks';
+import {useApi, useToggle} from '@polkadot/react-hooks';
 
 function NavItemList(): React.ReactElement {
   const {t} = useTranslation();
+  const {api} = useApi()
   const [isStakingOpen, , setToggleStaking] = useToggle();
   const [isGovernanceOpen, , setToggleGovernance] = useToggle();
   const [isDeveloperOpen, , setToggleDeveloper] = useToggle();
+  const [url, setUrl] = useState<string>('')
   const stakingList = ([
     {nodeName: t<string>('Stak. over.'), link: '/staking/staking'},
     {nodeName: t<string>('My Staking'), link: '/staking/nomination'},
@@ -32,20 +34,34 @@ function NavItemList(): React.ReactElement {
   ]);
 
   const toggleSelector = (value: 'staking' | 'governance' | 'developer') => {
-    if(value === 'staking'){
+    if (value === 'staking') {
       setToggleStaking(true);
       setToggleGovernance(false);
       setToggleDeveloper(false);
-    }else if(value === 'governance'){
+    } else if (value === 'governance') {
       setToggleStaking(false);
       setToggleGovernance(true);
       setToggleDeveloper(false);
-    }else{
+    } else {
       setToggleStaking(false);
       setToggleGovernance(false);
       setToggleDeveloper(true);
     }
-  }
+  };
+
+  useEffect(() => {
+    async function judgeNetwork() {
+      const testOrMain = await api.rpc.system.properties();
+      const testOrMainNum = JSON.parse(testOrMain);
+      if (testOrMainNum.ss58Format === 42) {
+        setUrl('https://testnet-scan.chainx.org/')
+      } else {
+        setUrl('https://scan.chainx.org/')
+      }
+    }
+
+    judgeNetwork();
+  }, []);
 
   return (
     <div className="left">
@@ -82,7 +98,7 @@ function NavItemList(): React.ReactElement {
           <Link to='/DEX'>{t('DEX')}</Link>
         </li>
         <li className='linkOutBrowser'>
-          <a href="https://scan.chainx.org/" target='_blank'>
+          <a href={url} target='_blank'>
             {t('ChainScan')}
             <img src={linkOut} alt=""/>
           </a>
