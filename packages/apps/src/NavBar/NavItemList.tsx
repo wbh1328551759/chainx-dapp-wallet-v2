@@ -55,43 +55,35 @@ function NavItemList({isOpen:{isStakingOpen, isGovernanceOpen, isDeveloperOpen},
           </Link>
           {isStakingOpen &&
           <Selector
-            nodeList={stakingList}
-            onMouseLeave={() => setToggleStaking(false)}
+            nodeList={stakingList} onMouseLeave={() => setToggleStaking(false)}
           />}
         </li>
-
         <li className='governance'>
           <Link to={'/democracy/democracy'}>
-            {t('Manage')}
+            {t('Governance')}
             <Icon icon='angle-down'/>
           </Link>
           {isGovernanceOpen &&
-          <Selector nodeList={governanceList}
-                    onMouseLeave={() => setToggleGovernance(false)}
+          <Selector nodeList={governanceList} onMouseLeave={() => setToggleGovernance(false)}
           />}
         </li>
-
         <li className='dex'>
           <Link to='/DEX'>{t('DEX')}</Link>
         </li>
-
         <li className='linkOutBrowser'>
           <a href="https://scan.chainx.org/" target='_blank'>
             {t('ChainScan')}
             <img src={linkOut} alt=""/>
           </a>
         </li>
-
         <li className='divideLine'/>
-
         <li className='developer'>
           <Link to={'/chainstate/chainstate'}>
             {t('Developer')}
             <Icon icon='angle-down'/>
           </Link>
           {isDeveloperOpen &&
-          <Selector nodeList={developerList}
-                    onMouseLeave={() => setToggleDeveloper(false)}/>}
+          <Selector nodeList={developerList} onMouseLeave={() => setToggleDeveloper(false)}/>}
         </li>
       </ul>
     </div>

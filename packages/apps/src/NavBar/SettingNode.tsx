@@ -19,11 +19,11 @@ function SettingNode() {
           <div className='netInfo'>{netInfo}</div>
           <Icon icon='angle-down' size='1x'/>
         </li>
-        {/*<li className='icon'>*/}
-        {/*  <a href="https://chainx-doc.gitbook.io/chainx-user-doc/" target='_blank'>*/}
-        {/*    <Icon icon='question-circle' size='lg'/>*/}
-        {/*  </a>*/}
-        {/*</li>*/}
+        <li className='icon'>
+          <a href="https://chainx-doc.gitbook.io/chainx-user-guide/" target='_blank'>
+            <Icon icon='question-circle' size='lg'/>
+          </a>
+        </li>
         <li className='icon'>
           <Link to='/settings/settings'>
             <Icon icon='cog' size='lg'/>
