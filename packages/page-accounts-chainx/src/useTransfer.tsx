@@ -34,12 +34,17 @@ export default function useTransfer(currentAccount = ''): Transfer[] {
   }, []);
 
   useEffect(() => {
+    if(transferTimeId){
+      window.clearInterval(transferTimeId);
+    }
+    fetchTransfers(currentAccount);
     transferTimeId = setInterval(() => {
       fetchTransfers(currentAccount);
+      window.clearInterval(transferTimeId)
     }, 5000);
 
     return () => window.clearInterval(transferTimeId);
-  }, [currentAccount, transferTimeId]);
+  }, [currentAccount]);
 
   return state;
 }

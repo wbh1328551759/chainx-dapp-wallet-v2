@@ -12,7 +12,7 @@ export const StyledWrapper = styled.div`
   }
 
   .ui--AccountStatus-ChangeAccount {
-    margin-right: 30px;
+    margin-right: 0.2em;
   }
 
   @media (max-width: 767px) {

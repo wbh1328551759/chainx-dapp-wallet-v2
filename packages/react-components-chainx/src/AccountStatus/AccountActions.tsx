@@ -1,24 +1,20 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import Row from '@polkadot/react-components/Row';
-import {toShortAddress} from '@polkadot/react-components/util';
-import {DEFAULT_ADDR, Props} from '@polkadot/react-components/AddressRow';
-import {useAccountInfo, useAccounts, useApi, useCall, useToggle} from '@polkadot/react-hooks';
-import IdentityIcon from '@polkadot/react-components/IdentityIcon';
-import BaseIdentityIcon from '@polkadot/react-identicon';
 import {Forget, Icon, Menu, Popup, StatusContext} from '@polkadot/react-components';
-import {AccountWrapper} from './Wrapper';
 import {createMenuGroup} from '@polkadot/app-accounts-chainx/util';
+import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
+import {useAccountInfo, useAccounts, useApi, useCall, useToggle} from '@polkadot/react-hooks';
 import {ThemeDef} from '@polkadot/react-components/types';
 import {ThemeContext} from 'styled-components';
-import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
 import {SubmittableExtrinsic} from '@polkadot/api/types';
-import BN from 'bn.js';
-import {getLedger} from '@polkadot/react-api';
-import {KeyringAddress} from '@polkadot/ui-keyring/types';
-import {Delegation} from '@polkadot/app-accounts-chainx/types';
 import {ProxyDefinition, RecoveryConfig} from '@polkadot/types/interfaces';
 import useMultisigApprovals from '@polkadot/app-accounts-chainx/Accounts/useMultisigApprovals';
+import useXbtcAssets from '@polkadot/app-accounts-chainx/Myview/useXbtcAssets';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import {Option} from '@polkadot/types';
+import {getLedger} from '@polkadot/react-api';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
+import keyring from '@polkadot/ui-keyring';
 import Backup from '@polkadot/app-accounts-chainx/modals/Backup';
 import DelegateModal from '@polkadot/app-accounts-chainx/modals/Delegate';
 import Derive from '@polkadot/app-accounts-chainx/modals/Derive';
@@ -27,30 +23,26 @@ import XbtcTransfer from '@polkadot/app-accounts-chainx/modals/XBTCTransfer';
 import IdentityMain from '@polkadot/app-accounts-chainx/modals/IdentityMain';
 import IdentitySub from '@polkadot/app-accounts-chainx/modals/IdentitySub';
 import ChangePass from '@polkadot/app-accounts-chainx/modals/ChangePass';
-import Transfer from '@polkadot/app-accounts-chainx/modals/Transfer';
-import Deposite from '../../../modals/deposite/deposite';
+import Deposite from '@polkadot/app-accounts-chainx/modals/deposite/deposite';
 import ProxyOverview from '@polkadot/app-accounts-chainx/modals/ProxyOverview';
 import MultisigApprove from '@polkadot/app-accounts-chainx/modals/MultisigApprove';
 import RecoverAccount from '@polkadot/app-accounts-chainx/modals/RecoverAccount';
 import RecoverSetup from '@polkadot/app-accounts-chainx/modals/RecoverSetup';
 import UndelegateModal from '@polkadot/app-accounts-chainx/modals/Undelegate';
-import useXbtcAssets from '@polkadot/app-accounts-chainx/Myview/useXbtcAssets';
-import {ActionStatus} from '@polkadot/react-components/Status/types';
-import keyring from '@polkadot/ui-keyring';
-import {useLocalStorage} from '@polkadot/react-hooks-chainx';
-import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
-import all from '@polkadot/react-components/InputRpc/rpcs';
-
-const ICON_SIZE = 36;
+import BN from 'bn.js';
+import {KeyringAddress} from '@polkadot/ui-keyring/types'
+import {Delegation} from '@polkadot/app-accounts-chainx/types';
+import Multisig from '@polkadot/app-accounts-chainx/modals/MultisigCreate';
 
 interface DemocracyUnlockable {
   democracyUnlockTx: SubmittableExtrinsic<'promise'> | null;
   ids: BN[];
 }
 
-interface AccountProps extends Props {
+interface Props{
   account: KeyringAddress;
-  className?: string;
+  propsIsValid?: boolean;
+  isContract?: boolean;
   delegation?: Delegation;
   proxy?: [ProxyDefinition[], BN];
 }
@@ -59,14 +51,11 @@ const transformRecovery = {
   transform: (opt: Option<RecoveryConfig>) => opt.unwrapOr(null)
 };
 
-function Account({account: {address, meta}, proxy, delegation, buttons, children, className, defaultName, fullLength = false, isContract = false, isDisabled, isEditableName, isInline, isValid: propsIsValid, overlay, withTags = false}: AccountProps): React.ReactElement<AccountProps> | null {
+function AccountActions({account: {address, meta}, isContract, delegation, proxy}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const api = useApi();
   const {isApiReady} = useApi()
-  const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig, isProxied}, accountIndex, isNull, name, onSaveName, onSaveTags, setName, setTags, identity, tags} = useAccountInfo(address ? address.toString() : null, isContract);
-  const isValid = !isNull && (propsIsValid || address || accountIndex);
-  const InfoIcon = address ? IdentityIcon : BaseIdentityIcon;
-  const newAddress = address && isValid ? address : DEFAULT_ADDR;
+  const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig },identity} = useAccountInfo(address ? address.toString() : null, isContract);
   const {theme} = useContext<ThemeDef>(ThemeContext);
   const [isSettingsOpen, toggleSettings] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
@@ -87,6 +76,7 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
   const [isDelegateOpen, toggleDelegate] = useToggle();
   const [isUndelegateOpen, toggleUndelegate] = useToggle();
   const [isProxyOverviewOpen, toggleProxyOverview] = useToggle();
+  const [isAddMultisigOpen, toggleAddMultisig] = useToggle()
   const recoveryInfo = useCall<RecoveryConfig | null>(api.api.query.recovery?.recoverable, [address], transformRecovery);
   const multiInfos = useMultisigApprovals(address);
   const [n, setN] = useState<number>(0);
@@ -95,6 +85,8 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
   const {changeAccount} = useContext(AccountContext);
   const {allAccounts, hasAccounts} = useAccounts();
   const {currentAccount} = useContext(AccountContext)
+  const {queueAction} = useContext(StatusContext);
+
 
   const _clearDemocracyLocks = useCallback(
     () => democracyUnlockTx && queueExtrinsic({
@@ -125,37 +117,6 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
     [meta]
   );
 
-  // const _onForget = useCallback(
-  //   (): void => {
-  //     if (!address) {
-  //       return;
-  //     }
-  //
-  //     const status: Partial<ActionStatus> = {
-  //       account: address,
-  //       action: 'forget'
-  //     };
-  //
-  //     try {
-  //       keyring.forgetAccount(address);
-  //       if(hasAccounts){
-  //         const lastAccount = allAccounts[allAccounts.length - 1]
-  //         setValue(lastAccount)
-  //         changeAccount(lastAccount)
-  //         console.log(11111)
-  //       }else{
-  //         setValue('')
-  //         changeAccount('')
-  //       }
-  //       status.status = 'success';
-  //       status.message = t<string>('account forgotten');
-  //     } catch (error) {
-  //       status.status = 'error';
-  //       status.message = (error as Error).message;
-  //     }
-  //   },
-  //   [address, t]
-  // );
   const _onForget = function () {
     if (!address) {
       return;
@@ -202,32 +163,7 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
   },[hasAccounts])
 
   return (
-    <AccountWrapper>
-      <Row
-        address={fullLength ? newAddress : toShortAddress(newAddress)}
-        buttons={buttons}
-        className={className}
-        defaultName={defaultName}
-        icon={
-          <InfoIcon
-            size={ICON_SIZE}
-            value={address ? address.toString() : null}
-          />
-        }
-        isDisabled={isDisabled}
-        isEditableName={isEditableName}
-        isEditableTags
-        isInline={isInline}
-        name={name}
-        onChangeName={setName}
-        onChangeTags={setTags}
-        onSaveName={onSaveName}
-        onSaveTags={onSaveTags}
-        tags={withTags && tags}
-      >
-        {children}
-        {overlay}
-      </Row>
+    <>
       {isBackupOpen && (
         <Backup
           address={address}
@@ -277,6 +213,7 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
           key='modal-forget-account'
           onClose={toggleForget}
           onForget={_onForget}
+          onStatusChange={queueAction}
         />
       )}
       {isIdentityMainOpen && (
@@ -349,6 +286,13 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
           onClose={toggleUndelegate}
         />
       )}
+      {isAddMultisigOpen && (
+        <Multisig
+          onClose={toggleAddMultisig}
+          onStatusChange={queueAction}
+        />
+      )}
+
       <Popup
         className={`theme--${theme}`}
         isOpen={isSettingsOpen}
@@ -362,75 +306,76 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
           text
           vertical
         >
-          {createMenuGroup([
+          {/*{createMenuGroup([*/}
 
-            (
-              <Menu.Item
-                key='xbtc recharge'
-                onClick={toggleDeposite}
-              >
-                {t('XBTC recharge')}
-              </Menu.Item>
+          {/*  (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='xbtc recharge'*/}
+          {/*      onClick={toggleDeposite}*/}
+          {/*    >*/}
+          {/*      {t('XBTC recharge')}*/}
+          {/*    </Menu.Item>*/}
 
-            ),
-            (
-              <Menu.Item
-                key='xbtc withdraw'
-                onClick={toggleWithdraw}
-              >
-                {t('XBTC withdrawals')}
-              </Menu.Item>
-            ),
-            (
-              <Menu.Item
-                key='xbtc transfer'
-                onClick={toggleXbtcTransfer}
-              >
-                {t('XBTC Transfer')}
-              </Menu.Item>
-            ),
-            api.api.tx.identity?.setIdentity && (
-              <Menu.Item
-                key='identityMain'
-                onClick={toggleIdentityMain}
-              >
-                {t('Set on-chain identity')}
-              </Menu.Item>
-            ),
-            api.api.tx.identity?.setSubs && identity?.display && (
-              <Menu.Item
-                key='identitySub'
-                onClick={toggleIdentitySub}
-              >
-                {t('Set on-chain sub-identities')}
-              </Menu.Item>
-            ),
-            api.api.tx.democracy?.unlock && democracyUnlockTx && (
-              <Menu.Item
-                key='clearDemocracy'
-                onClick={_clearDemocracyLocks}
-              >
-                {t('Clear expired democracy locks')}
-              </Menu.Item>
-            ),
-            api.api.tx.vesting?.vest && vestingVestTx && (
-              <Menu.Item
-                key='vestingVest'
-                onClick={_vestingVest}
-              >
-                {t('Unlock vested amount')}
-              </Menu.Item>
-            )
-          ])}
+          {/*  ),*/}
+          {/*  (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='xbtc withdraw'*/}
+          {/*      onClick={toggleWithdraw}*/}
+          {/*    >*/}
+          {/*      {t('XBTC withdrawals')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='xbtc transfer'*/}
+          {/*      onClick={toggleXbtcTransfer}*/}
+          {/*    >*/}
+          {/*      {t('XBTC Transfer')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  api.api.tx.identity?.setIdentity && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='identityMain'*/}
+          {/*      onClick={toggleIdentityMain}*/}
+          {/*    >*/}
+          {/*      {t('Set on-chain identity')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  api.api.tx.identity?.setSubs && identity?.display && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='identitySub'*/}
+          {/*      onClick={toggleIdentitySub}*/}
+          {/*    >*/}
+          {/*      {t('Set on-chain sub-identities')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  api.api.tx.democracy?.unlock && democracyUnlockTx && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='clearDemocracy'*/}
+          {/*      onClick={_clearDemocracyLocks}*/}
+          {/*    >*/}
+          {/*      {t('Clear expired democracy locks')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  api.api.tx.vesting?.vest && vestingVestTx && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='vestingVest'*/}
+          {/*      onClick={_vestingVest}*/}
+          {/*    >*/}
+          {/*      {t('Unlock vested amount')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  )*/}
+          {/*])}*/}
           {createMenuGroup([
-            !(isExternal || isHardware || isInjected || isMultisig) && (
-              <Menu.Item
-                key='deriveAccount'
-                onClick={toggleDerive}
-              >
-                {t('Derive account via derivation path')}
-              </Menu.Item>
-            ),
+            //通过链上账户派生路径
+            // !(isExternal || isHardware || isInjected || isMultisig) && (
+            //   <Menu.Item
+            //     key='deriveAccount'
+            //     onClick={toggleDerive}
+            //   >
+            //     {t('Derive account via derivation path')}
+            //   </Menu.Item>
+            // ),
             isHardware && (
               <Menu.Item
                 key='showHwAddress'
@@ -464,66 +409,83 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
               >
                 {t('Forget this account')}
               </Menu.Item>
+            ),
+            (api.api.query.democracy?.votingOf && !delegation?.accountDelegated && (
+              <Menu.Item
+                key='delegate'
+                onClick={toggleDelegate}
+              >
+                {t('Delegate democracy votes')}
+              </Menu.Item>
+            )),
+            (
+              <Menu.Item
+                key='addMultisig'
+                onClick={toggleAddMultisig}
+              >
+                {t('Multisig')}
+              </Menu.Item>
             )
           ])}
-          {api.api.tx.recovery?.createRecovery && createMenuGroup([
-            !recoveryInfo && (
-              <Menu.Item
-                key='makeRecoverable'
-                onClick={toggleRecoverSetup}
-              >
-                {t('Make recoverable')}
-              </Menu.Item>
-            ),
-            <Menu.Item
-              key='initRecovery'
-              onClick={toggleRecoverAccount}
-            >
-              {t('Initiate recovery for another')}
-            </Menu.Item>
-          ])}
-          {api.api.tx.multisig?.asMulti && isMultisig && createMenuGroup([
-            <Menu.Item
-              disabled={!multiInfos || !multiInfos.length}
-              key='multisigApprovals'
-              onClick={toggleMultisig}
-            >
-              {t('Multisig approvals')}
-            </Menu.Item>
-          ])}
-          {api.api.query.democracy?.votingOf && delegation?.accountDelegated && createMenuGroup([
-            <Menu.Item
-              key='changeDelegate'
-              onClick={toggleDelegate}
-            >
-              {t('Change democracy delegation')}
-            </Menu.Item>,
-            <Menu.Item
-              key='undelegate'
-              onClick={toggleUndelegate}
-            >
-              {t('Undelegate')}
-            </Menu.Item>
-          ])}
-          {api.api.query.democracy?.votingOf && !delegation?.accountDelegated && createMenuGroup([
-            <Menu.Item
-              key='delegate'
-              onClick={toggleDelegate}
-            >
-              {t('Delegate democracy votes')}
-            </Menu.Item>
-          ])}
-          {api.api.query.proxy?.proxies && createMenuGroup([
-            <Menu.Item
-              key='proxy-overview'
-              onClick={toggleProxyOverview}
-            >
-              {proxy?.[0].length
-                ? t('Manage proxies')
-                : t('Add proxy')
-              }
-            </Menu.Item>
-          ])}
+
+          {/*{api.api.tx.recovery?.createRecovery && createMenuGroup([*/}
+          {/*  !recoveryInfo && (*/}
+          {/*    <Menu.Item*/}
+          {/*      key='makeRecoverable'*/}
+          {/*      onClick={toggleRecoverSetup}*/}
+          {/*    >*/}
+          {/*      {t('Make recoverable')}*/}
+          {/*    </Menu.Item>*/}
+          {/*  ),*/}
+          {/*  <Menu.Item*/}
+          {/*    key='initRecovery'*/}
+          {/*    onClick={toggleRecoverAccount}*/}
+          {/*  >*/}
+          {/*    {t('Initiate recovery for another')}*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
+          {/*{api.api.tx.multisig?.asMulti && isMultisig && createMenuGroup([*/}
+          {/*  <Menu.Item*/}
+          {/*    disabled={!multiInfos || !multiInfos.length}*/}
+          {/*    key='multisigApprovals'*/}
+          {/*    onClick={toggleMultisig}*/}
+          {/*  >*/}
+          {/*    {t('Multisig approvals')}*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
+          {/*{api.api.query.democracy?.votingOf && delegation?.accountDelegated && createMenuGroup([*/}
+          {/*  <Menu.Item*/}
+          {/*    key='changeDelegate'*/}
+          {/*    onClick={toggleDelegate}*/}
+          {/*  >*/}
+          {/*    {t('Change democracy delegation')}*/}
+          {/*  </Menu.Item>,*/}
+          {/*  <Menu.Item*/}
+          {/*    key='undelegate'*/}
+          {/*    onClick={toggleUndelegate}*/}
+          {/*  >*/}
+          {/*    {t('Undelegate')}*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
+          {/*{api.api.query.democracy?.votingOf && !delegation?.accountDelegated && createMenuGroup([*/}
+          {/*  <Menu.Item*/}
+          {/*    key='delegate'*/}
+          {/*    onClick={toggleDelegate}*/}
+          {/*  >*/}
+          {/*    {t('Delegate democracy votes')}*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
+          {/*{api.api.query.proxy?.proxies && createMenuGroup([*/}
+          {/*  <Menu.Item*/}
+          {/*    key='proxy-overview'*/}
+          {/*    onClick={toggleProxyOverview}*/}
+          {/*  >*/}
+          {/*    {proxy?.[0].length*/}
+          {/*      ? t('Manage proxies')*/}
+          {/*      : t('Add proxy')*/}
+          {/*    }*/}
+          {/*  </Menu.Item>*/}
+          {/*])}*/}
           {/*<ChainLock*/}
           {/*  className='accounts--network-toggle'*/}
           {/*  genesisHash={genesisHash}*/}
@@ -532,8 +494,9 @@ function Account({account: {address, meta}, proxy, delegation, buttons, children
           {/*/>*/}
         </Menu>
       </Popup>
-    </AccountWrapper>
+    </>
   );
 }
 
-export default Account;
+
+export default AccountActions;

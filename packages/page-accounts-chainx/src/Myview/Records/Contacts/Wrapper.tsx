@@ -2,13 +2,11 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .ui--Row{
-
     .ui--Row-base{
       padding: 1em 2em;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 1px solid #EFEFEF;
 
       .ui-Row-icon{
         display: flex;
@@ -47,12 +45,17 @@ export const Wrapper = styled.div`
       margin-right: 0;
     }
   }
+
+  .empty{
+    margin-top: 120px;
+  }
 `
 
 export const AccountWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #EFEFEF;
 
   > svg{
     margin-right: 2em;

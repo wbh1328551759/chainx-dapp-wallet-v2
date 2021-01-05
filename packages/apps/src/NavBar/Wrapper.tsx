@@ -20,11 +20,10 @@ const NavWrapper = styled.div`
       display: flex;
 
       > li{
-
         position: relative;
 
         a{
-          display: block;
+          display: inline-block;
           color: rgba(0,0,0,0.4);
           padding: 1.4em 1em 1.4em 1em;
 
@@ -39,10 +38,12 @@ const NavWrapper = styled.div`
         }
 
         &.staking, &.developer, &.governance{
-          padding: 1.4em 1em 1.4em 1em;
+          a{
+            padding-right: 1em;
+          }
         }
 
-        > svg, img{
+        svg, img{
           margin-left: 0.3em;
         }
 
@@ -87,6 +88,12 @@ const NavWrapper = styled.div`
         &:hover, &:focus{
           color: rgba(0,0,0,0.8);
           cursor: pointer;
+        }
+
+        &.linkOutBrowser, &.divideLine, &.staking, &.developer, &.governance{
+          @media only screen and (device-width: 375px) and (device-height: 812px) {
+            display: none;
+          }
         }
       }
     }
@@ -138,10 +145,25 @@ const NavWrapper = styled.div`
         a{
           display: flex;
           align-items: center;
+
+          svg{
+            color: #8E8E8E;
+
+          }
         }
 
         &:hover, &:focus{
           cursor: pointer;
+
+          svg{
+            color: #282828;
+          }
+        }
+      }
+
+      &.icon, &.switchNode{
+        @media only screen and (device-width: 375px) and (device-height: 812px) {
+          display: none;
         }
       }
 

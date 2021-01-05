@@ -3,7 +3,8 @@
 
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { Button, FilterOverlay, Input } from '@polkadot/react-components';
+import { Button, Input } from '@polkadot/react-components';
+import { FilterOverlay } from '@polkadot/react-components-chainx'
 import { isHex } from '@polkadot/util';
 
 import { useTranslation } from './translate';

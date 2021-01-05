@@ -18,6 +18,9 @@ const ChainStatus = styled.div`
   width: 30%;
   margin-bottom: 0;
   position: relative;
+  @media (max-width: 1439px) {
+    display: none !important;
+  }
 
   > .canvas{
     margin-top: 32px;
