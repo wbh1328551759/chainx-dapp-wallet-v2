@@ -4,11 +4,14 @@
 
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-
-
 import { AddressSmall, Balance, Button} from '@polkadot/react-components';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import { useTranslation } from '../translate';
+import AccountActions from '@polkadot/react-components-chainx/AccountStatus/AccountActions';
+import { KeyringAddress } from '@polkadot/ui-keyring/types'
+import {Delegation} from '@polkadot/app-accounts-chainx/types';
+import {ProxyDefinition} from '@polkadot/types/interfaces';
+import BN from 'bn.js';
 
 function noop () { }
 
@@ -19,9 +22,14 @@ interface Props {
   toggleFavorite: (address: string) => void;
   setStoredValue: string | ((value: string) => void) | undefined;
   isAccountChecked: boolean;
+  account: KeyringAddress;
+  delegation?: Delegation;
+  proxy?: [ProxyDefinition[], BN];
+  isValid?: boolean;
+  isContract?: boolean;
 }
 
-function Account ({ address, className, isAccountChecked, setStoredValue }: Props): React.ReactElement<Props> | null {
+function Account ({ account, address, className, isAccountChecked, setStoredValue, isValid: propsIsValid, isContract, delegation, proxy}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { changeAccount } = useContext(AccountContext);
 
@@ -55,6 +63,15 @@ function Account ({ address, className, isAccountChecked, setStoredValue }: Prop
               changeAccount(address)
             }}
           />}
+      </td>
+      <td>
+        <AccountActions
+          account={account}
+          propsIsValid={propsIsValid}
+          isContract={isContract}
+          delegation={delegation}
+          proxy={proxy}
+        />
       </td>
     </tr>
   );

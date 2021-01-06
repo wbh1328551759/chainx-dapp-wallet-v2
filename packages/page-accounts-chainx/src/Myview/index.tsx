@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   position: relative;
   div.left {
     flex: 1;
+    width: 70%;
   }
 
   div.right {
@@ -70,8 +71,8 @@ function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
         <div className='right'>
           <Records/>
         </div>
-        {!isApiReady &&
 
+        {!isApiReady &&
         <div className='accountLoading'>
           <div className='gif'>
             <img src={LoadingGif} alt="" height={40} width={40}/>

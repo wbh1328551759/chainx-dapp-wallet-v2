@@ -89,7 +89,7 @@ function BlockByHash ({ className = '', error, value }: Props): React.ReactEleme
               <td className='hash overflow'>{getHeader.hash.toHex()}</td>
               <td className='hash overflow'>{
                 hasParent
-                  ? <Link to={`/explorer/query/${parentHash || ''}`}>{parentHash}</Link>
+                  ? <Link to={`/chainstate/explorer/query/${parentHash || ''}`}>{parentHash}</Link>
                   : parentHash
               }</td>
               <td className='hash overflow'>{getHeader.extrinsicsRoot.toHex()}</td>
