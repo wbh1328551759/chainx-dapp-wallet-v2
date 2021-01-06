@@ -18,8 +18,11 @@ interface Props {
 }
 
 const Wrapper = styled(Modal)`
-  min-width: 500px;
-  max-width: 600px;
+ 
+  @media screen and (min-width:540px) {
+    min-width: 500px;
+    max-width: 600px;
+  }
   main.content {
     section.show-code {
       margin-top: 12px;
@@ -151,7 +154,7 @@ export default function ({address, onClose}: Props) {
         </section>
         <h1 className='step-2'>
           <span className='step'>{t('the second step')}</span>
-          <span className='text'>{t('start a cross-chain top-up withdrawal')}</span>
+          <span className='text'>{t('start a cross-chain top-up')}</span>
         </h1>
         <p className='input'>{t('recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
         <ul className={'info'}>

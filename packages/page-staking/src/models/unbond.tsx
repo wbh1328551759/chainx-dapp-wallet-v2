@@ -55,9 +55,9 @@ function UnBond({ account, onClose, options, value, onSuccess }: Props): React.R
           <Modal.Column>
             <InputAddress
               defaultValue={value}
-              help='UnBound'
+              help={t<string>('UnBound')}
               hideAddress={true}
-              label='UnBound'
+              label={t<string>('UnBound')}
               labelExtra={
                 <span> </span>
               }
@@ -69,7 +69,7 @@ function UnBond({ account, onClose, options, value, onSuccess }: Props): React.R
             />
           </Modal.Column>
           <Modal.Column>
-            <p>UnBound Validator</p>
+            <p>{t<string>('UnBound Validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -77,13 +77,13 @@ function UnBond({ account, onClose, options, value, onSuccess }: Props): React.R
           <Modal.Column>
             <InputBalance
               autoFocus
-              help='UnBound Amount'
-              label='UnBound Amount'
+              help={t<string>('UnBound Amount')}
+              label={t<string>('UnBound Amount')}
               onChange={setAmount}
             />
           </Modal.Column>
           <Modal.Column>
-            <p>UnBound Amount</p>
+            <p>{t<string>('UnBound Amount')}</p>
           </Modal.Column>
         </Modal.Columns>
       </Modal.Content>

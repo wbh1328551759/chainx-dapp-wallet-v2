@@ -21,7 +21,16 @@ export const AssetDetail = styled.div`
     width: 50%;
     div {
       margin-bottom: 10px;
-      width: 50%;
+      width: 80%;
+    }
+  }
+  @media screen and (max-width:767px) {
+    div {
+      flex-direction: column;
+      width: 100%;
+      div {
+        width: 100%;
+      }
     }
   }
 `;

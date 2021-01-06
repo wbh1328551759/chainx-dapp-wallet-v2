@@ -93,7 +93,13 @@ export default React.memo(styled(Content)`
   padding: 0 1.5rem 1rem;
   position: relative;
   width: 100%;
-
+  @media screen and (max-width:1024px){
+    > main {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  
   .connecting {
     padding: 3.5rem 0;
   }

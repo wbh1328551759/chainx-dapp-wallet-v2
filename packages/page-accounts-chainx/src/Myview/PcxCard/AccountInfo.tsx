@@ -11,6 +11,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   text-align: right;
   min-height: 72px;
+  @media screen and (min-width:375px) and (max-width:540px){
+    justify-content: center;
+  }
 `;
 
 const Title = styled.h5`
@@ -31,6 +34,9 @@ const BaseRow = styled.p`
 const Address = styled(BaseRow)`
   font-size: 14px;
   line-height: 20px;
+  @media screen and (max-width:767px) {
+    display: none;
+  }
 `;
 
 export default function (): React.ReactElement {

@@ -6,6 +6,9 @@ const Wrapper = styled.div`
   display: flex;
   max-height: 40px;
   color: #000000;
+  @media screen and (min-width:375px) and (max-width:540px){
+    margin-bottom: 20px;
+  }
   img {
     margin-right: 16px;
     width: 40px;
