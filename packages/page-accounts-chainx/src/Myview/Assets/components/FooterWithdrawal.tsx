@@ -16,12 +16,13 @@ interface FooterProps {
   setN: Dispatch<number>
 }
 
-const ActionsButton = styled(Modal.Actions)`
-  display: flex;
-  > button{
-    width: 105px;
-  }
-`;
+// const ActionsButton = styled(Modal.Actions)`
+//   display: flex;
+//   > button{
+//     width: 105px;
+//   }
+// `;
+
 const Tip = styled.div`
   color: red;
 `
@@ -90,22 +91,22 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
                 </span>
                 {insufficientStake ? <Tip>{'需抵押：'}{insufficientStake.toFixed(8) }</Tip>: ''}
               </Modal.Column>
-              <ActionsButton onCancel={toggleWithDrawButton}>
-                <TxButton
-                  accountId={currentAccount}
-                  icon='plus'
-                  label={t('Withdraw interest')}
-                  params={[1]}
-                  isDisabled={disabled}
-                  tx='xMiningAsset.claim'
-                  onSuccess={() => {
-                    setN(Math.random());
-                    toggleWithDrawButton()
-                  }}
-                />
-              </ActionsButton>
             </Modal.Columns>
           </Modal.Content>
+          <Modal.Actions onCancel={toggleWithDrawButton}>
+            <TxButton
+              accountId={currentAccount}
+              icon='plus'
+              label={t('Withdraw interest')}
+              params={[1]}
+              isDisabled={disabled}
+              tx='xMiningAsset.claim'
+              onSuccess={() => {
+                setN(Math.random());
+                toggleWithDrawButton()
+              }}
+            />
+          </Modal.Actions>
         </Modal>)
       }
     </div>

@@ -16,6 +16,10 @@ const HeadWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (min-width:375px) and (max-width:540px){
+    flex-direction: column;
+    align-items: baseline;
+  }
   .btnLists {
     color: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(0,0,0,0.04);
@@ -53,14 +57,20 @@ const Footer = styled.footer`
   justify-content: space-between;
   align-items: center;
   width: 95%;
-
   > div:first-child{
     display: flex;
     align-items: center;
+    @media screen and (min-width:375px) and (max-width:540px){
+      flex-direction: column;
+      align-items: baseline;
+    }
     > span:last-child{
       margin-left: 16px;
       font-size: 20px;
       font-weight: bold;
+      @media screen and (min-width:375px) and (max-width:540px){
+        margin: 6px 0 0 0;
+      }
     }
   }
 `;

@@ -62,7 +62,7 @@ function NavItemList({isOpen:{isStakingOpen, isGovernanceOpen, isDeveloperOpen},
 
         <li className='governance'>
           <Link to={'/democracy/democracy'}>
-            {t('Manage')}
+            {t('Governance')}
             <Icon icon='angle-down'/>
           </Link>
           {isGovernanceOpen &&

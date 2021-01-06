@@ -9,6 +9,7 @@
   "Node info": "Node info",
   "Unable to retrieve the specified block details. {{error}}": "Unable to retrieve the specified block details. {{error}}",
   "best": "best",
+  "latest height": "latest height",
   "best #": "best #",
   "best hash": "best hash",
   "block hash or number to query": "block hash or number to query",

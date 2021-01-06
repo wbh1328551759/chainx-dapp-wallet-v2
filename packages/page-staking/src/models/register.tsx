@@ -37,7 +37,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
               hasAccounts ? <InputAddress
               defaultValue={account}
               help='The actual account you wish to register account'
-              label='register account'
+              label={t<string>('Register Account')}
               isDisabled={!!account}
               labelExtra={
                 <Available
@@ -51,7 +51,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
             <InputAddress
               defaultValue={accountId}
               help='The actual account you wish to register account'
-              label='register account'
+              label={t<string>('Register Account')}
               isDisabled={!!accountId}
               labelExtra={
                 <Available

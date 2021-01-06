@@ -59,7 +59,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
               isDisabled={!!value}
               help={t<string>('Redeem the current node')}
               hideAddress={true}
-              label={'redeem'}
+              label={t<string>('redeem')}
               labelExtra={
                 <span> </span>
               }

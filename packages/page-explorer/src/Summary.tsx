@@ -44,7 +44,7 @@ function Summary (): React.ReactElement {
             <BestFinalized />
           </CardSummary>
         )}
-        <CardSummary label={t<string>('best')}>
+        <CardSummary label={t<string>('latest height')}>
           <BestNumber />
         </CardSummary>
       </section>

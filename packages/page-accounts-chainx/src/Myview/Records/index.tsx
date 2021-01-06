@@ -11,6 +11,9 @@ const Wrapper = styled.section`
   padding: 16px;
   background: #fff;
   height: 200px;
+  @media screen and (max-width:1023px){
+    padding: 36px 16px !important;
+  }
 `;
 
 const Wrappers = styled.div`
