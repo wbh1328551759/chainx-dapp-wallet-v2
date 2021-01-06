@@ -6,7 +6,9 @@ export default styled.section`
   border-radius: 10px;
   padding: 16px;
   background: #fff;
-
+  @media screen and (max-width:767px) {
+    padding: 16px 16px 60px !important;
+  }
   & > header{
     > p{
       font-size: 14px;

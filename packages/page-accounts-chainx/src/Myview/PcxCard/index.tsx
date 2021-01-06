@@ -27,12 +27,19 @@ const InnerWrapper = styled.div`
   header {
     display: flex;
     justify-content: space-between;
+    @media screen and (min-width:375px) and (max-width:540px){
+      flex-direction: column;
+      align-items: baseline;
+    }
   }
 
   section.free {
     display: flex;
     margin-top: 10px;
     align-items: flex-end;
+    @media screen and (min-width:375px) and (max-width:540px){
+      position: relative;
+    }
   }
   .whiteBtn {
     color: rgba(0, 0, 0, 0.72);
@@ -53,12 +60,23 @@ const InnerWrapper = styled.div`
       color: rgba(0, 0, 0, 0.72) !important;
       box-shadow: none;
     }
+    @media screen and (min-width:375px) and (max-width:540px){
+      position: absolute;
+      top: -4px;
+      left: 0;
+      margin: 0 0 4px 70px;
+    }
   }
   section.details {
     display: flex;
     margin-top: 32px;
     & > div:not(:first-of-type) {
       margin-left: 66px;
+    }
+    @media screen and (min-width:375px) and (max-width:540px){
+      & > div:not(:first-of-type) {
+        margin-left: 20px;
+      }
     }
   }
 `;
@@ -71,6 +89,9 @@ const CornerBackground = styled.div`
   width: 179px;
   height: 147px;
   opacity: 0.2;
+  @media screen and (max-width:767px) {
+    display: none;
+  }
 `;
 
 interface PcxCardProps {

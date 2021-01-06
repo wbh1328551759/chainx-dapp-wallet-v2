@@ -88,10 +88,9 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
           </Modal.Column>
           <Modal.Column>
             <p>{t('btc withdraw address')}</p>
-            <span>{addressErrMsg}</span>
+            <span style={{display: (disabled === true) ? "block" : "none"}}>{t('Required')}</span>
           </Modal.Column>
         </Modal.Columns>
-
         <Modal.Columns>
           <Modal.Column>
             <InputXBTCBalance
