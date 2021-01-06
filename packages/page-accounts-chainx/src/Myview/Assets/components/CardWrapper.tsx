@@ -9,8 +9,8 @@ export default styled.section`
 
   & > header{
     > p{
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 14px;
+      font-weight: 600;
       text-align: left;
     }
     > hr{
