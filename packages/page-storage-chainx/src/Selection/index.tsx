@@ -18,7 +18,7 @@ import Sign from '@polkadot/app-signing/Sign';
 import Forks from '@polkadot/app-explorer/Forks';
 import NodeInfo from '@polkadot/app-explorer/NodeInfo';
 import BlockInfo from '@polkadot/app-explorer/BlockInfo';
-import Main from '@polkadot/app-explorer/Main';
+import Main from '@polkadot/app-explorer-chainx/Main';
 import {BlockAuthorsContext, EventsContext} from '@polkadot/react-query';
 
 interface Props {
