@@ -46,7 +46,7 @@ function Propose ({ className = '', onClose }: Props): React.ReactElement<Props>
           <Modal.Column>
             <InputAddress
               help={t<string>('The account you want to register the proposal from')}
-              label={t<string>('send from account')}
+              label={t<string>('Send From Account')}
               labelExtra={
                 <Available
                   label={<span className='label'>{t<string>('transferrable')}</span>}

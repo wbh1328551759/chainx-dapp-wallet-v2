@@ -33,7 +33,7 @@ function Candidates ({ allVotes = {}, electionsInfo }: Props): React.ReactElemen
 
   return (
     <>
-      <Table
+      <Table className="candidatescroll"
         empty={electionsInfo && t<string>('No runners up found')}
         header={headerRunnersRef.current}
       >
@@ -46,7 +46,7 @@ function Candidates ({ allVotes = {}, electionsInfo }: Props): React.ReactElemen
           />
         ))}
       </Table>
-      <Table
+      <Table className="candidatescrolls"
         empty={electionsInfo && t<string>('No candidates found')}
         header={headerCandidatesRef.current}
       >

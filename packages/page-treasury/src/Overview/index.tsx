@@ -6,7 +6,7 @@ import type { DeriveTreasuryProposals } from '@polkadot/api-derive/types';
 import React from 'react';
 import { Button } from '@polkadot/react-components';
 import { useApi, useCall } from '@polkadot/react-hooks';
-
+import styled from 'styled-components';
 import ProposalCreate from './ProposalCreate';
 import Proposals from './Proposals';
 import Summary from './Summary';
@@ -30,12 +30,12 @@ function Overview ({ className, isMember, members }: Props): React.ReactElement<
       <Button.Group>
         <ProposalCreate />
       </Button.Group>
-      <Proposals
+      <Proposals className="proposalscroll"
         isMember={isMember}
         members={members}
         proposals={info?.proposals}
       />
-      <Proposals
+      <Proposals className="proposalscroll"
         isApprovals
         isMember={isMember}
         members={members}
@@ -45,4 +45,11 @@ function Overview ({ className, isMember, members }: Props): React.ReactElement<
   );
 }
 
-export default React.memo(Overview);
+export default React.memo(styled(Overview)`
+  .proposalscroll {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`);

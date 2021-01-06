@@ -16,14 +16,20 @@ const Wrapper = styled.div`
 `;
 
 const Block = styled.div`
-    border: 1px solid rgb(220, 224, 226);
-    border-radius: 10px;
-    padding: 16px;
-    background: rgb(255, 255, 255);
-    > p{
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      font-size: 16px;
-    }
+  border: 1px solid rgb(220, 224, 226);
+  border-radius: 10px;
+  padding: 16px;
+  background: rgb(255, 255, 255);
+  > p{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 16px;
+  }
+
+  // overflow: auto;
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
+    
 `;
 
 const Content = styled.div`

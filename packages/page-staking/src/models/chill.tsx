@@ -65,7 +65,7 @@ function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Droup this node')}</p>
+            <p>{t<string>('Droup This Node')}</p>
           </Modal.Column>
         </Modal.Columns>
 

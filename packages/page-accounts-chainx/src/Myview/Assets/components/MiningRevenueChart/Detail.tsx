@@ -12,6 +12,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   margin-bottom: 16px;
+  @media screen and (min-width:767px) and (max-width:980px) {
+    flex-direction: column;
+  }
   >.key{
     display: flex;
     align-items: center;

@@ -79,7 +79,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
                 defaultValue={propSenderId}
                 help={t<string>('The account you will send funds from.')}
                 isDisabled={!!propSenderId}
-                label={t<string>('send from account')}
+                label={t<string>('Send From Account')}
                 labelExtra={
                   <Available
                     label={t<string>('transferrable')}
@@ -100,7 +100,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
               {/*  defaultValue={propRecipientId}*/}
               {/*  help={t<string>('Select a contact or paste the address you want to send funds to.')}*/}
               {/*  isDisabled={!!propRecipientId}*/}
-              {/*  label={t<string>('send to address')}*/}
+              {/*  label={t<string>('Send To Address')}*/}
               {/*  labelExtra={*/}
               {/*    <Available*/}
               {/*      label={t<string>('transferrable')}*/}
@@ -112,7 +112,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
               {/*/>*/}
               <Input
                 help={t<string>('Paste the address you want to send funds to.')}
-                label={t<string>('send to address')}
+                label={t<string>('Send To Address')}
                 onChange={setRecipientId}
               />
             </Modal.Column>
@@ -140,14 +140,14 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
                       help={t<string>('Type the amount you want to transfer. Note that you can select the unit on the right e.g sending 1 milli is equivalent to sending 0.001.')}
                       isError={!hasAvailable}
                       isZeroable
-                      label={t<string>('amount')}
+                      label={t<string>('Amount')}
                       onChange={setAmount}
                     />
                     <InputPCXBalance
                       defaultValue={api.consts.balances.existentialDeposit}
                       help={t<string>('The minimum amount that an account should have to be deemed active')}
                       isDisabled
-                      label={t<string>('existential deposit')}
+                      label={t<string>('Existential Deposit')}
                     />
                   </>
                 )
