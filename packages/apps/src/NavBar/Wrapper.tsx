@@ -27,7 +27,7 @@ const NavWrapper = styled.div`
           color: rgba(0,0,0,0.4);
           padding: 1.4em 1em 1.4em 1em;
 
-          &:hover, &:focus{
+          &:hover{
             color: rgba(0,0,0,0.8);
             cursor: pointer;
           }
@@ -52,7 +52,7 @@ const NavWrapper = styled.div`
           position: absolute;
           width: 11.5em;
           left: -0.7em;
-          top: 4.7em;
+          top: 4.5em;
           display: flex;
           flex-direction: column;
           background: rgba(255,255,255);
@@ -63,7 +63,7 @@ const NavWrapper = styled.div`
           > a{
             padding: 1em 1em 1em 1.6em;
             color: rgba(0,0,0,0.4);
-            &:hover, &:focus{
+            &:hover{
               color: rgba(0,0,0,0.8);
               cursor: pointer;
             }
@@ -85,16 +85,16 @@ const NavWrapper = styled.div`
           width: 1px;
         }
 
-        &:hover, &:focus{
+        &:hover{
           color: rgba(0,0,0,0.8);
           cursor: pointer;
         }
 
-        &.linkOutBrowser, &.divideLine, &.staking, &.developer, &.governance{
-          @media only screen and (device-width: 375px) and (device-height: 812px) {
-            display: none;
-          }
-        }
+        //&.linkOutBrowser, &.divideLine, &.staking, &.developer, &.governance{
+        //  @media only screen and (device-width: 375px) and (device-height: 812px) {
+        //    display: none;
+        //  }
+        //}
       }
     }
   }
@@ -131,7 +131,7 @@ const NavWrapper = styled.div`
           }
         }
 
-        &:hover, &:focus{
+        &:hover{
           color: rgba(0,0,0,0.8);
           cursor: pointer;
         }
@@ -152,7 +152,7 @@ const NavWrapper = styled.div`
           }
         }
 
-        &:hover, &:focus{
+        &:hover{
           cursor: pointer;
 
           svg{
@@ -161,11 +161,11 @@ const NavWrapper = styled.div`
         }
       }
 
-      &.icon, &.switchNode{
-        @media only screen and (device-width: 375px) and (device-height: 812px) {
-          display: none;
-        }
-      }
+      //&.icon, &.switchNode{
+      //  @media only screen and (device-width: 375px) and (device-height: 812px) {
+      //    display: none;
+      //  }
+      //}
 
       &.accountSelector{
         margin: 0;
