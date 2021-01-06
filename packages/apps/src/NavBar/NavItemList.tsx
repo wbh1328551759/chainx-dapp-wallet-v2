@@ -30,7 +30,7 @@ function NavItemList(): React.ReactElement {
     {nodeName: t<string>('Extrinsics'), link: '/chainstate/extrinsics'},
     {nodeName: t<string>('RPC calls'), link: '/chainstate/rpc'},
     {nodeName: t<string>('Sign and verify'), link: '/chainstate/signing'},
-    {nodeName: t<string>('Recent blocks'), link: '/chainstate/explorer'}
+    {nodeName: t<string>('Explorer'), link: '/chainstate/explorer'}
   ]);
 
   const toggleSelector = (value: 'staking' | 'governance' | 'developer') => {
