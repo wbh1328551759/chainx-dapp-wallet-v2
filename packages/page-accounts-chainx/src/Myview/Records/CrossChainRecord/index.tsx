@@ -82,10 +82,8 @@ export default function (): React.ReactElement {
         </ul>
       </header>
       <main>
-
         {option === 'deposit' ? <DepositList deposits={records.Deposits}/> : null}
         {option === 'withdraw' ? <WithdrawalList withdrawals={records.Withdrawals}/> : null}
-
       </main>
     </Wrapper>
   );
