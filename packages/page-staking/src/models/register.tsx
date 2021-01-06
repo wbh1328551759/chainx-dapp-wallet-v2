@@ -47,7 +47,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
               }
               onChange={setAccount}
               type='account'
-            /> : 
+            /> :
             <InputAddress
               defaultValue={accountId}
               help='The actual account you wish to register account'
@@ -62,7 +62,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
               onChange={setAccount}
               type='account'
             />
-          } 
+          }
           </Modal.Column>
           <Modal.Column>
             <p>{t<string>('Register New Node')}</p>
@@ -72,7 +72,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
           <Modal.Column>
             <Input
               help={t<string>('The node name you choose to run')}
-              label={t<string>('Unique, within 12 characters，Make sure not repeated, 10 pcx fees Will be deduct')}
+              label={t<string>('Unique, within 12 characters，Make sure not repeated, 10 pcx fees will be deduct')}
               onChange={setNodeName}
               type='text'
             />

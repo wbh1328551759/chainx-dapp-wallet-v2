@@ -18,19 +18,19 @@ function Summary (): React.ReactElement {
   return (
     <SummaryBox>
       <section>
-        <CardSummary label={t<string>('last block')}>
+        <CardSummary label={t<string>('Last block')}>
           <TimeNow />
         </CardSummary>
         <CardSummary
           className='media--800'
-          label={t<string>('target')}
+          label={t<string>('Target')}
         >
           <BlockToTime blocks={BN_ONE} />
         </CardSummary>
         {api.query.balances && (
           <CardSummary
             className='media--800'
-            label={t<string>('total issuance')}
+            label={t<string>('Total issuance')}
           >
             <TotalIssuance />
           </CardSummary>
@@ -47,11 +47,11 @@ function Summary (): React.ReactElement {
       {/*</section>*/}
       <section>
         {api.query.grandpa && (
-          <CardSummary label={t<string>('finalized')}>
+          <CardSummary label={t<string>('Finalized')}>
             <BestFinalized />
           </CardSummary>
         )}
-        <CardSummary label={t<string>('best')}>
+        <CardSummary label={t<string>('Latest height')}>
           <BestNumber />
         </CardSummary>
       </section>
