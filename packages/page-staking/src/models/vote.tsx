@@ -5,9 +5,8 @@ import BN from 'bn.js';
 import React, { useState } from 'react';
 import { InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
-import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
-import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
+import { InputPCXBalance, Available} from '@polkadot/react-components-chainx';
 import styled from 'styled-components';
 
 interface Props {
@@ -28,7 +27,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
   const [amount, setAmount] = useState<BN | undefined>();
   const [accountId, setAccount] = useState<string | null | undefined>();
 
-  const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
+  const voteable = <span className='label'>{t<string>('voteable')}</span>;
   const remainingVotes = (<VoteData className='label'>
     {t<string>('remaining votes')}
     {'： '}
@@ -49,7 +48,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
               label={t<string>('My Account')}
               labelExtra={
                 <Available
-                  label={transferrable}
+                  label={voteable}
                   params={accountId}
                 />
               }
