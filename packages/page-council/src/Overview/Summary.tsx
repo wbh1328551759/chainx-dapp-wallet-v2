@@ -4,7 +4,7 @@
 import type { DeriveElectionsInfo } from '@polkadot/api-derive/types';
 import type { BlockNumber } from '@polkadot/types/interfaces';
 import type { ComponentProps } from './types';
-
+import styled from 'styled-components';
 import React from 'react';
 import { SummaryBox, CardSummary } from '@polkadot/react-components';
 import { formatNumber } from '@polkadot/util';
@@ -62,4 +62,9 @@ function Summary ({ bestNumber, className = '', electionsInfo }: Props): React.R
   );
 }
 
-export default React.memo(Summary);
+export default React.memo(styled(Summary)`
+  @media screen and (max-width:600px){
+    flex-direction: column;
+  }
+
+`);
