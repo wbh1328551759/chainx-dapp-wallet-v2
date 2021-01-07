@@ -13,7 +13,13 @@ export const ChainStatus = styled.div`
   width: 30%;
   margin-bottom: 0;
   position: relative;
-
+  @media screen and (min-width:1024px) and (max-width:1320px){
+    display: none !important;
+  }
+  @media screen and (max-width:767px){
+    width: 100%;
+    margin-left: 0;
+  }
   p{
     font-size: 14px;
     font-weight: 600;

@@ -6,6 +6,10 @@ import MiningChart from '@polkadot/app-accounts-chainx/Myview/Assets/components/
 
 const Wrapper = styled.section`
   display:flex;
+  @media screen and (max-width:767px){
+    display: flex;
+    flex-direction: column;
+  }
 
   & > div {
     margin-top: 16px;

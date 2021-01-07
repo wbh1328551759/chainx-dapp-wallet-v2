@@ -174,4 +174,13 @@ export default React.memo(styled(StakingApp)(({ theme }: ThemeProps) => `
       color: ${theme.colorError};
     }
   }
+
+  .staking--Overview {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  
 `));

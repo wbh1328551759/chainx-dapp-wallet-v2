@@ -139,15 +139,15 @@ export default function ({address, onClose}: Props) {
 
   return (
     <Wrapper
-        header={t('Recharge')}
+        header={t('Top up')}
       >
       <Modal.Content>
       <main className='content'>
         <h1>
-          <span className='step'>{t('the first step')}</span>
+          <span className='step'>{t('The First Step')}</span>
           <span className='text'>{t('get OP_RETURN')}</span>
         </h1>
-        <p className={'op-return'}>{t('get the information for the 16-OP_RETURN address')}</p>
+        <p className={'op-return'}>{t('Get the information for the 16-OP_RETURN address')}</p>
         <section className='show-code'>
           <h3>
             <span className="title">OP_RETURN</span>
@@ -155,18 +155,18 @@ export default function ({address, onClose}: Props) {
           <ClipBoard className='hex' id=''>{addressHex}</ClipBoard>
         </section>
         <h1 className='step-2'>
-          <span className='step'>{t('the second step')}</span>
+          <span className='step'>{t('The Second Step')}</span>
           <span className='text'>{t('start a cross-chain top-up')}</span>
         </h1>
         <p className='input'>{t('recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
         <ul className={'info'}>
           <li>
             <img alt='info' src={infoIcon}/>
-            <span>{t('the top-up amount must be greater than 0.001 BTC')}</span>
+            <span>{t('The top-up amount must be greater than 0.001 BTC')}</span>
           </li>
           <li>
             <img alt='info' src={infoIcon}/>
-            <span>{t('currently, only cross-chain top-up initiated by BTC addresses starting with 1 and 3 is supported')}</span>
+            <span>{t('Currently, only cross-chain top-up initiated by BTC addresses starting with 1 and 3 is supported')}</span>
           </li>
         </ul>
         <section className='show-code'>

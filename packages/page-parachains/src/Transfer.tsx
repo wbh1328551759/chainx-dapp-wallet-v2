@@ -78,7 +78,7 @@ function Transfer ({ className, parachains }: Props): React.ReactElement<Props> 
               <Modal.Column>
                 <InputAddress
                   help={t<string>('The account you will send funds from.')}
-                  label={t<string>('send from account')}
+                  label={t<string>('Send From Account')}
                   labelExtra={
                     <Available
                       label={t<string>('transferrable')}
@@ -91,7 +91,7 @@ function Transfer ({ className, parachains }: Props): React.ReactElement<Props> 
                 <InputAddress
                   help={t<string>('The account that will receive the funds')}
                   isDisabled={!api.query.parachainUpgrade}
-                  label={t<string>('send to address')}
+                  label={t<string>('Send To Address')}
                   onChange={setRecipientId}
                   value={
                     api.query.parachainUpgrade
@@ -122,7 +122,7 @@ function Transfer ({ className, parachains }: Props): React.ReactElement<Props> 
                   autoFocus
                   help={t<string>('the amount that should be transferred. It needs to be less than the available balance')}
                   isZeroable={false}
-                  label={t<string>('amount')}
+                  label={t<string>('Amount')}
                   onChange={setAmount}
                 />
                 {api.query.parachains && (

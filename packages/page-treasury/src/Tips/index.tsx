@@ -7,7 +7,7 @@ import BN from 'bn.js';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Button, TxButton } from '@polkadot/react-components';
 import { useAccounts, useApi } from '@polkadot/react-hooks';
-
+import styled from 'styled-components';
 import { useTranslation } from '../translate';
 import TipCreate from './TipCreate';
 import Tips from './Tips';
@@ -72,7 +72,7 @@ function TipsEntry ({ className, hashes, isMember, members, trigger }: Props): R
           label={t<string>('Median tip selected')}
         />
       </Button.Group>
-      <Tips
+      <Tips className="tipscroll"
         defaultId={defaultId}
         hashes={hashes}
         isMember={isMember}
@@ -84,4 +84,11 @@ function TipsEntry ({ className, hashes, isMember, members, trigger }: Props): R
   );
 }
 
-export default React.memo(TipsEntry);
+export default React.memo(styled(TipsEntry)`
+  .tipscroll {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`);

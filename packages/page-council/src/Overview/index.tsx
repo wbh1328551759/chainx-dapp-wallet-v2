@@ -7,12 +7,21 @@ import type { AccountId, BlockNumber } from '@polkadot/types/interfaces';
 import React from 'react';
 import { Button } from '@polkadot/react-components';
 import { useApi, useCall } from '@polkadot/react-hooks';
-
+import styled from 'styled-components';
 import Candidates from './Candidates';
 import Members from './Members';
 import SubmitCandidacy from './SubmitCandidacy';
 import Summary from './Summary';
 import Vote from './Vote';
+
+const Wrapper = styled.div`
+  .memberscroll, .candidatescroll, .candidatescrolls {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`;
 
 interface Props {
   className?: string;
@@ -44,7 +53,7 @@ function Overview ({ className = '', prime }: Props): React.ReactElement<Props> 
   const allVotes = useCall<Record<string, AccountId[]>>(api.derive.council.votes, undefined, transformVotes);
 
   return (
-    <div className={className}>
+    <Wrapper className={className}>
       <Summary
         bestNumber={bestNumber}
         electionsInfo={electionsInfo}
@@ -53,16 +62,16 @@ function Overview ({ className = '', prime }: Props): React.ReactElement<Props> 
         <Vote electionsInfo={electionsInfo} />
         <SubmitCandidacy electionsInfo={electionsInfo} />
       </Button.Group>
-      <Members
+      <Members className="memberscroll"
         allVotes={allVotes}
         electionsInfo={electionsInfo}
         prime={prime}
       />
-      <Candidates
+      <Candidates 
         allVotes={allVotes}
         electionsInfo={electionsInfo}
       />
-    </div>
+    </Wrapper>
   );
 }
 

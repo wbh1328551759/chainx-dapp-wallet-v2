@@ -37,7 +37,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
   return (
     <Modal
       className='app--accounts-Modal'
-      header={t<string>('Transfer X-BTC')}
+      header={t<string>('Send X-BTC')}
       size='large'
     >
       <Modal.Content>
@@ -48,7 +48,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
                 defaultValue={propSenderId}
                 help={t<string>('The account you will send funds from.')}
                 isDisabled={!!propSenderId}
-                label={t<string>('send from account')}
+                label={t<string>('Send From Account')}
                 labelExtra={
                   <span>
                   </span>
@@ -67,7 +67,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
               {/*  defaultValue={propRecipientId}*/}
               {/*  help={t<string>('Select a contact or paste the address you want to send funds to.')}*/}
               {/*  isDisabled={!!propRecipientId}*/}
-              {/*  label={t<string>('send to address')}*/}
+              {/*  label={t<string>('Send To Address')}*/}
               {/*  labelExtra={*/}
               {/*    <span>*/}
               {/*    </span>*/}
@@ -77,7 +77,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
               {/*/>*/}
               <Input
                 help={t<string>('Paste the address you want to send funds to.')}
-                label={t<string>('send to address')}
+                label={t<string>('Send To Address')}
                 onChange={setRecipientId}
               />
             </Modal.Column>

@@ -74,7 +74,7 @@ function Summary({ approvalCount, proposalCount }: Props): React.ReactElement<Pr
         )}
       </section>
       {bestNumber && spendPeriod?.gtn(0) && (
-        <section>
+        <section className='media--1000'>
           <CardSummary
             label={t<string>('spend period')}
             progress={{

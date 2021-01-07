@@ -27,6 +27,16 @@ export const AssetDetail = styled.div`
   @media screen and (max-width:767px) {
     div {
       flex-direction: column;
+      margin-right: 0px;
+      width: 100%;
+      div {
+        width: 100%;
+      }
+    }
+  }
+  @media screen and (min-width:767px) and (max-width:980px) {
+    div {
+      flex-direction: column;
       width: 100%;
       div {
         width: 100%;

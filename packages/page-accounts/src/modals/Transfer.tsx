@@ -76,7 +76,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                 defaultValue={propSenderId}
                 help={t<string>('The account you will send funds from.')}
                 isDisabled={!!propSenderId}
-                label={t<string>('send from account')}
+                label={t<string>('Send From Account')}
                 labelExtra={
                   <Available
                     label={t<string>('transferrable')}
@@ -97,7 +97,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                 defaultValue={propRecipientId}
                 help={t<string>('Select a contact or paste the address you want to send funds to.')}
                 isDisabled={!!propRecipientId}
-                label={t<string>('send to address')}
+                label={t<string>('Send To Address')}
                 labelExtra={
                   <Available
                     label={t<string>('transferrable')}
@@ -139,7 +139,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                       defaultValue={api.consts.balances.existentialDeposit}
                       help={t<string>('The minimum amount that an account should have to be deemed active')}
                       isDisabled
-                      label={t<string>('existential deposit')}
+                      label={t<string>('Existential Deposit')}
                     />
                   </>
                 )
