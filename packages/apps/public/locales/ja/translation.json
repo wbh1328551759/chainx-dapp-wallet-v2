@@ -217,7 +217,7 @@
   "Select the JSON key file that was downloaded when you created the account. This JSON file contains your private key encrypted with your password.": "アカウントを作成した際にダウンロードしたJSONキーファイルを選択します。このJSONファイルには、パスワードで暗号化された秘密鍵が含まれています。",
   "Select the account you wish to recover into this account.": "このアカウントに復元したいアカウントを選択します。",
   "Select the remote endpoint, either from the dropdown on manual entered via the custom toggle": "ドロップダウンの中からリモートノードを選択するかカスタムエンドポイントをオンにして記入します",
-  "Send funds": "資金を送る",
+  "Send Funds": "資金を送る",
   "Send funds from this account": "このアカウントから資金を送る",
   "Send funds to this address": "このアカウントに資金を送る",
   "Set Identity": "アイデンティティをセットする",

@@ -55,7 +55,7 @@ function PreImage ({ className = '', imageHash, isImminent = false, onClose }: P
   return (
     <Modal
       className={className}
-      header={t<string>('Submit preimage')}
+      header={t<string>('Submit Preimage')}
       size='large'
     >
       <Modal.Content>
@@ -119,7 +119,7 @@ function PreImage ({ className = '', imageHash, isImminent = false, onClose }: P
           accountId={accountId}
           icon='plus'
           isDisabled={!proposal || !accountId || !isMatched || !encodedProposal}
-          label={t<string>('Submit preimage')}
+          label={t<string>('Submit Preimage')}
           onStart={onClose}
           params={[encodedProposal]}
           tx={isImminent ? 'democracy.noteImminentPreimage' : 'democracy.notePreimage'}

@@ -97,7 +97,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
               accountId={accountId}
               icon='plus'
               isDisabled={!accountId || !hasValue}
-              label={t<string>('Submit proposal')}
+              label={t<string>('Submit Proposal')}
               onStart={toggleOpen}
               params={[value, beneficiary]}
               tx='treasury.proposeSpend'
@@ -107,7 +107,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
       )}
       <Button
         icon='plus'
-        label={t<string>('Submit proposal')}
+        label={t<string>('Submit Proposal')}
         onClick={toggleOpen}
       />
     </>

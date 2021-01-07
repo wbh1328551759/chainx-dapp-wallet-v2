@@ -12,8 +12,8 @@ const Wrapper = styled.div`
   // min-width: 1280px;
   // max-width: 1440px;
   @media screen and (min-width:1024px){
-    margin-left: 60px;
-    margin-right: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 `;
 
