@@ -52,7 +52,7 @@ function TipEndorse ({ defaultId, hash, isMember, isTipped, median, members }: P
                 <InputAddress
                   filter={members}
                   help={t<string>('Select the account you wish to submit the tip from.')}
-                  label={t<string>('submit with account')}
+                  label={t<string>('Submit With Account')}
                   onChange={setAccountId}
                   type='account'
                   withLabel

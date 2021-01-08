@@ -142,7 +142,7 @@
   "Sudo key": "Sudo key",
   "Supply a backed-up JSON file, encrypted with your account-specific password.": "Supply a backed-up JSON file, encrypted with your account-specific password.",
   "Swap to a non-executing approval type, with subsequent calls providing the actual call data.": "Swap to a non-executing approval type, with subsequent calls providing the actual call data.",
-  "Technical committee": "Technical committee",
+  "Technical Committee": "Technical Committee",
   "Test account": "Test account",
   "The account password as specified when creating the account. This is used to encrypt the backup file and subsequently decrypt it when restoring the account.": "The account password as specified when creating the account. This is used to encrypt the backup file and subsequently decrypt it when restoring the account.",
   "The account type (derivation) to use": "The account type (derivation) to use",

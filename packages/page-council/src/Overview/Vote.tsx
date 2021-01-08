@@ -68,7 +68,7 @@ function Vote ({ electionsInfo }: Props): React.ReactElement<Props> {
               <Modal.Column>
                 <InputAddress
                   help={t<string>('This account will be use to approve each candidate.')}
-                  label={t<string>('voting account')}
+                  label={t<string>('Voting Account')}
                   onChange={setAccountId}
                   type='account'
                 />
@@ -93,12 +93,12 @@ function Vote ({ electionsInfo }: Props): React.ReactElement<Props> {
               <Modal.Column>
                 <InputAddressMulti
                   available={available}
-                  availableLabel={t<string>('council candidates')}
+                  availableLabel={t<string>('Council Candidates')}
                   defaultValue={defaultVotes}
                   help={t<string>('Select and order council candidates you wish to vote for.')}
                   maxCount={MAX_VOTES}
                   onChange={setVotes}
-                  valueLabel={t<string>('my ordered votes')}
+                  valueLabel={t<string>('My Ordered Votes')}
                 />
               </Modal.Column>
               <Modal.Column>
@@ -112,7 +112,7 @@ function Vote ({ electionsInfo }: Props): React.ReactElement<Props> {
               accountId={accountId}
               icon='trash-alt'
               isDisabled={!defaultVotes.length}
-              label={t<string>('Unvote all')}
+              label={t<string>('Unvote All')}
               onStart={toggleVisible}
               params={[]}
               tx={

@@ -122,7 +122,7 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       <Hr/>
       <Footer>
         <div>
-          <span>{t('Mining interest')}</span>
+          <span>{t('Mining Interest')}</span>
           <span>  {usableInterests ? usableInterests.toFixed(8) : 0} PCX</span>
         </div>
         <div>

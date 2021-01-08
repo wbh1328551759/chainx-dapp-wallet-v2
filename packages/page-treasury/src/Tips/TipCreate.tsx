@@ -48,7 +48,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
               <Modal.Column>
                 <InputAddress
                   help={t<string>('Select the account you wish to submit the tip from.')}
-                  label={t<string>('submit with account')}
+                  label={t<string>('Submit With Account')}
                   onChange={setAccountId}
                   type='account'
                   withLabel
@@ -62,7 +62,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
               <Modal.Column>
                 <InputAddress
                   help={t<string>('The account to which the tip will be transferred if approved')}
-                  label={t<string>('beneficiary')}
+                  label={t<string>('Beneficiary')}
                   onChange={setBeneficiary}
                   type='allPlus'
                 />

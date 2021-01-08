@@ -89,7 +89,7 @@ const Wrapper = styled(Modal)`
       }
     }
   }
-  h1 {
+  h2 {
     margin: 0;
     opacity: 0.72;
     font-size: 14px;
@@ -141,10 +141,10 @@ export default function ({address, onClose}: Props) {
       >
       <Modal.Content>
       <main className='content'>
-        <h1>
+        <h2>
           <span className='step'>{t('The First Step')}</span>
           <span className='text'>{t('get OP_RETURN')}</span>
-        </h1>
+        </h2>
         <p className={'op-return'}>{t('Get the information for the 16-OP_RETURN address')}</p>
         <section className='show-code'>
           <h3>
@@ -152,11 +152,11 @@ export default function ({address, onClose}: Props) {
           </h3>
           <ClipBoard className='hex' id=''>{addressHex}</ClipBoard>
         </section>
-        <h1 className='step-2'>
+        <h2 className='step-2'>
           <span className='step'>{t('The Second Step')}</span>
           <span className='text'>{t('start a cross-chain top-up')}</span>
-        </h1>
-        <p className='input'>{t('recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
+        </h2>
+        <p className='input'>{t('Recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
         <ul className={'info'}>
           <li>
             <img alt='info' src={infoIcon}/>

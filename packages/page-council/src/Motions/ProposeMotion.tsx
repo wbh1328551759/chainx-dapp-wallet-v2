@@ -63,7 +63,7 @@ function Propose ({ isMember, members }: Props): React.ReactElement<Props> {
       <Button
         icon='plus'
         isDisabled={!isMember}
-        label={t<string>('Propose motion')}
+        label={t<string>('Propose Motion')}
         onClick={toggleOpen}
       />
       {isOpen && (
