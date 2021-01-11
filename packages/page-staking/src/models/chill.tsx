@@ -33,7 +33,7 @@ function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React
               defaultValue={account}
               help={t<string>('The actual account you wish to Drop')}
               isDisabled={!!account}
-              label={t<string>('Drop account')}
+              label={t<string>('Drop Account')}
               labelExtra={
                 <Available
                   label={transferrable}

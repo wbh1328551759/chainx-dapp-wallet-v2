@@ -23,7 +23,7 @@ function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): Rea
 
   return (
     <Modal
-      header={t<string>('Node participates in the election')}
+      header={t<string>('Node Participates In The Election')}
       size='large'
     >
       <Modal.Content>
@@ -32,7 +32,7 @@ function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): Rea
             <InputAddress
               defaultValue={account}
               help={t<string>('The actual account you wish to participates account')}
-              label={t<string>('participates account')}
+              label={t<string>('Participates Account')}
               isDisabled={!!account}
               labelExtra={
                 <Available

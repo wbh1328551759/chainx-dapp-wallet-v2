@@ -85,13 +85,13 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
           <Modal.Column>
             <InputPCXBalance
               autoFocus
-              help={t<string>('Number of node mortgages')}
-              label={t<string>('Number of node mortgages')}
+              help={t<string>('Number Of Node Mortgages')}
+              label={t<string>('Number Of Node Mortgages')}
               onChange={setAmount}
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Number of node mortgages')}</p>
+            <p>{t<string>('Number Of Node Mortgages')}</p>
           </Modal.Column>
         </Modal.Columns>
       </Modal.Content>
