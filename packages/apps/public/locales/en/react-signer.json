@@ -1,7 +1,7 @@
 {
   "Add a tip to this extrinsic, paying the block author for greater priority": "Add a tip to this extrinsic, paying the block author for greater priority",
   "Adding an optional tip to the transaction could allow for higher priority, especially when the chain is busy.": "Adding an optional tip to the transaction could allow for higher priority, especially when the chain is busy.",
-  "Authorize transaction": "Authorize transaction",
+  "Authorize Transaction": "Authorize Transaction",
   "Current account nonce: {{accountNonce}}": "Current account nonce: {{accountNonce}}",
   "Do not include a tip for the block author": "Do not include a tip for the block author",
   "Don't use a proxy for this call": "Don't use a proxy for this call",
@@ -16,7 +16,7 @@
   "Sending transaction": "Sending transaction",
   "Set to 0 to make transaction immortal": "Set to 0 to make transaction immortal",
   "Sign (no submission)": "Sign (no submission)",
-  "Sign and Submit": "Sign and Submit",
+  "Sign And Submit": "Sign And Submit",
   "Sign via Qr": "Sign via Qr",
   "Signed transaction": "Signed transaction",
   "Submit (no signature)": "Submit (no signature)",

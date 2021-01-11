@@ -367,7 +367,7 @@ function TxSigned ({ className, currentItem, requestAddress }: Props): React.Rea
             flags.isQr
               ? t<string>('Sign via Qr')
               : isSubmit
-                ? t<string>('Sign and Submit')
+                ? t<string>('Sign And Submit')
                 : t<string>('Sign (no submission)')
           }
           onClick={_doStart}
@@ -379,7 +379,7 @@ function TxSigned ({ className, currentItem, requestAddress }: Props): React.Rea
             isDisabled={!!currentItem.payload}
             label={
               isSubmit
-                ? t<string>('Sign and Submit')
+                ? t<string>('Sign And Submit')
                 : t<string>('Sign (no submission)')
             }
             onChange={setIsSubmit}
