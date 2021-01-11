@@ -79,7 +79,7 @@ function Verify ({ className = '' }: Props): React.ReactElement {
           help={t<string>('The account that signed the input')}
           isError={!isValidPk}
           isInput
-          label={t<string>('verify using address')}
+            label={t<string>('Verify Using Address')}
           onChange={_onChangeAddress}
         />
       </div>
@@ -88,7 +88,7 @@ function Verify ({ className = '' }: Props): React.ReactElement {
           autoFocus
           className='full'
           help={t<string>('The data that was signed. This is used in combination with the signature for the verification. It can either be hex or a string.')}
-          label={t<string>('using the following data')}
+          label={t<string>('Using The Following Data')}
           onChange={_onChangeData}
           value={data}
         />
@@ -105,7 +105,7 @@ function Verify ({ className = '' }: Props): React.ReactElement {
           className='full'
           help={t<string>('The signature as by the account being checked, supplied as a hex-formatted string.')}
           isError={!isValidSignature}
-          label={t<string>('the supplied signature')}
+          label={t<string>('The Supplied Signature')}
           onChange={_onChangeSignature}
           value={signature}
         />
@@ -115,13 +115,13 @@ function Verify ({ className = '' }: Props): React.ReactElement {
           defaultValue={cryptoType}
           help={t<string>('Cryptography used to create this signature. It is auto-detected on valid signatures.')}
           isDisabled
-          label={t<string>('signature crypto type')}
+          label={t<string>('Signature Crypto Type')}
           options={cryptoOptions}
         />
         <Static
           className='medium'
           help={t<string>('Detection on the input string to determine if it is hex or non-hex.')}
-          label={t<string>('hex input data')}
+          label={t<string>('Hex Input Data')}
           value={
             isHexData
               ? t<string>('Yes')
