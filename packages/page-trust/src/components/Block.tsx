@@ -37,7 +37,7 @@ const Content = styled.div`
   margin-top: 16px;
   margin-left: -16px;
   margin-right: -16px;
-  
+
   overflow: auto;
   &::-webkit-scrollbar {
     display: none;

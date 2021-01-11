@@ -41,7 +41,7 @@ function Summary ({ bestNumber, className = '', electionsInfo }: Props): React.R
       </section>
       {voteCount && (
         <section>
-          <CardSummary label={t<string>('voting round')}>
+          <CardSummary label={t<string>('Voting Round')}>
             #{formatNumber(voteCount)}
           </CardSummary>
         </section>

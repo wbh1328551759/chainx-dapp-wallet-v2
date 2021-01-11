@@ -25,7 +25,7 @@ function Summary ({ className = '', members, proposals }: Props): React.ReactEle
         <CardSummary label={t<string>('Proposals')}>
           {formatNumber(proposals?.length)}
         </CardSummary>
-        <CardSummary label={t<string>('total')}>
+        <CardSummary label={t<string>('Total')}>
           {formatNumber(proposalCount)}
         </CardSummary>
       </section>

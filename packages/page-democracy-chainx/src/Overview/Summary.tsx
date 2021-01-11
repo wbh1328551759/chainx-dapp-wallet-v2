@@ -27,7 +27,7 @@ function Summary ({ referendumCount }: Props): React.ReactElement<Props> {
         <CardSummary label={t<string>('Proposals')}>
           {formatNumber(activeProposals?.length)}
         </CardSummary>
-        <CardSummary label={t<string>('total')}>
+        <CardSummary label={t<string>('Total')}>
           {formatNumber(publicPropCount)}
         </CardSummary>
       </section>
@@ -35,7 +35,7 @@ function Summary ({ referendumCount }: Props): React.ReactElement<Props> {
         <CardSummary label={t<string>('Referenda')}>
           {formatNumber(referendumCount || 0)}
         </CardSummary>
-        <CardSummary label={t<string>('total')}>
+        <CardSummary label={t<string>('Total')}>
           {formatNumber(referendumTotal || 0)}
         </CardSummary>
       </section>

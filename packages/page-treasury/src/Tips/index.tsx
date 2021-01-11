@@ -69,7 +69,7 @@ function TipsEntry ({ className, hashes, isMember, members, trigger }: Props): R
           extrinsic={quickTx}
           icon='fighter-jet'
           isDisabled={!isMember || !quickTx}
-          label={t<string>('Median tip selected')}
+          label={t<string>('Median Tip Selected')}
         />
       </Button.Group>
       <Tips className="tipscroll"

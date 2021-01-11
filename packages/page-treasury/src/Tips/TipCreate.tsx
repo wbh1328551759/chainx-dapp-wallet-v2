@@ -35,12 +35,12 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
     <>
       <Button
         icon='plus'
-        label={t<string>('Propose tip')}
+        label={t<string>('Propose Tip')}
         onClick={toggleOpen}
       />
       {isOpen && (
         <Modal
-          header={t<string>('Submit tip request')}
+          header={t<string>('Submit Tip Request')}
           size='large'
         >
           <Modal.Content>
@@ -106,7 +106,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
               accountId={accountId}
               icon='plus'
               isDisabled={!accountId || (isMember && !hasValue) || !hasReason}
-              label={t<string>('Propose tip')}
+              label={t<string>('Propose Tip')}
               onStart={toggleOpen}
               onSuccess={refresh}
               params={

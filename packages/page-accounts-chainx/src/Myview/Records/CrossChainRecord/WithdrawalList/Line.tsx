@@ -25,7 +25,6 @@ export default function (props: { withdrawal: Withdraw }): React.ReactElement {
   const wrapper = useRef(null);
   const timeFormat = 'YYYY/MM/DD HH:mm:ss';
   const [outSideOpen, setOutSideOpen] = useState(false);
-  const { currentAccount } = useContext(AccountContext);
   useOutsideClick(wrapper, () => {
     setOutSideOpen(false);
   });
@@ -63,13 +62,11 @@ export default function (props: { withdrawal: Withdraw }): React.ReactElement {
           </li>
           <li>
             <Label>{t('Address')}</Label>
-
-            <BtcAddress address={currentAccount} />
-
+            <BtcAddress address={props.withdrawal.data[1].addr} />
           </li>
           <li>
             <Label>{t('service charge')}</Label>
-            <p className='memo'>0.001 X-BTC</p>
+            <p className='memo'>{toPrecision(props.withdrawal.data[1].balance, 8)} X-BTC</p>
           </li>
 
         </Detail>

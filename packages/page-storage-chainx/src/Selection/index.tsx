@@ -15,9 +15,9 @@ import {useTranslation} from '../translate';
 import HashSelection from '@polkadot/app-signing/Hash';
 import VerifySelection from '@polkadot/app-signing/Verify';
 import Sign from '@polkadot/app-signing/Sign';
-import Forks from '@polkadot/app-explorer/Forks';
-import NodeInfo from '@polkadot/app-explorer/NodeInfo';
-import BlockInfo from '@polkadot/app-explorer/BlockInfo';
+import Forks from '@polkadot/app-explorer-chainx/Forks';
+import NodeInfo from '@polkadot/app-explorer-chainx/NodeInfo';
+import BlockInfo from '@polkadot/app-explorer-chainx/BlockInfo';
 import Main from '@polkadot/app-explorer-chainx/Main';
 import {BlockAuthorsContext, EventsContext} from '@polkadot/react-query';
 

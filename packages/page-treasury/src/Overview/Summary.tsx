@@ -43,7 +43,7 @@ function Summary({ approvalCount, proposalCount }: Props): React.ReactElement<Pr
         <CardSummary label={t<string>('Proposals')}>
           {formatNumber(proposalCount)}
         </CardSummary>
-        <CardSummary label={t<string>('total')}>
+        <CardSummary label={t<string>('Total')}>
           {formatNumber(totalProposals || 0)}
         </CardSummary>
       </section>

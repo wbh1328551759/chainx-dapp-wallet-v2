@@ -336,7 +336,7 @@ export default createGlobalStyle<Props & ThemeProps>`
   }
 
   h1 {
-    text-transform: lowercase;
+    //text-transform: lowercase;
 
     em {
       font-style: normal;
@@ -347,11 +347,11 @@ export default createGlobalStyle<Props & ThemeProps>`
   h1, h2, h3, h4, h5 {
     margin-bottom: 0.25rem;
   }
-  
+
   h6, p {
     margin: 0;
   }
-  
+
   ul, li {
     list-style: none;
     padding: 0;

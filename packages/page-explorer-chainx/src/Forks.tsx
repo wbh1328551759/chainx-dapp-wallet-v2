@@ -378,8 +378,8 @@ function Forks ({ className }: Props): React.ReactElement<Props> | null {
     <div className={className}>
       <SummaryBox>
         <section>
-          <CardSummary label={t<string>('blocks')}>{formatNumber(countRef.current.numBlocks)}</CardSummary>
-          <CardSummary label={t<string>('forks')}>{formatNumber(countRef.current.numForks)}</CardSummary>
+          <CardSummary label={t<string>('Blocks')}>{formatNumber(countRef.current.numBlocks)}</CardSummary>
+          <CardSummary label={t<string>('Forks')}>{formatNumber(countRef.current.numForks)}</CardSummary>
         </section>
       </SummaryBox>
       <table>
