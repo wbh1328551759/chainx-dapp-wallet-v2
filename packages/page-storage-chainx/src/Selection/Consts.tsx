@@ -40,7 +40,7 @@ function Consts ({ onAdd }: Props): React.ReactElement<Props> {
         <InputConsts
           defaultValue={defaultValue}
           help={meta?.documentation.join(' ')}
-          label={t<string>('selected constant query')}
+          label={t<string>('Selected Constant Query')}
           onChange={setValue}
         />
       </div>
