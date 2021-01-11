@@ -20,7 +20,7 @@ function Proposals ({ className }: Props): React.ReactElement<Props> {
   const proposals = useCall<DeriveProposal[]>(api.derive.democracy.proposals);
 
   const headerRef = useRef([
-    [t('proposals'), 'start', 2],
+    [t('Proposals'), 'start', 2],
     [t('proposer'), 'address'],
     [t('locked'), 'media--1200'],
     [undefined, undefined, 2],
