@@ -31,7 +31,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
       {isOpen && (
         <Modal
           className={className}
-          header={t<string>('Submit treasury proposal')}
+          header={t<string>('Submit Treasury Proposal')}
           size='large'
         >
           <Modal.Content>
@@ -39,7 +39,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
               <Modal.Column>
                 <InputAddress
                   help={t<string>('Select the account you wish to submit the proposal from.')}
-                  label={t<string>('submit with account')}
+                  label={t<string>('Submit with account')}
                   onChange={setAccountId}
                   type='account'
                   withLabel
@@ -97,7 +97,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
               accountId={accountId}
               icon='plus'
               isDisabled={!accountId || !hasValue}
-              label={t<string>('Submit proposal')}
+              label={t<string>('Submit Proposal')}
               onStart={toggleOpen}
               params={[value, beneficiary]}
               tx='treasury.proposeSpend'
@@ -107,7 +107,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
       )}
       <Button
         icon='plus'
-        label={t<string>('Submit proposal')}
+        label={t<string>('Submit Proposal')}
         onClick={toggleOpen}
       />
     </>

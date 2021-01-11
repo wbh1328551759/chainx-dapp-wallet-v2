@@ -106,7 +106,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
               accountId={accountId}
               icon='plus'
               isDisabled={!accountId || (isMember && !hasValue) || !hasReason}
-              label={t<string>('Propose tip')}
+              label={t<string>('Propose Tip')}
               onStart={toggleOpen}
               onSuccess={refresh}
               params={

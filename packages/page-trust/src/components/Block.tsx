@@ -37,7 +37,7 @@ const Content = styled.div`
   margin-top: 16px;
   margin-left: -16px;
   margin-right: -16px;
-  
+
   overflow: auto;
   &::-webkit-scrollbar {
     display: none;
@@ -82,7 +82,7 @@ export default function (): React.ReactElement {
   return (
     <Wrapper>
       <Block>
-        <p>{t('Withdrawal list')}</p>
+        <p>{t('Withdrawal List')}</p>
         <Content>
           <Table
             empty={t<string>('No matches found')}
