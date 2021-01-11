@@ -7,7 +7,7 @@ import React, { useContext, useMemo } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import AccountSidebar from '@polkadot/app-accounts-chainx/Sidebar';
 import { getSystemChainColor } from '@polkadot/apps-config';
-import GlobalStyle from '@polkadot/react-components/styles';
+import GlobalStyle from '@polkadot/react-components-chainx/styles';
 import { useApi } from '@polkadot/react-hooks';
 import Signer from '@polkadot/react-signer';
 

@@ -25,7 +25,7 @@ function DemocracyApp ({ basePath }: Props): React.ReactElement<Props> {
     {
       isRoot: true,
       name: 'overview',
-      text: t<string>('Democracy overview')
+      text: t<string>('Democracy Overview')
     },
     {
       count: dispatchCount,

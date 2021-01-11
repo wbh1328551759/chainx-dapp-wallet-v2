@@ -98,6 +98,12 @@
       "@polkadot/app-explorer/*": [
         "packages/page-explorer/src/*"
       ],
+      "@polkadot/app-explorer-chainx": [
+        "packages/page-explorer-chainx/src"
+      ],
+      "@polkadot/app-explorer-chainx/*": [
+        "packages/page-explorer-chainx/src/*"
+      ],
       "@polkadot/app-generic-asset": [
         "packages/page-generic-asset/src"
       ],

@@ -22,7 +22,7 @@ export default function Metadata (): React.ReactElement {
           <Extensions chainInfo={chainInfo} />
         </>
       )}
-      <h1>{t<string>('Chain specifications')}</h1>
+      <h1>{t<string>('Chain Specifications')}</h1>
       <NetworkSpecs chainInfo={chainInfo} />
     </>
   );

@@ -6,7 +6,7 @@ Validators and nominators earn rewards at the end of each era. The rewards are s
 
 # Bonding
 
-Bonding funds is the first step to validate or nominate. It locks up a portion of funds that is used to secure the network. These funds are placed at risk, i.e. you can be slashed and lose a portion if the validator node misbehaves. Validators and nominators share both rewards and the slashing effects. Choosing a well behaving validator to nominate is crucial.
+Bonding funds is The First Step to validate or nominate. It locks up a portion of funds that is used to secure the network. These funds are placed at risk, i.e. you can be slashed and lose a portion if the validator node misbehaves. Validators and nominators share both rewards and the slashing effects. Choosing a well behaving validator to nominate is crucial.
 
 For bonding (with an intention to either validate or nominate), you need to have 2 accounts -
 

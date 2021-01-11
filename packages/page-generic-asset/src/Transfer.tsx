@@ -71,7 +71,7 @@ function Transfer ({ assets, className = '', onClose, recipientId: propRecipient
           defaultValue={propSenderId}
           help={t<string>('The account you will send funds from.')}
           isDisabled={!!propSenderId}
-          label={t<string>('send from account')}
+          label={t<string>('Send From Account')}
           labelExtra={
             <Available
               label={transferrable}
@@ -85,7 +85,7 @@ function Transfer ({ assets, className = '', onClose, recipientId: propRecipient
           defaultValue={propRecipientId}
           help={t<string>('Select a contact or paste the address you want to send funds to.')}
           isDisabled={!!propRecipientId}
-          label={t<string>('send to address')}
+          label={t<string>('Send To Address')}
           labelExtra={
             <Available
               label={transferrable}
@@ -106,7 +106,7 @@ function Transfer ({ assets, className = '', onClose, recipientId: propRecipient
         />
         <InputBalance
           help={t<string>('Type the amount you want to transfer. Note that you can select the unit on the right e.g sending 1 milli is equivalent to sending 0.001.')}
-          label={t<string>('amount')}
+          label={t<string>('Amount')}
           onChange={setAmount}
         />
       </div>

@@ -40,7 +40,7 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
     <SummaryBox className={`${className}${!isVisible ? ' staking--hidden' : ''}`}>
       <section>
         {stakingOverview && (
-          <CardSummary label={t<string>('elector')}>
+          <CardSummary label={t<string>('Elector')}>
             {stakingOverview.validatorCount.toString()} &nbsp;/&nbsp; {stakingOverview.validators.length}
           </CardSummary>
         )}
@@ -49,7 +49,7 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
       <section>
         <CardSummary
           className='validator--Summary-authors'
-          label={t<string>('last block')}
+          label={t<string>('Last Block')}
         >
           {lastBlockAuthors?.map((author): React.ReactNode => (
             <IdentityIcon
@@ -64,7 +64,7 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
       <section>
         <CardSummary
           className='validator--Summary-authors'
-          label={t<string>('block producer')}
+          label={t<string>('Block Producer')}
         >
           {lastBlockAuthors?.map((author): React.ReactNode => (
             <AddressSmall value={author}  key={author} />
@@ -126,6 +126,9 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
 }
 
 export default React.memo(styled(Summary)`
+  flex-wrap: wrap;
+  align-items: center;
+  
   .validator--Account-block-icon {
     display: inline-block;
     margin-right: 0.75rem;

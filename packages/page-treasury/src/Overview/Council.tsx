@@ -103,7 +103,7 @@ function Council ({ id, isDisabled, members }: Props): React.ReactElement<Props>
       <Button
         icon='step-forward'
         isDisabled={isDisabled}
-        label={t<string>('To council')}
+        label={t<string>('To Council')}
         onClick={toggleOpen}
       />
     </>

@@ -29,7 +29,7 @@ function SubmitCandidacy ({ electionsInfo }: Props): React.ReactElement<Props> {
               <Modal.Column>
                 <InputAddress
                   help={t<string>('Select the account you wish to submit for candidacy.')}
-                  label={t<string>('candidate account')}
+                  label={t<string>('Candidate Account')}
                   onChange={setAcountId}
                   type='account'
                 />
@@ -44,7 +44,7 @@ function SubmitCandidacy ({ electionsInfo }: Props): React.ReactElement<Props> {
                   defaultValue={api.consts[modLocation].candidacyBond}
                   help={t<string>('The bond that is reserved')}
                   isDisabled
-                  label={t<string>('candidacy bond')}
+                  label={t<string>('Candidacy Bond')}
                 />
               </Modal.Column>
               <Modal.Column>
@@ -70,7 +70,7 @@ function SubmitCandidacy ({ electionsInfo }: Props): React.ReactElement<Props> {
       <Button
         icon='plus'
         isDisabled={!electionsInfo}
-        label={t<string>('Submit candidacy')}
+        label={t<string>('Submit Candidacy')}
         onClick={onOpen}
       />
     </>

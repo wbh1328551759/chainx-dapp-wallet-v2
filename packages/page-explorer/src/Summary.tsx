@@ -17,7 +17,7 @@ function Summary (): React.ReactElement {
   return (
     <SummaryBox>
       <section>
-        <CardSummary label={t<string>('last block')}>
+        <CardSummary label={t<string>('Last Block')}>
           <TimeNow />
         </CardSummary>
         <CardSummary
@@ -44,7 +44,7 @@ function Summary (): React.ReactElement {
             <BestFinalized />
           </CardSummary>
         )}
-        <CardSummary label={t<string>('best')}>
+        <CardSummary label={t<string>('latest height')}>
           <BestNumber />
         </CardSummary>
       </section>

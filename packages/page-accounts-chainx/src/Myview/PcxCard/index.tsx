@@ -27,12 +27,19 @@ const InnerWrapper = styled.div`
   header {
     display: flex;
     justify-content: space-between;
+    @media screen and (min-width:375px) and (max-width:540px){
+      flex-direction: column;
+      align-items: baseline;
+    }
   }
 
   section.free {
     display: flex;
     margin-top: 10px;
     align-items: flex-end;
+    @media screen and (min-width:375px) and (max-width:540px){
+      position: relative;
+    }
   }
   .whiteBtn {
     color: rgba(0, 0, 0, 0.72);
@@ -53,12 +60,23 @@ const InnerWrapper = styled.div`
       color: rgba(0, 0, 0, 0.72) !important;
       box-shadow: none;
     }
+    @media screen and (min-width:375px) and (max-width:540px){
+      position: absolute;
+      top: -4px;
+      left: 0;
+      margin: 0 0 4px 70px;
+    }
   }
   section.details {
     display: flex;
     margin-top: 32px;
     & > div:not(:first-of-type) {
       margin-left: 66px;
+    }
+    @media screen and (min-width:375px) and (max-width:540px){
+      & > div:not(:first-of-type) {
+        margin-left: 20px;
+      }
     }
   }
 `;
@@ -71,6 +89,9 @@ const CornerBackground = styled.div`
   width: 179px;
   height: 147px;
   opacity: 0.2;
+  @media screen and (max-width:767px) {
+    display: none;
+  }
 `;
 
 interface PcxCardProps {
@@ -88,6 +109,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
   const [allBalance, setAllBalance] = useState<number>(0)
   const [usableBalance, setUsableBalance] = useState<number>(0)
   const [feeFrozen, setFeeFrozen] = useState<number>(0)
+  const [miscFrozen, setMiscFrozen] = useState<number>(0)
   // const allBalance = freeBalance.add(new BN(pcxFree.reserved)).toNumber();
   // const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
   // const bgFreeFrozen = new BN(pcxFree.feeFrozen);
@@ -103,8 +125,9 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
       window.localStorage.setItem('pcxFreeInfo',JSON.stringify(defaultValue))
       const bgFree = new BN(defaultValue.free )
       setAllBalance(bgFree.add(new BN(defaultValue.reserved)).toNumber() )
-      setUsableBalance(bgFree.sub(new BN(defaultValue.feeFrozen)).toNumber())
-      setFeeFrozen(new BN(defaultValue.feeFrozen).toNumber())
+      setUsableBalance(bgFree.sub(new BN(defaultValue.miscFrozen)).toNumber())
+      setFeeFrozen((new BN(defaultValue.feeFrozen)).toNumber())
+      setMiscFrozen((new BN(defaultValue.miscFrozen)).toNumber())
     }else{
       setDefaultValue(JSON.parse(window.localStorage.getItem('pcxFreeInfo')))
       if(pcxFree){
@@ -123,13 +146,15 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
     if(isApiReady && pcxFree){
       const bgFree = new BN(pcxFree.free)
       setAllBalance(bgFree.add(new BN(pcxFree.reserved)).toNumber())
-      setUsableBalance(bgFree.sub(new BN(pcxFree.feeFrozen)).toNumber())
+      setUsableBalance(bgFree.sub(new BN(pcxFree.miscFrozen)).toNumber())
       setFeeFrozen((new BN(pcxFree.feeFrozen)).toNumber())
+      setMiscFrozen((new BN(pcxFree.miscFrozen)).toNumber())
     }else{
       const bgFree = new BN(defaultValue.free )
       setAllBalance(bgFree.add(new BN(defaultValue.reserved)).toNumber() )
-      setUsableBalance(bgFree.sub(new BN(defaultValue.feeFrozen)).toNumber())
+      setUsableBalance(bgFree.sub(new BN(defaultValue.miscFrozen)).toNumber())
       setFeeFrozen(new BN(defaultValue.feeFrozen).toNumber())
+      setMiscFrozen((new BN(defaultValue.miscFrozen)).toNumber())
     }
 
   }, [defaultValue, isApiReady, pcxFree])
@@ -144,7 +169,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
         <section className='free' key='free'>
           <AssetView
             bold
-            title={t('free balance')}
+            title={t('Free Balance')}
             value={usableBalance}
           />
 
@@ -165,13 +190,13 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
             <>
               <AssetView
                 key={Math.random()}
-                title={t('total balance')}
+                title={t('Total Balance')}
                 value={allBalance}
               />
               <AssetView
                 key={Math.random()}
-                title={t('frozen voting')}
-                value={feeFrozen}
+                title={t('Frozen Voting')}
+                value={miscFrozen}
               />
               {/* <AssetView
                 title="交易冻结"

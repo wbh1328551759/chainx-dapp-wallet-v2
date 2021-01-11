@@ -93,7 +93,7 @@ export default React.memo(styled(Content)`
   padding: 0 1.5rem 1rem;
   position: relative;
   width: 100%;
-
+  
   .connecting {
     padding: 3.5rem 0;
   }

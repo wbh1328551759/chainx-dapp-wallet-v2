@@ -42,8 +42,8 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
 
   const themeOptions = useMemo(
     () => [
-      { text: t('Light theme (default)'), value: 'light' },
-      { text: t('Dark theme (experimental, work-in-progress)'), value: 'dark' }
+      { text: t('Light theme (default)'), value: 'light' }
+      // { text: t('Dark theme (experimental, work-in-progress)'), value: 'dark' }
     ],
     [t]
   );
@@ -92,7 +92,7 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
         <Dropdown
           defaultValue={prefix}
           help={t<string>('Override the default ss58 prefix for address generation')}
-          label={t<string>('address prefix')}
+          label={t<string>('Address Prefix')}
           onChange={_handleChange('prefix')}
           options={prefixOptions}
         />
@@ -101,7 +101,7 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
         <Dropdown
           defaultValue={icon}
           help={t<string>('Override the default identity icon display with a specific theme')}
-          label={t<string>('default icon theme')}
+          label={t<string>('Default Icon Theme')}
           onChange={_handleChange('icon')}
           options={iconOptions}
         />
@@ -111,7 +111,7 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
           <Dropdown
             defaultValue={ledgerConn}
             help={t<string>('Manage your connection to Ledger S')}
-            label={t<string>('manage hardware connections')}
+            label={t<string>('Manage Hardware Connections')}
             onChange={_handleChange('ledgerConn')}
             options={ledgerConnOptions}
           />
@@ -120,7 +120,7 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
       <div className='ui--row'>
         <Dropdown
           defaultValue={uiTheme}
-          label={t<string>('default interface theme')}
+          label={t<string>('Default Interface Theme')}
           onChange={_handleChange('uiTheme')}
           options={themeOptions}
         />
@@ -128,7 +128,7 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
       <div className='ui--row'>
         <Dropdown
           defaultValue={i18nLang}
-          label={t<string>('default interface language')}
+          label={t<string>('Default Interface Language')}
           onChange={_handleChange('i18nLang')}
           options={translateLanguages}
         />

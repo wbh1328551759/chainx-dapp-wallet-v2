@@ -82,7 +82,7 @@ function Selection ({ queueRpc }: Props): React.ReactElement<Props> {
       <InputRpc
         defaultValue={defaultMethod}
         help={t<string>('The actual JSONRPC module and function to make a call to.')}
-        label={t<string>('call the selected endpoint')}
+        label={t<string>('Call The Selected Endpoint')}
         onChange={_onChangeMethod}
       />
       <Params
@@ -94,7 +94,7 @@ function Selection ({ queueRpc }: Props): React.ReactElement<Props> {
         <Button
           icon='sign-in-alt'
           isDisabled={!isValid}
-          label={t<string>('Submit RPC call')}
+          label={t<string>('Submit RPC Call')}
           onClick={_onSubmit}
         />
       </Button.Group>

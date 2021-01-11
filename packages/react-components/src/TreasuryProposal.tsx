@@ -56,7 +56,7 @@ function TreasuryProposal ({ asInset, className = '', insetProps, onClick, propo
           withLabel={false}
         />
       </Labelled>
-      <Labelled label={t<string>('beneficiary')}>
+      <Labelled label={t<string>('Beneficiary')}>
         <InputAddress
           defaultValue={beneficiary}
           isDisabled

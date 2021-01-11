@@ -5,12 +5,14 @@ import {Wrapper} from './Wrapper';
 import CreateModal from '@polkadot/app-addresses/modals/Create';
 import Address from './Address';
 import Empty from '../Empty/index';
+import { useTranslation } from '@polkadot/react-components/translate';
 
 type SortedAddress = { address: string; isFavorite: boolean };
 
 const STORE_FAVS = 'accounts:favorites';
 
 function AllAccounts() {
+  const { t } = useTranslation();
   const isLoading = useLoadingDelay();
   const {allAddresses} = useAddresses();
   const [sortedAddresses, setSortedAddresses] = useState<SortedAddress[] | undefined>();
@@ -50,7 +52,7 @@ function AllAccounts() {
           <Address key={address} value={address}/>
         )) :
         <div className='empty'>
-          <Empty text='暂无联系人'/>
+          <Empty text={t('No contact at present')} />
         </div>
       }
     </Wrapper>

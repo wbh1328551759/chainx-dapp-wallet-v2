@@ -67,7 +67,7 @@ function Slashing ({ className = '', isMember, members }: Props): React.ReactEle
       <Button
         icon='sync'
         isDisabled={!isMember || !slashes.length}
-        label={t<string>('Cancel slashes')}
+        label={t<string>('Cancel Slashes')}
         onClick={toggleVisible}
       />
       {isVisible && (

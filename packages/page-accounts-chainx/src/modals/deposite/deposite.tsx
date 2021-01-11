@@ -18,8 +18,11 @@ interface Props {
 }
 
 const Wrapper = styled(Modal)`
-  min-width: 500px;
-  max-width: 600px;
+ 
+  @media screen and (min-width:540px) {
+    min-width: 500px;
+    max-width: 600px;
+  }
   main.content {
     section.show-code {
       margin-top: 12px;
@@ -86,7 +89,7 @@ const Wrapper = styled(Modal)`
       }
     }
   }
-  h1 {
+  h2 {
     margin: 0;
     opacity: 0.72;
     font-size: 14px;
@@ -134,34 +137,34 @@ export default function ({address, onClose}: Props) {
 
   return (
     <Wrapper
-        header={t('Recharge')}
+        header={t('Top up')}
       >
       <Modal.Content>
       <main className='content'>
-        <h1>
-          <span className='step'>{t('the first step')}</span>
+        <h2>
+          <span className='step'>{t('The First Step')}</span>
           <span className='text'>{t('get OP_RETURN')}</span>
-        </h1>
-        <p className={'op-return'}>{t('get the information for the 16-OP_RETURN address')}</p>
+        </h2>
+        <p className={'op-return'}>{t('Get the information for the 16-OP_RETURN address')}</p>
         <section className='show-code'>
           <h3>
             <span className="title">OP_RETURN</span>
           </h3>
           <ClipBoard className='hex' id=''>{addressHex}</ClipBoard>
         </section>
-        <h1 className='step-2'>
-          <span className='step'>{t('the second step')}</span>
-          <span className='text'>{t('start a cross-chain top-up withdrawal')}</span>
-        </h1>
-        <p className='input'>{t('recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
+        <h2 className='step-2'>
+          <span className='step'>{t('The Second Step')}</span>
+          <span className='text'>{t('start a cross-chain top-up')}</span>
+        </h2>
+        <p className='input'>{t('Recharge OP_RETURN trust\'s hot multi-sign address with a wallet that supports OP_RETURN information')}</p>
         <ul className={'info'}>
           <li>
             <img alt='info' src={infoIcon}/>
-            <span>{t('the top-up amount must be greater than 0.001 BTC')}</span>
+            <span>{t('The top-up amount must be greater than 0.001 BTC')}</span>
           </li>
           <li>
             <img alt='info' src={infoIcon}/>
-            <span>{t('currently, only cross-chain top-up initiated by BTC addresses starting with 1 and 3 is supported')}</span>
+            <span>{t('Currently, only cross-chain top-up initiated by BTC addresses starting with 1 and 3 is supported')}</span>
           </li>
         </ul>
         <section className='show-code'>
