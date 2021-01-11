@@ -82,7 +82,7 @@ function VoteValue ({ accountId, autoFocus, isCouncil, onChange }: Props): React
       help={t<string>('The amount that is associated with this vote. This value is is locked for the duration of the vote.')}
       isDisabled={isDisabled}
       isZeroable
-      label={t<string>('vote value')}
+      label={t<string>('Vote Value')}
       labelExtra={
         <BalanceVoting
           isCouncil={isCouncil}

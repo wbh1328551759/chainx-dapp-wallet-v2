@@ -51,7 +51,7 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Vote for the Node')}</p>
+            <p>{t<string>('Vote For The Node')}</p>
           </Modal.Column>
         </Modal.Columns>
 

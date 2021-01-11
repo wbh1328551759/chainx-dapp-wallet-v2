@@ -84,7 +84,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Rebond vote validator')}</p>
+            <p>{t<string>('Rebond Vote Validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -94,9 +94,9 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
               defaultValue={value}
               isDisabled={!!value}
               value={value}
-              help={t<string>('from validator')}
+              help={t<string>('From Validator')}
               hideAddress={true}
-              label={t<string>('from validator')}
+              label={t<string>('From Validator')}
               labelExtra={
                 <span> </span>
               }
@@ -108,16 +108,16 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('from validator')}</p>
+            <p>{t<string>('From Validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 
         <Modal.Columns>
           <Modal.Column>
             <InputAddress
-              help={t<string>('to validator')}
+              help={t<string>('To Validator')}
               hideAddress={true}
-              label={t<string>('to validator')}
+              label={t<string>('To Validator')}
               labelExtra={
                 <span> </span>
               }
@@ -131,7 +131,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
             />
           </Modal.Column>
           <Modal.Column className="msg">
-            <p>{t<string>('to validator')}</p>
+            <p>{t<string>('To Validator')}</p>
             <div className="msgError" style={{display: (rebond === true) ? "block" : "none"}}>
               <p>{t<string>('Switch interval less than 3 days, please in')}</p>  
               <BlockToTime blocks={hoursafter} />
@@ -160,7 +160,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
           isDisabled={rebond}
           accountId={account}
           icon='sign-in-alt'
-          label={t<string>('Rebond vote validator')}
+          label={t<string>('Rebond Vote Validator')}
           onStart={onClose}
           params={[value, validatorTo, amount]}
           onSuccess={onSuccess}

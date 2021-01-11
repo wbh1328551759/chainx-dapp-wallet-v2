@@ -59,7 +59,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
     <div>
       <Button
         icon='plus'
-        label={t<string>('Withdraw interest')}
+        label={t<string>('Withdraw Interest')}
         onClick={toggleWithDrawButton}/>
       {isWithDrawButton && (
         <Modal
@@ -97,7 +97,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
             <TxButton
               accountId={currentAccount}
               icon='plus'
-              label={t('Withdraw interest')}
+              label={t('Withdraw Interest')}
               params={[1]}
               isDisabled={disabled}
               tx='xMiningAsset.claim'

@@ -24,7 +24,7 @@
   "hash": "hash",
   "immortal": "immortal",
   "index": "index",
-  "last block": "last block",
+  "Last Block": "Last Block",
   "logs": "logs",
   "mortal, valid from #{{startAt}} to #{{endsAt}}": "mortal, valid from #{{startAt}} to #{{endsAt}}",
   "no": "no",

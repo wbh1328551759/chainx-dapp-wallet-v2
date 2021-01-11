@@ -62,7 +62,7 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
         {
           isSubRoot: true,
           subName: 'democracy',
-          subText: t<string>('Democracy overview')
+          subText: t<string>('Democracy Overview')
         },
         {
           subName: 'dispatch',
@@ -77,7 +77,7 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
         {
           isSubRoot: true,
           subName: 'council',
-          subText: t<string>('Council overview')
+          subText: t<string>('Council Overview')
         },
         {
           subName: 'motions',
@@ -92,7 +92,7 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
         {
           isSubRoot: true,
           subName: 'treasury',
-          subText: t<string>('Treasury overview')
+          subText: t<string>('Treasury Overview')
         },
         {
           subName: 'tips',
@@ -102,7 +102,7 @@ function DemocracyApp({basePath}: Props): React.ReactElement<Props> {
     },
     {
       name: 'techcomm',
-      text: t<string>('Technical committee'),
+      text: t<string>('Technical Committee'),
       subItems: [
         {
           isSubRoot: true,

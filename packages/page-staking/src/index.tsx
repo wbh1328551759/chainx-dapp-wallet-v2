@@ -82,7 +82,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
   const items = useMemo(() => [
     {
       name: 'staking',
-      text: t<string>('Staking overview')
+      text: t<string>('Staking Overview')
     },
     {
       name: 'nomination',

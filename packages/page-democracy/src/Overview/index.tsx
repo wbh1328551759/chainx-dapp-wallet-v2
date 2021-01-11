@@ -32,12 +32,12 @@ function Overview ({ className }: Props): React.ReactElement<Props> {
       <Button.Group>
         <Button
           icon='plus'
-          label={t<string>('Submit preimage')}
+          label={t<string>('Submit Preimage')}
           onClick={togglePreimage}
         />
         <Button
           icon='plus'
-          label={t<string>('Submit proposal')}
+          label={t<string>('Submit Proposal')}
           onClick={togglePropose}
         />
       </Button.Group>

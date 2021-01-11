@@ -55,11 +55,11 @@ export default function (): React.ReactElement {
     const validateNode = stakingNodeList.filter((node: any) => account === node.account )
     const trustNode = trustNodeList.filter((node: string) => account === node)
     if(validateNode.length > 0 && trustNode.length > 0){
-      setIdentify(t('the node of validate and trust'))
+      setIdentify(t('The node of validate and trust'))
     }else if(validateNode.length > 0){
-      setIdentify(t('the node of validate'))
+      setIdentify(t('The node of validate'))
     }else if(trustNode.length > 0){
-      setIdentify(t('the node of trust'))
+      setIdentify(t('The node of trust'))
     } else {
       setIdentify('')
     }

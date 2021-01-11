@@ -88,7 +88,7 @@ function AccountList({ accountChecked, className, onClose, onStatusChange, onTog
             <>
               <div className={'overviewTab'}>
                 <div>
-                  <p>{t('Choose account')}</p>
+                  <p>{t('Choose Account')}</p>
                 </div>
                 <div>
                   <Button

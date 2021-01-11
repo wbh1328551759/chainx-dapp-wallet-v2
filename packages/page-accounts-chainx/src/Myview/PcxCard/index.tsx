@@ -169,7 +169,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
         <section className='free' key='free'>
           <AssetView
             bold
-            title={t('free balance')}
+            title={t('Free Balance')}
             value={usableBalance}
           />
 
@@ -190,12 +190,12 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
             <>
               <AssetView
                 key={Math.random()}
-                title={t('total balance')}
+                title={t('Total Balance')}
                 value={allBalance}
               />
               <AssetView
                 key={Math.random()}
-                title={t('frozen voting')}
+                title={t('Frozen Voting')}
                 value={miscFrozen}
               />
               {/* <AssetView

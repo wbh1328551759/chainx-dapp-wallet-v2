@@ -70,7 +70,7 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Rebond vote validator')}</p>
+            <p>{t<string>('Rebond Vote Validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -78,7 +78,7 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
           <Modal.Column>
             <InputAddress
               defaultValue={value}
-              help={t<string>('Rebond vote validator')}
+              help={t<string>('Rebond Vote Validator')}
               hideAddress={true}
               label={t<string>('Rebond')}
               labelExtra={
@@ -92,7 +92,7 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Rebond vote validator')}</p>
+            <p>{t<string>('Rebond Vote Validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -115,7 +115,7 @@ function ReBond({ account, onClose, options, value, onSuccess }: Props): React.R
         <TxButton
           accountId={account}
           icon='sign-in-alt'
-          label={t<string>('Rebond vote validator')}
+          label={t<string>('Rebond Vote Validator')}
           onStart={onClose}
           params={[validatorId, amount]}
           onSuccess={onSuccess}

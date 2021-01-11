@@ -39,7 +39,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
               <Modal.Column>
                 <InputAddress
                   help={t<string>('Select the account you wish to submit the proposal from.')}
-                  label={t<string>('Submit with account')}
+                  label={t<string>('Submit With Account')}
                   onChange={setAccountId}
                   type='account'
                   withLabel
@@ -53,7 +53,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
               <Modal.Column>
                 <InputAddress
                   help={t<string>('The account to which the proposed balance will be transferred if approved')}
-                  label={t<string>('beneficiary')}
+                  label={t<string>('Beneficiary')}
                   onChange={setBeneficiary}
                   type='allPlus'
                 />
@@ -72,7 +72,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
                 />
                 <Static
                   help={t<string>('The on-chain percentage for the treasury')}
-                  label={t<string>('proposal bond')}
+                  label={t<string>('Proposal Bond')}
                 >
                   {bondPercentage}
                 </Static>
@@ -80,7 +80,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
                   defaultValue={api.consts.treasury.proposalBondMinimum.toString()}
                   help={t<string>('The minimum amount that will be bonded')}
                   isDisabled
-                  label={t<string>('minimum bond')}
+                  label={t<string>('Minimum Bond')}
                 />
               </Modal.Column>
               <Modal.Column>

@@ -31,7 +31,7 @@ function ProposalsBase ({ className = '', isApprovals, isMember, members, propos
 
   const header = useMemo(() => [
     [isApprovals ? t<string>('Approved') : t<string>('Proposals'), 'start', 2],
-    [t('beneficiary'), 'address'],
+    [t('Beneficiary'), 'address'],
     [t('payment')],
     [t('bond')],
     [],
