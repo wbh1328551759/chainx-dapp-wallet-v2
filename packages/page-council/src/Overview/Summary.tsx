@@ -29,19 +29,19 @@ function Summary ({ bestNumber, className = '', electionsInfo }: Props): React.R
   return (
     <SummaryBox className={className}>
       <section>
-        <CardSummary label={t<string>('seats')}>
+        <CardSummary label={t<string>('Seats')}>
           {formatNumber(members.length)}&nbsp;/&nbsp;{formatNumber(desiredSeats)}
         </CardSummary>
-        <CardSummary label={t<string>('runners up')}>
+        <CardSummary label={t<string>('Runners Up')}>
           {formatNumber(runnersUp.length)}&nbsp;/&nbsp;{formatNumber(desiredRunnersUp)}
         </CardSummary>
-        <CardSummary label={t<string>('candidates')}>
+        <CardSummary label={t<string>('Candidates')}>
           {formatNumber(candidateCount)}
         </CardSummary>
       </section>
       {voteCount && (
         <section>
-          <CardSummary label={t<string>('voting round')}>
+          <CardSummary label={t<string>('Voting Round')}>
             #{formatNumber(voteCount)}
           </CardSummary>
         </section>
@@ -49,7 +49,7 @@ function Summary ({ bestNumber, className = '', electionsInfo }: Props): React.R
       {bestNumber && termDuration?.gtn(0) && (
         <section>
           <CardSummary
-            label={t<string>('term progress')}
+            label={t<string>('Term Progress')}
             progress={{
               total: termDuration,
               value: bestNumber.mod(termDuration),
