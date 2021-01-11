@@ -40,7 +40,7 @@ function Summary({ approvalCount, proposalCount }: Props): React.ReactElement<Pr
   return (
     <SummaryBox>
       <section>
-        <CardSummary label={t<string>('proposals')}>
+        <CardSummary label={t<string>('Proposals')}>
           {formatNumber(proposalCount)}
         </CardSummary>
         <CardSummary label={t<string>('total')}>
@@ -48,13 +48,13 @@ function Summary({ approvalCount, proposalCount }: Props): React.ReactElement<Pr
         </CardSummary>
       </section>
       <section className='media--1200'>
-        <CardSummary label={t<string>('approved')}>
+        <CardSummary label={t<string>('Approved')}>
           {formatNumber(approvalCount)}
         </CardSummary>
       </section>
       <section>
         {value && (
-          <CardSummary label={t<string>('available')}>
+          <CardSummary label={t<string>('Available')}>
             <FormatBalance
               value={value}
               withSi
@@ -76,7 +76,7 @@ function Summary({ approvalCount, proposalCount }: Props): React.ReactElement<Pr
       {bestNumber && spendPeriod?.gtn(0) && (
         <section className='media--1000'>
           <CardSummary
-            label={t<string>('spend period')}
+            label={t<string>('Spend Period')}
             progress={{
               total: spendPeriod,
               value: bestNumber.mod(spendPeriod),

@@ -21,7 +21,7 @@ function Members ({ className = '', info }: Props): React.ReactElement<Props> {
   const members = useCall<DeriveSocietyMember[]>(api.derive.society.members);
 
   const headerRef = useRef([
-    [t('members'), 'start', 3],
+    [t('Members'), 'start', 3],
     [t('strikes')],
     []
   ]);
