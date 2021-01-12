@@ -153,14 +153,15 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
       setValue(lastAccount);
       changeAccount(lastAccount);
     }
-  },[currentAccount, allAccounts])
 
-  useEffect(() => {
-    if(isApiReady && !hasAccounts){
-      setValue('')
-      changeAccount('')
-    }
-  },[hasAccounts])
+  },[currentAccount, allAccounts, hasAccounts])
+
+  // useEffect(() => {
+  //   if(isApiReady && !hasAccounts){
+  //     setValue('')
+  //     changeAccount('')
+  //   }
+  // },[hasAccounts])
 
   return (
     <>
