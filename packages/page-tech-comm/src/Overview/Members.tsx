@@ -18,7 +18,7 @@ function Members ({ className = '', members, prime }: Props): React.ReactElement
   const { t } = useTranslation();
 
   const headerRef = useRef([
-    [t('members'), 'start', 3]
+    [t('Members'), 'start', 3]
   ]);
 
   return (

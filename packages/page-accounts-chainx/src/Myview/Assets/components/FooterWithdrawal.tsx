@@ -29,13 +29,14 @@ const Tip = styled.div`
 
 export default function ({allInterests, usableInterests, insufficientStake, setN}: FooterProps): React.ReactElement<FooterProps> {
   const {t} = useTranslation();
+  const {hasAccounts, allAccounts} = useAccounts()
   const options: KeyringSectionOption[] = [];
   const [isWithDrawButton, toggleWithDrawButton] = useToggle();
-  const {allAccounts} = useAccounts();
   const {allAssets} = useAccountAssets(allAccounts);
   const canwithDrawAccounts: string[] = [];
   const {currentAccount} = useContext(AccountContext);
-  const [disabled, setDisabled] = useState<boolean>();
+  const [withdrawalDisabled, setWithdrawalDisabled] = useState<boolean>();
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>();
 
   allAssets.map((item) => {
     if (Number(item.XbtcInterests) > 0) {
@@ -51,8 +52,14 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
       }
     );
   });
+
   useEffect(() => {
-    insufficientStake === 0 ? setDisabled(false) : setDisabled(true);
+    const hasCurrentName = allAccounts.find(account => account === currentAccount)
+    hasAccounts && hasCurrentName? setButtonDisabled(false): setButtonDisabled(true)
+  }, [hasAccounts, currentAccount, allAccounts])
+
+  useEffect(() => {
+    insufficientStake === 0 ? setWithdrawalDisabled(false) : setWithdrawalDisabled(true);
   }, [allInterests, usableInterests, insufficientStake]);
 
   return (
@@ -60,7 +67,9 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
       <Button
         icon='plus'
         label={t<string>('Withdraw Interest')}
-        onClick={toggleWithDrawButton}/>
+        onClick={toggleWithDrawButton}
+        isDisabled={buttonDisabled}
+      />
       {isWithDrawButton && (
         <Modal
           header={t('Withdrawal application of interest')}
@@ -89,7 +98,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
                 <span>
                   {t('available interest')} : {usableInterests ? usableInterests.toFixed(8) : toPrecision(0,8)}
                 </span>
-                {insufficientStake ? <Tip>{'需抵押：'}{insufficientStake.toFixed(8) }</Tip>: ''}
+                {insufficientStake ? <Tip>{t('you need to mortgage')} : {insufficientStake.toFixed(8) }</Tip>: ''}
               </Modal.Column>
             </Modal.Columns>
           </Modal.Content>
@@ -99,7 +108,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
               icon='plus'
               label={t('Withdraw Interest')}
               params={[1]}
-              isDisabled={disabled}
+              isDisabled={withdrawalDisabled}
               tx='xMiningAsset.claim'
               onSuccess={() => {
                 setN(Math.random());

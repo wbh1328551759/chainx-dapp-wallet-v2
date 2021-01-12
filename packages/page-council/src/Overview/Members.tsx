@@ -21,7 +21,7 @@ function Members ({ allVotes = {}, className = '', electionsInfo, prime }: Props
   const { t } = useTranslation();
 
   const headerRef = useRef([
-    [t('members'), 'start', 2],
+    [t('Members'), 'start', 2],
     [t('backing'), 'expand'],
     [t('votes')]
   ]);

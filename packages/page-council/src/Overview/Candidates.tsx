@@ -20,13 +20,13 @@ function Candidates ({ allVotes = {}, electionsInfo }: Props): React.ReactElemen
   const { t } = useTranslation();
 
   const headerCandidatesRef = useRef([
-    [t('candidates'), 'start', 2],
+    [t('Candidates'), 'start', 2],
     [],
     []
   ]);
 
   const headerRunnersRef = useRef([
-    [t('runners up'), 'start', 2],
+    [t('Runners Up'), 'start', 2],
     [t('backing'), 'expand'],
     [t('votes')]
   ]);

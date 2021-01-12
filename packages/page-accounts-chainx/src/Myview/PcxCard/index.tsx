@@ -101,7 +101,7 @@ interface PcxCardProps {
 export default function ({onStatusChange}: PcxCardProps): React.ReactElement<PcxCardProps> {
   const {isApiReady} = useApi();
   const {t} = useTranslation();
-  const {hasAccounts} = useAccounts()
+  const {hasAccounts, allAccounts} = useAccounts()
   const [isTransferOpen, toggleTransfer] = useToggle();
   const [n, setN] = useState(0);
   const {currentAccount} = useContext(AccountContext);
@@ -110,6 +110,8 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
   const [usableBalance, setUsableBalance] = useState<number>(0)
   const [feeFrozen, setFeeFrozen] = useState<number>(0)
   const [miscFrozen, setMiscFrozen] = useState<number>(0)
+  const hasCurrentName = allAccounts.find(account => account === currentAccount)
+
   // const allBalance = freeBalance.add(new BN(pcxFree.reserved)).toNumber();
   // const bgUsableBalance = new BN(Number(pcxFree.free) - Number(pcxFree.feeFrozen));
   // const bgFreeFrozen = new BN(pcxFree.feeFrozen);
@@ -179,7 +181,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
               onClick={toggleTransfer}
               // style={{marginLeft: 32, height: 28, marginBottom: 4}}
               isBasic={true}
-              isDisabled={!isApiReady || !currentAccount || !hasAccounts}
+              isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
             >
               {t('Transfer')}
             </Button>

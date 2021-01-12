@@ -32,7 +32,7 @@ function Summary ({ referendumCount }: Props): React.ReactElement<Props> {
         </CardSummary>
       </section>
       <section>
-        <CardSummary label={t<string>('referenda')}>
+        <CardSummary label={t<string>('Referenda')}>
           {formatNumber(referendumCount || 0)}
         </CardSummary>
         <CardSummary label={t<string>('total')}>
@@ -42,7 +42,7 @@ function Summary ({ referendumCount }: Props): React.ReactElement<Props> {
       {bestNumber && (
         <section className='media--1100'>
           <CardSummary
-            label={t<string>('launch period')}
+            label={t<string>('Launch Period')}
             progress={{
               total: api.consts.democracy.launchPeriod,
               value: bestNumber.mod(api.consts.democracy.launchPeriod).addn(1),

@@ -15,7 +15,7 @@ function Proposals ({ className = '', isMember, members, prime, proposals }: Pro
   const { t } = useTranslation();
 
   const headerRef = useRef([
-    [t('proposals'), 'start', 2],
+    [t('Proposals'), 'start', 2],
     [t('threshold')],
     [t('voting end')],
     [t('aye'), 'address'],
