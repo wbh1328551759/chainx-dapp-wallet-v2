@@ -29,10 +29,9 @@ const Tip = styled.div`
 
 export default function ({allInterests, usableInterests, insufficientStake, setN}: FooterProps): React.ReactElement<FooterProps> {
   const {t} = useTranslation();
-  const {hasAccounts} = useAccounts()
+  const {hasAccounts, allAccounts} = useAccounts()
   const options: KeyringSectionOption[] = [];
   const [isWithDrawButton, toggleWithDrawButton] = useToggle();
-  const {allAccounts} = useAccounts();
   const {allAssets} = useAccountAssets(allAccounts);
   const canwithDrawAccounts: string[] = [];
   const {currentAccount} = useContext(AccountContext);
@@ -53,9 +52,11 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
       }
     );
   });
+
   useEffect(() => {
-    hasAccounts? setButtonDisabled(false): setButtonDisabled(true)
-  }, [hasAccounts])
+    const hasCurrentName = allAccounts.find(account => account === currentAccount)
+    hasAccounts && hasCurrentName? setButtonDisabled(false): setButtonDisabled(true)
+  }, [hasAccounts, currentAccount, allAccounts])
 
   useEffect(() => {
     insufficientStake === 0 ? setWithdrawalDisabled(false) : setWithdrawalDisabled(true);
