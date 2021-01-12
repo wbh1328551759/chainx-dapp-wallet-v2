@@ -1622,6 +1622,7 @@
   "https://chainx-doc.gitbook.io/chainx-user-guide-english/": "https://chainx-doc.gitbook.io/chainx-user-guide-chinese/",
   "Paste the address you want to send funds to.": "粘贴一个你想要发送资金的地址。",
   "voteable": "可投票的",
+  "you need to mortgage": "需抵押",
   "{{balance}} voted": "{{balance}} 投票",
   "{{blocks}} blocks": "{{blocks}} 区块",
   "{{count}} key/value pairs encoded for submission": "{{count}}为提交而编码的密钥/值对",
