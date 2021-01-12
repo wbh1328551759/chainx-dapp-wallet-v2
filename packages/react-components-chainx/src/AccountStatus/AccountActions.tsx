@@ -148,7 +148,8 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   };
 
   useEffect(() => {
-    if(hasAccounts && !currentAccount){
+    const hasCurrentName = allAccounts.find(account => account === currentAccount)
+    if(hasAccounts && (!currentAccount || !hasCurrentName)){
       const lastAccount = allAccounts[allAccounts.length - 1];
       setValue(lastAccount);
       changeAccount(lastAccount);
