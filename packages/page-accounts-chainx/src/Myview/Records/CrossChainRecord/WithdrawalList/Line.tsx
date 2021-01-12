@@ -65,7 +65,7 @@ export default function (props: { withdrawal: Withdraw }): React.ReactElement {
             <BtcAddress address={props.withdrawal.data[1].addr} />
           </li>
           <li>
-            <Label>{t('service charge')}</Label>
+            <Label>{t('Amount')}</Label>
             <p className='memo'>{toPrecision(props.withdrawal.data[1].balance, 8)} X-BTC</p>
           </li>
 
