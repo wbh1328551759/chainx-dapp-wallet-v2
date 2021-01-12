@@ -76,7 +76,7 @@ function Summary({ approvalCount, proposalCount }: Props): React.ReactElement<Pr
       {bestNumber && spendPeriod?.gtn(0) && (
         <section className='media--1000'>
           <CardSummary
-            label={t<string>('Spend period')}
+            label={t<string>('Spend Period')}
             progress={{
               total: spendPeriod,
               value: bestNumber.mod(spendPeriod),

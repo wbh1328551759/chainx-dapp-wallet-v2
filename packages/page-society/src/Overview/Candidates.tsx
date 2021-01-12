@@ -23,7 +23,7 @@ function Candidates ({ allMembers, className = '', isMember, ownMembers }: Props
   const candidates = useCall<DeriveSocietyCandidate[]>(api.derive.society.candidates);
 
   const headerRef = useRef([
-    [t('candidates'), 'start'],
+    [t('Candidates'), 'start'],
     [t('kind')],
     [t('value')],
     [t('votes'), 'expand'],

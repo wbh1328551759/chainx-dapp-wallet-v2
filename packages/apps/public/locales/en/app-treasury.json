@@ -48,7 +48,7 @@
   "Voting": "Voting",
   "Your endorsement will be applied for this account.": "Your endorsement will be applied for this account.",
   "approved": "approved",
-  "available": "available",
+  "Available": "Available",
   "Beneficiary": "Beneficiary",
   "bond": "bond",
   "council proposal type": "council proposal type",
@@ -60,12 +60,12 @@
   "proposals": "proposals",
   "reason": "reason",
   "show only untipped/closing": "show only untipped/closing",
-  "spend period": "spend period",
+  "Spend Period": "Spend Period",
   "Submit With Account": "Submit With Account",
   "submit with council account": "submit with council account",
   "tip reason": "tip reason",
   "tip value": "tip value",
   "tips": "tips",
-  "total": "total",
+  "total": "Total",
   "value": "value"
 }

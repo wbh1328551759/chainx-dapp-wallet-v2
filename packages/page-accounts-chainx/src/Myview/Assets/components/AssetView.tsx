@@ -169,7 +169,7 @@ export default function ({assetsInfo}: Props): React.ReactElement<Props> {
           </AssetLine>
           <AssetLine>
             <Free
-              asset={t('Total')}
+              asset={t('Total Balance')}
               free={allBalance}
               precision={8}
             />
