@@ -48,6 +48,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
               defaultValue={currentAccount}
               help='The actual account you wish to vote account'
               label={t<string>('My Account')}
+              isDisabled
               labelExtra={
                 <Available
                   label={voteable}
