@@ -17,12 +17,6 @@ interface Props {
   className?: string;
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content:space-between;
-  align-items:center;
-  height:100px;
-`;
 
 function UserNomination({className = '', validatorInfoList}: Props): React.ReactElement<Props> | null {
   const {t} = useTranslation();
@@ -112,7 +106,7 @@ function UserNomination({className = '', validatorInfoList}: Props): React.React
 
   return (
     <div>
-      <div className={className}>
+      <div className={`taboverhid ${className}`}>
         <Table
           empty={!isLoading}
           header={headerRef.current}
@@ -148,8 +142,12 @@ function UserNomination({className = '', validatorInfoList}: Props): React.React
 
 
 export default React.memo(styled(UserNomination)`
-
-
+  &.taboverhid {
+    overflow: auto;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .filter--tags {
     .ui--Dropdown {
       padding-left: 0;

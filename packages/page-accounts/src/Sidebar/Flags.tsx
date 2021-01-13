@@ -78,7 +78,7 @@ function Flags ({ flags: { isCouncil, isDevelopment, isExternal, isInjected, isM
       {isTechCommittee && (
         <Tag
           color='orange'
-          label={t<string>('Technical committee')}
+          label={t<string>('Technical Committee')}
           size='tiny'
         />
       )}

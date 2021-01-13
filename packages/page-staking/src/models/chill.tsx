@@ -23,7 +23,7 @@ function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React
 
   return (
     <Modal
-      header={t<string>('Node Droup')}
+      header={t<string>('Node Drop')}
       size='large'
     >
       <Modal.Content>
@@ -31,9 +31,9 @@ function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React
           <Modal.Column>
             <InputAddress
               defaultValue={account}
-              help='The actual account you wish to Droup'
+              help={t<string>('The actual account you wish to Drop')}
               isDisabled={!!account}
-              label='Droup account'
+              label={t<string>('Drop Account')}
               labelExtra={
                 <Available
                   label={transferrable}
@@ -45,14 +45,14 @@ function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Droup This Node')}</p>
+            <p>{t<string>('Drop This Node')}</p>
           </Modal.Column>
         </Modal.Columns>
-        <Modal.Columns>
+        {/* <Modal.Columns>
           <Modal.Column>
             <InputAddress
               defaultValue={validatorId}
-              help='The validator acount you want to Droup'
+              help='The validator acount you want to Drop'
               isDisabled={!!validatorId}
               label='Validator account'
               labelExtra={
@@ -65,16 +65,16 @@ function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Droup this node')}</p>
+            <p>{t<string>('Drop This Node')}</p>
           </Modal.Column>
-        </Modal.Columns>
+        </Modal.Columns> */}
 
       </Modal.Content>
       <Modal.Actions onCancel={onClose}>
         <TxButton
           accountId={accountId}
           icon='sign-in-alt'
-          label={t<string>('Droup')}
+          label={t<string>('Drop')}
           onStart={onClose}
           params={[]}
           tx='xStaking.chill'

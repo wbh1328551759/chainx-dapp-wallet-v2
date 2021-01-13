@@ -40,7 +40,7 @@ function TreasuryApp ({ basePath }: Props): React.ReactElement<Props> {
     {
       isRoot: true,
       name: 'overview',
-      text: t<string>('Treasury overview')
+      text: t<string>('Treasury Overview')
     },
     {
       count: tipHashes?.length,

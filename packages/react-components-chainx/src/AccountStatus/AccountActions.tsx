@@ -148,19 +148,21 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   };
 
   useEffect(() => {
-    if(hasAccounts && !currentAccount){
+    const hasCurrentName = allAccounts.find(account => account === currentAccount)
+    if(hasAccounts && (!currentAccount || !hasCurrentName)){
       const lastAccount = allAccounts[allAccounts.length - 1];
       setValue(lastAccount);
       changeAccount(lastAccount);
     }
-  },[currentAccount, allAccounts])
 
-  useEffect(() => {
-    if(isApiReady && !hasAccounts){
-      setValue('')
-      changeAccount('')
-    }
-  },[hasAccounts])
+  },[currentAccount, allAccounts, hasAccounts])
+
+  // useEffect(() => {
+  //   if(isApiReady && !hasAccounts){
+  //     setValue('')
+  //     changeAccount('')
+  //   }
+  // },[hasAccounts])
 
   return (
     <>
@@ -322,7 +324,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*      key='xbtc withdraw'*/}
           {/*      onClick={toggleWithdraw}*/}
           {/*    >*/}
-          {/*      {t('XBTC withdrawals')}*/}
+          {/*      {t('X-BTC Withdrawals')}*/}
           {/*    </Menu.Item>*/}
           {/*  ),*/}
           {/*  (*/}
@@ -418,6 +420,14 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
                 {t('Delegate democracy votes')}
               </Menu.Item>
             )),
+            (api.api.tx.multisig?.asMulti && isMultisig && (<Menu.Item
+                  disabled={!multiInfos || !multiInfos.length}
+                  key='multisigApprovals'
+                  onClick={toggleMultisig}
+                >
+                  {t('Multisig approvals')}
+                </Menu.Item>
+            )),
             (
               <Menu.Item
                 key='addMultisig'
@@ -442,15 +452,6 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*    onClick={toggleRecoverAccount}*/}
           {/*  >*/}
           {/*    {t('Initiate recovery for another')}*/}
-          {/*  </Menu.Item>*/}
-          {/*])}*/}
-          {/*{api.api.tx.multisig?.asMulti && isMultisig && createMenuGroup([*/}
-          {/*  <Menu.Item*/}
-          {/*    disabled={!multiInfos || !multiInfos.length}*/}
-          {/*    key='multisigApprovals'*/}
-          {/*    onClick={toggleMultisig}*/}
-          {/*  >*/}
-          {/*    {t('Multisig approvals')}*/}
           {/*  </Menu.Item>*/}
           {/*])}*/}
           {/*{api.api.query.democracy?.votingOf && delegation?.accountDelegated && createMenuGroup([*/}

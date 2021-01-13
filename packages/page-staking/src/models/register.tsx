@@ -37,7 +37,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
               hasAccounts ? <InputAddress
               defaultValue={account}
               help='The actual account you wish to register account'
-              label='register account'
+              label={t<string>('Register Account')}
               isDisabled={!!account}
               labelExtra={
                 <Available
@@ -47,11 +47,11 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
               }
               onChange={setAccount}
               type='account'
-            /> : 
+            /> :
             <InputAddress
               defaultValue={accountId}
               help='The actual account you wish to register account'
-              label='register account'
+              label={t<string>('Register Account')}
               isDisabled={!!accountId}
               labelExtra={
                 <Available
@@ -62,7 +62,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
               onChange={setAccount}
               type='account'
             />
-          } 
+          }
           </Modal.Column>
           <Modal.Column>
             <p>{t<string>('Register New Node')}</p>
@@ -72,7 +72,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
           <Modal.Column>
             <Input
               help={t<string>('The node name you choose to run')}
-              label={t<string>('Unique, within 12 characters，Make sure not repeated, 10 pcx fees Will be deduct')}
+              label={t<string>('Unique, within 12 characters，Make sure not repeated, 10 pcx fees will be deduct')}
               onChange={setNodeName}
               type='text'
             />
@@ -85,13 +85,13 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
           <Modal.Column>
             <InputPCXBalance
               autoFocus
-              help={t<string>('Number of node mortgages')}
-              label={t<string>('Number of node mortgages')}
+              help={t<string>('Number Of Node Mortgages')}
+              label={t<string>('Number Of Node Mortgages')}
               onChange={setAmount}
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Number of node mortgages')}</p>
+            <p>{t<string>('Number Of Node Mortgages')}</p>
           </Modal.Column>
         </Modal.Columns>
       </Modal.Content>

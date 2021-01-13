@@ -38,7 +38,7 @@ function Propose ({ className = '', onClose }: Props): React.ReactElement<Props>
   return (
     <Modal
       className={className}
-      header={t<string>('Submit proposal')}
+      header={t<string>('Submit Proposal')}
       size='large'
     >
       <Modal.Content>
@@ -46,7 +46,7 @@ function Propose ({ className = '', onClose }: Props): React.ReactElement<Props>
           <Modal.Column>
             <InputAddress
               help={t<string>('The account you want to register the proposal from')}
-              label={t<string>('send from account')}
+              label={t<string>('Send From Account')}
               labelExtra={
                 <Available
                   label={<span className='label'>{t<string>('transferrable')}</span>}
@@ -101,7 +101,7 @@ function Propose ({ className = '', onClose }: Props): React.ReactElement<Props>
           accountId={accountId}
           icon='plus'
           isDisabled={!balance || !hasMinLocked || !isHashValid || !accountId || !publicProps}
-          label={t<string>('Submit proposal')}
+          label={t<string>('Submit Proposal')}
           onStart={onClose}
           params={
             api.tx.democracy.propose.meta.args.length === 3

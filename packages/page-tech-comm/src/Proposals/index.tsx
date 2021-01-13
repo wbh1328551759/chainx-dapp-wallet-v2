@@ -6,7 +6,7 @@ import type { ComponentProps as Props } from '../types';
 
 import React, { useRef } from 'react';
 import { Button, Table } from '@polkadot/react-components';
-
+import styled from 'styled-components';
 import { useTranslation } from '../translate';
 import Proposal from './Proposal';
 import Propose from './Propose';
@@ -15,7 +15,7 @@ function Proposals ({ className = '', isMember, members, prime, proposals }: Pro
   const { t } = useTranslation();
 
   const headerRef = useRef([
-    [t('proposals'), 'start', 2],
+    [t('Proposals'), 'start', 2],
     [t('threshold')],
     [t('voting end')],
     [t('aye'), 'address'],
@@ -31,7 +31,7 @@ function Proposals ({ className = '', isMember, members, prime, proposals }: Pro
           members={members}
         />
       </Button.Group>
-      <Table
+      <Table className="proposalscroll"
         empty={proposals && t<string>('No committee proposals')}
         header={headerRef.current}
       >
@@ -49,4 +49,11 @@ function Proposals ({ className = '', isMember, members, prime, proposals }: Pro
   );
 }
 
-export default React.memo(Proposals);
+export default React.memo(styled(Proposals)`
+  .proposalscroll {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`);

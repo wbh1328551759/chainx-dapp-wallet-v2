@@ -104,7 +104,9 @@ export default React.memo(styled(CardSummary)(({ theme }: ThemeProps) => `
   flex-flow: row wrap;
   justify-content: flex-end;
   padding: 0 1.5rem;
-
+  @media screen and (max-width:500px){
+    padding: 0 0.8rem;
+  }
   .ui--FormatBalance .balance-postfix {
     opacity: 1;
   }

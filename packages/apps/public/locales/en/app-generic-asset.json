@@ -14,10 +14,10 @@
   "Transfer": "Transfer",
   "Type the amount you want to transfer. Note that you can select the unit on the right e.g sending 1 milli is equivalent to sending 0.001.": "Type the amount you want to transfer. Note that you can select the unit on the right e.g sending 1 milli is equivalent to sending 0.001.",
   "Type the name of this Asset. This name will be used across all the apps. It can be edited later on.": "Type the name of this Asset. This name will be used across all the apps. It can be edited later on.",
-  "amount": "amount",
+  "Amount": "Amount",
   "asset id": "asset id",
   "name": "name",
-  "send from account": "send from account",
-  "send to address": "send to address",
+  "Send From Account": "Send From Account",
+  "Send To Address": "Send To Address",
   "transferrable": "transferrable"
 }

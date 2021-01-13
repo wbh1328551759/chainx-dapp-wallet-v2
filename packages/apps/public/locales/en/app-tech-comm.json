@@ -9,7 +9,7 @@
   "Propose a committee motion": "Propose a committee motion",
   "Select the account you wish close the proposal with.": "Select the account you wish close the proposal with.",
   "Select the account you wish to make the proposal with.": "Select the account you wish to make the proposal with.",
-  "Submit proposal": "Submit proposal",
+  "Submit Proposal": "Submit Proposal",
   "Tech. committee": "Tech. committee",
   "The committee account that will apply the close for the current round.": "The committee account that will apply the close for the current round.",
   "The minimum number of committee votes required to approve this motion": "The minimum number of committee votes required to approve this motion",
@@ -20,7 +20,7 @@
   "Vote on proposal": "Vote on proposal",
   "You are voting with this collective's prime account. The vote will be the default outcome in case of any abstentions.": "You are voting with this collective's prime account. The vote will be the default outcome in case of any abstentions.",
   "aye": "aye",
-  "members": "members",
+  "Members": "Members",
   "nay": "nay",
   "prime member": "prime member",
   "proposal": "proposal",
@@ -28,6 +28,6 @@
   "propose from account": "propose from account",
   "sending account": "sending account",
   "threshold": "threshold",
-  "total": "total",
+  "total": "Total",
   "voting end": "voting end"
 }

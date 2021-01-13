@@ -23,7 +23,7 @@ function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): Rea
 
   return (
     <Modal
-      header={t<string>('Node participates in the election')}
+      header={t<string>('Node Participates In The Election')}
       size='large'
     >
       <Modal.Content>
@@ -31,8 +31,8 @@ function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): Rea
           <Modal.Column>
             <InputAddress
               defaultValue={account}
-              help='The actual account you wish to participates account'
-              label='participates account'
+              help={t<string>('The actual account you wish to participates account')}
+              label={t<string>('Participates Account')}
               isDisabled={!!account}
               labelExtra={
                 <Available
@@ -48,7 +48,7 @@ function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): Rea
             <p>{t<string>('Participates New Node')}</p>
           </Modal.Column>
         </Modal.Columns>
-        <Modal.Columns>
+        {/* <Modal.Columns>
           <Modal.Column>
             <InputAddress
               defaultValue={validatorId}
@@ -67,7 +67,7 @@ function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): Rea
           <Modal.Column>
             <p>{t<string>('Participate in this node')}</p>
           </Modal.Column>
-        </Modal.Columns>
+        </Modal.Columns> */}
 
       </Modal.Content>
       <Modal.Actions onCancel={onClose}>

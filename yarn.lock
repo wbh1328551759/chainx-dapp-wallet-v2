@@ -2157,6 +2157,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@polkadot/app-explorer-chainx@workspace:packages/page-explorer-chainx":
+  version: 0.0.0-use.local
+  resolution: "@polkadot/app-explorer-chainx@workspace:packages/page-explorer-chainx"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    "@polkadot/react-components": ^0.68.2-19
+    "@polkadot/react-components-chainx": ^0.68.2-19
+  languageName: unknown
+  linkType: soft
+
 "@polkadot/app-explorer@^0.68.2-19, @polkadot/app-explorer@workspace:packages/page-explorer":
   version: 0.0.0-use.local
   resolution: "@polkadot/app-explorer@workspace:packages/page-explorer"

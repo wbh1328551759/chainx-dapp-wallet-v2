@@ -82,7 +82,7 @@ function StakingApp({ basePath, className = '' }: Props): React.ReactElement<Pro
   const items = useMemo(() => [
     {
       name: 'staking',
-      text: t<string>('Staking overview')
+      text: t<string>('Staking Overview')
     },
     {
       name: 'nomination',
@@ -174,4 +174,13 @@ export default React.memo(styled(StakingApp)(({ theme }: ThemeProps) => `
       color: ${theme.colorError};
     }
   }
+
+  .staking--Overview {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  
 `));

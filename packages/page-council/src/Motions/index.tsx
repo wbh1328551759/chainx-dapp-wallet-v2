@@ -7,12 +7,21 @@ import type { AccountId } from '@polkadot/types/interfaces';
 import React, { useRef } from 'react';
 import { Button, Table } from '@polkadot/react-components';
 import { useMembers } from '@polkadot/react-hooks';
-
+import styled from 'styled-components';
 import { useTranslation } from '../translate';
 import Motion from './Motion';
 import ProposeMotion from './ProposeMotion';
 import ProposeExternal from './ProposeExternal';
 import Slashing from './Slashing';
+
+const Wrapper = styled.div`
+  .motionscroll {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`;
 
 interface Props {
   className?: string;
@@ -35,7 +44,7 @@ function Proposals ({ className = '', motions, prime }: Props): React.ReactEleme
   ]);
 
   return (
-    <div className={className}>
+    <Wrapper className={className}>
       <Button.Group>
         <ProposeMotion
           isMember={isMember}
@@ -50,7 +59,7 @@ function Proposals ({ className = '', motions, prime }: Props): React.ReactEleme
           members={members}
         />
       </Button.Group>
-      <Table
+      <Table className="motionscroll"
         empty={motions && t<string>('No council motions')}
         header={headerRef.current}
       >
@@ -64,7 +73,7 @@ function Proposals ({ className = '', motions, prime }: Props): React.ReactEleme
           />
         ))}
       </Table>
-    </div>
+    </Wrapper>
   );
 }
 

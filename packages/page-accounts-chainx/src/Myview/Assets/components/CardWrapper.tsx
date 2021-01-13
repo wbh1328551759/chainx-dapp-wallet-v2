@@ -6,11 +6,16 @@ export default styled.section`
   border-radius: 10px;
   padding: 16px;
   background: #fff;
-
+  @media screen and (max-width:767px) {
+    padding: 16px 16px 60px !important;
+  }
+  @media screen and (min-width:767px) and (max-width:980px) {
+    padding: 16px 16px 60px !important;
+  }
   & > header{
     > p{
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 14px;
+      font-weight: 600;
       text-align: left;
     }
     > hr{

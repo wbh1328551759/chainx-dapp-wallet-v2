@@ -20,7 +20,7 @@ const Main = styled.main`
     margin-bottom: 16px;
   }
   > div{
-    margin:0 16px;
+    // margin:0 16px;
     padding-top: 0;
     width: 100%;
   }

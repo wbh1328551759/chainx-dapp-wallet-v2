@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import BN from 'bn.js';
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { InputAddress, Modal, TxButton } from '@polkadot/react-components';
 import { useTranslation } from '../translate';
-import { Available } from '@polkadot/react-query';
 import { TxCallback } from '@polkadot/react-components/Status/types';
-import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
+import { InputPCXBalance, Available} from '@polkadot/react-components-chainx';
 import styled from 'styled-components';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 interface Props {
   validatorId: string | null | undefined;
@@ -27,8 +27,8 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
   const { t } = useTranslation();
   const [amount, setAmount] = useState<BN | undefined>();
   const [accountId, setAccount] = useState<string | null | undefined>();
-
-  const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
+  const {currentAccount} = useContext(AccountContext)
+  const voteable = <span className='label'>{t<string>('voteable')}</span>;
   const remainingVotes = (<VoteData className='label'>
     {t<string>('remaining votes')}
     {'： '}
@@ -45,11 +45,13 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
         <Modal.Columns>
           <Modal.Column>
             <InputAddress
+              defaultValue={currentAccount}
               help='The actual account you wish to vote account'
               label={t<string>('My Account')}
+              isDisabled
               labelExtra={
                 <Available
-                  label={transferrable}
+                  label={voteable}
                   params={accountId}
                 />
               }

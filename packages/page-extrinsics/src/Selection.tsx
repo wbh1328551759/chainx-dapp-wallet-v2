@@ -31,10 +31,10 @@ function Selection (): React.ReactElement {
   return (
     <div className='extrinsics--Selection'>
       <InputAddress
-        label={t<string>('using the selected account')}
+        label={t<string>('Using The Selected Account')}
         labelExtra={
           <BalanceFree
-            label={<label>{t<string>('free balance')}</label>}
+            label={<label>{t<string>('Free Balance')}</label>}
             params={accountId}
           />
         }
@@ -43,7 +43,7 @@ function Selection (): React.ReactElement {
       />
       <Extrinsic
         defaultValue={apiDefaultTxSudo}
-        label={t<string>('submit the following extrinsic')}
+        label={t<string>('Submit The Following Extrinsic')}
         onChange={_onExtrinsicChange}
         onError={_onExtrinsicError}
       />

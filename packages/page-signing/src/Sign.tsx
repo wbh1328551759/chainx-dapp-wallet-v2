@@ -130,7 +130,7 @@ function Sign ({ className = '' }: Props): React.ReactElement<Props> {
           className='full'
           help={t<string>('select the account you wish to sign data with')}
           isInput={false}
-          label={t<string>('account')}
+          label={t<string>('Account')}
           onChange={_onChangeAccount}
           type='account'
         />
@@ -141,7 +141,7 @@ function Sign ({ className = '' }: Props): React.ReactElement<Props> {
             autoFocus
             className='full'
             help={t<string>('The input data to sign. This can be either specified as a hex value (0x-prefix) or as a string.')}
-            label={t<string>('sign the following data')}
+            label={t<string>('Sign The Following Data')}
             onChange={_onChangeData}
             value={data}
           />
@@ -150,7 +150,7 @@ function Sign ({ className = '' }: Props): React.ReactElement<Props> {
           <Static
             className='medium'
             help={t<string>('Detection on the input string to determine if it is hex or non-hex.')}
-            label={t<string>('hex input data')}
+            label={t<string>('Hex Input Data')}
             value={
               isHexData
                 ? t<string>('Yes')
@@ -164,7 +164,7 @@ function Sign ({ className = '' }: Props): React.ReactElement<Props> {
             help={t<string>('The resulting signature of the input data, as done with the crypto algorithm from the account. (This could be non-deterministic for some types such as sr25519).')}
             isHidden={signature.length === 0}
             isMonospace
-            label={t<string>('signature of supplied data')}
+            label={t<string>('Signature Of Supplied Data')}
             value={signature}
             withCopy
           />
@@ -180,7 +180,7 @@ function Sign ({ className = '' }: Props): React.ReactElement<Props> {
                 <Button.Group>
                   <Button
                     icon='unlock'
-                    label={t<string>('Unlock account')}
+                    label={t<string>('Unlock Account')}
                     onClick={toggleUnlock}
                   />
                 </Button.Group>
@@ -212,7 +212,7 @@ function Sign ({ className = '' }: Props): React.ReactElement<Props> {
         <Button
           icon='key'
           isDisabled={!(isUsable && !isLocked)}
-          label={t<string>('Sign message')}
+          label={t<string>('Sign Message')}
           onClick={_onSign}
         />
       </Button.Group>

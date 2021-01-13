@@ -72,7 +72,7 @@ function AccountList({storedValue, className, onClose, onStatusChange, setStored
         <>
           <div className={'overviewTab'}>
             <div>
-              <p>{t('Choose account')}</p>
+              <p>{t('Choose Account')}</p>
             </div>
             <div>
               <Button

@@ -4,28 +4,33 @@
 // import { getChainx } from '../services/chainx'
 import link from '../components/link.svg';
 import linkHighlight from '../components/link-highlight.svg';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import LinkWrapper from '../components/LinkWrapper';
+import {useApi} from '@polkadot/react-hooks';
 
 export default function ({ address = '', length = 5, mainnet = null }) {
-  // const network = useSelector(networkSelector)
-  // let host = network === 'testnet' ? testNetExplorer : mainNetExplorer
-  // if (typeof mainnet === 'boolean' && mainnet) {
-  //   host = mainNetExplorer
-  // }
-
-  // const chainx = getChainx()
-  // const accountId = chainx.account.decodeAddress(address)
-  // const url = `${host}accounts/${accountId}`
-
+  const {api} = useApi()
+  const [url, setUrl] = useState<string>('')
   let result = address;
 
   if (address.length > 2 * length) {
     result =
       address.substring(0, 5) + '...' + address.substring(address.length - 5);
   }
-  const url = `https://scan.chainx.org/accounts/${address}`
 
+  useEffect(() => {
+    async function fetchUrl() {
+      const testOrMain = await api.rpc.system.properties();
+      const testOrMainNum = JSON.parse(testOrMain);
+      if (testOrMainNum.ss58Format === 42) {
+        setUrl(`https://testnet-scan.chainx.org/accounts/${address}`)
+      } else {
+        setUrl(`https://scan.chainx.org/accounts/${address}`)
+      }
+    }
+
+    fetchUrl()
+  }, [])
 
   return (
     <LinkWrapper href={url} target='_blank'>

@@ -20,20 +20,20 @@ function Candidates ({ allVotes = {}, electionsInfo }: Props): React.ReactElemen
   const { t } = useTranslation();
 
   const headerCandidatesRef = useRef([
-    [t('candidates'), 'start', 2],
+    [t('Candidates'), 'start', 2],
     [],
     []
   ]);
 
   const headerRunnersRef = useRef([
-    [t('runners up'), 'start', 2],
+    [t('Runners Up'), 'start', 2],
     [t('backing'), 'expand'],
     [t('votes')]
   ]);
 
   return (
     <>
-      <Table
+      <Table className="candidatescroll"
         empty={electionsInfo && t<string>('No runners up found')}
         header={headerRunnersRef.current}
       >
@@ -46,7 +46,7 @@ function Candidates ({ allVotes = {}, electionsInfo }: Props): React.ReactElemen
           />
         ))}
       </Table>
-      <Table
+      <Table className="candidatescrolls"
         empty={electionsInfo && t<string>('No candidates found')}
         header={headerCandidatesRef.current}
       >

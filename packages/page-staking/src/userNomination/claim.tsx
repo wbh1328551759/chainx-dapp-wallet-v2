@@ -65,7 +65,7 @@ function Claim({ account, onClose, options, value, onSuccess }: Props): React.Re
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Current interest validator')}</p>
+            <p>{t<string>('Current Interest Validator')}</p>
           </Modal.Column>
         </Modal.Columns>
       </Modal.Content>
