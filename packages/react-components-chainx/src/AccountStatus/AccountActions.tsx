@@ -33,6 +33,8 @@ import BN from 'bn.js';
 import {KeyringAddress} from '@polkadot/ui-keyring/types'
 import {Delegation} from '@polkadot/app-accounts-chainx/types';
 import Multisig from '@polkadot/app-accounts-chainx/modals/MultisigCreate';
+import {DeriveDemocracyLock} from '@polkadot/api-derive/types';
+import {ApiPromise} from '@polkadot/api';
 
 interface DemocracyUnlockable {
   democracyUnlockTx: SubmittableExtrinsic<'promise'> | null;
@@ -45,6 +47,14 @@ interface Props{
   isContract?: boolean;
   delegation?: Delegation;
   proxy?: [ProxyDefinition[], BN];
+}
+
+function createClearDemocracyTx(api: ApiPromise, address: string, unlockableIds: BN[]): SubmittableExtrinsic<'promise'> {
+  return api.tx.utility.batch(
+    unlockableIds
+      .map((id) => api.tx.democracy.removeVote(id))
+      .concat(api.tx.democracy.unlock(address))
+  );
 }
 
 const transformRecovery = {
@@ -77,6 +87,8 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   const [isUndelegateOpen, toggleUndelegate] = useToggle();
   const [isProxyOverviewOpen, toggleProxyOverview] = useToggle();
   const [isAddMultisigOpen, toggleAddMultisig] = useToggle()
+  const bestNumber = useCall<BN>(api.api.derive.chain.bestNumber);
+  const democracyLocks = useCall<DeriveDemocracyLock[]>(api.api.derive.democracy?.locks, [address]);
   const recoveryInfo = useCall<RecoveryConfig | null>(api.api.query.recovery?.recoverable, [address], transformRecovery);
   const multiInfos = useMultisigApprovals(address);
   const [n, setN] = useState<number>(0);
@@ -157,12 +169,24 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
 
   },[currentAccount, allAccounts, hasAccounts])
 
-  // useEffect(() => {
-  //   if(isApiReady && !hasAccounts){
-  //     setValue('')
-  //     changeAccount('')
-  //   }
-  // },[hasAccounts])
+  useEffect((): void => {
+    bestNumber && democracyLocks && setUnlockableIds(
+      (prev): DemocracyUnlockable => {
+        const ids = democracyLocks
+          .filter(({isFinished, unlockAt}) => isFinished && bestNumber.gt(unlockAt))
+          .map(({referendumId}) => referendumId);
+
+        if (JSON.stringify(prev.ids) === JSON.stringify(ids)) {
+          return prev;
+        }
+
+        return {
+          democracyUnlockTx: createClearDemocracyTx(api.api, address, ids),
+          ids
+        };
+      }
+    );
+  }, [address, api, bestNumber, democracyLocks]);
 
   return (
     <>
@@ -336,6 +360,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*    </Menu.Item>*/}
           {/*  ),*/}
           {/*  api.api.tx.identity?.setIdentity && (*/}
+          {/*设置链上身份*/}
           {/*    <Menu.Item*/}
           {/*      key='identityMain'*/}
           {/*      onClick={toggleIdentityMain}*/}
@@ -344,6 +369,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*    </Menu.Item>*/}
           {/*  ),*/}
           {/*  api.api.tx.identity?.setSubs && identity?.display && (*/}
+          {/*设置链上子身份*/}
           {/*    <Menu.Item*/}
           {/*      key='identitySub'*/}
           {/*      onClick={toggleIdentitySub}*/}
@@ -351,15 +377,8 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*      {t('Set on-chain sub-identities')}*/}
           {/*    </Menu.Item>*/}
           {/*  ),*/}
-          {/*  api.api.tx.democracy?.unlock && democracyUnlockTx && (*/}
-          {/*    <Menu.Item*/}
-          {/*      key='clearDemocracy'*/}
-          {/*      onClick={_clearDemocracyLocks}*/}
-          {/*    >*/}
-          {/*      {t('Clear expired democracy locks')}*/}
-          {/*    </Menu.Item>*/}
-          {/*  ),*/}
           {/*  api.api.tx.vesting?.vest && vestingVestTx && (*/}
+          {/*解锁既得金额*/}
           {/*    <Menu.Item*/}
           {/*      key='vestingVest'*/}
           {/*      onClick={_vestingVest}*/}
@@ -435,11 +454,20 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
               >
                 {t('Multisig')}
               </Menu.Item>
-            )
+            ),
+            (api.api.tx.democracy?.unlock && democracyUnlockTx && (
+              <Menu.Item
+                key='clearDemocracy'
+                onClick={_clearDemocracyLocks}
+              >
+                {t('Clear expired democracy locks')}
+              </Menu.Item>
+            )),
           ])}
 
           {/*{api.api.tx.recovery?.createRecovery && createMenuGroup([*/}
           {/*  !recoveryInfo && (*/}
+          {/*使之可恢复*/}
           {/*    <Menu.Item*/}
           {/*      key='makeRecoverable'*/}
           {/*      onClick={toggleRecoverSetup}*/}
@@ -447,6 +475,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*      {t('Make recoverable')}*/}
           {/*    </Menu.Item>*/}
           {/*  ),*/}
+          {/*启动针对另一个账户的恢复*/}
           {/*  <Menu.Item*/}
           {/*    key='initRecovery'*/}
           {/*    onClick={toggleRecoverAccount}*/}
@@ -455,12 +484,14 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*  </Menu.Item>*/}
           {/*])}*/}
           {/*{api.api.query.democracy?.votingOf && delegation?.accountDelegated && createMenuGroup([*/}
+          {/*更改民主代表*/}
           {/*  <Menu.Item*/}
           {/*    key='changeDelegate'*/}
           {/*    onClick={toggleDelegate}*/}
           {/*  >*/}
           {/*    {t('Change democracy delegation')}*/}
           {/*  </Menu.Item>,*/}
+          {/*不受委托的*/}
           {/*  <Menu.Item*/}
           {/*    key='undelegate'*/}
           {/*    onClick={toggleUndelegate}*/}
@@ -469,6 +500,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*  </Menu.Item>*/}
           {/*])}*/}
           {/*{api.api.query.democracy?.votingOf && !delegation?.accountDelegated && createMenuGroup([*/}
+          {/*代表民主投票*/}
           {/*  <Menu.Item*/}
           {/*    key='delegate'*/}
           {/*    onClick={toggleDelegate}*/}
