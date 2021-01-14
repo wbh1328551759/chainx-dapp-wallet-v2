@@ -26,11 +26,12 @@ interface Props {
   storedValue: string | ((value: string) => void) | undefined;
   onClose: () => void;
   onStatusChange: ((status: ActionStatus) => void) | undefined;
+  className?: string;
 }
 
 const STORE_FAVS = 'accounts:favorites';
 
-function AccountList({storedValue, className, onClose, onStatusChange, setStoredValue}: Props): React.ReactElement<Props> {
+function AccountList({storedValue, className = '', onClose, onStatusChange, setStoredValue}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const {allAccounts} = useAccounts();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
