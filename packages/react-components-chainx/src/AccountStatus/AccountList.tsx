@@ -19,14 +19,14 @@ import Import from '@polkadot/app-accounts-chainx/modals/Import';
 import { useTranslation } from '../translate';
 import {sortAccounts} from '@polkadot/app-accounts-chainx/util';
 import {SortedAccount} from '@polkadot/app-accounts-chainx/types';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
 
-interface Props extends ModalProps, I18nProps {
-  setStoredValue: string | ((value: string) => void);
-  storedValue: string;
+interface Props {
+  setStoredValue: string | ((value: string) => void) | undefined;
+  storedValue: string | ((value: string) => void) | undefined;
   onClose: () => void;
-  onStatusChange: (status) => void;
+  onStatusChange: ((status: ActionStatus) => void) | undefined;
 }
-
 
 const STORE_FAVS = 'accounts:favorites';
 
