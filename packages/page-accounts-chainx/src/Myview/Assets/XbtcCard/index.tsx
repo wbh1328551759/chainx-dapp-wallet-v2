@@ -24,8 +24,9 @@ export default function (): React.ReactElement {
   const [isDepositeOpen, toggleDeposite] = useToggle();
   const [isWithdraw, toggleWithdraw] = useToggle();
   const [n, setN] = useState(0);
-  const {hasAccounts} = useAccounts()
+  const {hasAccounts, allAccounts} = useAccounts()
   const currentAccountInfo = useXbtcAssets(currentAccount, n)
+  const hasCurrentName = allAccounts.find(account => account === currentAccount)
 
   const buttonGroup = (
     <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
@@ -58,21 +59,21 @@ export default function (): React.ReactElement {
       <Button
         className="btnLists primaryBtn"
         onClick={toggleDeposite}
-        isDisabled={!isApiReady || !currentAccount || !hasAccounts}
+        isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
       >
         {t('Top-up')}
       </Button>
       <Button
         className="btnLists defaultBtn"
         onClick={toggleWithdraw}
-        isDisabled={!isApiReady || !currentAccount || !hasAccounts}
+        isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
       >
         {t('Withdrawals')}
       </Button>
       <Button
         className="btnLists defaultBtn"
         onClick={toggleTransfer}
-        isDisabled={!isApiReady || !currentAccount || !hasAccounts}
+        isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
       >
         {t('Transfer')}
       </Button>

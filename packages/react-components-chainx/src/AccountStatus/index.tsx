@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { AddressRow } from '@polkadot/react-components';
 import { ActionStatus } from '@polkadot/react-components/Status/types';
 import AccountList from './AccountList';
-import { useTranslation } from '../translate';
 import Button from '@polkadot/react-components-chainx/Button';
 import {StyledWrapper} from './StyledWrapper';
 
@@ -20,8 +19,7 @@ interface Props {
 
 
 function AccountStatus ({ storedValue, onStatusChange, setStoredValue, className}: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const [isAccountListOpen, setIsAccountListOpen] = useState(false);
+  const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
 
   const _toggleAccountList = (): void => setIsAccountListOpen(!isAccountListOpen);
 
