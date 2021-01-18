@@ -4,16 +4,20 @@ import {subItem} from '@polkadot/react-components-chainx/Tabs/types';
 import SubTab from './SubTab';
 
 const Wrapper = styled.div`
-  position: absolute;
-  right: 1.3em;
   display: flex;
-  top: 1.9em;
-
+  @media only screen and (min-width: 769px) {
+    position: absolute;
+    right: 1.3em;
+    top: 1.9em;
+  }
   .divideLine{
     height: 1.5em;
     padding: 0;
     background: #ADADAD;
     width: 1px;
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
   }
 `
 

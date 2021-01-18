@@ -66,7 +66,9 @@ export default React.memo(styled(Tabs)(({ theme }: ThemeProps) => `
   padding: 1.5rem 1.5rem 0;
   text-align: left;
   z-index: 1;
-
+  @media only screen and (max-width: 768px) {
+    padding: 0;
+  }
   &::-webkit-scrollbar {
     display: none;
     width: 0px;

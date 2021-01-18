@@ -38,13 +38,14 @@ function AccountStatus ({ storedValue, onStatusChange, setStoredValue, className
       )}
 
       <StyledWrapper>
-        <div className='ui--AccountStatus-Box'>
+        <div className='ui--AccountStatus-Box' >
           <AddressRow
             className='ui--AccountStatus-Address'
             isEditable={true}
             value={storedValue}
           >
           </AddressRow>
+          <div className="usermarks" onClick={_toggleAccountList} ></div>
           <Button
             className='ui--AccountStatus-ChangeAccount'
             isBasic={true}

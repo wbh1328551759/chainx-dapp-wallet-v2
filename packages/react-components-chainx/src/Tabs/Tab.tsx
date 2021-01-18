@@ -73,7 +73,12 @@ export default React.memo(styled(Tab)(({theme}: ThemeProps) => `
   padding: 0.5rem 1.5rem 0.75rem;
   color: rgba(0, 0, 0, 0.4) !important;
   font-weight: 600;
-
+  @media only screen and (min-width: 769px) and (max-width: 1200px) {
+    padding: 0.5rem 0.5rem 0.75rem;
+  }
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
   &.tabLinkActive {
     color: rgba(0, 0, 0, 0.8) !important;
     border-bottom-color: #F6C94A !important;
