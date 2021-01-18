@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledWrapper = styled.div`
   padding: 4px 0 0 2rem;
   min-height: 61px;
-  margin: 0 -2rem;
+  margin: 0 -1.5rem;
   display: flex !important;
   align-items: center;
   color: rgba(0,0,0,0.8);
@@ -13,6 +13,9 @@ export const StyledWrapper = styled.div`
 
   .ui--AccountStatus-ChangeAccount {
     margin-right: 0.2em;
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
   }
 
   @media (max-width: 767px) {
@@ -30,20 +33,39 @@ export const StyledWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    position: relative;
+    .usermarks {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border-radius: 50%;
+      @media only screen and (min-width: 769px) {
+        display: none;
+      }
+    }
     > .ui--Row {
       display: flex;
       align-items: center;
 
       .ui--Row-base{
         min-width: 7rem;
+        @media only screen and (max-width: 768px) {
+          min-width: 0;
+        }
       }
-
+      .ui--Row-children{
+        @media only screen and (max-width: 768px) {
+          display: none;
+        }
+      }
       .ui--Row-icon{
         display: flex;
         align-items: center;
         margin-right: 8px;
-
+        @media only screen and (max-width: 768px) {
+          margin-right: 0;
+        }
         > .ui--IdentityIcon{
           background: rgba(242, 242, 242);
           width: 2.8rem;
@@ -58,7 +80,9 @@ export const StyledWrapper = styled.div`
 
       .ui--Row-details{
         margin-right: 0;
-
+        @media only screen and (max-width: 768px) {
+          display: none;
+        }
         .ui--Row-name{
           font-size: 14px;
           color: #282828;
