@@ -128,7 +128,11 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
 export default React.memo(styled(Summary)`
   flex-wrap: wrap;
   align-items: center;
-  
+
+  label{
+    text-align: center;
+  }
+
   .validator--Account-block-icon {
     display: inline-block;
     margin-right: 0.75rem;
