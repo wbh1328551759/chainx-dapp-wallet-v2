@@ -3,6 +3,8 @@
 
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AliosscdnWebpackPlugin = require('aliosscdn-webpack-plugin')
+const client = require('./private.tsx')
 const path = require('path');
 const { merge } = require('webpack-merge');
 
@@ -21,6 +23,13 @@ module.exports = merge(
         PAGE_TITLE: 'ChainX Dapp Wallet',
         inject: true,
         template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
+      }),
+      new AliosscdnWebpackPlugin({
+        filesPath: ``,
+        region: client.region,
+        accessKeyId: client.accessKeyId,
+        accessKeySecret: client.accessKeySecret,
+        bucket: client.bucket,
       })
     ]
   }
