@@ -67,10 +67,10 @@ function NavItemList(): React.ReactElement {
     <div className="left">
       <img src={chainxLogo} alt=""/>
       <ul>
-        <li className='assets'>
+        <li className='assets media--500'>
           <Link to={'/accounts'}>{t('Assets')}</Link>
         </li>
-        <li className='staking'
+        <li className='staking media--600'
             onMouseEnter={() => toggleSelector('staking')}
             onMouseLeave={() => setToggleStaking(false)}
         >
@@ -83,7 +83,7 @@ function NavItemList(): React.ReactElement {
             nodeList={stakingList} onMouseLeave={() => setToggleStaking(false)}
           />}
         </li>
-        <li className='governance'
+        <li className='governance media--700'
             onMouseEnter={() => toggleSelector('governance')}
             onMouseLeave={() => setToggleGovernance(false)}>
           <Link to={'/democracy/democracy'}>
@@ -94,17 +94,17 @@ function NavItemList(): React.ReactElement {
           <Selector nodeList={governanceList} onMouseLeave={() => setToggleGovernance(false)}
           />}
         </li>
-        <li className='dex'>
+        <li className='dex media--1100'>
           <Link to='/DEX'>{t('DEX')}</Link>
         </li>
-        <li className='linkOutBrowser'>
+        <li className='linkOutBrowser media--900'>
           <a href={url} target='_blank'>
             {t('ChainScan')}
             <img src={linkOut} alt=""/>
           </a>
         </li>
-        <li className='divideLine'/>
-        <li className='developer'
+        <li className='divideLine media--1200'/>
+        <li className='developer media--1000'
             onMouseEnter={() => toggleSelector('developer')}
             onMouseLeave={() => setToggleDeveloper(false)}>
           <Link to={'/chainstate/chainstate'}>

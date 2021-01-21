@@ -27,7 +27,7 @@ const InnerWrapper = styled.div`
   header {
     display: flex;
     justify-content: space-between;
-    @media screen and (min-width:375px) and (max-width:540px){
+    @media screen and (max-width:540px){
       flex-direction: column;
       align-items: baseline;
     }
@@ -39,6 +39,10 @@ const InnerWrapper = styled.div`
     align-items: flex-end;
     @media screen and (min-width:375px) and (max-width:540px){
       position: relative;
+    }
+    @media screen and (max-width:374px){
+      flex-direction: column;
+      align-items: baseline;
     }
   }
   .whiteBtn {
@@ -55,6 +59,9 @@ const InnerWrapper = styled.div`
     border-radius: 14px;
     text-transform: none;
     margin: 0 0 4px 32px;
+    @media screen and (max-width:374px){
+      margin: 6px 0 0;
+    }
     &:hover {
       background: #E8E9EA !important;
       color: rgba(0, 0, 0, 0.72) !important;
@@ -70,6 +77,13 @@ const InnerWrapper = styled.div`
   section.details {
     display: flex;
     margin-top: 32px;
+    @media screen and (max-width:374px){
+      flex-direction: column;
+      align-items: baseline;
+      & > div:not(:first-of-type) {
+        margin-left: 0 !important;
+      }
+    }
     & > div:not(:first-of-type) {
       margin-left: 66px;
     }

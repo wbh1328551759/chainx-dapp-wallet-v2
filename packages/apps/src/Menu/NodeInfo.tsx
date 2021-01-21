@@ -61,7 +61,9 @@ export default React.memo(styled(NodeInfo)`
   line-height: 1.2;
   padding: 0 1.5rem 0 1rem;
   text-align: right;
-
+  @media only screen and (max-width: 768px) {
+    padding: 0;
+  }
   &.media--1400 {
     @media only screen and (max-width: 1400px) {
       display: block !important;

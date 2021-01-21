@@ -38,7 +38,15 @@ export default translate(
     flex: 1 1;
     margin: 0;
     padding: 0 0.75rem;
-
+    @media screen and (max-width:560px){
+      padding: 0;
+      div {
+        overflow: auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+    }
     &:first-child {
       padding-left: 0;
     }

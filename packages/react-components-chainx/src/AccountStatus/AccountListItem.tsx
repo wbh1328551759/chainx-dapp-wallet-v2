@@ -40,7 +40,7 @@ function Account ({ account, address, className, isAccountChecked, setStoredValu
 
   return (
     <tr className={className}>
-      <td className='top'>
+      <td>
         <AddressSmall
           value={address}
         />
@@ -85,6 +85,17 @@ function Account ({ account, address, className, isAccountChecked, setStoredValu
 }
 
 export default styled(Account)`
+
+  td {
+    padding: 0.75rem !important;
+  }
+  .middle {
+    .accountBox--all {
+      @media only screen and (max-width: 520px) {
+        display: none;
+      }
+    }
+  }
   .accounts--Account-buttons {
     text-align: right;
   }
@@ -105,5 +116,8 @@ export default styled(Account)`
 
   .samewidth button:first-child {
     min-width: 6.5rem;
+    @media only screen and (max-width: 540px) {
+      min-width: 0.5rem;
+    }
   }
 `;
