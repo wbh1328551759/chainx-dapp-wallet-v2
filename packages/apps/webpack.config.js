@@ -25,7 +25,7 @@ module.exports = merge(
         template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
       }),
       new AliosscdnWebpackPlugin({
-        filesPath: ``,
+        filesPath: `${__dirname}/build`,
         region: client.region,
         accessKeyId: client.accessKeyId,
         accessKeySecret: client.accessKeySecret,
