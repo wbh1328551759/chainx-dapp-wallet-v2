@@ -7,7 +7,7 @@ const AliosscdnWebpackPlugin = require('aliosscdn-webpack-plugin')
 const path = require('path');
 const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
-const dotenv = require("dotenv")
+const dotenv = require('dotenv')
 dotenv.config()
 
 const ENV = process.env.NODE_ENV || 'development';
