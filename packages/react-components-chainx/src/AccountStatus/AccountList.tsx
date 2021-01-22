@@ -9,28 +9,26 @@ import styled from 'styled-components';
 import modalCloseIcon from './modal-close.png';
 
 import {useAccounts, useFavorites} from '@polkadot/react-hooks';
-import {I18nProps} from '@polkadot/react-components/types';
-
 import Account from './AccountListItem';
 import {Button, Modal, Table} from '@polkadot/react-components';
-import {ModalProps} from '@polkadot/app-accounts/types';
 import Create from '@polkadot/app-accounts-chainx/modals/Create';
 import Import from '@polkadot/app-accounts-chainx/modals/Import';
 import { useTranslation } from '../translate';
 import {sortAccounts} from '@polkadot/app-accounts-chainx/util';
 import {SortedAccount} from '@polkadot/app-accounts-chainx/types';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
 
-interface Props extends ModalProps, I18nProps {
-  setStoredValue: string | ((value: string) => void);
-  storedValue: string;
+interface Props {
+  setStoredValue: string | ((value: string) => void) | undefined;
+  storedValue: string | ((value: string) => void) | undefined;
   onClose: () => void;
-  onStatusChange: (status) => void;
+  onStatusChange: ((status: ActionStatus) => void) | undefined;
+  className?: string;
 }
-
 
 const STORE_FAVS = 'accounts:favorites';
 
-function AccountList({storedValue, className, onClose, onStatusChange, setStoredValue}: Props): React.ReactElement<Props> {
+function AccountList({storedValue, className = '', onClose, onStatusChange, setStoredValue}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const {allAccounts} = useAccounts();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
