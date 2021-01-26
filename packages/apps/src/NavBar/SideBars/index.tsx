@@ -6,10 +6,9 @@ import React, { useEffect, useState } from 'react';
 import {useApi, useToggle} from '@polkadot/react-hooks';
 import {Icon} from '@polkadot/react-components';
 import linkOut from '@polkadot/apps/NavBar/icons/Link out.svg';
-import { Sidebar } from '@polkadot/react-components';
 import Endpoints from '@polkadot/apps/Endpoints/modals/Network';
 import getApiUrl from '@polkadot/apps/initSettings';
-import { useTranslation } from '../translate';
+import { useTranslation } from '../../translate';
 
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
@@ -33,16 +32,16 @@ const Wrapper = styled.div`
   color: rgba(0,0,0,0.4);
   transition: all 0.3s linear;
   &.collapsed {
-    width: 12em;    
+    width: 12em;
   }
   // &.expanded {
- 
+
   // }
   &::-webkit-scrollbar {
     display: none;
   }
   .wrappers {
-    width: 12em;   
+    width: 12em;
     .switchNode{
       display: flex;
       align-items: center;
@@ -125,7 +124,7 @@ function Sidebars ({ className = '', onClose, isCollapsed }: Props): React.React
   const {api} = useApi()
   const [isEndpointsVisible, toggleEndpoints] = useToggle();
   const [url, setUrl] = useState<string>('')
-  
+
   const [recordType, setRecordType] = useState(0);
 
   const apiUrl = getApiUrl()
@@ -155,7 +154,7 @@ function Sidebars ({ className = '', onClose, isCollapsed }: Props): React.React
     {nodeName: t<string>('Explorer'), link: '/chainstate/explorer', icon: 'braille'}
   ]);
 
-  
+
 
   function statusnode(node: any, index: number) {
     setRecordType(index)
@@ -185,7 +184,7 @@ function Sidebars ({ className = '', onClose, isCollapsed }: Props): React.React
             )
           }
         </ul>
-        
+
         <div className='helpicon' onClick={onClose}>
           <a href={t('https://chainx-doc.gitbook.io/chainx-user-guide-english/')} target='_blank'>
             <Icon icon='question-circle' size='lg'/>
