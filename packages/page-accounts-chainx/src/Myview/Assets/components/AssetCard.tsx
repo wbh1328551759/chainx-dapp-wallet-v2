@@ -23,7 +23,8 @@ const HeadWrapper = styled.div`
   .btnLists {
     color: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(0,0,0,0.04);
-    padding: 1px 2em;
+    padding: 1px 1.5em;
+    white-space: nowrap;
     @media screen and (max-width:375px){
       padding: 1px 1em;
     }
@@ -125,7 +126,9 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       <Hr/>
       <Footer>
         <div>
-          <span>{t('Mining Interest')}</span>
+          <span style={{
+            whiteSpace: "nowrap"
+          }}>{t('Mining Interest')}</span>
           <span>  {usableInterests ? usableInterests.toFixed(8) : 0} PCX</span>
         </div>
         <div>
