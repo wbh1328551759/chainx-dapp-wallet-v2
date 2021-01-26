@@ -65,7 +65,7 @@ export default function (): React.ReactElement {
             className={option === 'deposit' ? 'active' : ''}
             onClick={() => setOption('deposit')}
           >
-            {t('Top-up')}
+            {t('Top Up')}
           </li>
           <li
             className={option === 'withdraw' ? 'active' : ''}

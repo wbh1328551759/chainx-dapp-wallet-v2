@@ -4,7 +4,7 @@
   "Enter the Asset ID of the token you want to manage.": "Enter the Asset ID of the token you want to manage.",
   "Enter the Asset ID of the token you want to transfer.": "Enter the Asset ID of the token you want to transfer.",
   "Forget this asset": "Forget this asset",
-  "Make Transfer": "Make Transfer",
+  "Transfer": "Transfer",
   "No assets found.": "No assets found.",
   "Register": "Register",
   "Register Asset": "Register Asset",
@@ -17,7 +17,7 @@
   "Amount": "Amount",
   "asset id": "asset id",
   "name": "name",
-  "Send From Account": "Send From Account",
-  "Send To Address": "Send To Address",
+  "Send from account": "Send from account",
+  "Send to address": "Send to address",
   "transferrable": "transferrable"
 }

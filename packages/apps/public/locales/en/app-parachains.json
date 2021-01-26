@@ -50,9 +50,9 @@
   "relay": "relay",
   "relay dispatch queue": "relay dispatch queue",
   "scheduling": "scheduling",
-  "Send From Account": "Send From Account",
+  "Send from account": "Send from account",
   "send funds to another parachain (not relay)": "send funds to another parachain (not relay)",
-  "Send To Address": "Send To Address",
+  "Send to address": "Send to address",
   "swap to id": "swap to id",
   "the amount that should be transferred. It needs to be less than the available balance": "the amount that should be transferred. It needs to be less than the available balance",
   "the parachain that will receive the transfer of tokens.": "the parachain that will receive the transfer of tokens.",
@@ -60,7 +60,7 @@
   "transfer remark/comment": "transfer remark/comment",
   "transferrable": "transferrable",
   "validation": "validation",
-  "validators": "validators",
+  "Validators": "Validators",
   "yes": "yes",
   "{{relayDispatchQueueSize}} dispatch messages pending": "{{relayDispatchQueueSize}} dispatch messages pending"
 }

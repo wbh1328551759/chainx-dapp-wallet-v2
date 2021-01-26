@@ -28,7 +28,7 @@ function NavItemList(): React.ReactElement {
   const developerList = ([
     {nodeName: t<string>('Chain state'), link: '/chainstate/chainstate'},
     {nodeName: t<string>('Extrinsics'), link: '/chainstate/extrinsics'},
-    {nodeName: t<string>('RPC calls'), link: '/chainstate/rpc'},
+    {nodeName: t<string>('RPC Calls'), link: '/chainstate/rpc'},
     {nodeName: t<string>('Sign and verify'), link: '/chainstate/signing'},
     {nodeName: t<string>('Explorer'), link: '/chainstate/explorer'}
   ]);

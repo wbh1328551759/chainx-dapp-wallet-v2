@@ -19,15 +19,15 @@ function SigningApp ({ basePath }: Props): React.ReactElement<Props> {
     {
       isRoot: true,
       name: 'sign',
-      text: t<string>('Sign message')
+      text: t<string>('Sign Message')
     },
     {
       name: 'verify',
-      text: t<string>('Verify signature')
+      text: t<string>('Verify Signature')
     },
     {
       name: 'hash',
-      text: t<string>('Hash data')
+      text: t<string>('Hash Data')
     }
   ]);
 

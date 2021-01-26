@@ -75,7 +75,7 @@ function Claim({ account, onClose, options, value, onSuccess }: Props): React.Re
         <TxButton
           accountId={account}
           icon='sign-in-alt'
-          label={t<string>('Claim Button')}
+          label={t<string>('Claim')}
           onStart={onClose}
           params={[validatorId]}
           tx='xStaking.claim'

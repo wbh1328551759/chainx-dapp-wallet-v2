@@ -22,7 +22,7 @@ function Proposals ({ proposals }: Props): React.ReactElement<Props> {
     [t('balance')],
     [t('initial state'), 'start'],
     [t('validation'), 'start'],
-    [t('validators'), 'address']
+    [t('Validators'), 'address']
   ]);
 
   return (

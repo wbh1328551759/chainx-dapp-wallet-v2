@@ -220,7 +220,7 @@ function Translate ({ className }: Props): React.ReactElement<Props> {
             <div>
               <Dropdown
                 isFull
-                label={t<string>('The Language To Display Translations For')}
+                label={t<string>('The language to display translations for')}
                 onChange={setLng}
                 options={keys}
                 value={lng}
@@ -237,7 +237,7 @@ function Translate ({ className }: Props): React.ReactElement<Props> {
             <div>
               <Dropdown
                 isFull
-                label={t<string>('The Module To Display Strings For')}
+                label={t<string>('The module to display strings for')}
                 onChange={setRecord}
                 options={modules}
                 value={record}

@@ -191,7 +191,7 @@ function Account({ address, className, filter, isFavorite, toggleFavorite }: Pro
                 <table>
                   <tbody>
                     <tr>
-                      <td>{t('threshold')}</td>
+                      <td>{t('Threshold')}</td>
                       <td>{formatNumber(recoveryInfo.threshold)}</td>
                     </tr>
                     <tr>

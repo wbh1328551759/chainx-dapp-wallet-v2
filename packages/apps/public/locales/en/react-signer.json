@@ -35,7 +35,7 @@
   "multisig call data": "multisig call data",
   "multisig signatory": "multisig signatory",
   "proxy account": "proxy account",
-  "sending from my account": "sending from my account",
-  "unlock account with password": "unlock account with password",
+  "Sending from my account": "Sending from my account",
+  "Unlock Account with password": "Unlock Account with password",
   "unlock for {{expiry}} min": "unlock for {{expiry}} min"
 }

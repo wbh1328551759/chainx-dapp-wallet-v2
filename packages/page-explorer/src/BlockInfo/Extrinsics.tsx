@@ -22,9 +22,9 @@ function Extrinsics ({ blockNumber, className = '', events, label, value }: Prop
   const { t } = useTranslation();
 
   const header = useMemo(() => [
-    [label || t<string>('extrinsics'), 'start', 2],
-    [t('events'), 'start', 2],
-    [t('signer'), 'address']
+    [label || t<string>('Extrinsics'), 'start', 2],
+    [t('Events'), 'start', 2],
+    [t('Signer'), 'address']
   ], [label, t]);
 
   return (

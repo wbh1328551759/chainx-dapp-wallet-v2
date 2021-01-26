@@ -45,7 +45,7 @@ function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Drop This Node')}</p>
+            <p>{t<string>('Drop this node')}</p>
           </Modal.Column>
         </Modal.Columns>
         {/* <Modal.Columns>
@@ -65,7 +65,7 @@ function Chill({ onClose, validatorId, onSuccess, account, setN }: Props): React
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Drop This Node')}</p>
+            <p>{t<string>('Drop this node')}</p>
           </Modal.Column>
         </Modal.Columns> */}
 

@@ -108,7 +108,7 @@ function Multisig ({ className = '', onClose, onStatusChange }: Props): React.Re
             <InputNumber
               help={t<string>('The threshold for this multisig')}
               isError={!isThresholdValid}
-              label={t<string>('threshold')}
+              label={t<string>('Threshold')}
               onChange={_onChangeThreshold}
               value={threshold}
             />

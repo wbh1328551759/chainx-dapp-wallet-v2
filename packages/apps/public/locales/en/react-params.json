@@ -17,7 +17,7 @@
   "aye: bool": "aye: bool",
   "conviction: Conviction": "conviction: Conviction",
   "details": "details",
-  "file upload": "file upload",
+  "File Upload": "File Upload",
   "include option": "include option",
   "type": "type",
   "{{count}} key/value pairs encoded for submission": "{{count}} key/value pairs encoded for submission"

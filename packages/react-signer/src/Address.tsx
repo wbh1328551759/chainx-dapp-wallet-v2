@@ -218,7 +218,7 @@ function Address ({ currentItem, onChange, onEnter, passwordError, requestAddres
             defaultValue={requestAddress}
             isDisabled
             isInput
-            label={t('sending from my account')}
+            label={t('Sending from my account')}
             withLabel
           />
         </Modal.Column>

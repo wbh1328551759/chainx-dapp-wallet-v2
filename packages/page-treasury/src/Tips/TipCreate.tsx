@@ -40,7 +40,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
       />
       {isOpen && (
         <Modal
-          header={t<string>('Submit Tip Request')}
+          header={t<string>('Submit tip request')}
           size='large'
         >
           <Modal.Content>
@@ -48,7 +48,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
               <Modal.Column>
                 <InputAddress
                   help={t<string>('Select the account you wish to submit the tip from.')}
-                  label={t<string>('Submit With Account')}
+                  label={t<string>('Submit with account')}
                   onChange={setAccountId}
                   type='account'
                   withLabel
@@ -77,7 +77,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
                   autoFocus
                   help={t<string>('The reason why this tip should be paid.')}
                   isError={!hasReason}
-                  label={t<string>('tip reason')}
+                  label={t<string>('Tip Reason')}
                   onChange={setReason}
                 />
               </Modal.Column>
@@ -91,7 +91,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
                   <InputBalance
                     help={t<string>('The suggested value for this tip')}
                     isError={!hasValue}
-                    label={t<string>('tip value')}
+                    label={t<string>('Tip value')}
                     onChange={setValue}
                   />
                 </Modal.Column>
@@ -106,7 +106,7 @@ function TipCreate ({ members, refresh }: Props): React.ReactElement<Props> {
               accountId={accountId}
               icon='plus'
               isDisabled={!accountId || (isMember && !hasValue) || !hasReason}
-              label={t<string>('Propose Tip')}
+              label={t<string>('Propose')}
               onStart={toggleOpen}
               onSuccess={refresh}
               params={

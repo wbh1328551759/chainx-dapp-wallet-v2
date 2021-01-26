@@ -3,11 +3,11 @@
   "The time of application": "The time of application",
   "Withdrawal List": "Withdrawal List",
   "Withdrawals": "Withdrawals",
-  "account address": "account address",
-  "asset": "asset",
-  "identifier": "identifier",
-  "memo": "memo",
-  "money": "money",
-  "state": "state",
-  "withdrawal address": "withdrawal address"
+  "Account Address": "Account Address",
+  "Asset": "Asset",
+  "Identifier": "Identifier",
+  "Memo": "Memo",
+  "Money": "Money",
+  "State": "State",
+  "Withdrawal Address": "Withdrawal Address"
 }

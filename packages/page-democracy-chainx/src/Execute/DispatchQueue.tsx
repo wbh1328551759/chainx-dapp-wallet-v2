@@ -20,7 +20,7 @@ function DispatchQueue ({ className }: Props): React.ReactElement<Props> | null 
   const queued = useCall<DeriveDispatch[]>(api.derive.democracy.dispatchQueue);
 
   const headerRef = useRef([
-    [t('dispatch queue'), 'start', 2],
+    [t('Dispatch Queue'), 'start', 2],
     [t('enact')],
     [],
     [undefined, 'media--1000']

@@ -17,7 +17,7 @@ function RpcApp ({ basePath }: Props): React.ReactElement<Props> {
     {
       isRoot: true,
       name: 'rpc',
-      text: t<string>('RPC calls')
+      text: t<string>('RPC Calls')
     }
   ]);
 
