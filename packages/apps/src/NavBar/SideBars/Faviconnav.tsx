@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Catalog  from '@polkadot/apps/NavBar/icons/catalog.svg';
-import Sidebars from './SideBars';
+import Sidebars from './index';
 
 const Wrapper = styled.div`
     display: flex;
