@@ -34,7 +34,7 @@ function Selection ({ basePath, onAdd }: Props): React.ReactElement<Props> {
     },
     {
       name: 'raw',
-      text: t<string>('Raw storage')
+      text: t<string>('Raw Storage')
     }
   ]);
 

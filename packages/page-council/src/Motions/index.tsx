@@ -34,10 +34,10 @@ function Proposals ({ className = '', motions, prime }: Props): React.ReactEleme
   const { isMember, members } = useMembers();
 
   const headerRef = useRef([
-    [t('motions'), 'start', 2],
-    [t('threshold')],
-    [t('voting end')],
-    [t('votes'), 'expand'],
+    [t('Motions'), 'start', 2],
+    [t('Threshold')],
+    [t('Voting End')],
+    [t('Votes'), 'expand'],
     [],
     [undefined, 'badge'],
     []

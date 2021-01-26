@@ -8,6 +8,7 @@ import {useApi, useIpfs, useToggle} from '@polkadot/react-hooks';
 import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
 import { ActionStatus } from '@polkadot/react-components/Status/types';
 import ImportModal from '@polkadot/app-accounts-chainx/modals/Import';
+import {AccountLoading} from '@polkadot/react-components-chainx';
 const Wrapper = styled.div`
   margin: 0 !important;
   > .noAccount{
@@ -85,6 +86,8 @@ export default function ({ onStatusChange }: Props): React.ReactElement<Props> {
           />
         )}
       </div>
+
+      {!isApiReady && <AccountLoading />}
     </Wrapper>
   );
 }

@@ -21,21 +21,21 @@ function Ledgend({ className }: Props): React.ReactElement<Props> {
           color='blue'
           icon='chevron-right'
         />
-        {t('Next session')}
+        {t('Next Session')}
       </span>
       <span>
         <Badge
           color='green'
           info='5'
         />
-        {t('Produced blocks')}
+        {t('Produced Blocks')}
       </span>
       <span>
         <Badge
           color='green'
           info={<Icon icon='envelope' />}
         />
-        {t('Online message')}
+        {t('Online Message')}
       </span>
       <span>
         <Badge

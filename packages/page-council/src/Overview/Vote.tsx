@@ -98,7 +98,7 @@ function Vote ({ electionsInfo }: Props): React.ReactElement<Props> {
                   help={t<string>('Select and order council candidates you wish to vote for.')}
                   maxCount={MAX_VOTES}
                   onChange={setVotes}
-                  valueLabel={t<string>('My Ordered Votes')}
+                  valueLabel={t<string>('My ordered votes')}
                 />
               </Modal.Column>
               <Modal.Column>
@@ -112,7 +112,7 @@ function Vote ({ electionsInfo }: Props): React.ReactElement<Props> {
               accountId={accountId}
               icon='trash-alt'
               isDisabled={!defaultVotes.length}
-              label={t<string>('Unvote All')}
+              label={t<string>('UnvoteAll')}
               onStart={toggleVisible}
               params={[]}
               tx={

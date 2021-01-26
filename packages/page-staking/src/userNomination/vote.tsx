@@ -51,7 +51,7 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Vote For The Node')}</p>
+            <p>{t<string>('Vote for the node')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -60,9 +60,9 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
             <InputAddress
               defaultValue={value}
               isDisabled={!!value}
-              help={t<string>('Vote for Validator')}
+              help={t<string>('Vote for validator')}
               hideAddress={true}
-              label={t<string>('Vote for Validator')}
+              label={t<string>('Vote for validator')}
               labelExtra={
                 <span> </span>
               }
@@ -74,7 +74,7 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Current Vote Validator')}</p>
+            <p>{t<string>('Current vote validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 

@@ -52,7 +52,7 @@ function Query ({ className = '', value: propsValue }: Props): React.ReactElemen
         isError={!isValid && value.length !== 0}
         onChange={_setHash}
         onEnter={_onQuery}
-        placeholder={t<string>('Block Hash Or Number To Query')}
+        placeholder={t<string>('Block hash or number to query')}
         withLabel={false}
       >
         <Button

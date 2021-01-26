@@ -139,7 +139,7 @@ export default function ({address, onClose}: Props) {
 
   return (
     <Wrapper
-        header={t('Top up')}
+        header={t('Top Up')}
       >
       <Modal.Content>
       <main className='content'>

@@ -101,7 +101,7 @@ export default React.memo(styled(Head)(({ theme }: ThemeProps) => `
 
   tr {
     background: ${theme.bgTable};
-    text-transform: lowercase;
+    // text-transform: lowercase;
 
     &:first-child {
       th {

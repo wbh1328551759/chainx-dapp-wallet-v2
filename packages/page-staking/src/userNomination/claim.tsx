@@ -65,7 +65,7 @@ function Claim({ account, onClose, options, value, onSuccess }: Props): React.Re
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Current Interest Validator')}</p>
+            <p>{t<string>('Current interest validator')}</p>
           </Modal.Column>
         </Modal.Columns>
       </Modal.Content>
@@ -74,7 +74,7 @@ function Claim({ account, onClose, options, value, onSuccess }: Props): React.Re
         <TxButton
           accountId={account}
           icon='sign-in-alt'
-          label={t<string>('Claim Button')}
+          label={t<string>('Claim')}
           onStart={onClose}
           params={[validatorId]}
           tx='xStaking.claim'

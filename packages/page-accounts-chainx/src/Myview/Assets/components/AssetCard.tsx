@@ -16,14 +16,18 @@ const HeadWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media screen and (min-width:375px) and (max-width:540px){
+  @media screen and (max-width:540px){
     flex-direction: column;
     align-items: baseline;
   }
   .btnLists {
     color: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(0,0,0,0.04);
-    padding: 1px 2em;
+    padding: 1px 1.5em;
+    white-space: nowrap;
+    @media screen and (max-width:375px){
+      padding: 1px 1em;
+    }
     font-size: 0.875rem;
     min-width: 64px;
     box-sizing: border-box;
@@ -60,7 +64,7 @@ const Footer = styled.footer`
   > div:first-child{
     display: flex;
     align-items: center;
-    @media screen and (min-width:375px) and (max-width:540px){
+    @media screen and (max-width:540px){
       flex-direction: column;
       align-items: baseline;
     }
@@ -68,7 +72,7 @@ const Footer = styled.footer`
       margin-left: 16px;
       font-size: 20px;
       font-weight: bold;
-      @media screen and (min-width:375px) and (max-width:540px){
+      @media screen and (max-width:540px){
         margin: 6px 0 0 0;
       }
     }
@@ -122,7 +126,9 @@ export default function (props: { children?: ReactNode, buttonGroup?: ReactNode,
       <Hr/>
       <Footer>
         <div>
-          <span>{t('Mining Interest')}</span>
+          <span style={{
+            whiteSpace: "nowrap"
+          }}>{t('Mining Interest')}</span>
           <span>  {usableInterests ? usableInterests.toFixed(8) : 0} PCX</span>
         </div>
         <div>

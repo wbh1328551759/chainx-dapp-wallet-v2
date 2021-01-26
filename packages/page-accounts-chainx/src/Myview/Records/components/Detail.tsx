@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Detail = styled.ul`
   position: absolute;
-  width: 295px;
+  width: 100%;
   padding: 16px;
   top: 58px;
   right: 2px;

@@ -226,7 +226,7 @@ function Endpoints ({ className = '', offset, onClose }: Props): React.ReactElem
                 className='endpointCustom'
                 isError={!isUrlValid}
                 isFull
-                label={t<string>('custom endpoint')}
+                label={t<string>('Custom Endpoint')}
                 onChange={_onChangeCustom}
                 value={apiUrl}
               />

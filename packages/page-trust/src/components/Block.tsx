@@ -61,13 +61,13 @@ export default function (): React.ReactElement {
   const api = useApi();
   const headerRef = useRef([
     [t('BlockHeight'), 'start', 1],
-    [t('identifier'), 'start', 1],
-    [t('asset'), 'start'],
-    [t('money'), 'start'],
-    [t('account address'), 'start'],
-    [t('withdrawal address'), 'start'],
-    [t('memo'), 'start'],
-    [t('state'), 'status']
+    [t('Identifier'), 'start', 1],
+    [t('Asset'), 'start'],
+    [t('Money'), 'start'],
+    [t('Account Address'), 'start'],
+    [t('Withdrawal Address'), 'start'],
+    [t('Memo'), 'start'],
+    [t('State'), 'status']
   ]);
   const withdrawObject: string | undefined = useCall<string>(api.api.rpc.xgatewayrecords.withdrawalListByChain, ['Bitcoin']);
   const withdrawList: withdraw[] = [];

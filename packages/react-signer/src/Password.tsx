@@ -53,7 +53,7 @@ function Unlock ({ address, className, error, onChange, onEnter, tabIndex }: Pro
         <Password
           autoFocus
           isError={!!error}
-          label={t<string>('unlock account with password')}
+          label={t<string>('Unlock Account with password')}
           onChange={setPassword}
           onEnter={onEnter}
           tabIndex={tabIndex}

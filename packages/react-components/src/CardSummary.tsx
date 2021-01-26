@@ -121,6 +121,9 @@ export default React.memo(styled(CardSummary)(({ theme }: ThemeProps) => `
     position: relative;
     line-height: 1;
     text-align: right;
+    @media screen and (max-width:540px){
+      text-align: left;
+    }
 
     > * {
       margin: 0.5rem 0;

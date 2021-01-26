@@ -38,7 +38,7 @@ function Filtering ({ children, className, nameFilter, setNameFilter, setWithIde
       <Input
         autoFocus
         isFull
-        label={t<string>('filter by name, address or index')}
+        label={t<string>('Filter by name, address or index')}
         onChange={setNameFilter}
         value={nameFilter}
       />
@@ -47,7 +47,7 @@ function Filtering ({ children, className, nameFilter, setNameFilter, setWithIde
         {api.query.identity && (
           <Toggle
             className='staking--buttonToggle'
-            label={t<string>('only with an identity')}
+            label={t<string>('Only with an identity')}
             onChange={setWithIdentity}
             value={withIdentity}
           />

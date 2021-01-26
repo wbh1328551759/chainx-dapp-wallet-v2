@@ -4,8 +4,11 @@ const NavWrapper = styled.div`
   background: rgba(255, 255, 255);
   display: flex;
   justify-content: space-between;
-  padding-left: 1em;
+  padding-left: 1.5em;
   padding-right: 1em;
+  @media only screen and (max-width: 768px) {
+    padding: 1.3em 1em;
+  }
   align-items: center;
   font-size: 15px;
   font-weight: 600;
@@ -15,10 +18,11 @@ const NavWrapper = styled.div`
 
   > .left{
     display: flex;
-
     > ul{
       display: flex;
-
+      @media only screen and (max-width: 768px) {
+        display: none;
+      }
       > li{
         position: relative;
 

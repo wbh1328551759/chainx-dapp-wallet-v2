@@ -58,7 +58,7 @@ function Council ({ id, isDisabled, members }: Props): React.ReactElement<Props>
                 <InputAddress
                   filter={members}
                   help={t<string>('Select the council account you wish to use to make the proposal.')}
-                  label={t<string>('submit with council account')}
+                  label={t<string>('Submit with council account')}
                   onChange={setAccountId}
                   type='account'
                   withLabel
@@ -72,7 +72,7 @@ function Council ({ id, isDisabled, members }: Props): React.ReactElement<Props>
               <Modal.Column>
                 <Dropdown
                   help={t<string>('The type of council proposal to submit.')}
-                  label={t<string>('council proposal type')}
+                  label={t<string>('Council proposal type')}
                   onChange={setCouncilType}
                   options={councilTypeOptRef.current}
                   value={councilType}
@@ -88,7 +88,7 @@ function Council ({ id, isDisabled, members }: Props): React.ReactElement<Props>
               accountId={accountId}
               icon='check'
               isDisabled={!accountId || !threshold}
-              label={t<string>('Send to council')}
+              label={t<string>('Send')}
               onStart={toggleOpen}
               params={
                 api.tx.council.propose.meta.args.length === 3

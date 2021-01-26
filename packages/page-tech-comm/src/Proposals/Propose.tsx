@@ -60,7 +60,7 @@ function Propose ({ isMember, members }: Props): React.ReactElement<Props> {
             <InputAddress
               filter={members}
               help={t<string>('Select the account you wish to make the proposal with.')}
-              label={t<string>('propose from account')}
+              label={t<string>('Propose from account')}
               onChange={setAcountId}
               type='account'
               withLabel
@@ -69,7 +69,7 @@ function Propose ({ isMember, members }: Props): React.ReactElement<Props> {
               className='medium'
               help={t<string>('The minimum number of committee votes required to approve this motion')}
               isError={!hasThreshold}
-              label={t<string>('threshold')}
+              label={t<string>('Threshold')}
               onChange={_onChangeThreshold}
               placeholder={t<string>('Positive number between 1 and {{count}}', { replace: { count: members.length } })}
               value={threshold || undefined}

@@ -71,7 +71,7 @@ function Voting ({ hash, idNumber, isDisabled, members, prime, proposal }: Props
               accountId={accountId}
               icon='ban'
               isDisabled={isDisabled}
-              label={t<string>('Vote Nay')}
+              label={t<string>('Nay')}
               onStart={toggleVoting}
               params={[hash, idNumber, false]}
               tx='council.vote'
@@ -80,7 +80,7 @@ function Voting ({ hash, idNumber, isDisabled, members, prime, proposal }: Props
               accountId={accountId}
               icon='check'
               isDisabled={isDisabled}
-              label={t<string>('Vote Aye')}
+              label={t<string>('Aye')}
               onStart={toggleVoting}
               params={[hash, idNumber, true]}
               tx='council.vote'

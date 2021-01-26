@@ -24,7 +24,7 @@ function Events ({ className = '', emptyLabel, eventClassName, events, label }: 
   const { t } = useTranslation();
 
   const header = useMemo(() => [
-    [label || t<string>('recent events'), 'start']
+    [label || t<string>('Recent Events'), 'start']
   ], [label, t]);
 
   return (

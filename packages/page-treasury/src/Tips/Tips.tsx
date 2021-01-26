@@ -61,9 +61,9 @@ function Tips ({ className = '', defaultId, hashes, isMember, members, onRefresh
   );
 
   const headerRef = useRef([
-    [t('tips'), 'start'],
-    [t('finder'), 'address media--1400'],
-    [t('reason'), 'start'],
+    [t('Tips'), 'start'],
+    [t('Finder'), 'address media--1400'],
+    [t('Reason'), 'start'],
     [],
     [],
     [undefined, 'badge media--1700'],
@@ -78,7 +78,7 @@ function Tips ({ className = '', defaultId, hashes, isMember, members, onRefresh
       filter={isMember && (
         <div className='tipsFilter'>
           <Toggle
-            label={t<string>('show only untipped/closing')}
+            label={t<string>('Show only untipped/closing')}
             onChange={setOnlyUntipped}
             value={onlyUntipped}
           />

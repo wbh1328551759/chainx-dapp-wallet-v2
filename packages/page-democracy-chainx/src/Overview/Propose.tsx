@@ -46,7 +46,7 @@ function Propose ({ className = '', onClose }: Props): React.ReactElement<Props>
           <Modal.Column>
             <InputAddress
               help={t<string>('The account you want to register the proposal from')}
-              label={t<string>('Send From Account')}
+              label={t<string>('Send from account')}
               labelExtra={
                 <Available
                   label={<span className='label'>{t<string>('transferrable')}</span>}
@@ -66,7 +66,7 @@ function Propose ({ className = '', onClose }: Props): React.ReactElement<Props>
             <Input
               autoFocus
               help={t<string>('The preimage hash of the proposal')}
-              label={t<string>('preimage hash')}
+              label={t<string>('Preimage Hash')}
               onChange={_onChangeHash}
               value={hash}
             />
@@ -81,14 +81,14 @@ function Propose ({ className = '', onClose }: Props): React.ReactElement<Props>
               defaultValue={api.consts.democracy.minimumDeposit}
               help={t<string>('The locked value for this proposal')}
               isError={!hasMinLocked}
-              label={t<string>('locked balance')}
+              label={t<string>('Locked Balance')}
               onChange={setBalance}
             />
             <InputBalance
               defaultValue={api.consts.democracy.minimumDeposit}
               help={t<string>('The minimum deposit required')}
               isDisabled
-              label={t<string>('minimum deposit')}
+              label={t<string>('Minimum Deposit')}
             />
           </Modal.Column>
           <Modal.Column>
@@ -101,7 +101,7 @@ function Propose ({ className = '', onClose }: Props): React.ReactElement<Props>
           accountId={accountId}
           icon='plus'
           isDisabled={!balance || !hasMinLocked || !isHashValid || !accountId || !publicProps}
-          label={t<string>('Submit Proposal')}
+          label={t<string>('Submit')}
           onStart={onClose}
           params={
             api.tx.democracy.propose.meta.args.length === 3

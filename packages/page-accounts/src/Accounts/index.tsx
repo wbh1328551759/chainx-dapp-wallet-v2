@@ -72,7 +72,7 @@ function Overview({ className = '', onStatusChange }: Props): React.ReactElement
 
   const headerRef = useRef([
     [t('accounts'), 'start', 3],
-    [t('parent'), 'address media--1400'],
+    [t('Parent'), 'address media--1400'],
     [t('type')],
     [t('tags'), 'start'],
     [t('transactions'), 'media--1500'],

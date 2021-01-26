@@ -10,6 +10,7 @@ const Title = styled.h6`
   font-size: 12px;
   color: #000000;
   line-height: 16px;
+  white-space: nowrap;
 `;
 
 const Value = styled.p`

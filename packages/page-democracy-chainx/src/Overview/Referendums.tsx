@@ -19,11 +19,11 @@ function Referendums ({ className = '', referendums }: Props): React.ReactElemen
 
   const headerRef = useRef([
     [t('Referenda'), 'start', 2],
-    [t('remaining'), 'media--1200'],
-    [t('activate'), 'media--1400'],
-    [t('turnout'), 'media--1400'],
+    [t('Remaining'), 'media--1200'],
+    [t('Activate'), 'media--1400'],
+    [t('Turnout'), 'media--1400'],
     [undefined, 'badge'],
-    [t('votes'), 'expand'],
+    [t('Votes'), 'expand'],
     [undefined, undefined, 2],
     [undefined, 'media--1000']
   ]);

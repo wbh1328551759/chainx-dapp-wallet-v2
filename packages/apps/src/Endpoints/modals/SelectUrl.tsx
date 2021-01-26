@@ -93,7 +93,7 @@ function SelectUrl ({ className, onChange }: Props): React.ReactElement<Props> {
   );
 
   const help = t('Select the remote endpoint, either from the dropdown on manual entered via the custom toggle');
-  const label = t('remote node/endpoint to connect to');
+  const label = t('Remote node/endpoint to connect to');
 
   return (
     <div className={className}>
@@ -117,7 +117,7 @@ function SelectUrl ({ className, onChange }: Props): React.ReactElement<Props> {
       <Toggle
         className='settings--customToggle'
         defaultValue={isCustom}
-        label={t('custom endpoint')}
+        label={t('Custom Endpoint')}
         onChange={_onChangeCustom}
       />
     </div>

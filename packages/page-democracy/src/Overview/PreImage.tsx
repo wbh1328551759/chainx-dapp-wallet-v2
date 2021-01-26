@@ -63,7 +63,7 @@ function PreImage ({ className = '', imageHash, isImminent = false, onClose }: P
           <Modal.Column>
             <InputAddress
               help={t<string>('The account you want to register the preimage from')}
-              label={t<string>('Send From Account')}
+              label={t<string>('Send from account')}
               labelExtra={
                 <Available
                   label={<span className='label'>{t<string>('transferrable')}</span>}
@@ -82,14 +82,14 @@ function PreImage ({ className = '', imageHash, isImminent = false, onClose }: P
           <Modal.Column>
             <Extrinsic
               defaultValue={apiDefaultTxSudo}
-              label={t<string>('propose')}
+              label={t<string>('Propose')}
               onChange={setProposal}
             />
             <Input
               className='disabledLook'
               help={t<string>('The hash of the selected proposal, use it for submitting the proposal')}
               isDisabledError={!isMatched}
-              label={t<string>('preimage hash')}
+              label={t<string>('Preimage Hash')}
               value={encodedHash}
             />
           </Modal.Column>
@@ -105,7 +105,7 @@ function PreImage ({ className = '', imageHash, isImminent = false, onClose }: P
                 defaultValue={storageFee}
                 help={t<string>('The amount reserved to store this image')}
                 isDisabled
-                label={t<string>('calculated storage fee')}
+                label={t<string>('Calculated storage fee')}
               />
             </Modal.Column>
             <Modal.Column>
@@ -119,7 +119,7 @@ function PreImage ({ className = '', imageHash, isImminent = false, onClose }: P
           accountId={accountId}
           icon='plus'
           isDisabled={!proposal || !accountId || !isMatched || !encodedProposal}
-          label={t<string>('Submit Preimage')}
+          label={t<string>('Submit')}
           onStart={onClose}
           params={[encodedProposal]}
           tx={isImminent ? 'democracy.noteImminentPreimage' : 'democracy.notePreimage'}
