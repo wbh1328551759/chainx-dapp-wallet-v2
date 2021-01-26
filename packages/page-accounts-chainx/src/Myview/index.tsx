@@ -35,7 +35,7 @@ const Wrapper = styled.div`
 
   div.right {
     width: 300px;
-    margin: 0 32px 0 16px;
+    margin: 0 0 0 16px;
     display: flex;
     flex-direction: column;
     & > section {
