@@ -1,18 +1,21 @@
+
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AliosscdnWebpackPlugin = require('aliosscdn-webpack-plugin')
-const client = require('./private.tsx')
 const path = require('path');
 const { merge } = require('webpack-merge');
-
 const baseConfig = require('./webpack.base.config');
+const dotenv = require('dotenv')
+dotenv.config()
 
 const ENV = process.env.NODE_ENV || 'development';
 const context = __dirname;
 const hasPublic = fs.existsSync(path.join(context, 'public'));
+
+const CLIENT = JSON.parse(process.env.CLIENT)
 
 module.exports = merge(
   baseConfig(ENV, context),
@@ -26,10 +29,10 @@ module.exports = merge(
       }),
       new AliosscdnWebpackPlugin({
         filesPath: `${__dirname}/build`,
-        region: client.region,
-        accessKeyId: client.accessKeyId,
-        accessKeySecret: client.accessKeySecret,
-        bucket: client.bucket,
+        region: CLIENT.region,
+        accessKeyId: CLIENT.accessKeyId,
+        accessKeySecret: CLIENT.accessKeySecret,
+        bucket: CLIENT.bucket,
       })
     ]
   }
