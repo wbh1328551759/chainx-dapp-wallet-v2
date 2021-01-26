@@ -3,7 +3,7 @@ import chainxLogo from '@polkadot/apps/NavBar/icons/ChainX_logo.svg';
 import {Link} from 'react-router-dom';
 import {Icon} from '@polkadot/react-components';
 import linkOut from '@polkadot/apps/NavBar/icons/Link out.svg';
-import Selector from '@polkadot/apps/NavBar/Selector';
+import Selector from '@polkadot/apps/NavBar/MainNav/Selector';
 import {useTranslation} from '@polkadot/apps/translate';
 import {useApi, useToggle} from '@polkadot/react-hooks';
 
