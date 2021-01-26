@@ -28,6 +28,8 @@ module.exports = merge(
         template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
       }),
       new AliosscdnWebpackPlugin({
+        https: true,
+        directoryInOss: 'v2.0.10',
         filesPath: `${__dirname}/build`,
         region: CLIENT.region,
         accessKeyId: CLIENT.accessKeyId,
