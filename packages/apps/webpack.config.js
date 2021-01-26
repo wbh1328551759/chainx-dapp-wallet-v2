@@ -8,13 +8,12 @@ const AliosscdnWebpackPlugin = require('aliosscdn-webpack-plugin')
 const path = require('path');
 const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
-const dotenv = require('dotenv')
-dotenv.config()
-
 const ENV = process.env.NODE_ENV || 'development';
 const context = __dirname;
 const hasPublic = fs.existsSync(path.join(context, 'public'));
 
+const dotenv = require('dotenv')
+dotenv.config()
 const CLIENT = JSON.parse(process.env.CLIENT)
 
 module.exports = merge(
@@ -24,6 +23,7 @@ module.exports = merge(
     plugins: [
       new HtmlWebpackPlugin({
         PAGE_TITLE: 'ChainX Dapp Wallet',
+        meta: {'viewport': 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover'},
         inject: true,
         template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
       }),
