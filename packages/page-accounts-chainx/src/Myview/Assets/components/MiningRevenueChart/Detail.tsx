@@ -20,6 +20,7 @@ const Wrapper = styled.div`
     align-items: center;
     width: 50%;
     justify-content: start;
+    white-space: nowrap;
     > span:first-child{
         display: inline-block;
         border-radius: 50%;
