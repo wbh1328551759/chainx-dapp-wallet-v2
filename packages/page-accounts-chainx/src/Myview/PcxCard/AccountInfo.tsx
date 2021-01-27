@@ -11,8 +11,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   text-align: right;
   min-height: 72px;
-  @media screen and (min-width:375px) and (max-width:540px){
+  @media screen and (max-width:540px){
     justify-content: center;
+    text-align: left;
   }
 `;
 

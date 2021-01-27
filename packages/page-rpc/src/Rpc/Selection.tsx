@@ -82,7 +82,7 @@ function Selection ({ queueRpc }: Props): React.ReactElement<Props> {
       <InputRpc
         defaultValue={defaultMethod}
         help={t<string>('The actual JSONRPC module and function to make a call to.')}
-        label={t<string>('Call The Selected Endpoint')}
+        label={t<string>('Call the selected endpoint')}
         onChange={_onChangeMethod}
       />
       <Params

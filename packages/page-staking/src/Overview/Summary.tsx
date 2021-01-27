@@ -128,7 +128,29 @@ function Summary({ className = '', isVisible, next, nominators, stakingOverview,
 export default React.memo(styled(Summary)`
   flex-wrap: wrap;
   align-items: center;
-  
+
+  label{
+    text-align: center;
+  }
+
+  @media only screen and (min-width: 414px) and (max-width: 540px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    section:last-child {
+      grid-column-start: 2;
+      grid-row-start: 1;
+    }
+  }
+  @media only screen and (max-width: 413px) {
+    display: grid;
+    position: relative;
+    section:last-child {
+      position: absolute;
+      top: 28px;
+      right: 0;
+    }
+  }
+
   .validator--Account-block-icon {
     display: inline-block;
     margin-right: 0.75rem;

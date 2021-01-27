@@ -42,7 +42,7 @@ if (validators && validators.length > 0) {
 };
 
 export const storageSystemEvents: Snippet = {
-  code: `// Subscribe to system events via storage
+  code: `// Subscribe to System Events via storage
 api.query.system.events((events) => {
   console.log('----- Received ' + events.length + ' event(s): -----');
   // loop through the Vec<EventRecord>
@@ -60,7 +60,7 @@ api.query.system.events((events) => {
   });
 });`,
   label,
-  text: 'Listen to system events',
+  text: 'Listen to System Events',
   value: 'storageSystemEvents'
 };
 

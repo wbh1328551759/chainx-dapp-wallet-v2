@@ -1,5 +1,5 @@
 
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import Hash from './Hash';
 import Address from './Address';
 import Detail from '../components/Detail';
@@ -9,9 +9,11 @@ import moment from 'moment';
 import { useTranslation } from '@polkadot/react-components/translate';
 import useOutsideClick from '@polkadot/app-accounts-chainx/Myview/useOutsideClick';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {useApi} from '@polkadot/react-hooks';
 
 export default function ({ transfer }: any) {
   const { t } = useTranslation();
+  const {api, isApiReady} = useApi()
   const [open, setOpen] = useState(false);
   const { currentAccount } = useContext(AccountContext);
   const wrapper = useRef(null);
@@ -32,7 +34,7 @@ export default function ({ transfer }: any) {
         <span>{toPrecision(transfer.data[2], 8)}</span>
         <span>{transfer.data[1] === currentAccount? t('In') : t('Out')}</span>
       </main>
-      {open ? (
+      {isApiReady && api.rpc.system.properties() && open ? (
         <Detail>
           <li>
             <Label>{t('Tx ID')}</Label>

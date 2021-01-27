@@ -63,7 +63,7 @@ function Fasttrack ({ imageHash, threshold }: Props): React.ReactElement<Props> 
             <InputAddress
               filter={members}
               help={t<string>('Select the account you wish to make the proposal with.')}
-              label={t<string>('propose from account')}
+              label={t<string>('Propose from account')}
               onChange={setAcountId}
               type='account'
               withLabel
@@ -71,7 +71,7 @@ function Fasttrack ({ imageHash, threshold }: Props): React.ReactElement<Props> 
             <Input
               help={t<string>('The external proposal to send to the technical committee')}
               isDisabled
-              label={t<string>('preimage hash')}
+              label={t<string>('Preimage Hash')}
               value={imageHash.toHex()}
             />
             <InputNumber

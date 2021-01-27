@@ -63,7 +63,7 @@ function Bytes ({ className = '', defaultValue, isDisabled, isError, label, name
       {!isDisabled && (
         <Toggle
           isOverlay
-          label={t<string>('file upload')}
+          label={t<string>('File Upload')}
           onChange={setFileInput}
           value={isFileDrop}
         />

@@ -79,7 +79,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
                 defaultValue={propSenderId}
                 help={t<string>('The account you will send funds from.')}
                 isDisabled={!!propSenderId}
-                label={t<string>('Send From Account')}
+                label={t<string>('Send from account')}
                 labelExtra={
                   <Available
                     label={t<string>('transferrable')}
@@ -100,7 +100,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
               {/*  defaultValue={propRecipientId}*/}
               {/*  help={t<string>('Select a contact or paste the address you want to send funds to.')}*/}
               {/*  isDisabled={!!propRecipientId}*/}
-              {/*  label={t<string>('Send To Address')}*/}
+              {/*  label={t<string>('Send to address')}*/}
               {/*  labelExtra={*/}
               {/*    <Available*/}
               {/*      label={t<string>('transferrable')}*/}
@@ -112,7 +112,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
               {/*/>*/}
               <Input
                 help={t<string>('Paste the address you want to send funds to.')}
-                label={t<string>('Send To Address')}
+                label={t<string>('Send to address')}
                 onChange={setRecipientId}
               />
             </Modal.Column>
@@ -185,7 +185,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
           accountId={senderId}
           icon='paper-plane'
           isDisabled={!hasAvailable || !recipientId || !amount}
-          label={t<string>('Make Transfer')}
+          label={t<string>('Transfer')}
           onStart={onClose}
           onSuccess={() => {
             setN? setN(Math.random()): {};

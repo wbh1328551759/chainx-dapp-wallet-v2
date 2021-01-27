@@ -12,13 +12,23 @@ interface Props extends subItem {
 const Wrapper = styled.div`
   border-bottom: 2px solid transparent;
   margin-bottom: -3px;
-
+  @media only screen and (max-width: 768px) {
+    padding: 1rem 0;
+    border-bottom: 0;
+  }
   > a{
     font-weight: 600;
     padding: 0.5rem 0.8rem 0.75rem;
     color: rgba(0,0,0,0.4) !important;
     &.tabLinkActive {
       color: rgba(0,0,0,0.8) !important;
+      @media only screen and (max-width: 768px) {
+        &.tabLinkActive {
+          color: rgba(0, 0, 0, 0.8) !important;
+          border-bottom-color: #F6C94A !important;
+          border-bottom:2px solid #F6C94A !important;
+        }
+      }
     }
   }
 `

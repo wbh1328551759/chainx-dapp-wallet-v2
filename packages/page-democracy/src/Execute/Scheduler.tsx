@@ -41,9 +41,9 @@ function Schedule ({ className = '' }: Props): React.ReactElement<Props> {
   const items = useCall<ScheduledExt[]>(api.query.scheduler.agenda.entries as any, undefined, transformEntries);
 
   const headerRef = useRef([
-    [t('scheduled'), 'start'],
+    [t('Scheduled'), 'start'],
     [t('id'), 'start'],
-    [t('remaining')],
+    [t('Remaining')],
     [t('period')],
     [t('count')]
   ]);

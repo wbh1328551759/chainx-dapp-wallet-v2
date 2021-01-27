@@ -20,7 +20,7 @@ function VoteAccount ({ className = '', filter, onChange }: Props): React.ReactE
       className={className}
       filter={filter}
       help={t<string>('Select the account you wish to vote with. You can approve "aye" or deny "nay" the proposal.')}
-      label={t<string>('vote with account')}
+      label={t<string>('Vote with account')}
       onChange={onChange}
       type='account'
       withLabel

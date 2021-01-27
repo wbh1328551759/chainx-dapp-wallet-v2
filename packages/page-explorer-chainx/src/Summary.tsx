@@ -18,7 +18,7 @@ function Summary (): React.ReactElement {
   return (
     <SummaryBox>
       <section>
-        <CardSummary label={t<string>('Last block')}>
+        <CardSummary label={t<string>('Last Block')}>
           <TimeNow />
         </CardSummary>
         <CardSummary
@@ -30,7 +30,7 @@ function Summary (): React.ReactElement {
         {api.query.balances && (
           <CardSummary
             className='media--800'
-            label={t<string>('Total issuance')}
+            label={t<string>('Total Issuance')}
           >
             <TotalIssuance />
           </CardSummary>
@@ -51,7 +51,7 @@ function Summary (): React.ReactElement {
             <BestFinalized />
           </CardSummary>
         )}
-        <CardSummary label={t<string>('Latest height')}>
+        <CardSummary label={t<string>('Latest Height')}>
           <BestNumber />
         </CardSummary>
       </section>

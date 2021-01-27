@@ -6,6 +6,7 @@ import Records from './Records';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import LoadingGif from './components/loading.gif'
 import {useApi} from '@polkadot/react-hooks';
+import {AccountLoading} from '@polkadot/react-components-chainx';
 
 const Wrapper = styled.div`
   padding: 16px 0;
@@ -35,7 +36,7 @@ const Wrapper = styled.div`
 
   div.right {
     width: 300px;
-    margin: 0 32px 0 16px;
+    margin: 0 0 0 16px;
     display: flex;
     flex-direction: column;
     & > section {
@@ -44,29 +45,7 @@ const Wrapper = styled.div`
       flex-direction: column;
     }
   }
-  > div.accountLoading{
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    > .gif{
-      position: relative;
-      > img{
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 100;
-      }
-    }
 
-    > .shade{
-      background: rgba(0,0,0,0.2);
-      width: 100vw;
-      height:100vh;
-      z-index: 99;
-    }
-  }
 `;
 
 interface Props {
@@ -87,13 +66,7 @@ function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
           <Records/>
         </div>
 
-        {!isApiReady &&
-        <div className='accountLoading'>
-          <div className='gif'>
-            <img src={LoadingGif} alt="" height={40} width={40}/>
-          </div>
-          <div className='shade'/>
-        </div>}
+        {!isApiReady && <AccountLoading />}
       </Wrapper>
   );
 }

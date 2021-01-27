@@ -93,7 +93,7 @@ function Delegate ({ onClose, previousAmount, previousConviction, previousDelega
             />
             <ConvictionDropdown
               help={t<string>('The conviction that will be used for each delegated vote.')}
-              label={t<string>('conviction')}
+              label={t<string>('Conviction')}
               onChange={setConviction}
               value={conviction}
             />

@@ -230,7 +230,7 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
                 <table>
                   <tbody>
                     <tr>
-                      <td>{t<string>('threshold')}</td>
+                      <td>{t<string>('Threshold')}</td>
                       <td>{formatNumber(recoveryInfo.threshold)}</td>
                     </tr>
                     <tr>

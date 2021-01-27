@@ -67,10 +67,10 @@ function BlockByHash ({ className = '', error, value }: Props): React.ReactEleme
           getHeader
             ? [
               [formatNumber(blockNumber), 'start', 1],
-              [t('hash'), 'start'],
-              [t('parent'), 'start'],
-              [t('extrinsics'), 'start'],
-              [t('state'), 'start'],
+              [t('Hash'), 'start'],
+              [t('Parent'), 'start'],
+              [t('Extrinsics'), 'start'],
+              [t('State'), 'start'],
               []
             ]
             : [['...', 'start', 6]]
@@ -116,7 +116,7 @@ function BlockByHash ({ className = '', error, value }: Props): React.ReactEleme
               <Events
                 eventClassName='explorer--BlockByHash-block'
                 events={events?.filter(({ record: { phase } }) => !phase.isApplyExtrinsic)}
-                label={t<string>('system events')}
+                label={t<string>('System Events')}
               />
             </Column>
             <Column>

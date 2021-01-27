@@ -4460,10 +4460,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aliosscdn-webpack-plugin@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "aliosscdn-webpack-plugin@npm:0.0.2"
-  checksum: a6235a707a8628324a2e16835f4f8997fd9c959f8f4d6c6312c6d963baa7845c5f036337b86eea5c67c1a8d2499a863e4eb9452373579ea550a5771d608e22db
+"aliosscdn-webpack-plugin@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "aliosscdn-webpack-plugin@npm:0.0.3"
+  checksum: f2f697a2196099c0dd4314809a12b41f0926ad105af6b89b423242a91a6f08b711cda3baaaeae8f993f5210171c3c5ccdc269d6bb52865ae494f18090a725768
   languageName: node
   linkType: hard
 
@@ -14783,7 +14783,7 @@ fsevents@^1.2.7:
     "@types/styled-components": ^5.1.4
     "@types/styled-theming": ^2.2.5
     ali-oss: ^6.13.2
-    aliosscdn-webpack-plugin: ^0.0.2
+    aliosscdn-webpack-plugin: ^0.0.3
     bignumber.js: ^9.0.1
     concurrently: ^5.3.0
     devtron: ^1.4.0

@@ -71,7 +71,7 @@ function Transfer ({ assets, className = '', onClose, recipientId: propRecipient
           defaultValue={propSenderId}
           help={t<string>('The account you will send funds from.')}
           isDisabled={!!propSenderId}
-          label={t<string>('Send From Account')}
+          label={t<string>('Send from account')}
           labelExtra={
             <Available
               label={transferrable}
@@ -85,7 +85,7 @@ function Transfer ({ assets, className = '', onClose, recipientId: propRecipient
           defaultValue={propRecipientId}
           help={t<string>('Select a contact or paste the address you want to send funds to.')}
           isDisabled={!!propRecipientId}
-          label={t<string>('Send To Address')}
+          label={t<string>('Send to address')}
           labelExtra={
             <Available
               label={transferrable}
@@ -115,7 +115,7 @@ function Transfer ({ assets, className = '', onClose, recipientId: propRecipient
           accountId={senderId}
           extrinsic={extrinsic}
           icon='paper-plane'
-          label={t<string>('Make Transfer')}
+          label={t<string>('Transfer')}
           onStart={onClose}
         />
       </Button.Group>

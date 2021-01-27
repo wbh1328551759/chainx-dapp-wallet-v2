@@ -36,14 +36,14 @@ function Summary ({ info: { extrinsics, health, peers } = EMPTY_INFO, nextRefres
   return (
     <SummaryBox>
       <section>
-        <CardSummary label={t<string>('Refresh in')}>
+        <CardSummary label={t<string>('Refresh In')}>
           <Elapsed value={nextRefresh} />
         </CardSummary>
         {health && (
           <>
             <CardSummary
               className='media--800'
-              label={t<string>('Total peers')}
+              label={t<string>('Total Peers')}
             >
               {formatNumber(health.peers)}
             </CardSummary>
@@ -72,7 +72,7 @@ function Summary ({ info: { extrinsics, health, peers } = EMPTY_INFO, nextRefres
             {formatNumber(peerBest)}
           </CardSummary>
         )}
-        <CardSummary label={t<string>('Our best')}>
+        <CardSummary label={t<string>('Our Best')}>
           <BestNumber />
         </CardSummary>
       </section>

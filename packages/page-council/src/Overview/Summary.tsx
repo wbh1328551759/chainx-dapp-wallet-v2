@@ -40,14 +40,14 @@ function Summary ({ bestNumber, className = '', electionsInfo }: Props): React.R
         </CardSummary>
       </section>
       {voteCount && (
-        <section>
+        <section className="media--1100">
           <CardSummary label={t<string>('Voting Round')}>
             #{formatNumber(voteCount)}
           </CardSummary>
         </section>
       )}
       {bestNumber && termDuration?.gtn(0) && (
-        <section>
+        <section  className="media--1100">
           <CardSummary
             label={t<string>('Term Progress')}
             progress={{

@@ -52,7 +52,7 @@ function TipEndorse ({ defaultId, hash, isMember, isTipped, median, members }: P
                 <InputAddress
                   filter={members}
                   help={t<string>('Select the account you wish to submit the tip from.')}
-                  label={t<string>('Submit With Account')}
+                  label={t<string>('Submit with account')}
                   onChange={setAccountId}
                   type='account'
                   withLabel
@@ -69,7 +69,7 @@ function TipEndorse ({ defaultId, hash, isMember, isTipped, median, members }: P
                   defaultValue={median}
                   help={t<string>('The tip amount that should be allocated')}
                   isZeroable
-                  label={t<string>('value')}
+                  label={t<string>('Value')}
                   onChange={setValue}
                 />
               </Modal.Column>
@@ -83,7 +83,7 @@ function TipEndorse ({ defaultId, hash, isMember, isTipped, median, members }: P
               accountId={accountId}
               icon='plus'
               isDisabled={!accountId}
-              label={t<string>('Submit tip')}
+              label={t<string>('Submit')}
               onStart={toggleOpen}
               params={[hash, value]}
               tx='treasury.tip'

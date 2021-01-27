@@ -1,6 +1,7 @@
 {
   "<unknown>": "<unknown>",
   "A remark that is associated with this transfer. This can be any comment that indicates the reason.": "A remark that is associated with this transfer. This can be any comment that indicates the reason.",
+  "Amount": "Amount",
   "Deregister this parachain": "Deregister this parachain",
   "Download": "Download",
   "Info": "Info",
@@ -13,6 +14,8 @@
   "Positive number greater than or equal to {{nextFreeId}}": "Positive number greater than or equal to {{nextFreeId}}",
   "Register a parachain": "Register a parachain",
   "Send": "Send",
+  "Send from account": "Send from account",
+  "Send to address": "Send to address",
   "The account that will receive the funds": "The account that will receive the funds",
   "The account you will send funds from.": "The account you will send funds from.",
   "The code is not recognized as being in valid WASM format": "The code is not recognized as being in valid WASM format",
@@ -30,7 +33,7 @@
   "Transfer to chain": "Transfer to chain",
   "Unknown": "Unknown",
   "Updated in the latest block": "Updated in the latest block",
-  "Amount": "Amount",
+  "Validators": "Validators",
   "balance": "balance",
   "best block": "best block",
   "code": "code",
@@ -50,9 +53,7 @@
   "relay": "relay",
   "relay dispatch queue": "relay dispatch queue",
   "scheduling": "scheduling",
-  "Send From Account": "Send From Account",
   "send funds to another parachain (not relay)": "send funds to another parachain (not relay)",
-  "Send To Address": "Send To Address",
   "swap to id": "swap to id",
   "the amount that should be transferred. It needs to be less than the available balance": "the amount that should be transferred. It needs to be less than the available balance",
   "the parachain that will receive the transfer of tokens.": "the parachain that will receive the transfer of tokens.",
@@ -60,7 +61,6 @@
   "transfer remark/comment": "transfer remark/comment",
   "transferrable": "transferrable",
   "validation": "validation",
-  "validators": "validators",
   "yes": "yes",
   "{{relayDispatchQueueSize}} dispatch messages pending": "{{relayDispatchQueueSize}} dispatch messages pending"
 }

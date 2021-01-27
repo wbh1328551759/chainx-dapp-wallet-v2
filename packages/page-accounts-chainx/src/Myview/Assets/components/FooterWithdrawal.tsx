@@ -86,7 +86,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
                   // onChange={setAccount}
                   labelExtra={
                     <span>
-                      {t('total interests')}： {allInterests ? allInterests.toFixed(8) : toPrecision(0,8)}
+                      {t('Total Interests')}： {allInterests ? allInterests.toFixed(8) : toPrecision(0,8)}
                       {/*<LabelHelp help={'111111'}/>*/}
                     </span>
                   }
@@ -96,7 +96,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
               </Modal.Column>
               <Modal.Column>
                 <span>
-                  {t('available interest')} : {usableInterests ? usableInterests.toFixed(8) : toPrecision(0,8)}
+                  {t('Available Interest')} : {usableInterests ? usableInterests.toFixed(8) : toPrecision(0,8)}
                 </span>
                 {insufficientStake ? <Tip>{t('you need to mortgage')} : {insufficientStake.toFixed(8) }</Tip>: ''}
               </Modal.Column>
@@ -106,7 +106,7 @@ export default function ({allInterests, usableInterests, insufficientStake, setN
             <TxButton
               accountId={currentAccount}
               icon='plus'
-              label={t('Withdraw Interest')}
+              label={t('Withdraw')}
               params={[1]}
               isDisabled={withdrawalDisabled}
               tx='xMiningAsset.claim'

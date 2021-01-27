@@ -13,6 +13,7 @@
   "Nonce": "Nonce",
   "Override any applicable values for the specific signed output. These will be used to construct and display the signed transaction.": "Override any applicable values for the specific signed output. These will be used to construct and display the signed transaction.",
   "Preparing QR for signing": "Preparing QR for signing",
+  "Sending from my account": "Sending from my account",
   "Sending transaction": "Sending transaction",
   "Set to 0 to make transaction immortal": "Set to 0 to make transaction immortal",
   "Sign (no submission)": "Sign (no submission)",
@@ -30,12 +31,11 @@
   "The signatory is one of the allowed accounts on the multisig, making a recorded approval for the transaction.": "The signatory is one of the allowed accounts on the multisig, making a recorded approval for the transaction.",
   "This could either be an approval for the hash or with full call details. The call as last approval triggers execution.": "This could either be an approval for the hash or with full call details. The call as last approval triggers execution.",
   "Tip (optional)": "Tip (optional)",
+  "Unlock Account with password": "Unlock Account with password",
   "Unlock the sending account to allow signing of this transaction.": "Unlock the sending account to allow signing of this transaction.",
   "Use a proxy for this call": "Use a proxy for this call",
   "multisig call data": "multisig call data",
   "multisig signatory": "multisig signatory",
   "proxy account": "proxy account",
-  "sending from my account": "sending from my account",
-  "unlock account with password": "unlock account with password",
   "unlock for {{expiry}} min": "unlock for {{expiry}} min"
 }

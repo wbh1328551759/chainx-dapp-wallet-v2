@@ -23,7 +23,7 @@ function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): Rea
 
   return (
     <Modal
-      header={t<string>('Node Participates In The Election')}
+      header={t<string>('Node participates in the election')}
       size='large'
     >
       <Modal.Content>
@@ -45,7 +45,7 @@ function Validate({ onClose, validatorId, onSuccess, account, setN}: Props): Rea
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Participates New Node')}</p>
+            <p>{t<string>('Participates new node')}</p>
           </Modal.Column>
         </Modal.Columns>
         {/* <Modal.Columns>
