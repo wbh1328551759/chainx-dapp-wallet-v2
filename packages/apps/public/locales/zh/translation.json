@@ -1604,6 +1604,7 @@
   "your new password": "你的新密码",
   "Chinese Node": "中国节点",
   "Overseas Node": "海外节点",
+  "Test Node": "测试节点",
   "{{balance}} voted": "{{balance}} 投票",
   "{{blocks}} blocks": "{{blocks}} 区块",
   "{{count}} key/value pairs encoded for submission": "{{count}}为提交而编码的密钥/值对",
