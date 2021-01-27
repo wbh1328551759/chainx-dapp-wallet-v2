@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Icon} from '@polkadot/react-components';
 import {Link} from 'react-router-dom';
 import AccountSelect from '@polkadot/apps/Menu/NodeInfo';
@@ -11,7 +11,15 @@ function SettingNode() {
   const {t} = useTranslation();
   const [isEndpointsVisible, toggleEndpoints] = useToggle();
   const apiUrl = getApiUrl()
-  const netInfo = apiUrl.slice(6).replace('.chainx.org/ws', '')
+  const [netInfo, setNetInfo] = useState<string>('')
+
+  useEffect(() => {
+    if(apiUrl === 'wss://mainnet.spiderx.pro/ws'){
+      setNetInfo(t('Chinese Node'))
+    }else{
+      setNetInfo(t('Overseas Node'))
+    }
+  }, [apiUrl])
 
   return (
     <>
