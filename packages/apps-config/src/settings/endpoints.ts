@@ -54,36 +54,22 @@ function createDev(t: TFunction): LinkOption[] {
 
 function createLiveNetworks(t: TFunction): LinkOption[] {
 
-  const endsArray = ['wss://mainnet.chainx.org/ws', 'wss://mainnet-2.chainx.org/ws', 'wss://mainnet-3.chainx.org/ws', 'wss://mainnet-4.chainx.org/ws']
+  const endsArray = ['wss://mainnet.spiderx.pro/ws', 'wss://mainnet.chainx.org/ws']
   return [
     // polkadot test relays
     {
       dnslink: 'ChainX',
       info: 'ChainX',
-      text: 'ChainX Main Network',
+      text: t('Chinese Node'),
+      textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
+      value: 'wss://mainnet.spiderx.pro/ws'
+    },
+    {
+      dnslink: 'ChainX',
+      info: 'ChainX',
+      text: t('Overseas Node'),
       textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
       value: 'wss://mainnet.chainx.org/ws'
-    },
-    {
-      dnslink: 'ChainX',
-      info: 'ChainX',
-      text: 'ChainX Main-2 Network',
-      textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
-      value: 'wss://mainnet-2.chainx.org/ws'
-    },
-    {
-      dnslink: 'ChainX',
-      info: 'ChainX',
-      text: 'ChainX Main-3 Network',
-      textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
-      value: 'wss://mainnet-3.chainx.org/ws'
-    },
-    {
-      dnslink: 'ChainX',
-      info: 'ChainX',
-      text: 'ChainX Main-4 Network',
-      textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
-      value: 'wss://mainnet-4.chainx.org/ws'
     }
   ];
 }
