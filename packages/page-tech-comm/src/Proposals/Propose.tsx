@@ -76,7 +76,7 @@ function Propose ({ isMember, members }: Props): React.ReactElement<Props> {
             />
             <Extrinsic
               defaultValue={apiDefaultTxSudo}
-              label={t<string>('proposal')}
+              label={t<string>('Proposals')}
               onChange={_onChangeExtrinsic}
             />
           </Modal.Content>

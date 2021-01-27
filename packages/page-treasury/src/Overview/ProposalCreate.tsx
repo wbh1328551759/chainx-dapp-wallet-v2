@@ -67,7 +67,7 @@ function Propose ({ className }: Props): React.ReactElement<Props> | null {
                 <InputBalance
                   help={t<string>('The amount that will be allocated from the treasury pot')}
                   isError={!hasValue}
-                  label={t<string>('value')}
+                  label={t<string>('Value')}
                   onChange={setValue}
                 />
                 <Static

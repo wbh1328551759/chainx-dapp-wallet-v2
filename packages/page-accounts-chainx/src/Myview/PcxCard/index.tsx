@@ -70,8 +70,7 @@ const InnerWrapper = styled.div`
     @media screen and (min-width:375px) and (max-width:540px){
       position: absolute;
       top: -4px;
-      left: 0;
-      margin: 0 0 4px 70px;
+      right: 0;
     }
   }
   section.details {
