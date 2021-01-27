@@ -4,7 +4,6 @@ import Assets from './Assets';
 import styled from 'styled-components';
 import Records from './Records';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
-import LoadingGif from './components/loading.gif'
 import {useApi} from '@polkadot/react-hooks';
 import {AccountLoading} from '@polkadot/react-components-chainx';
 
