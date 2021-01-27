@@ -71,4 +71,3 @@ function AssetManagement({onStatusChange}: Props): React.ReactElement<Props> {
 }
 
 export default React.memo(AssetManagement);
-// export default AssetManagement
