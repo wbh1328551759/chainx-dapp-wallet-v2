@@ -124,7 +124,6 @@ const Wrapper = styled.div`
     padding: 15px 20px 15px 20px;
     margin: 0;
     p{
-      width: 70px;
       font-size: 20px;
       color: #302B3C;
     }

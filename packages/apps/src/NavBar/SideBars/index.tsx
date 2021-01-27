@@ -133,8 +133,10 @@ function Sidebars ({ className = '', onClose, isCollapsed }: Props): React.React
   useEffect(() => {
     if(apiUrl === 'wss://mainnet.spiderx.pro/ws'){
       setNetInfo(t('Chinese Node'))
-    }else{
+    }else if(apiUrl === 'wss://mainnet.chainx.org/ws'){
       setNetInfo(t('Overseas Node'))
+    }else{
+      setNetInfo(t('Test Node'))
     }
   }, [apiUrl])
 
