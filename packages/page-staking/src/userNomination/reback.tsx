@@ -67,9 +67,18 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
                 const filterOptions = redeemOptions.filter((item) => item.validatorId === value);
                 const currentOptions: DropdownOptions = [];
                 filterOptions.forEach((item, index) => {
+                  const all = <div style={{
+                    display: "flex"
+                  }}>
+                    <div style={{
+                      display: "flex",
+                      marginRight: "20px"
+                    }}>预计时间:{item.locked}</div>
+                    <div>金额:{item.text}</div>
+                  </div>
                   currentOptions.push(
                     {
-                      text: item.text,
+                      text: all,
                       value: index + ''
                     }
                   );
