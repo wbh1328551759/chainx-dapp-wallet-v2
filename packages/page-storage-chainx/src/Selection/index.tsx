@@ -55,7 +55,7 @@ function Selection({basePath, onAdd}: Props): React.ReactElement<Props> {
     },
     {
       name: 'extrinsics',
-      text: t<string>('Extrinsics'),
+      text: 'Extrinsics',
     },
     {
       name: 'rpc',

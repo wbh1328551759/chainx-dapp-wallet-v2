@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadingGif from '@polkadot/app-accounts-chainx/Myview/components/loading.gif';
+import LoadingGif from './loading.png';
 import styled from 'styled-components';
 
 const LoadingWrapper = styled.div`

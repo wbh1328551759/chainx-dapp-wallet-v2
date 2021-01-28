@@ -56,7 +56,7 @@ function createLiveNetworks(t: TFunction): LinkOption[] {
 
   const endsArray = ['wss://mainnet.spiderx.pro/ws', 'wss://mainnet.chainx.org/ws']
   return [
-// polkadot test relays
+    // polkadot test relays
     {
       dnslink: 'ChainX',
       info: 'ChainX',
