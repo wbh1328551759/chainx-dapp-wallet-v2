@@ -72,7 +72,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
           <Modal.Column>
             <Input
               help={t<string>('The node name you choose to run')}
-              label={t<string>('Unique, within 12 characters，make sure not repeated, 10 pcx fees will be deduct')}
+              label={t<string>('Unique, within 12 characters, make sure not repeated, 10 pcx fees will be deduct')}
               onChange={setNodeName}
               type='text'
             />

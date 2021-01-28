@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   min-height: 72px;
   @media screen and (max-width:540px){
     justify-content: center;
+    text-align: left;
   }
 `;
 

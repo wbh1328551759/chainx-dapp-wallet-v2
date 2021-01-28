@@ -64,7 +64,7 @@ function TreasuryProposal ({ asInset, className = '', insetProps, onClick, propo
           withLabel={false}
         />
       </Labelled>
-      <Static label={t<string>('value')}>
+      <Static label={t<string>('Value')}>
         <FormatBalance value={value} />
       </Static>
       <Static label={t<string>('bond')}>

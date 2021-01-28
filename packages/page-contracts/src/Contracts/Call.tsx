@@ -163,7 +163,7 @@ function Call ({ className = '', contract, messageIndex, onCallResult, onChangeM
             help={t<string>('The allotted value for this contract, i.e. the amount transferred to the contract as part of this call.')}
             isError={!isValueValid}
             isZeroable
-            label={t<string>('value')}
+            label={t<string>('Value')}
             onChange={setEndowment}
             value={value}
           />

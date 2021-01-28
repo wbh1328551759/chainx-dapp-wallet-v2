@@ -69,7 +69,7 @@ function TipEndorse ({ defaultId, hash, isMember, isTipped, median, members }: P
                   defaultValue={median}
                   help={t<string>('The tip amount that should be allocated')}
                   isZeroable
-                  label={t<string>('value')}
+                  label={t<string>('Value')}
                   onChange={setValue}
                 />
               </Modal.Column>
