@@ -61,7 +61,7 @@ export default function (): React.ReactElement {
         onClick={toggleDeposite}
         isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
       >
-        {t('Top-up')}
+        {t('Top Up')}
       </Button>
       <Button
         className="btnLists defaultBtn"

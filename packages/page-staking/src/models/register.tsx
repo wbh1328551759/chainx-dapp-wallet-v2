@@ -27,7 +27,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
   const { hasAccounts } = useAccounts();
   return (
     <Modal
-      header={t<string>('Register New Node')}
+      header={t<string>('Register new node')}
       size='large'
     >
       <Modal.Content>
@@ -65,14 +65,14 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
           }
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Register New Node')}</p>
+            <p>{t<string>('Register new node')}</p>
           </Modal.Column>
         </Modal.Columns>
         <Modal.Columns>
           <Modal.Column>
             <Input
               help={t<string>('The node name you choose to run')}
-              label={t<string>('Unique, within 12 characters，Make sure not repeated, 10 pcx fees will be deduct')}
+              label={t<string>('Unique, within 12 characters, make sure not repeated, 10 pcx fees will be deduct')}
               onChange={setNodeName}
               type='text'
             />
@@ -85,13 +85,13 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
           <Modal.Column>
             <InputPCXBalance
               autoFocus
-              help={t<string>('Number Of Node Mortgages')}
-              label={t<string>('Number Of Node Mortgages')}
+              help={t<string>('Number of node mortgages')}
+              label={t<string>('Number of node mortgages')}
               onChange={setAmount}
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Number Of Node Mortgages')}</p>
+            <p>{t<string>('Number of node mortgages')}</p>
           </Modal.Column>
         </Modal.Columns>
       </Modal.Content>
@@ -99,7 +99,7 @@ function RegisterNewNode({ nodeslist, onClose, onSuccess, account, setN }: Props
         <TxButton
           accountId={accountId}
           icon='sign-in-alt'
-          label={t<string>('Register New Node')}
+          label={t<string>('Register')}
           onStart={onClose}
           onSuccess={() => {
             setN(Math.random()),

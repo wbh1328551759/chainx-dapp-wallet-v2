@@ -73,7 +73,7 @@ function Voting ({ proposal, referendumId }: Props): React.ReactElement<Props> |
                 )}
                 <ConvictionDropdown
                   help={t<string>('The conviction to use for this vote, with an appropriate lock period.')}
-                  label={t<string>('conviction')}
+                  label={t<string>('Conviction')}
                   onChange={setConviction}
                   value={conviction}
                 />
@@ -89,7 +89,7 @@ function Voting ({ proposal, referendumId }: Props): React.ReactElement<Props> |
               accountId={accountId}
               icon='ban'
               isDisabled={isDisabled}
-              label={t<string>('Vote Nay')}
+              label={t<string>('Nay')}
               onStart={toggleVoting}
               params={
                 isCurrentVote
@@ -102,7 +102,7 @@ function Voting ({ proposal, referendumId }: Props): React.ReactElement<Props> |
               accountId={accountId}
               icon='check'
               isDisabled={isDisabled}
-              label={t<string>('Vote Aye')}
+              label={t<string>('Aye')}
               onStart={toggleVoting}
               params={
                 isCurrentVote

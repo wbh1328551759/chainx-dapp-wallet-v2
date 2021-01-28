@@ -258,7 +258,7 @@ function Account({account: {address, meta}, assetsInfo, className = '', delegati
                 <table>
                   <tbody>
                   <tr>
-                    <td>{t<string>('threshold')}</td>
+                    <td>{t<string>('Threshold')}</td>
                     <td>{formatNumber(recoveryInfo.threshold)}</td>
                   </tr>
                   <tr>

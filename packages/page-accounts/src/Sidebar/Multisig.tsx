@@ -33,7 +33,7 @@ function Multisig ({ isMultisig, meta }: Props): React.ReactElement<Props> | nul
       </div>
       <Static
         isFull
-        label={t<string>('threshold')}
+        label={t<string>('Threshold')}
       >
         {threshold}/{(who as string[]).length}
       </Static>

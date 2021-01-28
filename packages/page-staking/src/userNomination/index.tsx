@@ -87,10 +87,11 @@ function UserNomination({className = '', validatorInfoList}: Props): React.React
   }, [currentAccount]);
 
   const headerRef = useRef([
-    [t<string>('My stake'), 'start'],
+    [t<string>('My Stake'), 'start'],
     [t<string>('Number of votes'), 'start'],
-    [t<string>('Number of Interests'), 'start'],
+    [t<string>('Number of interests'), 'start'],
     [t<string>('Freeze'), 'start'],
+    [t<string>('To Redeem'), 'start'],
     [undefined, undefined, undefined, undefined, undefined, 'start']
   ]);
   const validNominations = state.allNominations.filter((nmn, index) => {

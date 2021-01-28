@@ -48,7 +48,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Redeem The Current Node')}</p>
+            <p>{t<string>('Redeem the current node')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -56,7 +56,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
           <Modal.Column>
             <InputAddress
               defaultValue={options ? options[0].value : null}
-              help={t<string>('Redeem The Current Node')}
+              help={t<string>('Redeem the current node')}
               hideAddress={true}
               label={'Redeem'}
               labelExtra={
@@ -88,7 +88,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Redeem The Current Node')}</p>
+            <p>{t<string>('Redeem the current node')}</p>
           </Modal.Column>
         </Modal.Columns>
         <Modal.Columns>

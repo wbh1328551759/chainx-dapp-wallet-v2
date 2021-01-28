@@ -10,7 +10,7 @@ export const extrinsicMakeTransfer: Snippet = {
   value: 'extrinsicMakeTransfer',
   text: 'Make transfer and listen to events',
   label: { color: 'grey', children: 'Extrinsics', size: 'tiny' },
-  code: `// Make a transfer from Alice to Bob and listen to system events.
+  code: `// Make a transfer from Alice to Bob and listen to System Events.
 // You need to be connected to a development chain for this example to work.
 const ALICE = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY';
 const BOB = '5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty';

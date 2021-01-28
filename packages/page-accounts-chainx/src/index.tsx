@@ -5,13 +5,12 @@ import { AppProps as Props } from '@polkadot/react-components/types';
 
 import React, {useContext} from 'react';
 import { Route, Switch } from 'react-router';
-import {useAccounts, useApi} from '@polkadot/react-hooks';
+import { useAccounts } from '@polkadot/react-hooks';
 import useCounter from './useCounter';
 import Myview from './Myview';
 import styled from 'styled-components';
 import NoAccount from './Myview/NoAccount';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
-import {useLocalStorage} from '@polkadot/react-hooks-chainx';
 
 export { useCounter };
 
@@ -29,17 +28,11 @@ const Main = styled.main`
 function AccountsApp({ basePath, onStatusChange }: Props): React.ReactElement<Props> {
   const {currentAccount} = useContext(AccountContext)
   const {hasAccounts} = useAccounts()
-  const {isApiReady} = useApi()
 
   return (
     <Main className='accounts--App'>
 
       <header>
-        {/*<Tabs*/}
-        {/*  basePath={basePath}*/}
-        {/*  hidden={(!isIpfs) ? undefined : HIDDEN_ACC}*/}
-        {/*  items={itemsRef.current}*/}
-        {/*/>*/}
       </header>
       <Switch>
         <Route>

@@ -48,7 +48,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Redeem The Current Node')}</p>
+            <p>{t<string>('Redeem the current node')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -57,7 +57,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
             <InputAddress
               defaultValue={value}
               isDisabled={!!value}
-              help={t<string>('Redeem The Current Node')}
+              help={t<string>('Redeem the current node')}
               hideAddress={true}
               label={t<string>('Redeem')}
               labelExtra={
@@ -67,9 +67,18 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
                 const filterOptions = redeemOptions.filter((item) => item.validatorId === value);
                 const currentOptions: DropdownOptions = [];
                 filterOptions.forEach((item, index) => {
+                  const all = <div style={{
+                    display: "flex"
+                  }}>
+                    <div style={{
+                      display: "flex",
+                      marginRight: "20px"
+                    }}>预计时间:{item.locked}</div>
+                    <div>金额:{item.text}</div>
+                  </div>
                   currentOptions.push(
                     {
-                      text: item.text,
+                      text: all,
                       value: index + ''
                     }
                   );
@@ -86,7 +95,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Redeem The Current Node')}</p>
+            <p>{t<string>('Redeem the current node')}</p>
           </Modal.Column>
         </Modal.Columns>
         <Modal.Columns>

@@ -30,7 +30,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
   const {currentAccount} = useContext(AccountContext)
   const voteable = <span className='label'>{t<string>('voteable')}</span>;
   const remainingVotes = (<VoteData className='label'>
-    {t<string>('remaining votes')}
+    {t<string>('Remaining Votes')}
     {'： '}
     {remainingVotesData && Number(remainingVotesData) > 0 ? <span> {remainingVotesData}</span> :<span className='warning'>0</span>}
     {'  PCX'}
@@ -60,7 +60,7 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Vote for Validator')}</p>
+            <p>{t<string>('Vote for validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -68,15 +68,15 @@ function VoteNode({ onClose, validatorId, onSuccess, remainingVotesData }: Props
           <Modal.Column>
             <InputAddress
               defaultValue={validatorId}
-              help={t<string>('Vote for Validator')}
+              help={t<string>('Vote for validator')}
               isDisabled={!!validatorId}
-              label={t<string>('Vote for Validator')}
+              label={t<string>('Vote for validator')}
               labelExtra={remainingVotes}
               type='allPlus'
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Current Vote Validator')}</p>
+            <p>{t<string>('Current vote validator')}</p>
           </Modal.Column>
         </Modal.Columns>
 

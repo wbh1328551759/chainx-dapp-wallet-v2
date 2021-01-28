@@ -49,17 +49,17 @@ function Selection({basePath, onAdd}: Props): React.ReactElement<Props> {
         },
         {
           subName: 'raw',
-          subText: t<string>('Raw storage')
+          subText: t<string>('Raw Storage')
         },
       ]
     },
     {
       name: 'extrinsics',
-      text: t<string>('Extrinsics'),
+      text: 'Extrinsics',
     },
     {
       name: 'rpc',
-      text: t<string>('RPC calls')
+      text: t<string>('RPC Calls')
     },
     {
       name: 'signing',
@@ -68,15 +68,15 @@ function Selection({basePath, onAdd}: Props): React.ReactElement<Props> {
         {
           isSubRoot: true,
           subName: 'signing',
-          subText: t<string>('Sign message')
+          subText: t<string>('Sign Message')
         },
         {
           subName: 'constants',
-          subText: t<string>('Verify signature')
+          subText: t<string>('Verify Signature')
         },
         {
           subName: 'raw',
-          subText: t<string>('Hash data')
+          subText: t<string>('Hash Data')
         },
       ]
     },
@@ -87,11 +87,11 @@ function Selection({basePath, onAdd}: Props): React.ReactElement<Props> {
         {
           isSubRoot: true,
           subName: 'explorer',
-          subText: t<string>('Chain info')
+          subText: t<string>('Chain Info')
         },
         {
           subName: 'query',
-          subText: t<string>('Block details')
+          subText: t<string>('Block Details')
         },
         {
           subName: 'forks',
@@ -99,7 +99,7 @@ function Selection({basePath, onAdd}: Props): React.ReactElement<Props> {
         },
         {
           subName: 'node',
-          subText: t<string>('Node info')
+          subText: t<string>('Node Info')
         },
       ]
     }

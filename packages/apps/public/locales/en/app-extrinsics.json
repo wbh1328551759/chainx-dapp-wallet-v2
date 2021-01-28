@@ -1,8 +1,10 @@
 {
   "Extrinsic submission": "Extrinsic submission",
+  "Free Balance": "Free Balance",
   "Submit Transaction": "Submit Transaction",
   "Submit Unsigned": "Submit Unsigned",
-  "Free Balance": "Free Balance",
+  "Submit the following extrinsic": "Submit the following extrinsic",
+  "Using the selected account": "Using the selected account",
   "submit the following extrinsic": "submit the following extrinsic",
   "using the selected account": "using the selected account"
 }

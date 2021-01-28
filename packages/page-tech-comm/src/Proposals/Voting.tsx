@@ -49,7 +49,7 @@ function Voting ({ hash, members, prime, proposalId }: Props): React.ReactElemen
             <TxButton
               accountId={accountId}
               icon='ban'
-              label={t<string>('Vote Nay')}
+              label={t<string>('Nay')}
               onStart={toggleVoting}
               params={[hash, proposalId, false]}
               tx='technicalCommittee.vote'
@@ -57,7 +57,7 @@ function Voting ({ hash, members, prime, proposalId }: Props): React.ReactElemen
             <TxButton
               accountId={accountId}
               icon='check'
-              label={t<string>('Vote Aye')}
+              label={t<string>('Aye')}
               onStart={toggleVoting}
               params={[hash, proposalId, true]}
               tx='technicalCommittee.vote'

@@ -1,7 +1,10 @@
 {
   "All Volume": "All Volume",
   "Avg Price": "Avg Price",
+  "BlockHeight": "BlockHeight",
   "Buy PCX": "Buy PCX",
+  "Cancel": "Cancel",
+  "Completed": "Completed",
   "Currency trade": "Currency trade",
   "Date": "Date",
   "Filled / Percentage %": "Filled / Percentage %",
@@ -20,6 +23,8 @@
   "Quantity": "Quantity",
   "Sell PCX": "Sell PCX",
   "Status": "Status",
+  "The purchase price needs to be lower than": "The purchase price needs to be lower than",
+  "The selling price should be higher than": "The selling price should be higher than",
   "Token": "Token",
   "Volume": "Volume"
 }

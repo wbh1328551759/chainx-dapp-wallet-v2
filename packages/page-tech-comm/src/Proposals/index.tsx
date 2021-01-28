@@ -16,8 +16,8 @@ function Proposals ({ className = '', isMember, members, prime, proposals }: Pro
 
   const headerRef = useRef([
     [t('Proposals'), 'start', 2],
-    [t('threshold')],
-    [t('voting end')],
+    [t('Threshold')],
+    [t('Voting End')],
     [t('aye'), 'address'],
     [t('nay'), 'address'],
     []

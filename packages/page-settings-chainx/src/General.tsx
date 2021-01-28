@@ -101,7 +101,7 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
         <Dropdown
           defaultValue={icon}
           help={t<string>('Override the default identity icon display with a specific theme')}
-          label={t<string>('Default Icon Theme')}
+          label={t<string>('Default icon theme')}
           onChange={_handleChange('icon')}
           options={iconOptions}
         />
@@ -120,7 +120,7 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
       <div className='ui--row'>
         <Dropdown
           defaultValue={uiTheme}
-          label={t<string>('Default Interface Theme')}
+          label={t<string>('Default interface theme')}
           onChange={_handleChange('uiTheme')}
           options={themeOptions}
         />
@@ -128,7 +128,7 @@ function General ({ className = '' }: Props): React.ReactElement<Props> {
       <div className='ui--row'>
         <Dropdown
           defaultValue={i18nLang}
-          label={t<string>('Default Interface Language')}
+          label={t<string>('Default interface language')}
           onChange={_handleChange('i18nLang')}
           options={translateLanguages}
         />

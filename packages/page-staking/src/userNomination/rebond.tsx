@@ -84,7 +84,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t<string>('Rebond Vote Validator')}</p>
+            <p>{t<string>('Rebond')}</p>
           </Modal.Column>
         </Modal.Columns>
 
@@ -160,7 +160,7 @@ function ReBond({ account, onClose, options, value, onSuccess, validatorInfoList
           isDisabled={rebond}
           accountId={account}
           icon='sign-in-alt'
-          label={t<string>('Rebond Vote Validator')}
+          label={t<string>('Rebond')}
           onStart={onClose}
           params={[value, validatorTo, amount]}
           onSuccess={onSuccess}

@@ -1,14 +1,13 @@
 import React from 'react';
 import NavWrapper from './Wrapper';
-import NavItemList from '@polkadot/apps/NavBar/NavItemList';
-import SettingNode from '@polkadot/apps/NavBar/SettingNode';
+import Faviconnav from '@polkadot/apps/NavBar/SideBars/Faviconnav';
+import MainNav from '@polkadot/apps/NavBar/MainNav';
 
 function NavBar() {
-
   return (
     <NavWrapper>
-      <NavItemList/>
-      <SettingNode/>
+      <Faviconnav />
+      <MainNav/>
     </NavWrapper>
   );
 }

@@ -105,7 +105,7 @@ export default function (): React.ReactElement {
     <ChainStatus>
       <p>{t('Chain status')}</p>
       <div className='total'>
-        <span>{t('Total issuance')}（PCX）</span>
+        <span>{t('Total Issuance')}（PCX）</span>
         <span>7,311,000/21,000,000</span>
       </div>
       <ProgressBar>

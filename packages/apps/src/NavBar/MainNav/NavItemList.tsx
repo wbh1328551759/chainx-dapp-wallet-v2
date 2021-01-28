@@ -3,7 +3,7 @@ import chainxLogo from '@polkadot/apps/NavBar/icons/ChainX_logo.svg';
 import {Link} from 'react-router-dom';
 import {Icon} from '@polkadot/react-components';
 import linkOut from '@polkadot/apps/NavBar/icons/Link out.svg';
-import Selector from '@polkadot/apps/NavBar/Selector';
+import Selector from '@polkadot/apps/NavBar/MainNav/Selector';
 import {useTranslation} from '@polkadot/apps/translate';
 import {useApi, useToggle} from '@polkadot/react-hooks';
 
@@ -27,8 +27,8 @@ function NavItemList(): React.ReactElement {
   ]);
   const developerList = ([
     {nodeName: t<string>('Chain state'), link: '/chainstate/chainstate'},
-    {nodeName: t<string>('Extrinsics'), link: '/chainstate/extrinsics'},
-    {nodeName: t<string>('RPC calls'), link: '/chainstate/rpc'},
+    {nodeName: 'Extrinsics', link: '/chainstate/extrinsics'},
+    {nodeName: t<string>('RPC Calls'), link: '/chainstate/rpc'},
     {nodeName: t<string>('Sign and verify'), link: '/chainstate/signing'},
     {nodeName: t<string>('Explorer'), link: '/chainstate/explorer'}
   ]);
@@ -67,10 +67,10 @@ function NavItemList(): React.ReactElement {
     <div className="left">
       <img src={chainxLogo} alt=""/>
       <ul>
-        <li className='assets'>
+        <li className='assets media--500'>
           <Link to={'/accounts'}>{t('Assets')}</Link>
         </li>
-        <li className='staking'
+        <li className='staking media--600'
             onMouseEnter={() => toggleSelector('staking')}
             onMouseLeave={() => setToggleStaking(false)}
         >
@@ -83,7 +83,7 @@ function NavItemList(): React.ReactElement {
             nodeList={stakingList} onMouseLeave={() => setToggleStaking(false)}
           />}
         </li>
-        <li className='governance'
+        <li className='governance media--700'
             onMouseEnter={() => toggleSelector('governance')}
             onMouseLeave={() => setToggleGovernance(false)}>
           <Link to={'/democracy/democracy'}>
@@ -94,17 +94,17 @@ function NavItemList(): React.ReactElement {
           <Selector nodeList={governanceList} onMouseLeave={() => setToggleGovernance(false)}
           />}
         </li>
-        <li className='dex'>
+        <li className='dex media--1100'>
           <Link to='/DEX'>{t('DEX')}</Link>
         </li>
-        <li className='linkOutBrowser'>
+        <li className='linkOutBrowser media--900'>
           <a href={url} target='_blank'>
             {t('ChainScan')}
             <img src={linkOut} alt=""/>
           </a>
         </li>
-        <li className='divideLine'/>
-        <li className='developer'
+        <li className='divideLine media--1200'/>
+        <li className='developer media--1000'
             onMouseEnter={() => toggleSelector('developer')}
             onMouseLeave={() => setToggleDeveloper(false)}>
           <Link to={'/chainstate/chainstate'}>

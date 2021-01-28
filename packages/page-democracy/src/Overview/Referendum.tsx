@@ -27,7 +27,7 @@ interface Props {
 interface Percentages {
   aye: string;
   nay: string;
-  turnout: string;
+  Turnout: string;
 }
 
 interface VoteType {

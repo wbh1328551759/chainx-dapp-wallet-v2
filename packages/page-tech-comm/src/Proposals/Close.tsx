@@ -52,7 +52,7 @@ function Close ({ hasFailed, hash, idNumber, members, proposal }: Props): React.
                 <InputAddress
                   filter={members}
                   help={t<string>('Select the account you wish close the proposal with.')}
-                  label={t<string>('sending account')}
+                  label={t<string>('Sending Account')}
                   onChange={setAccountId}
                   type='account'
                 />

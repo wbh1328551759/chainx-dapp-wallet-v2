@@ -78,7 +78,7 @@ function ProposeExternal ({ className = '', isMember, members }: Props): React.R
                 <InputAddress
                   filter={members}
                   help={t<string>('Select the account you wish to make the proposal with.')}
-                  label={t<string>('propose from account')}
+                  label={t<string>('Propose from account')}
                   onChange={setAcountId}
                   type='account'
                   withLabel
@@ -93,7 +93,7 @@ function ProposeExternal ({ className = '', isMember, members }: Props): React.R
                 <Input
                   autoFocus
                   help={t<string>('The preimage hash of the proposal')}
-                  label={t<string>('preimage hash')}
+                  label={t<string>('Preimage Hash')}
                   onChange={_onChangeHash}
                   value={hash}
                 />

@@ -101,12 +101,22 @@ function AccountList({storedValue, className = '', onClose, onStatusChange, setS
           </Table>
           <img className="close-btn" src={modalCloseIcon} onClick={onClose}/>
         </>
+        <Modal.Actions onCancel={onClose}></Modal.Actions>
       </Wrapper>
     </Modal>
   );
 }
 
 const Wrapper = styled.div`
+  .actions {
+    padding: 0 20px;
+    div {
+      margin: 0 0 1rem;
+    }
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
   .overviewTab{
     display: flex;
     justify-content: space-between;
@@ -118,7 +128,11 @@ const Wrapper = styled.div`
       color: #302B3C;
     }
   }
-
+  .close-btn {
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
   img{
     width: 48px;
     height: 48px;

@@ -59,7 +59,7 @@ function Unlock ({ onClose, onUnlock, pair }: Props): React.ReactElement<Props> 
   return (
     <Modal
       className='toolbox--Unlock'
-      header={t<string>('Unlock account')}
+      header={t<string>('Unlock Account')}
       size='large'
     >
       <Modal.Content>
@@ -68,7 +68,7 @@ function Unlock ({ onClose, onUnlock, pair }: Props): React.ReactElement<Props> 
             <InputAddress
               help={t<string>('The selected account to be unlocked.')}
               isDisabled
-              label={t<string>('account')}
+              label={t<string>('Account')}
               value={address}
             />
           </Modal.Column>

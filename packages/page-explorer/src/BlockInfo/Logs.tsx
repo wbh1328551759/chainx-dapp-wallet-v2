@@ -103,7 +103,7 @@ function Logs (props: Props): React.ReactElement<Props> | null {
   const { value } = props;
   const { t } = useTranslation();
 
-  const headerRef = useRef([[t('logs'), 'start']]);
+  const headerRef = useRef([[t('Logs'), 'start']]);
 
   return (
     <Table

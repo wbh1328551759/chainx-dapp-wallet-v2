@@ -27,7 +27,7 @@ const InnerWrapper = styled.div`
   header {
     display: flex;
     justify-content: space-between;
-    @media screen and (min-width:375px) and (max-width:540px){
+    @media screen and (max-width:540px){
       flex-direction: column;
       align-items: baseline;
     }
@@ -39,6 +39,10 @@ const InnerWrapper = styled.div`
     align-items: flex-end;
     @media screen and (min-width:375px) and (max-width:540px){
       position: relative;
+    }
+    @media screen and (max-width:374px){
+      flex-direction: column;
+      align-items: baseline;
     }
   }
   .whiteBtn {
@@ -55,6 +59,9 @@ const InnerWrapper = styled.div`
     border-radius: 14px;
     text-transform: none;
     margin: 0 0 4px 32px;
+    @media screen and (max-width:374px){
+      margin: 6px 0 0;
+    }
     &:hover {
       background: #E8E9EA !important;
       color: rgba(0, 0, 0, 0.72) !important;
@@ -63,13 +70,19 @@ const InnerWrapper = styled.div`
     @media screen and (min-width:375px) and (max-width:540px){
       position: absolute;
       top: -4px;
-      left: 0;
-      margin: 0 0 4px 70px;
+      right: 0;
     }
   }
   section.details {
     display: flex;
     margin-top: 32px;
+    @media screen and (max-width:374px){
+      flex-direction: column;
+      align-items: baseline;
+      & > div:not(:first-of-type) {
+        margin-left: 0 !important;
+      }
+    }
     & > div:not(:first-of-type) {
       margin-left: 66px;
     }
@@ -106,6 +119,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
   const [n, setN] = useState(0);
   const {currentAccount} = useContext(AccountContext);
   const pcxFree: PcxFreeInfo = usePcxFree(currentAccount, n);
+  console.log("pcxFree:"+JSON.stringify(pcxFree) )
   const [allBalance, setAllBalance] = useState<number>(0)
   const [usableBalance, setUsableBalance] = useState<number>(0)
   const [feeFrozen, setFeeFrozen] = useState<number>(0)
@@ -174,12 +188,10 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
             title={t('Free Balance')}
             value={usableBalance}
           />
-
           {/*{api.api.tx.balances?.transfer && currentAccount && (*/}
             <Button
               className="whiteBtn"
               onClick={toggleTransfer}
-              // style={{marginLeft: 32, height: 28, marginBottom: 4}}
               isBasic={true}
               isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
             >
@@ -201,14 +213,14 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
                 value={miscFrozen}
               />
               {/* <AssetView
-                title="交易冻结"
-                value="8.00000000"
-                precision={precisionData.precision}
+                key={Math.random()}
+                title={t('staking冻结')}
+                value={feeFrozen}
               />
               <AssetView
-                title="赎回冻结"
-                value="0.00000000"
-                precision={precisionData.precision}
+                key={Math.random()}
+                title={t('其他冻结（保留）')}
+                value={pcxFree.reserved}
               /> */}
             </>
           )}

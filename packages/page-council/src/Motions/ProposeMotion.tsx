@@ -77,7 +77,7 @@ function Propose ({ isMember, members }: Props): React.ReactElement<Props> {
                 <InputAddress
                   filter={members}
                   help={t<string>('Select the account you wish to make the proposal with.')}
-                  label={t<string>('propose from account')}
+                  label={t<string>('Propose from account')}
                   onChange={setAcountId}
                   type='account'
                   withLabel
@@ -93,7 +93,7 @@ function Propose ({ isMember, members }: Props): React.ReactElement<Props> {
                   className='medium'
                   help={t<string>('The minimum number of council votes required to approve this motion')}
                   isError={!threshold || threshold.eqn(0) || threshold.gtn(members.length)}
-                  label={t<string>('threshold')}
+                  label={t<string>('Threshold')}
                   onChange={_setThreshold}
                   placeholder={t<string>('Positive number between 1 and {{memberCount}}', { replace: { memberCount: members.length } })}
                   value={threshold || BN_ZERO}
@@ -107,7 +107,7 @@ function Propose ({ isMember, members }: Props): React.ReactElement<Props> {
               <Modal.Column>
                 <Extrinsic
                   defaultValue={apiDefaultTxSudo}
-                  label={t<string>('proposal')}
+                  label={t<string>('Proposals')}
                   onChange={_setMethod}
                 />
               </Modal.Column>

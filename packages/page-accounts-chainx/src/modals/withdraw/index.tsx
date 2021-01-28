@@ -66,7 +66,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
               label={t('Current Account')}
               labelExtra={
                 <div>
-                  {t('you can withdrawal')} {Number(btc) / Math.pow(10, 8)} X-BTC
+                  {t('You can withdrawal')} {Number(btc) / Math.pow(10, 8)} X-BTC
                 </div>
               }
               onChange={setAccount}
@@ -82,12 +82,12 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
           <Modal.Column>
             <Input
               help={t('the actual account you wish to withdraw')}
-              label={t('BTC Withdraw Address')}
+              label={t('BTC withdraw address')}
               onChange={setWithdrawAddress}
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t('BTC Withdraw Address')}</p>
+            <p>{t('BTC withdraw address')}</p>
             <span style={{display: (disabled === true) ? "block" : "none"}}>{t('Required')}</span>
           </Modal.Column>
         </Modal.Columns>
@@ -95,13 +95,13 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
           <Modal.Column>
             <InputXBTCBalance
               autoFocus
-              help={t('The Number Of Withdrawals')}
-              label={t('The Number Of Withdrawals')}
+              help={t('The number of withdrawals')}
+              label={t('The number of withdrawals')}
               onChange={setAmount}
             />
           </Modal.Column>
           <Modal.Column>
-            <p>{t('The Number Of Withdrawals')}</p>
+            <p>{t('The number of withdrawals')}</p>
           </Modal.Column>
         </Modal.Columns>
 
