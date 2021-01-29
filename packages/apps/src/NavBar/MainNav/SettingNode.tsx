@@ -6,12 +6,14 @@ import {useToggle} from '@polkadot/react-hooks';
 import Endpoints from '@polkadot/apps/Endpoints/modals/Network';
 import getApiUrl from '@polkadot/apps/initSettings';
 import {useTranslation} from '@polkadot/apps/translate';
+import store from "store";
 
-function SettingNode() {
+function SettingNode(): React.ReactElement {
   const {t} = useTranslation();
   const [isEndpointsVisible, toggleEndpoints] = useToggle();
   const apiUrl = getApiUrl()
   const [netInfo, setNetInfo] = useState<string>('')
+  const stored = store.get('settings') as Record<string, unknown> || {};
 
   useEffect(() => {
     if(apiUrl === 'wss://mainnet.spiderx.pro/ws'){
@@ -21,7 +23,7 @@ function SettingNode() {
     }else{
       setNetInfo(t('Test Node'))
     }
-  }, [apiUrl])
+  }, [apiUrl, stored])
 
   return (
     <>
