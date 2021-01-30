@@ -54,5 +54,8 @@
   "Vote Amount": "Vote Amount",
   "Vote for the node": "Vote for the node",
   "Vote for validator": "Vote for validator",
-  "transferrable": "transferrable"
+  "transferrable": "transferrable",
+  "Switchable Amount": "Switchable Amount",
+  "Vote Amounts": "Vote Amounts",
+  "The amount of ticket revocable": "The amount of ticket revocable"
 }

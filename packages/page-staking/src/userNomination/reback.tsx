@@ -23,7 +23,7 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
   const [amount, setAmount] = useState<string | undefined | number>();
   const [optionsId, setOptionsId] = useState<DropdownOptions>();
 
-  const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
+  // const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
 
   return (
     <Modal
@@ -38,12 +38,12 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
               help='The actual account you wish to reback account'
               isDisabled={!!account}
               label={t<string>('My Accounts')}
-              labelExtra={
-                <Available
-                  label={transferrable}
-                  params={account}
-                />
-              }
+              // labelExtra={
+              //   <Available
+              //     label={transferrable}
+              //     params={account}
+              //   />
+              // }
               type='account'
             />
           </Modal.Column>
@@ -67,14 +67,19 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
                 const filterOptions = redeemOptions.filter((item) => item.validatorId === value);
                 const currentOptions: DropdownOptions = [];
                 filterOptions.forEach((item, index) => {
+                  const show = item.isShow
                   const all = <div style={{
                     display: "flex"
                   }}>
+                    <div>金额: {item.text}</div>
                     <div style={{
-                      display: "flex",
-                      marginRight: "20px"
-                    }}>预计时间:{item.locked}</div>
-                    <div>金额:{item.text}</div>
+                      display: show? "block": "none",
+                      marginLeft: "20px"
+                    }}>可赎回</div>
+                    <div style={{
+                      display: show? "none": "block",
+                      marginLeft: "20px"
+                    }}>预计可赎回时间: {item.locked}</div>
                   </div>
                   currentOptions.push(
                     {

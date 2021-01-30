@@ -6,7 +6,7 @@ import type { DeriveBalancesAll, DeriveDemocracyLock, DeriveStakingAccount } fro
 import type { BlockNumber, LockIdentifier, ValidatorPrefsTo145 } from '@polkadot/types/interfaces';
 
 import BN from 'bn.js';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BN_ZERO, formatBalance, formatNumber, hexToString, isObject } from '@polkadot/util';
 import { Expander, Icon, Tooltip } from '@polkadot/react-components';
@@ -233,6 +233,8 @@ function renderBalances (props: Props, allAccounts: string[], bestNumber: BlockN
     'staking ': t<string>('via Staking/Bond'),
     'vesting ': t<string>('via Vesting')
   };
+
+  console.log("democracyLocks:", JSON.stringify(democracyLocks))
 
   const allItems = (
     <>

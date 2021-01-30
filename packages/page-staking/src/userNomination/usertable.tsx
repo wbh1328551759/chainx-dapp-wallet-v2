@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AddressMini, Button } from '@polkadot/react-components';
 import { AddressSmall } from '@polkadot/react-components-chainx';
 import Vote from './vote';
-import { useApi, useToggle } from '@polkadot/react-hooks';
+import { useApi, useBlockTime, useToggle } from '@polkadot/react-hooks';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { Nomination, UserInterest } from '@polkadot/react-hooks-chainx/types';
 import { BlockAuthorsContext, BlockToTime, FormatBalance } from '@polkadot/react-query';
@@ -17,6 +17,7 @@ import { TxCallback } from '@polkadot/react-components/Status/types';
 import { ValidatorInfo } from '../types';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import BN from 'bn.js';
+import moment from 'moment';
 
 interface Props {
   accountId?: string;
@@ -44,6 +45,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
 
   const [isClaim, toggleClaim] = useToggle();
 
+
   const chunkes = nomination?.unbondedChunks ? nomination.unbondedChunks.reduce((total, record) => {
     return total + Number(record.value);
   }, 0) : 0;
@@ -62,14 +64,27 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
     const reAmount = Number(item.value) 
     const rebackAmount = <FormatBalance value={reAmount}></FormatBalance>
     const locked = Number(item.lockedUntil) - block
-    const lockedUntiled = new BN(locked)
-    const lockedtime = <BlockToTime blocks={lockedUntiled} />
-    redeemOptions.push({
-      validatorId: nomination.validatorId,
-      text: rebackAmount,
-      value: index + '',
-      locked: lockedtime
-    });
+    if(locked>0) {
+      const lockedUntiled = new BN(locked)
+      const [ , ,blockTime] = useBlockTime(lockedUntiled);
+      var timestamp = new Date().getTime()
+      const allTimes = timestamp+blockTime
+      const lockedtime = moment(allTimes).format("YYYY/MM/DD HH:mm:ss")
+      redeemOptions.push({
+        validatorId: nomination.validatorId,
+        text: rebackAmount,
+        value: index + '',
+        locked: lockedtime,
+        isShow: false
+      });
+    }else {
+      redeemOptions.push({
+        validatorId: nomination.validatorId,
+        text: rebackAmount,
+        value: index + '',
+        isShow: true
+      });
+    }
   }) : {};
   
   useEffect((): void => {
@@ -142,7 +157,6 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
             <Reback
               account={accountId}
               onClose={toggleReback}
-
               redeemOptions={redeemOptions}
               key="reback"
               onSuccess={onStausChange}
@@ -157,6 +171,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
               onClose={toggleUnbound}
               onSuccess={onStausChange}
               key="unbond"
+              unamount={nomination?.nomination}
               value={nomination?.validatorId}
             />
           )
@@ -172,6 +187,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
               onSuccess={onStausChange}
               rebond={rebonds}
               hoursafter={hoursafter}
+              unamount={nomination?.nomination}
             />
           )
         }
