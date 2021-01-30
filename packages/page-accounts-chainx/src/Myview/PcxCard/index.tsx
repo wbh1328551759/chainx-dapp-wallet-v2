@@ -119,6 +119,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
   const [n, setN] = useState(0);
   const {currentAccount} = useContext(AccountContext);
   const pcxFree: PcxFreeInfo = usePcxFree(currentAccount, n);
+  console.log("pcxFree:"+JSON.stringify(pcxFree) )
   const [allBalance, setAllBalance] = useState<number>(0)
   const [usableBalance, setUsableBalance] = useState<number>(0)
   const [feeFrozen, setFeeFrozen] = useState<number>(0)
@@ -187,12 +188,10 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
             title={t('Free Balance')}
             value={usableBalance}
           />
-
           {/*{api.api.tx.balances?.transfer && currentAccount && (*/}
             <Button
               className="whiteBtn"
               onClick={toggleTransfer}
-              // style={{marginLeft: 32, height: 28, marginBottom: 4}}
               isBasic={true}
               isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
             >
@@ -214,14 +213,14 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
                 value={miscFrozen}
               />
               {/* <AssetView
-                title="交易冻结"
-                value="8.00000000"
-                precision={precisionData.precision}
+                key={Math.random()}
+                title={t('staking冻结')}
+                value={feeFrozen}
               />
               <AssetView
-                title="赎回冻结"
-                value="0.00000000"
-                precision={precisionData.precision}
+                key={Math.random()}
+                title={t('其他冻结（保留）')}
+                value={pcxFree.reserved}
               /> */}
             </>
           )}

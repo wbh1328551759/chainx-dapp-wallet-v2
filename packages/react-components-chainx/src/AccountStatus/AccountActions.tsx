@@ -30,7 +30,7 @@ import RecoverAccount from '@polkadot/app-accounts-chainx/modals/RecoverAccount'
 import RecoverSetup from '@polkadot/app-accounts-chainx/modals/RecoverSetup';
 import UndelegateModal from '@polkadot/app-accounts-chainx/modals/Undelegate';
 import BN from 'bn.js';
-import {KeyringAddress} from '@polkadot/ui-keyring/types'
+import {KeyringAddress} from '@polkadot/ui-keyring/types';
 import {Delegation} from '@polkadot/app-accounts-chainx/types';
 import Multisig from '@polkadot/app-accounts-chainx/modals/MultisigCreate';
 import {DeriveDemocracyLock} from '@polkadot/api-derive/types';
@@ -41,7 +41,7 @@ interface DemocracyUnlockable {
   ids: BN[];
 }
 
-interface Props{
+interface Props {
   account: KeyringAddress;
   propsIsValid?: boolean;
   isContract?: boolean;
@@ -64,8 +64,8 @@ const transformRecovery = {
 function AccountActions({account: {address, meta}, isContract, delegation, proxy}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const api = useApi();
-  const {isApiReady} = useApi()
-  const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig }, identity, genesisHash, name: accName, onSetGenesisHash, tags} = useAccountInfo(address ? address.toString() : null, isContract);
+  const {isApiReady} = useApi();
+  const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig}, identity, genesisHash, name: accName, onSetGenesisHash, tags} = useAccountInfo(address ? address.toString() : null, isContract);
   const {theme} = useContext<ThemeDef>(ThemeContext);
   const [isSettingsOpen, toggleSettings] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
@@ -86,7 +86,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   const [isDelegateOpen, toggleDelegate] = useToggle();
   const [isUndelegateOpen, toggleUndelegate] = useToggle();
   const [isProxyOverviewOpen, toggleProxyOverview] = useToggle();
-  const [isAddMultisigOpen, toggleAddMultisig] = useToggle()
+  const [isAddMultisigOpen, toggleAddMultisig] = useToggle();
   const bestNumber = useCall<BN>(api.api.derive.chain.bestNumber);
   const democracyLocks = useCall<DeriveDemocracyLock[]>(api.api.derive.democracy?.locks, [address]);
   const recoveryInfo = useCall<RecoveryConfig | null>(api.api.query.recovery?.recoverable, [address], transformRecovery);
@@ -96,7 +96,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   const [, setValue] = useLocalStorage('currentAccount');
   const {changeAccount} = useContext(AccountContext);
   const {allAccounts, hasAccounts} = useAccounts();
-  const {currentAccount} = useContext(AccountContext)
+  const {currentAccount} = useContext(AccountContext);
   const {queueAction} = useContext(StatusContext);
 
 
@@ -117,8 +117,8 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   );
 
   const _showOnHardware = useCallback(
-    // TODO: we should check the hardwareType from metadata here as well,
-    // for now we are always assuming hardwareType === 'ledger'
+// TODO: we should check the hardwareType from metadata here as well,
+// for now we are always assuming hardwareType === 'ledger'
     (): void => {
       getLedger()
         .getAddress(true, meta.accountOffset as number || 0, meta.addressOffset as number || 0)
@@ -145,14 +145,14 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
       status.message = t<string>('account forgotten');
       const lastAccount = allAccounts[allAccounts.length - 1];
 
-      if(lastAccount === address){
-        setValue('')
-        changeAccount('')
-      }else{
+      if (lastAccount === address) {
+        setValue('');
+        changeAccount('');
+      } else {
         setValue(lastAccount);
         changeAccount(lastAccount);
       }
-      toggleForget()
+      toggleForget();
     } catch (error) {
       status.status = 'error';
       status.message = (error as Error).message;
@@ -160,14 +160,14 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   };
 
   useEffect(() => {
-    const hasCurrentName = allAccounts.find(account => account === currentAccount)
-    if(hasAccounts && (!currentAccount || !hasCurrentName)){
+    const hasCurrentName = allAccounts.find(account => account === currentAccount);
+    if (hasAccounts && (!currentAccount || !hasCurrentName)) {
       const lastAccount = allAccounts[allAccounts.length - 1];
       setValue(lastAccount);
       changeAccount(lastAccount);
     }
 
-  },[currentAccount, allAccounts, hasAccounts])
+  }, [currentAccount, allAccounts, hasAccounts]);
 
   useEffect((): void => {
     bestNumber && democracyLocks && setUnlockableIds(
@@ -360,7 +360,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
             //   </Menu.Item>
             // ),
             api.api.tx.identity?.setIdentity && (
-          // 设置链上身份
+              // 设置链上身份
               <Menu.Item
                 key='identityMain'
                 onClick={toggleIdentityMain}
@@ -369,7 +369,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
               </Menu.Item>
             ),
             api.api.tx.identity?.setSubs && identity?.display && (
-          // 设置链上子身份
+              // 设置链上子身份
               <Menu.Item
                 key='identitySub'
                 onClick={toggleIdentitySub}
@@ -378,7 +378,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
               </Menu.Item>
             ),
             api.api.tx.vesting?.vest && vestingVestTx && (
-          // 解锁既得金额
+              // 解锁既得金额
               <Menu.Item
                 key='vestingVest'
                 onClick={_vestingVest}
@@ -440,12 +440,12 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
               </Menu.Item>
             )),
             (api.api.tx.multisig?.asMulti && isMultisig && (<Menu.Item
-                  disabled={!multiInfos || !multiInfos.length}
-                  key='multisigApprovals'
-                  onClick={toggleMultisig}
-                >
-                  {t('Multisig approvals')}
-                </Menu.Item>
+                disabled={!multiInfos || !multiInfos.length}
+                key='multisigApprovals'
+                onClick={toggleMultisig}
+              >
+                {t('Multisig approvals')}
+              </Menu.Item>
             )),
             (
               <Menu.Item
@@ -467,7 +467,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
 
           {api.api.tx.recovery?.createRecovery && createMenuGroup([
             !recoveryInfo && (
-          // 使之可恢复
+              // 使之可恢复
               <Menu.Item
                 key='makeRecoverable'
                 onClick={toggleRecoverSetup}
@@ -475,7 +475,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
                 {t('Make recoverable')}
               </Menu.Item>
             ),
-          // 启动针对另一个账户的恢复
+            // 启动针对另一个账户的恢复
             <Menu.Item
               key='initRecovery'
               onClick={toggleRecoverAccount}
@@ -484,14 +484,14 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
             </Menu.Item>
           ])}
           {api.api.query.democracy?.votingOf && delegation?.accountDelegated && createMenuGroup([
-          // 更改民主代表
+            // 更改民主代表
             <Menu.Item
               key='changeDelegate'
               onClick={toggleDelegate}
             >
               {t('Change democracy delegation')}
             </Menu.Item>,
-          // 不受委托的
+            // 不受委托的
             <Menu.Item
               key='undelegate'
               onClick={toggleUndelegate}

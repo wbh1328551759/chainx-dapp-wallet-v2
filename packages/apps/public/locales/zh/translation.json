@@ -590,6 +590,7 @@
   "Recharge OP_RETURN trust's hot multi-sign address with a wallet that supports OP_RETURN information": "使用支持 OP_RETURN 的钱包向信托热多签地址充值，并输入 OP_RETURN 信息。",
   "Records": "跨链记录",
   "Redeem": "赎回",
+  "To Redeem": "待赎回",
   "Redeem ID": "赎回ID",
   "Redeem the current node": "对当前节点进行赎回",
   "Redemption": "赎回",

@@ -165,12 +165,6 @@ const NavWrapper = styled.div`
         }
       }
 
-      //&.icon, &.switchNode{
-      //  @media only screen and (device-width: 375px) and (device-height: 812px) {
-      //    display: none;
-      //  }
-      //}
-
       &.accountSelector{
         margin: 0;
       }
