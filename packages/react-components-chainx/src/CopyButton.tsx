@@ -62,4 +62,10 @@ export default React.memo(styled(CopyButton)`
   .copySpan {
     white-space: nowrap;
   }
+
+  .copyContainer{
+    .ui--Button{
+      border: none !important;
+    }
+  }
 `);

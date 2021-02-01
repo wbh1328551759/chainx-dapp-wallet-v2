@@ -445,7 +445,8 @@ export default React.memo(styled(Create)`
 
   .copyMoved {
     position: absolute;
-    right: 8rem !important;
+    z-index: 99;
+    right: 6.5rem !important;
     top: 0.75rem !important;
   }
 `);
