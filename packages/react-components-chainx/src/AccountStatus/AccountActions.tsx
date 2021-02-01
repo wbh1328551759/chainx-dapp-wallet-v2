@@ -510,12 +510,12 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
               }
             </Menu.Item>
           ])}
-          <ChainLock
-            className='accounts--network-toggle'
-            genesisHash={genesisHash}
-            isDisabled={api.isDevelopment}
-            onChange={onSetGenesisHash}
-          />
+          {/*<ChainLock*/}
+          {/*  className='accounts--network-toggle'*/}
+          {/*  genesisHash={genesisHash}*/}
+          {/*  isDisabled={api.isDevelopment}*/}
+          {/*  onChange={onSetGenesisHash}*/}
+          {/*/>*/}
         </Menu>
       </Popup>
     </>
