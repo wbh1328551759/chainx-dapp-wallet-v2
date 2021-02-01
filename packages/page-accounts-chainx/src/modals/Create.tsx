@@ -10,7 +10,8 @@ import FileSaver from 'file-saver';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
-import { AddressRow, Button, CopyButton, Dropdown, Expander, Input, InputAddress, Modal } from '@polkadot/react-components';
+import { AddressRow, Button, Dropdown, Expander, Input, InputAddress, Modal } from '@polkadot/react-components';
+import { CopyButton } from '@polkadot/react-components-chainx'
 import { useApi, useToggle } from '@polkadot/react-hooks';
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
 import keyring from '@polkadot/ui-keyring';
