@@ -15,6 +15,18 @@ import { BlockAuthorsContext } from '@polkadot/react-query';
 import Filtering from '../Filtering';
 import { useTranslation } from '../translate';
 import Address from './Address';
+import styled from 'styled-components';
+
+const TableWrapper = styled(Table)`
+
+  thead{
+    tr{
+      th:nth-child(5){
+        text-align: center;
+      }
+    }
+  }
+`
 
 interface Props {
   favorites: string[];
@@ -51,8 +63,6 @@ function filterAccounts(accounts: string[] = [], elected: string[], favorites: s
         : (isFavA ? -1 : 1)
     );
 }
-
-
 
 function getFiltered(stakingOverview: DeriveStakingOverview, favorites: string[], next?: string[]): Filtered {
   const allElected = [""]
@@ -149,7 +159,7 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
   );
 
   return (
-    <Table
+    <TableWrapper
       empty={!isLoading && validators && t<string>('No active validators found')}
       filter={
         <Filtering
@@ -162,7 +172,7 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
       header={headerActiveRef.current}
     >
       {isLoading ? undefined : _renderRows(validators, true)}
-    </Table>)
+    </TableWrapper>)
 }
 
 export default React.memo(CurrentList);
