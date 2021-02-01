@@ -37,8 +37,6 @@ const LoadingValue = styled.div`
   vertical-align: baseline;
   white-space: nowrap;
   > .ui--FormatBalance-postfix {
-    font-weight: 200;
-    opacity: 0.7;
     vertical-align: baseline;
   }
   >.ui--FormatBalance-unit {
