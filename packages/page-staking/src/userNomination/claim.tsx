@@ -19,7 +19,7 @@ interface Props {
 function Claim({ account, onClose, options, value, onSuccess }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [validatorId, setValidatorId] = useState<string | null | undefined>(value);
-  const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
+  // const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
 
 
   return (
@@ -35,12 +35,12 @@ function Claim({ account, onClose, options, value, onSuccess }: Props): React.Re
               help='The actual account you wish to claim'
               isDisabled={!!account}
               label={t<string>('My Account')}
-              labelExtra={
-                <Available
-                  label={transferrable}
-                  params={account}
-                />
-              }
+              // labelExtra={
+              //   <Available
+              //     label={transferrable}
+              //     params={account}
+              //   />
+              // }
               type='account'
             />
           </Modal.Column>
