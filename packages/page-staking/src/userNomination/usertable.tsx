@@ -6,7 +6,7 @@ import Vote from './vote';
 import { useApi, useToggle } from '@polkadot/react-hooks';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { Nomination, UserInterest } from '@polkadot/react-hooks-chainx/types';
-import { BlockAuthorsContext, BlockToTime, FormatBalance } from '@polkadot/react-query';
+import { BlockAuthorsContext, FormatBalance } from '@polkadot/react-query';
 import Reback from './reback';
 import UnBound from './unbond';
 import ReBond from './rebond'
@@ -34,8 +34,6 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
   const [hoursafter, sethoursafter] = useState<BN>();
   const {currentAccount} = useContext(AccountContext);
   const { lastBlockNumber } = useContext(BlockAuthorsContext);
-  const lastBlocks = lastBlockNumber?.replace(',','')
-  const block = parseInt(lastBlocks)
   const {api} = useApi();
   const [isVoteOpen, toggleVote] = useToggle();
   const [isRebackOpen, toggleReback] = useToggle();
@@ -48,27 +46,13 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
     return total + Number(record.value);
   }, 0) : 0;
 
-  const redreems = nomination?.unbondedChunks ? nomination.unbondedChunks.filter((item, index) => {
-    const lockedtimes = Number(item.lockedUntil)
-    return lockedtimes < block;
-  }, 0) : 0;
-  const toRedreem = redreems? redreems.reduce((total, record) => {
-    return total + Number(record.value);
-  }, 0) : 0;
-
   const redeemOptions: object[] = [];
 
   nomination?.unbondedChunks ? nomination?.unbondedChunks.map((item, index) => {
-    const reAmount = Number(item.value) 
-    const rebackAmount = <FormatBalance value={reAmount}></FormatBalance>
-    const locked = Number(item.lockedUntil) - block
-    const lockedUntiled = new BN(locked)
-    const lockedtime = <BlockToTime blocks={lockedUntiled} />
     redeemOptions.push({
       validatorId: nomination.validatorId,
-      text: rebackAmount,
-      value: index + '',
-      locked: lockedtime
+      text: 'locked until:' + item.lockedUntil,
+      value: index + ''
     });
   }) : {};
   
@@ -79,9 +63,10 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
       const hisHeight = await api.query.xStaking.bondingDuration()
       const hisHeights = JSON.parse(JSON.stringify(hisHeight))
       const finalHeight = Number(lastHeights)+Number(hisHeights)
-      if(finalHeight>block){
+      const lastBlocks = lastBlockNumber?.replace(',','')
+      if(finalHeight>parseInt(lastBlocks)){
         setReBonds(true)
-        const lasthour = finalHeight - block
+        const lasthour = finalHeight - parseInt(lastBlocks)
         const hourafter = lasthour
         const hoursafters = new BN(hourafter)
         sethoursafter(hoursafters)
@@ -110,9 +95,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
       <td>
         <FormatBalance value={chunkes}></FormatBalance>
       </td>
-      <td>
-        <FormatBalance value={toRedreem}></FormatBalance>
-      </td>
+
       <td className='button' key="claim">
         {
           isClaim && (
