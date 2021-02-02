@@ -18,7 +18,8 @@ import { ValidatorInfo } from '../types';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import BN from 'bn.js';
 import moment from 'moment';
-import { useBlockTime } from '@polkadot/react-components-chainx/useBlockTime';
+import { useBlockTime } from '@polkadot/react-hooks-chainx/useBlockTime';
+
 
 interface Props {
   accountId?: string;

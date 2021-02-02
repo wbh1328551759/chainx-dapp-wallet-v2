@@ -5,8 +5,9 @@ import BN from 'bn.js';
 import { useMemo } from 'react';
 import { useApi } from '@polkadot/react-hooks';
 import { BN_ONE, extractTime } from '@polkadot/util';
+import { useTranslation } from '@polkadot/react-hooks/translate';
 
-import { useTranslation } from './translate';
+// import { useTranslation } from './translate';
 
 type Result = [number, string, number];
 
