@@ -31,7 +31,8 @@ function AvailableDisplay ({ children, className = '', label, params }: Props): 
           result.push(MiscLockedList[i].amount)
         }
       }
-      const max = Math.max(...result)
+      let max: number;
+      result.length > 0 ? max = Math.max(...result): max = 0
       setAvailableBalance(allBalances?.availableBalance.add(new BN(max)))
     }else{
       setAvailableBalance(allBalances?.availableBalance)
