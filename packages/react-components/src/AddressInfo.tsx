@@ -234,8 +234,6 @@ function renderBalances (props: Props, allAccounts: string[], bestNumber: BlockN
     'vesting ': t<string>('via Vesting')
   };
 
-  console.log("democracyLocks:", JSON.stringify(democracyLocks))
-
   const allItems = (
     <>
       {!withBalanceToggle && balancesAll && balanceDisplay.total && (
