@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AddressMini, Button } from '@polkadot/react-components';
 import { AddressSmall } from '@polkadot/react-components-chainx';
 import Vote from './vote';
-import { useApi, useBlockTime, useToggle } from '@polkadot/react-hooks';
+import { useApi, useToggle } from '@polkadot/react-hooks';
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
 import { Nomination, UserInterest } from '@polkadot/react-hooks-chainx/types';
 import { BlockAuthorsContext, FormatBalance } from '@polkadot/react-query';
@@ -18,6 +18,8 @@ import { ValidatorInfo } from '../types';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import BN from 'bn.js';
 import moment from 'moment';
+import { useBlockTime } from '@polkadot/react-hooks-chainx/useBlockTime';
+
 
 interface Props {
   accountId?: string;
