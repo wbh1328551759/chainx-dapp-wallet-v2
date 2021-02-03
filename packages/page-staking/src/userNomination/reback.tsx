@@ -81,9 +81,10 @@ function ReBack({ account, onClose, options, redeemOptions, value, onSuccess }: 
                       marginLeft: "20px"
                     }}>预计可赎回时间: {item.locked}</div>
                   </div>
+
                   currentOptions.push(
                     {
-                      text: all,
+                      text: item.text,
                       value: index + ''
                     }
                   );
