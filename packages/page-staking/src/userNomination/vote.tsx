@@ -8,10 +8,8 @@ import { useTranslation } from '../translate';
 import { TxCallback } from '@polkadot/react-components/Status/types';
 
 import { KeyringSectionOption } from '@polkadot/ui-keyring/options/types';
-import { Available, FormatBalance } from '@polkadot/react-query';
+import { Available } from '@polkadot/react-query';
 import InputPCXBalance from '@polkadot/react-components-chainx/InputPCXBalance';
-import { useApi } from '@polkadot/react-hooks';
-import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
 
 interface Props {
   account?: string;
@@ -26,19 +24,8 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
   const [validatorId, setValidatorId] = useState<string | null | undefined>();
   const [amount, setAmount] = useState<BN | undefined>();
   const [accountId, setAccount] = useState<string | null | undefined>();
-  const pcxFree: PcxFreeInfo = usePcxFree(account);
-  const allpcx = JSON.parse(JSON.stringify(pcxFree))
-  const bgFree = allpcx.free
-  const bgFrees = allpcx.feeFrozen
-  const useVote = bgFree-bgFrees
-  const useVotes = new BN(useVote)
 
-  const transferrable = <div>
-    <span className='label' style={{
-      marginRight: "8px"
-    }}>{t<string>('Vote Amounts')}</span>
-    <FormatBalance value={useVotes}></FormatBalance>
-  </div> 
+  const transferrable = <span className='label'>{t<string>('voteable')}</span>;
 
   return (
     <Modal
@@ -53,14 +40,19 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
               help='The actual account you wish to Vote account'
               isDisabled={!!account}
               label={t<string>('My Account')}
-              labelExtra={transferrable}
+              labelExtra={
+                <Available
+                  label={transferrable}
+                  params={account}
+                />
+              }
               onChange={setAccount}
               type='account'
             />
           </Modal.Column>
-          <Modal.Column>
+          {/* <Modal.Column>
             <p>{t<string>('Vote for the node')}</p>
-          </Modal.Column>
+          </Modal.Column> */}
         </Modal.Columns>
 
         <Modal.Columns>
@@ -81,9 +73,9 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
               type='allPlus'
             />
           </Modal.Column>
-          <Modal.Column>
+          {/* <Modal.Column>
             <p>{t<string>('Current vote validator')}</p>
-          </Modal.Column>
+          </Modal.Column> */}
         </Modal.Columns>
 
         <Modal.Columns>
@@ -95,9 +87,9 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
               onChange={setAmount}
             />
           </Modal.Column>
-          <Modal.Column>
+          {/* <Modal.Column>
             <p>{t<string>('Vote Amount')}</p>
-          </Modal.Column>
+          </Modal.Column> */}
         </Modal.Columns>
       </Modal.Content>
 

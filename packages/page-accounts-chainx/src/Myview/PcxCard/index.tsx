@@ -6,7 +6,6 @@ import AssetView from './AssetView';
 import Logo from './Logo';
 import AccountInfo from './AccountInfo';
 import backgroundImg from './background.svg';
-// import {WhiteButton} from '@chainx/ui';
 import {useAccounts, useApi, useToggle} from '@polkadot/react-hooks';
 import Transfer from '@polkadot/app-accounts-chainx/modals/Transfer';
 import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
@@ -76,20 +75,23 @@ const InnerWrapper = styled.div`
   }
   section.details {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 32px;
-    @media screen and (max-width:374px){
-      flex-direction: column;
-      align-items: baseline;
-      & > div:not(:first-of-type) {
-        margin-left: 0 !important;
-      }
-    }
-    & > div:not(:first-of-type) {
-      margin-left: 66px;
+    & > div:not(:last-of-type) {
+      margin-right: 66px;
     }
     @media screen and (min-width:375px) and (max-width:540px){
-      & > div:not(:first-of-type) {
-        margin-left: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      & > div:not(:last-of-type) {
+        margin-right: 20px;
+      }
+    }
+    @media screen and (max-width:374px){
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      & > div:not(:last-of-type) {
+        margin-right: 10px;
       }
     }
   }

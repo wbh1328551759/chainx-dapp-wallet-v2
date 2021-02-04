@@ -8,26 +8,33 @@ import type { Authors } from '@polkadot/react-query/BlockAuthors';
 import type { SortedTargets, ValidatorInfo } from '../types';
 
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
-import { Table } from '@polkadot/react-components';
 import { useApi, useCall, useLoadingDelay } from '@polkadot/react-hooks';
 import { BlockAuthorsContext } from '@polkadot/react-query';
 
 import Filtering from '../Filtering';
 import { useTranslation } from '../translate';
-import Address from './Address';
 import styled from 'styled-components';
+import AddressData from './Address/AddressData';
 
-const TableWrapper = styled(Table)`
-  @media only screen and (max-width: 540px) {
-    display: none;
-  }
-  thead{
-    tr{
-      th:nth-child(5){
-        text-align: center;
-      }
+const Wrapper = styled.div`
+    @media only screen and (min-width: 540px) {
+        display: none;
     }
-  }
+    background: #FFFFFF;
+    .addressLists {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #CDCED2;
+        .rightVote {
+            display: flex;
+            align-items: center;
+            .number {
+                margin-right: 8px;
+            }
+        }
+    }
+  
 `
 
 interface Props {
@@ -104,7 +111,7 @@ function extractNominators(nominations: [StorageKey, Option<Nominations>][]): Re
   }, {});
 }
 
-function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOverview, targets, toggleFavorite }: Props): React.ReactElement<Props> | null {
+function MoCurrentList({ favorites, hasQueries, isIntentions, next, stakingOverview, targets, toggleFavorite }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { api } = useApi();
   const { byAuthor, eraPoints } = useContext(isIntentions ? EmptyAuthorsContext : BlockAuthorsContext);
@@ -126,20 +133,10 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
     [nominators]
   );
 
-  const headerActiveRef = useRef([
-    [t('Validators'), 'start', 2],
-    [t('Current Status'), 'expand'],
-    [t('All Stake'), 'expand'],
-    [t('Own Stake')],
-    [t('Pots Balances')],
-    [t('Last #')],
-    [undefined, undefined, 3]
-  ]);
-
   const _renderRows = useCallback(
     (addresses?: AccountExtend[], isMain?: boolean): React.ReactNode[] =>
       (addresses || []).map(([address, isElected, isFavorite]): React.ReactNode => (
-        <Address
+        <AddressData
           address={address}
           filterName={nameFilter}
           hasQueries={hasQueries}
@@ -161,20 +158,17 @@ function CurrentList({ favorites, hasQueries, isIntentions, next, stakingOvervie
   );
 
   return (
-    <TableWrapper
-      empty={!isLoading && validators && t<string>('No active validators found')}
-      filter={
+    <Wrapper> 
         <Filtering
           nameFilter={nameFilter}
           setNameFilter={setNameFilter}
           setWithIdentity={setWithIdentity}
           withIdentity={withIdentity}
         />
-      }
-      header={headerActiveRef.current}
-    >
-      {isLoading ? undefined : _renderRows(validators, true)}
-    </TableWrapper>)
+        {isLoading ? t<string>('No active validators found') : _renderRows(validators, true)}
+    </Wrapper>
+  
+  )
 }
 
-export default React.memo(CurrentList);
+export default React.memo(MoCurrentList);
