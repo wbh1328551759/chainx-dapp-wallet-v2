@@ -1,5 +1,5 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Forget, Icon, Menu, Popup, StatusContext} from '@polkadot/react-components';
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import {ChainLock, Forget, Icon, Menu, Popup, StatusContext} from '@polkadot/react-components';
 import {createMenuGroup} from '@polkadot/app-accounts-chainx/util';
 import {useTranslation} from '@polkadot/app-accounts-chainx/translate';
 import {useAccountInfo, useAccounts, useApi, useCall, useToggle} from '@polkadot/react-hooks';
@@ -30,7 +30,7 @@ import RecoverAccount from '@polkadot/app-accounts-chainx/modals/RecoverAccount'
 import RecoverSetup from '@polkadot/app-accounts-chainx/modals/RecoverSetup';
 import UndelegateModal from '@polkadot/app-accounts-chainx/modals/Undelegate';
 import BN from 'bn.js';
-import {KeyringAddress} from '@polkadot/ui-keyring/types'
+import {KeyringAddress} from '@polkadot/ui-keyring/types';
 import {Delegation} from '@polkadot/app-accounts-chainx/types';
 import Multisig from '@polkadot/app-accounts-chainx/modals/MultisigCreate';
 import {DeriveDemocracyLock} from '@polkadot/api-derive/types';
@@ -41,7 +41,7 @@ interface DemocracyUnlockable {
   ids: BN[];
 }
 
-interface Props{
+interface Props {
   account: KeyringAddress;
   propsIsValid?: boolean;
   isContract?: boolean;
@@ -64,8 +64,8 @@ const transformRecovery = {
 function AccountActions({account: {address, meta}, isContract, delegation, proxy}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const api = useApi();
-  const {isApiReady} = useApi()
-  const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig },identity} = useAccountInfo(address ? address.toString() : null, isContract);
+  const {isApiReady} = useApi();
+  const {flags: {isDevelopment, isExternal, isHardware, isInjected, isMultisig}, identity, genesisHash, name: accName, onSetGenesisHash, tags} = useAccountInfo(address ? address.toString() : null, isContract);
   const {theme} = useContext<ThemeDef>(ThemeContext);
   const [isSettingsOpen, toggleSettings] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
@@ -86,7 +86,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   const [isDelegateOpen, toggleDelegate] = useToggle();
   const [isUndelegateOpen, toggleUndelegate] = useToggle();
   const [isProxyOverviewOpen, toggleProxyOverview] = useToggle();
-  const [isAddMultisigOpen, toggleAddMultisig] = useToggle()
+  const [isAddMultisigOpen, toggleAddMultisig] = useToggle();
   const bestNumber = useCall<BN>(api.api.derive.chain.bestNumber);
   const democracyLocks = useCall<DeriveDemocracyLock[]>(api.api.derive.democracy?.locks, [address]);
   const recoveryInfo = useCall<RecoveryConfig | null>(api.api.query.recovery?.recoverable, [address], transformRecovery);
@@ -96,7 +96,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   const [, setValue] = useLocalStorage('currentAccount');
   const {changeAccount} = useContext(AccountContext);
   const {allAccounts, hasAccounts} = useAccounts();
-  const {currentAccount} = useContext(AccountContext)
+  const {currentAccount} = useContext(AccountContext);
   const {queueAction} = useContext(StatusContext);
 
 
@@ -117,8 +117,8 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   );
 
   const _showOnHardware = useCallback(
-    // TODO: we should check the hardwareType from metadata here as well,
-    // for now we are always assuming hardwareType === 'ledger'
+// TODO: we should check the hardwareType from metadata here as well,
+// for now we are always assuming hardwareType === 'ledger'
     (): void => {
       getLedger()
         .getAddress(true, meta.accountOffset as number || 0, meta.addressOffset as number || 0)
@@ -145,14 +145,14 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
       status.message = t<string>('account forgotten');
       const lastAccount = allAccounts[allAccounts.length - 1];
 
-      if(lastAccount === address){
-        setValue('')
-        changeAccount('')
-      }else{
+      if (lastAccount === address) {
+        setValue('');
+        changeAccount('');
+      } else {
         setValue(lastAccount);
         changeAccount(lastAccount);
       }
-      toggleForget()
+      toggleForget();
     } catch (error) {
       status.status = 'error';
       status.message = (error as Error).message;
@@ -160,14 +160,14 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
   };
 
   useEffect(() => {
-    const hasCurrentName = allAccounts.find(account => account === currentAccount)
-    if(hasAccounts && (!currentAccount || !hasCurrentName)){
+    const hasCurrentName = allAccounts.find(account => account === currentAccount);
+    if (hasAccounts && (!currentAccount || !hasCurrentName)) {
       const lastAccount = allAccounts[allAccounts.length - 1];
       setValue(lastAccount);
       changeAccount(lastAccount);
     }
 
-  },[currentAccount, allAccounts, hasAccounts])
+  }, [currentAccount, allAccounts, hasAccounts]);
 
   useEffect((): void => {
     bestNumber && democracyLocks && setUnlockableIds(
@@ -332,79 +332,80 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           text
           vertical
         >
-          {/*{createMenuGroup([*/}
-
-          {/*  (*/}
-          {/*    <Menu.Item*/}
-          {/*      key='xbtc recharge'*/}
-          {/*      onClick={toggleDeposite}*/}
-          {/*    >*/}
-          {/*      {t('XBTC recharge')}*/}
-          {/*    </Menu.Item>*/}
-
-          {/*  ),*/}
-          {/*  (*/}
-          {/*    <Menu.Item*/}
-          {/*      key='xbtc withdraw'*/}
-          {/*      onClick={toggleWithdraw}*/}
-          {/*    >*/}
-          {/*      {t('X-BTC Withdrawals')}*/}
-          {/*    </Menu.Item>*/}
-          {/*  ),*/}
-          {/*  (*/}
-          {/*    <Menu.Item*/}
-          {/*      key='xbtc transfer'*/}
-          {/*      onClick={toggleXbtcTransfer}*/}
-          {/*    >*/}
-          {/*      {t('XBTC Transfer')}*/}
-          {/*    </Menu.Item>*/}
-          {/*  ),*/}
-          {/*  api.api.tx.identity?.setIdentity && (*/}
-          {/*设置链上身份*/}
-          {/*    <Menu.Item*/}
-          {/*      key='identityMain'*/}
-          {/*      onClick={toggleIdentityMain}*/}
-          {/*    >*/}
-          {/*      {t('Set on-chain identity')}*/}
-          {/*    </Menu.Item>*/}
-          {/*  ),*/}
-          {/*  api.api.tx.identity?.setSubs && identity?.display && (*/}
-          {/*设置链上子身份*/}
-          {/*    <Menu.Item*/}
-          {/*      key='identitySub'*/}
-          {/*      onClick={toggleIdentitySub}*/}
-          {/*    >*/}
-          {/*      {t('Set on-chain sub-identities')}*/}
-          {/*    </Menu.Item>*/}
-          {/*  ),*/}
-          {/*  api.api.tx.vesting?.vest && vestingVestTx && (*/}
-          {/*解锁既得金额*/}
-          {/*    <Menu.Item*/}
-          {/*      key='vestingVest'*/}
-          {/*      onClick={_vestingVest}*/}
-          {/*    >*/}
-          {/*      {t('Unlock vested amount')}*/}
-          {/*    </Menu.Item>*/}
-          {/*  )*/}
-          {/*])}*/}
           {createMenuGroup([
-            //通过链上账户派生路径
-            // !(isExternal || isHardware || isInjected || isMultisig) && (
+
+            // (
             //   <Menu.Item
-            //     key='deriveAccount'
-            //     onClick={toggleDerive}
+            //     key='xbtc recharge'
+            //     onClick={toggleDeposite}
             //   >
-            //     {t('Derive account via derivation path')}
+            //     {t('XBTC recharge')}
+            //   </Menu.Item>
+            //
+            // ),
+            // (
+            //   <Menu.Item
+            //     key='xbtc withdraw'
+            //     onClick={toggleWithdraw}
+            //   >
+            //     {t('X-BTC Withdrawals')}
             //   </Menu.Item>
             // ),
-            isHardware && (
+            // (
+            //   <Menu.Item
+            //     key='xbtc transfer'
+            //     onClick={toggleXbtcTransfer}
+            //   >
+            //     {t('XBTC Transfer')}
+            //   </Menu.Item>
+            // ),
+            // api.api.tx.identity?.setIdentity && (
+            //   // 设置链上身份
+            //   <Menu.Item
+            //     key='identityMain'
+            //     onClick={toggleIdentityMain}
+            //   >
+            //     {t('Set on-chain identity')}
+            //   </Menu.Item>
+            // ),
+            // api.api.tx.identity?.setSubs && identity?.display && (
+            //   // 设置链上子身份
+            //   <Menu.Item
+            //     key='identitySub'
+            //     onClick={toggleIdentitySub}
+            //   >
+            //     {t('Set on-chain sub-identities')}
+            //   </Menu.Item>
+            // ),
+            // api.api.tx.vesting?.vest && vestingVestTx && (
+            //   // 解锁既得金额
+            //   <Menu.Item
+            //     key='vestingVest'
+            //     onClick={_vestingVest}
+            //   >
+            //     {t('Unlock vested amount')}
+            //   </Menu.Item>
+            // )
+          ])}
+          {createMenuGroup([
+            //通过链上账户派生路径
+            !(isExternal || isHardware || isInjected || isMultisig) && (
               <Menu.Item
-                key='showHwAddress'
-                onClick={_showOnHardware}
+                key='deriveAccount'
+                onClick={toggleDerive}
               >
-                {t('Show address on hardware device')}
+                {t('Derive account via derivation path')}
               </Menu.Item>
-            )
+            ),
+            // isHardware && (
+            //   //在硬件设备上显示地址
+            //   <Menu.Item
+            //     key='showHwAddress'
+            //     onClick={_showOnHardware}
+            //   >
+            //     {t('Show address on hardware device')}
+            //   </Menu.Item>
+            // )
           ])}
           {createMenuGroup([
             !(isExternal || isInjected || isMultisig || isDevelopment) && (
@@ -440,12 +441,12 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
               </Menu.Item>
             )),
             (api.api.tx.multisig?.asMulti && isMultisig && (<Menu.Item
-                  disabled={!multiInfos || !multiInfos.length}
-                  key='multisigApprovals'
-                  onClick={toggleMultisig}
-                >
-                  {t('Multisig approvals')}
-                </Menu.Item>
+                disabled={!multiInfos || !multiInfos.length}
+                key='multisigApprovals'
+                onClick={toggleMultisig}
+              >
+                {t('Multisig approvals')}
+              </Menu.Item>
             )),
             (
               <Menu.Item
@@ -467,7 +468,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
 
           {/*{api.api.tx.recovery?.createRecovery && createMenuGroup([*/}
           {/*  !recoveryInfo && (*/}
-          {/*使之可恢复*/}
+          {/*    // 使之可恢复*/}
           {/*    <Menu.Item*/}
           {/*      key='makeRecoverable'*/}
           {/*      onClick={toggleRecoverSetup}*/}
@@ -475,7 +476,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*      {t('Make recoverable')}*/}
           {/*    </Menu.Item>*/}
           {/*  ),*/}
-          {/*启动针对另一个账户的恢复*/}
+          {/*  // 启动针对另一个账户的恢复*/}
           {/*  <Menu.Item*/}
           {/*    key='initRecovery'*/}
           {/*    onClick={toggleRecoverAccount}*/}
@@ -484,28 +485,19 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*  </Menu.Item>*/}
           {/*])}*/}
           {/*{api.api.query.democracy?.votingOf && delegation?.accountDelegated && createMenuGroup([*/}
-          {/*更改民主代表*/}
+          {/*  // 更改民主代表*/}
           {/*  <Menu.Item*/}
           {/*    key='changeDelegate'*/}
           {/*    onClick={toggleDelegate}*/}
           {/*  >*/}
           {/*    {t('Change democracy delegation')}*/}
           {/*  </Menu.Item>,*/}
-          {/*不受委托的*/}
+          {/*  // 不受委托的*/}
           {/*  <Menu.Item*/}
           {/*    key='undelegate'*/}
           {/*    onClick={toggleUndelegate}*/}
           {/*  >*/}
           {/*    {t('Undelegate')}*/}
-          {/*  </Menu.Item>*/}
-          {/*])}*/}
-          {/*{api.api.query.democracy?.votingOf && !delegation?.accountDelegated && createMenuGroup([*/}
-          {/*代表民主投票*/}
-          {/*  <Menu.Item*/}
-          {/*    key='delegate'*/}
-          {/*    onClick={toggleDelegate}*/}
-          {/*  >*/}
-          {/*    {t('Delegate democracy votes')}*/}
           {/*  </Menu.Item>*/}
           {/*])}*/}
           {/*{api.api.query.proxy?.proxies && createMenuGroup([*/}
