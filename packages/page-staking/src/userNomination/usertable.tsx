@@ -52,14 +52,6 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
     return total + Number(record.value);
   }, 0) : 0;
 
-  const redreems = nomination?.unbondedChunks ? nomination.unbondedChunks.filter((item, index) => {
-    const lockedtimes = Number(item.lockedUntil)
-    return lockedtimes < block;
-  }, 0) : 0;
-  const toRedreem = redreems? redreems.reduce((total, record) => {
-    return total + Number(record.value);
-  }, 0) : 0;
-
   const redeemOptions: object[] = [];
 
   nomination?.unbondedChunks ? nomination?.unbondedChunks.map((item, index) => {
@@ -126,9 +118,6 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
       </td>
       <td>
         <FormatBalance value={chunkes}></FormatBalance>
-      </td>
-      <td>
-        <FormatBalance value={toRedreem}></FormatBalance>
       </td>
       <td className='button' key="claim">
         {
@@ -219,7 +208,7 @@ function UserTable({ accountId, nomination, userInterest, onStausChange, validat
           Number(chunkes) > 0 ? (
             <Button
               icon='paper-plane'
-              label={t<string>('Redemption')}
+              label={t<string>('Unfreeze')}
               onClick={toggleReback}
             />
           ) : null

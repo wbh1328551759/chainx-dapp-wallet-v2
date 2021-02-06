@@ -230,7 +230,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
               />
               <AssetView
                 key={Math.random()}
-                title={t('Redeem Frozen')}
+                title={t('UnBound Frozen')}
                 value={redeemV}
               />
               <AssetView
