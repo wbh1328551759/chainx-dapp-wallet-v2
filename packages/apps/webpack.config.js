@@ -4,7 +4,7 @@
 
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AliosscdnWebpackPlugin = require('aliosscdn-webpack-plugin')
+//const AliosscdnWebpackPlugin = require('aliosscdn-webpack-plugin')
 const path = require('path');
 const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
@@ -26,16 +26,16 @@ module.exports = merge(
         meta: {'viewport': 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover'},
         inject: true,
         template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
-      }),
-      new AliosscdnWebpackPlugin({
-        https: true,
-        directoryInOss: 'v2.0.10',
-        filesPath: `${__dirname}/build`,
-        region: CLIENT.region,
-        accessKeyId: CLIENT.accessKeyId,
-        accessKeySecret: CLIENT.accessKeySecret,
-        bucket: CLIENT.bucket,
-      })
+      // }),
+      // new AliosscdnWebpackPlugin({
+      //   https: true,
+      //   directoryInOss: 'v2.0.10',
+      //   filesPath: `${__dirname}/build`,
+      //   region: CLIENT.region,
+      //   accessKeyId: CLIENT.accessKeyId,
+      //   accessKeySecret: CLIENT.accessKeySecret,
+      //   bucket: CLIENT.bucket,
+      // })
     ]
   }
 );
