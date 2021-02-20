@@ -14,7 +14,6 @@ const hasPublic = fs.existsSync(path.join(context, 'public'));
 
 const dotenv = require('dotenv')
 dotenv.config()
-const CLIENT = JSON.parse(process.env.CLIENT)
 
 module.exports = merge(
   baseConfig(ENV, context),
