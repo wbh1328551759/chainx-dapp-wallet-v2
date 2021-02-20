@@ -26,7 +26,7 @@ module.exports = merge(
         meta: {'viewport': 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover'},
         inject: true,
         template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
-      // }),
+      }),
       // new AliosscdnWebpackPlugin({
       //   https: true,
       //   directoryInOss: 'v2.0.10',
