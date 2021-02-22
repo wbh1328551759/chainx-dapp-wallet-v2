@@ -169,7 +169,7 @@ function Sidebars ({ className = '', onClose, isCollapsed }: Props): React.React
 
   function statusnode(node: any, index: number) {
     setRecordType(index)
-    console.log(node,index)
+    // console.log(node,index)
 
   }
 

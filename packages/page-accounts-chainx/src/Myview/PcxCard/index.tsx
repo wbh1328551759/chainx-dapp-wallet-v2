@@ -119,7 +119,6 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
   const [n, setN] = useState(0);
   const {currentAccount} = useContext(AccountContext);
   const pcxFree: PcxFreeInfo = usePcxFree(currentAccount, n);
-  console.log("pcxFree:"+JSON.stringify(pcxFree) )
   const [allBalance, setAllBalance] = useState<number>(0)
   const [usableBalance, setUsableBalance] = useState<number>(0)
   const [feeFrozen, setFeeFrozen] = useState<number>(0)
