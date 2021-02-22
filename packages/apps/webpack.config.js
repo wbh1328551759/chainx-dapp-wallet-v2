@@ -27,6 +27,7 @@ module.exports = merge(
         inject: true,
         template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
       }),
+      // }),
       // new AliosscdnWebpackPlugin({
       //   https: true,
       //   directoryInOss: 'v2.0.10',
