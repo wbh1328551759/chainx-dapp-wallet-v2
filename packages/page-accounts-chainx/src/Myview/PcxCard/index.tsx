@@ -74,8 +74,8 @@ const InnerWrapper = styled.div`
     }
   }
   section.details {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-top: 32px;
     & > div:not(:last-of-type) {
       margin-right: 66px;
@@ -227,6 +227,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
                 key={Math.random()}
                 title={t('Frozen Voting')}
                 value={miscFrozen}
+                help="投票冻结包含质押冻结，公投冻结和理事会投票冻结。投票冻结数量以质押冻结总数、公投冻结数和理事会投票冻结数中最大冻结数显示。"
               />
               <AssetView
                 key={Math.random()}
@@ -237,6 +238,7 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
                 key={Math.random()}
                 title={t('Other Frozen')}
                 value={reserved}
+                help="其他冻结主要包含DEX冻结、理事会参选冻结、国库提案冻结、公民提案冻结、附议冻结等金额。"
               />
             </>
           )}
