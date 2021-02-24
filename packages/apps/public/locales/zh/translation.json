@@ -296,10 +296,11 @@
   "Freeze Amount": "冻结金额",
   "From Validator": "当前验证人",
   "From the following data": "根据以下数据",
-  "Frozen Voting": "投票冻结",
-  
+  "Voting Frozen": "投票冻结",
+  "The number of Voting Frozen is the largest number of votes which are locked in Staking、Referendum or Voting for Council": "投票冻结包含质押冻结，公投冻结和理事会投票冻结。投票冻结数量以质押冻结总数、公投冻结数和理事会投票冻结数中最大冻结数显示。",
   "UnBound Frozen": "撤票冻结",
   "Other Frozen": "其他冻结",
+  "The Other Frozen mainly include pledge freeze, DEX freeze, council election freeze, submit proposal freeze, seconding freeze and so on": "其他冻结主要包含DEX冻结、理事会参选冻结、国库提案冻结、公民提案冻结、附议冻结等金额。",
   "Full Legal Name": "法定全称",
   "Future versions of the web-only interface will drop support for non-external accounts, much like the IPFS version.": "未来版本的纯 web 界面将不再支持非外部帐户，这与 IPFS 版本非常相似。",
   "General": "通用",
