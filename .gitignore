@@ -21,5 +21,4 @@ yarn-error.log*
 .idea/
 env-config.js
 NOTES.md
-.github/
 /packages/apps/private.tsx
