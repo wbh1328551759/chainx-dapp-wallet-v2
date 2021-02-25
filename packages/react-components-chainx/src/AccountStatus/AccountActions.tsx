@@ -186,7 +186,6 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
       }
     );
   }, [address, api, bestNumber, democracyLocks]);
-
   return (
     <>
       {isBackupOpen && (
@@ -464,6 +463,17 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
                 {t('Clear expired democracy locks')}
               </Menu.Item>
             )),
+            (api.api.query.proxy?.proxies && (
+              <Menu.Item
+                key='proxy-overview'
+                onClick={toggleProxyOverview}
+              >
+                {proxy?.[0].length
+                  ? t('Manage proxies')
+                  : t('Add proxy')
+                }
+              </Menu.Item>
+            ))
           ])}
 
           {/*{api.api.tx.recovery?.createRecovery && createMenuGroup([*/}
@@ -500,17 +510,7 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
           {/*    {t('Undelegate')}*/}
           {/*  </Menu.Item>*/}
           {/*])}*/}
-          {/*{api.api.query.proxy?.proxies && createMenuGroup([*/}
-          {/*  <Menu.Item*/}
-          {/*    key='proxy-overview'*/}
-          {/*    onClick={toggleProxyOverview}*/}
-          {/*  >*/}
-          {/*    {proxy?.[0].length*/}
-          {/*      ? t('Manage proxies')*/}
-          {/*      : t('Add proxy')*/}
-          {/*    }*/}
-          {/*  </Menu.Item>*/}
-          {/*])}*/}
+
           {/*<ChainLock*/}
           {/*  className='accounts--network-toggle'*/}
           {/*  genesisHash={genesisHash}*/}
