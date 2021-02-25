@@ -9,9 +9,9 @@ jobs:
   release-windows:
     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        os:
+#    strategy:
+#      matrix:
+#        os:
 
     steps:
       - name: Check out Git repository
