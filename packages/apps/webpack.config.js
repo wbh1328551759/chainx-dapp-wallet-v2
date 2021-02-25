@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
-const ENV = 'development';
+const ENV = process.env.NODE_ENV || 'development';
 const context = __dirname;
 const hasPublic = fs.existsSync(path.join(context, 'public'));
 
