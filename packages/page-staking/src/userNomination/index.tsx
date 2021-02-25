@@ -91,7 +91,6 @@ function UserNomination({className = '', validatorInfoList}: Props): React.React
     [t<string>('Number of votes'), 'start'],
     [t<string>('Number of interests'), 'start'],
     [t<string>('Freeze'), 'start'],
-    [t<string>('To Redeem'), 'start'],
     [undefined, undefined, undefined, undefined, undefined, 'start']
   ]);
   const validNominations = state.allNominations.filter((nmn, index) => {

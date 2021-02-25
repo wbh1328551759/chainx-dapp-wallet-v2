@@ -6,7 +6,6 @@ import AssetView from './AssetView';
 import Logo from './Logo';
 import AccountInfo from './AccountInfo';
 import backgroundImg from './background.svg';
-// import {WhiteButton} from '@chainx/ui';
 import {useAccounts, useApi, useToggle} from '@polkadot/react-hooks';
 import Transfer from '@polkadot/app-accounts-chainx/modals/Transfer';
 import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
@@ -75,21 +74,24 @@ const InnerWrapper = styled.div`
     }
   }
   section.details {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-top: 32px;
-    @media screen and (max-width:374px){
-      flex-direction: column;
-      align-items: baseline;
-      & > div:not(:first-of-type) {
-        margin-left: 0 !important;
-      }
-    }
-    & > div:not(:first-of-type) {
-      margin-left: 66px;
+    & > div:not(:last-of-type) {
+      margin-right: 66px;
     }
     @media screen and (min-width:375px) and (max-width:540px){
-      & > div:not(:first-of-type) {
-        margin-left: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      & > div:not(:last-of-type) {
+        margin-right: 20px;
+      }
+    }
+    @media screen and (max-width:374px){
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      & > div:not(:last-of-type) {
+        margin-right: 10px;
       }
     }
   }
@@ -222,18 +224,20 @@ export default function ({onStatusChange}: PcxCardProps): React.ReactElement<Pcx
               />
               <AssetView
                 key={Math.random()}
-                title={t('Frozen Voting')}
+                title={t('Voting Frozen')}
                 value={miscFrozen}
+                help={t('The number of Voting Frozen is the largest number of votes which are locked in Staking、Referendum or Voting for Council')}
               />
               <AssetView
                 key={Math.random()}
-                title={t('Redeem Frozen')}
+                title={t('UnBound Frozen')}
                 value={redeemV}
               />
               <AssetView
                 key={Math.random()}
                 title={t('Other Frozen')}
                 value={reserved}
+                help={t('The Other Frozen mainly include pledge freeze, DEX freeze, council election freeze, submit proposal freeze, seconding freeze and so on')}
               />
             </>
           )}
