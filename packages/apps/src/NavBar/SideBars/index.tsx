@@ -12,6 +12,7 @@ import { useTranslation } from '../../translate';
 
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import store from "store";
 
 interface Props {
   className?: string;
@@ -124,11 +125,10 @@ function Sidebars ({ className = '', onClose, isCollapsed }: Props): React.React
   const {api} = useApi()
   const [isEndpointsVisible, toggleEndpoints] = useToggle();
   const [url, setUrl] = useState<string>('')
-
   const [recordType, setRecordType] = useState(0);
-
   const apiUrl = getApiUrl()
   const [netInfo, setNetInfo] = useState<string>('')
+  const stored = store.get('settings') as Record<string, unknown> || {};
 
   useEffect(() => {
     if(apiUrl === 'wss://mainnet.spiderx.pro/ws'){
@@ -138,7 +138,7 @@ function Sidebars ({ className = '', onClose, isCollapsed }: Props): React.React
     }else{
       setNetInfo(t('Test Node'))
     }
-  }, [apiUrl])
+  }, [apiUrl, stored])
 
   useEffect(() => {
     async function judgeNetwork() {

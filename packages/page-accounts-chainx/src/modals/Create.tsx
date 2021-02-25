@@ -10,7 +10,8 @@ import FileSaver from 'file-saver';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
-import { AddressRow, Button, CopyButton, Dropdown, Expander, Input, InputAddress, Modal } from '@polkadot/react-components';
+import { AddressRow, Button, Dropdown, Expander, Input, InputAddress, Modal } from '@polkadot/react-components';
+import { CopyButton } from '@polkadot/react-components-chainx'
 import { useApi, useToggle } from '@polkadot/react-hooks';
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
 import keyring from '@polkadot/ui-keyring';
@@ -444,7 +445,8 @@ export default React.memo(styled(Create)`
 
   .copyMoved {
     position: absolute;
-    right: 8rem;
-    top: 0.75rem;
+    z-index: 99;
+    right: 6.5rem !important;
+    top: 0.75rem !important;
   }
 `);

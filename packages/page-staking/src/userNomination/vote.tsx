@@ -25,7 +25,7 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
   const [amount, setAmount] = useState<BN | undefined>();
   const [accountId, setAccount] = useState<string | null | undefined>();
 
-  const transferrable = <span className='label'>{t<string>('transferrable')}</span>;
+  const transferrable = <span className='label'>{t<string>('voteable')}</span>;
 
   return (
     <Modal
@@ -43,16 +43,16 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
               labelExtra={
                 <Available
                   label={transferrable}
-                  params={accountId}
+                  params={account}
                 />
               }
               onChange={setAccount}
               type='account'
             />
           </Modal.Column>
-          <Modal.Column>
+          {/* <Modal.Column>
             <p>{t<string>('Vote for the node')}</p>
-          </Modal.Column>
+          </Modal.Column> */}
         </Modal.Columns>
 
         <Modal.Columns>
@@ -73,9 +73,9 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
               type='allPlus'
             />
           </Modal.Column>
-          <Modal.Column>
+          {/* <Modal.Column>
             <p>{t<string>('Current vote validator')}</p>
-          </Modal.Column>
+          </Modal.Column> */}
         </Modal.Columns>
 
         <Modal.Columns>
@@ -87,9 +87,9 @@ function VoteNode({ account, onClose, options, value, onSuccess }: Props): React
               onChange={setAmount}
             />
           </Modal.Column>
-          <Modal.Column>
+          {/* <Modal.Column>
             <p>{t<string>('Vote Amount')}</p>
-          </Modal.Column>
+          </Modal.Column> */}
         </Modal.Columns>
       </Modal.Content>
 
