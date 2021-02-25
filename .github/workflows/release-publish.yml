@@ -7,11 +7,11 @@ on:
       - v2.0.10
 jobs:
   release-windows:
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
 
     strategy:
       matrix:
-        os: windows-latest
+        os:
 
     steps:
       - name: Check out Git repository
