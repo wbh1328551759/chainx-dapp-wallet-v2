@@ -4,7 +4,7 @@
   "main": "packages/apps-electron/build/electron.js",
   "description": "An Apps portal into the Polkadot network",
   "author": "wbh",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "Apache-2",
   "private": true,
   "homepage": ".",
@@ -60,6 +60,49 @@
     "test:one": "polkadot-dev-run-test",
     "start": "yarn clean && cd packages/apps && webpack --config webpack.config.js",
     "start:electron": "yarn clean:electronBuild && concurrently 'yarn build:devElectronMain && cd packages/apps-electron && electron ./build/electron.js' 'yarn build:devElectronRenderer'"
+  },
+  "build": {
+    "extends": null,
+    "productName": "test",
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "publish": {
+      "provider": "github",
+      "repo": "chainx-dapp-wallet-v2",
+      "owner": "wbh1328551759"
+    },
+    "directories": {
+      "app": "./",
+      "buildResources": "./resources"
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.12.8",
