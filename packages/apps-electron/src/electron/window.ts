@@ -39,7 +39,7 @@ export function createWindow(environment: string): Promise<unknown> {
       require('electron')
         .dialog
         .showMessageBox(win, {
-          title: 'test',
+          title: '温馨提示',
           message: `您访问的版本不是最新版本哦，如果可以，请使用我们的最新版本，点击下方按钮进入下载页面：`,
           buttons: ['mac 下载入口', 'windows 下载入口']
         }).then((index) => {

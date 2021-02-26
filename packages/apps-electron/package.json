@@ -2,7 +2,16 @@
   "name": "@polkadot/apps-electron",
   "main": "index.js",
   "private": true,
-  "version": "0.68.2-19",
+  "version": "0.68.2-29",
+  "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "chainx-org",
+        "repo": "chainx-dapp-wallet-v2"
+      }
+    ]
+  },
   "dependencies": {
     "@babel/core": "^7.12.8",
     "@babel/polyfill": "^7.12.1",
