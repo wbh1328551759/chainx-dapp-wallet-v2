@@ -4,7 +4,7 @@
   "main": "packages/apps-electron/build/electron.js",
   "description": "An Apps portal into the Polkadot network",
   "author": "wbh",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "Apache-2",
   "private": true,
   "homepage": ".",
