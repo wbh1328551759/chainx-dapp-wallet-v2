@@ -68,7 +68,7 @@ export function decrypt(encrypted: any, passphrase: string) {
   const mac = Buffer.from(blakejs.blake2b(macKey, null, 32));
 
   if (!mac.equals(normalized.mac)) {
-    console.log('invalid password');
+    // console.log('invalid password');
 
     return null;
   }

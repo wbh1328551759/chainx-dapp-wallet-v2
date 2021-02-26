@@ -35,9 +35,7 @@ export default function ({ isAsk, orders }: Props): React.ReactElement<Props> {
                 {/* 价格 */}
                 <OrderPriceCell
                   height={24}
-                  onClick={() =>
-                    console.log('order:' + order)
-                  }
+                  onClick={() => {}}
                 >
                   {price}
                 </OrderPriceCell>

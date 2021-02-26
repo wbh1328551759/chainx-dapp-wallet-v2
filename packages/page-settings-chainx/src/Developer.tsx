@@ -81,7 +81,6 @@ function Developer ({ className = '', onStatusChange }: Props): React.ReactEleme
         const types = JSON.parse(code) as Record<string, unknown>;
         const typesPlaceholder = Object.keys(types).join(', ');
 
-        console.log('Detected types:', typesPlaceholder);
 
         _setState({
           code,

@@ -96,7 +96,7 @@ function addressFromSeed (phrase: string, derivePath: string, pairType: KeypairT
     const miniSecret = mnemonicToMiniSecret(phrase);
     const currentkeypair = naclKeypairFromSeed(miniSecret);
 
-    console.log('phrase:' + u8aToHex(currentkeypair.secretKey.subarray(0, 32)));
+    // console.log('phrase:' + u8aToHex(currentkeypair.secretKey.subarray(0, 32)));
 
     if (u8aToHex(currentkeypair.secretKey.subarray(0, 32))) {
       return keyring
@@ -165,7 +165,7 @@ function updateAddress (seed: string, derivePath: string, seedType: SeedType, pa
 export function downloadAccount ({ json, pair }: CreateResult): void {
   const blob = new Blob([JSON.stringify(json)], { type: 'application/json; charset=utf-8' });
 
-  console.log(blob);
+  // console.log(blob);
 
   FileSaver.saveAs(blob, `${pair.address}.json`);
 }
