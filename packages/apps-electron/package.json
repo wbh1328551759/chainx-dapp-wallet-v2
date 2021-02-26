@@ -4,13 +4,47 @@
   "private": true,
   "version": "0.68.2-29",
   "build": {
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "chainx-org",
-        "repo": "chainx-dapp-wallet-v2"
-      }
-    ]
+    "extends": null,
+    "productName": "test",
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "publish": {
+      "provider": "github",
+      "repo": "chainx-dapp-wallet-v2",
+      "owner": "wbh1328551759"
+    },
+    "directories": {
+      "app": "./",
+      "buildResources": "./resources"
+    }
   },
   "dependencies": {
     "@babel/core": "^7.12.8",
