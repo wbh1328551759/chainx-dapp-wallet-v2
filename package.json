@@ -64,7 +64,6 @@
   "build": {
     "extends": null,
     "productName": "test",
-    "appId": "test",
     "mac": {
       "category": "public.app-category.productivity"
     },
