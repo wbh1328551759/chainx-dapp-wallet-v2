@@ -4,7 +4,7 @@
   "main": "packages/apps-electron/build/electron.js",
   "description": "An Apps portal into the Polkadot network",
   "author": "wbh",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "Apache-2",
   "private": true,
   "homepage": ".",
@@ -42,8 +42,8 @@
     "build:devElectronMain": "cd packages/apps-electron && NODE_ENV=development webpack --config webpack.main.config.js",
     "build:electronMain": "cd packages/apps-electron && NODE_ENV=production webpack --config webpack.main.config.js",
     "packElectron:test": "yarn build:release:electron && electron-builder --dir",
-    "packElectron:mac": "yarn build:release:electron && yarn clean:electronRelease && electron-builder build --mac -p onTag",
-    "packElectron:win": "yarn build:release:electron && yarn clean:electronRelease && electron-builder build --win -p onTag",
+    "packElectron:mac": "yarn build:release:electron && yarn clean:electronRelease && electron-builder build --mac -p always",
+    "packElectron:win": "yarn build:release:electron && yarn clean:electronRelease && electron-builder build --win -p always",
     "packElectron:linux": "yarn build:release:electron && electron-builder build --linux",
     "packElectron": "yarn build:release:electron && yarn clean:electronRelease && electron-builder build -mwl",
     "docs": "echo \"skipping docs\"",
@@ -64,6 +64,7 @@
   "build": {
     "extends": null,
     "productName": "test",
+    "appId": "test",
     "dmg": {
       "contents": [
         {
