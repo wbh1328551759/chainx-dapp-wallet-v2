@@ -4,7 +4,7 @@
   "main": "packages/apps-electron/build/electron.js",
   "description": "An Apps portal into the Polkadot network",
   "author": "wbh",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "Apache-2",
   "private": true,
   "homepage": ".",
@@ -76,11 +76,13 @@
           "type": "link",
           "path": "/Applications"
         }
-      ]
+      ],
+      "sign": false
     },
     "win": {
       "target": [
         {
+          "target": "nsis",
           "arch": [
             "x64",
             "ia32"
