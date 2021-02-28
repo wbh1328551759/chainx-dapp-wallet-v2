@@ -94,10 +94,6 @@
       "provider": "github",
       "repo": "chainx-dapp-wallet-v2",
       "owner": "wbh1328551759"
-    },
-    "directories": {
-      "app": "./",
-      "buildResources": "./resources"
     }
   },
   "devDependencies": {
